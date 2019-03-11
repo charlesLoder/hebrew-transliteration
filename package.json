@@ -1,0 +1,25 @@
+{
+  "name": "hebrew-transliteration",
+  "version": "1.0.0",
+  "description": "a package for transliterating Hebrew according to SBL guidelines",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/charlesLoder/hebrew-transliteration.git"
+  },
+  "bugs": {
+    "url": "https://github.com/charlesLoder/hebrew-transliteration/issues"
+  },
+  "homepage": "https://github.com/charlesLoder/hebrew-transliteration",
+  "keywords": [
+    "hebrew"
+  ],
+  "author": "Charles Loder",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^24.1.0"
+  }
+}
