@@ -55,7 +55,7 @@ heb.sequence('\u{5D1}\u{5B0}\u{5BC}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5B4}\u{5C1}\u{
 MIT
 
 ## Live
-Use it live at [charlesLoder.github.io/hebrewTransliteration](charlesLoder.github.io/hebrewTransliteration)
+Use it live at [charlesLoder.github.io/hebrewTransliteration](https://charlesloder.github.io/hebrewTransliteration/index.html)
 
 ## Contributing
 Please feel free to Fork, create Pull Requests, or submit issues. This is my first npm package, so any feedback is appreciated!
