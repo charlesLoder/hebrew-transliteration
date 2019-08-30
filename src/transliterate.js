@@ -10,16 +10,11 @@ const testEach = require('./testEach');
  * @returns {string}
  */
 
-module.exports = (text, options = {'isSeqeunced': true, 'qametsQatan': false}) => {
-    let newSeq = '';
-    if(options.isSeqeunced) {
-        newSeq = sequence(text);
-    } else {
-        newSeq = text;
-    }
+module.exports = (text, options = {isSeqeunced: true, qametsQatan: false}) => {
+    let newSeq = options.isSeqeunced ? sequence(text) : text;
     let titTat = titForTat(newSeq);
     let array = titTat.split(' ');
-    let modArray = testEach(array, {'qametsQatan': options.qametsQatan});
+    let modArray = testEach(array, {qametsQatan: options.qametsQatan});
     let transliteration = modArray.join(' ');
     return transliteration;
 }

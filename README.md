@@ -17,7 +17,7 @@ transliterate('אֱלֹהִים')
 
 ### transliterate
 ```javascript 
-heb.transliterate(text, options = {'isSeqeunced': true, 'qametsQatan': false})
+heb.transliterate(text, options = {isSeqeunced: true, qametsQatan: false})
 ```
 Takes `text` \<\<String\>\> and `[options]` \<\<Object\>\>.
 
@@ -25,19 +25,19 @@ Takes `text` \<\<String\>\> and `[options]` \<\<Object\>\>.
 heb.transliterate('כָּל־הָעָם')
 >>> 'kāl-hāʿām'
 
-heb.transliterate('כָּל־הָעָם', {'qametsQatan':true})
+heb.transliterate('כָּל־הָעָם', {qametsQatan: true})
 >>> 'kol-hāʿām'
 ```
 ---
 
 ### remove
 ```javascript
-heb.remove(text, options = {'removeVowels':false})
+heb.remove(text, options = {removeVowels: false})
 ```
-Takes `text` \<\<String\>\> and `[options]` \<\<Object\>\>. With `'removeVowels':false`, will only remove cantillation (i.e., accent) marks.
+Takes `text` \<\<String\>\> and `[options]` \<\<Object\>\>. With `{removeVowels: false}`, will only remove cantillation (i.e., accent) marks.
 
 ```javascript
-heb.remove('כָּל־הָעָם', {'removeVowels':true})
+heb.remove('כָּל־הָעָם', {removeVowels: true})
 >>> 'כל־העם'
 ```
 

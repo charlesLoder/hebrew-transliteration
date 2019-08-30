@@ -8,11 +8,4 @@ const hebCharsRV = require('./char_objs/hebCharsRV');
  * @returns {string}
  */
 
-module.exports = (text, options = {'removeVowels':false}) => {
-    if (!options.removeVowels) {
-        return text.replace(/[\u0591-\u05F4, \uFB1D-\uFB4F]/gu, i => hebCharsRC[i]);
-    } else {
-        return text.replace(/[\u0591-\u05F4, \uFB1D-\uFB4F]/gu, i => hebCharsRV[i]);
-    }
-
-}
+module.exports = (text, options = {removeVowels: false}) => !options.removeVowels ? text.replace(/[\u0591-\u05F4, \uFB1D-\uFB4F]/gu, i => hebCharsRC[i]) : text.replace(/[\u0591-\u05F4, \uFB1D-\uFB4F]/gu, i => hebCharsRV[i]);

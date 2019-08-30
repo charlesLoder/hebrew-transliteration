@@ -10,5 +10,5 @@ module.exports = {
      * @param {number} index
      * @param {string} join
      */
-    changeElementSubstr: (input, index, join) => input.substr(0, index) + join + input.substr(index+1, )
+    changeElementSubstr: (input, index, join) => input.substring(0, index) + join + input.substring(index+1)
 }
