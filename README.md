@@ -17,7 +17,7 @@ transliterate('אֱלֹהִים')
 
 ### transliterate
 ```javascript 
-heb.transliterate(text, options = {isSeqeunced: true, qametsQatan: false})
+heb.transliterate(text, options = {isSequenced: true, qametsQatan: false})
 ```
 Takes `text` \<\<String\>\> and `[options]` \<\<Object\>\>.
 
@@ -56,6 +56,9 @@ MIT
 
 ## Live
 Use it live at [charlesLoder.github.io/hebrewTransliteration](https://charlesloder.github.io/hebrewTransliteration/index.html)
+
+## v 1.1.0
+While no functionality has changed, in `transliterate()` the `options` was changed from the misspelled `isSeqeunced` to `isSequenced`.
 
 ## Contributing
 Please feel free to Fork, create Pull Requests, or submit issues. This is my first npm package, so any feedback is appreciated!

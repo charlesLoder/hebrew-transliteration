@@ -23,6 +23,6 @@ test('with sequence true', () => {
 })
 
 test('with sequence false', () => {
-    expect(transliterate('\u{5D4}\u{5B7}\u{5E9}\u{5B8}\u{5BC}', {isSeqeunced: false})).
+    expect(transliterate('\u{5D4}\u{5B7}\u{5E9}\u{5B8}\u{5BC}', {isSequenced: false})).
         toEqual('hašā');
 })
