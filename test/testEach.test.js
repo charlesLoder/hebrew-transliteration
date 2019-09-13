@@ -10,8 +10,8 @@ test('check for sin-dot and change combination to s with a grave', () => {
 })
 
 test('check for hiriq yod in various positions', () => {
-    expect(testEach(['biy', 'qātiyl', 'šiyšiy', 'yiyraš']))
-        .toEqual(['bî', 'qātîl', 'šîšî', 'yîraš']);
+    expect(testEach(['biy', 'qātiyl', 'šiyšiy', 'yiyraš', 'šāmayim']))
+        .toEqual(['bî', 'qātîl', 'šîšî', 'yîraš', 'šāmayim']);
 })
 
 test('check for tsere yod in various positions', () => {
@@ -24,19 +24,29 @@ test('check for seghol yod in various positions', () => {
         .toEqual(['bê', 'dǝbārêkā']);
 })
 
-test('check for waw mater for holem, type 1', () => {
-    expect(testEach(['bwō', 'bwō9āt']))
-        .toEqual(['bô', 'bwōāt']);
+test('check for waw mater for holem, with holem preceding waw [preferred way]', () => {
+    expect(testEach(['bōw', 'qǝṭōwl']))
+        .toEqual(['bô', 'qǝṭôl']);
 })
 
-test('check for waw mater for holem, type 2', () => {
-    expect(testEach(['bōw', 'bōw9āt', 'mōwet']))
-        .toEqual(['bô', 'bōwwāt', 'mōwet']);
+test('check for waw mater for holem, with waw preceding holem', () => {
+    expect(testEach(['bwō', 'qǝṭwōl']))
+        .toEqual(['bô', 'qǝṭôl']);
 })
 
 test('check for waw mater for shureq', () => {
-    expect(testEach(['bw9', 'baw9ǝta', 'haw9aw']))
-        .toEqual(['bû', 'bawwǝta', 'hawwaw']);
+    expect(testEach(['bw9', 'w9mōšeh']))
+        .toEqual(['bû', 'ûmōšê']);
+})
+
+test('check for consonantal waw with any vowel but holem', () => {
+    expect(testEach(['miṣǝwāh', 'mǝṣaw9eh', 'mōwet']))
+        .toEqual(['miṣwâ', 'mǝṣawwê', 'mōwet'])
+})
+
+test('check consonantal waw with holem as vowel', () => {
+    expect((testEach(['ʿāwōn', 'miṣǝwōt'])))
+        .toEqual(['ʿāwōn', 'miṣwōt'])
 })
 
 test('check for he mater', () => {

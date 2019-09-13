@@ -8,7 +8,7 @@ const {changeElementSplit, changeElementSubstr} = require('./changeElement');
 
 module.exports = (array, options = {'qametsQatan': false}) => {
     let qametsQatan = options.qametsQatan;
-    array.forEach( (element, index) => {
+    return array.map( (element, index) => {
 
         // Tests for shin non-ligatures
         if (element.includes('8')) {
@@ -38,11 +38,16 @@ module.exports = (array, options = {'qametsQatan': false}) => {
         }
 
         // Tests for waw as a holem-mater
-        if (/wō(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/.test(element)) {
-            element = changeElementSplit(element, /wō(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/, 'ô');
+        if (/wō/.test(element)) {
+            // this is a workaround for lack of lookbehind support
+            let rev = [...element].reverse().reduce((a, c) => a + c);
+            if (/ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/.test(rev)) {
+                element = changeElementSplit(element, /wō/, 'ô');   
+            }
         }
 
         // Tests for waw as a holem-mater
+        // this will catch a waw as a consonant like - C+ō+w+V+C > CōwVC
         if (/ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/.test(element)) {
             element = changeElementSplit(element, /ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/, 'ô');
         }
@@ -128,7 +133,6 @@ module.exports = (array, options = {'qametsQatan': false}) => {
             element = changeElementSplit(element, /\d/, '')
         }
 
-        array[index] = element;
-    });  // forEach
-    return array;
+        return element;
+    });  // map
 }

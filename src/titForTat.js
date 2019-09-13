@@ -5,4 +5,5 @@ const hebChars = require('./char_objs/hebCharsTrans');
  * @return {string}
  */
 
-module.exports = text => text.replace(/[\u0591-\u05F4, \uFB1D-\uFB4F]/gu, i => hebChars[i]);
+module.exports = text => [...text].map(char => char in hebChars ? hebChars[char] : char)
+                                  .reduce((a, c) => a + c)
