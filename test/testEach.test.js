@@ -25,13 +25,13 @@ test('check for seghol yod in various positions', () => {
 })
 
 test('check for waw mater for holem, with holem preceding waw [preferred way]', () => {
-    expect(testEach(['bōw', 'qǝṭōwl']))
-        .toEqual(['bô', 'qǝṭôl']);
+    expect(testEach(['bōw', 'lib9ōw', 'qǝṭōwl']))
+        .toEqual(['bô', 'libbô', 'qǝṭôl']);
 })
 
 test('check for waw mater for holem, with waw preceding holem', () => {
-    expect(testEach(['bwō', 'qǝṭwōl']))
-        .toEqual(['bô', 'qǝṭôl']);
+    expect(testEach(['bwō', 'b9wō', 'lib9wō', 'qǝṭwōl',]))
+        .toEqual(['bô', 'bô', 'libbô', 'qǝṭôl']);
 })
 
 test('check for waw mater for shureq', () => {

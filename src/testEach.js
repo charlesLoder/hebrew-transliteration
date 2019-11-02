@@ -8,7 +8,7 @@ const {changeElementSplit, changeElementSubstr} = require('./changeElement');
 
 module.exports = (array, options = {'qametsQatan': false}) => {
     let qametsQatan = options.qametsQatan;
-    return array.map( (element, index) => {
+    return array.map( element => {
 
         // Tests for shin non-ligatures
         if (element.includes('8')) {
@@ -41,7 +41,7 @@ module.exports = (array, options = {'qametsQatan': false}) => {
         if (/wō/.test(element)) {
             // this is a workaround for lack of lookbehind support
             let rev = [...element].reverse().reduce((a, c) => a + c);
-            if (/ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/.test(rev)) {
+            if (/ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u)/.test(rev)) {
                 element = changeElementSplit(element, /wō/, 'ô');   
             }
         }
