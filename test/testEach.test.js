@@ -30,8 +30,8 @@ test('check for waw mater for holem, with holem preceding waw [preferred way]', 
 })
 
 test('check for waw mater for holem, with waw preceding holem', () => {
-    expect(testEach(['bwō', 'qǝṭwōl']))
-        .toEqual(['bô', 'qǝṭôl']);
+    expect(testEach(['bwō', 'b9wō', 'qǝṭwōl',]))
+        .toEqual(['bô', 'bô', 'qǝṭôl']);
 })
 
 test('check for waw mater for shureq', () => {
