@@ -6,35 +6,33 @@ const {changeElementSplit, changeElementSubstr} = require('./changeElement');
  * @param {boolean} [options.qametsQatan=false] - checks for Qamets Qatan
  */
 
-module.exports = (array, options = {'qametsQatan': false}) => {
+module.exports = (array, options = {qametsQatan: false}) => {
     let qametsQatan = options.qametsQatan;
     return array.map( element => {
 
         // Tests for shin non-ligatures
-        if (element.includes('8')) {
-            // 8 is the shin-dot = \u05C1
-            element = changeElementSplit(element, '8', '');
+        if (element.includes('\u05C1')) {
+            element = changeElementSplit(element, '\u05C1', '');
         }
 
         // Tests for sin non-ligatures
-        if (element.includes('7')) {
-            // 7 is the sin-dot = \u05C2
-            element = changeElementSplit(element, 'š7', 'ś');
+        if (element.includes('\u05C2')) {
+            element = changeElementSplit(element, 'š\u05C2', 'ś');
         }
 
          // Tests for hiriq-yod mater
-         if (/iy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/.test(element)) {
-            element = changeElementSplit(element, /iy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/, 'î');
+         if (/iy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/.test(element)) {
+            element = changeElementSplit(element, /iy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/, 'î');
         }
 
          // Tests for tsere-yod mater
-         if (/ēy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/.test(element)) {
-            element = changeElementSplit(element, /ēy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/, 'ê');
+         if (/ēy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/.test(element)) {
+            element = changeElementSplit(element, /ēy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/, 'ê');
         }
 
          // Tests for seghol-yod mater
-         if (/ey(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/.test(element)) {
-            element = changeElementSplit(element, /ey(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|9)/, 'ê');
+         if (/ey(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/.test(element)) {
+            element = changeElementSplit(element, /ey(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/, 'ê');
         }
 
         // Tests for waw as a holem-mater
@@ -48,13 +46,13 @@ module.exports = (array, options = {'qametsQatan': false}) => {
 
         // Tests for waw as a holem-mater
         // this will catch a waw as a consonant like - C+ō+w+V+C > CōwVC
-        if (/ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/.test(element)) {
-            element = changeElementSplit(element, /ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|9)/, 'ô');
+        if (/ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|\u05BC)/.test(element)) {
+            element = changeElementSplit(element, /ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|\u05BC)/, 'ô');
         }
 
         // Tests for waw as a shureq-mater
-        if (/w9(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|â|o|ô|u|û)/.test(element)) {
-            element = changeElementSplit(element, /w9(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|â|o|ô|u|û)/, 'û');
+        if (/w\u05BC(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|â|o|ô|u|û)/.test(element)) {
+            element = changeElementSplit(element, /w\u05BC(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|â|o|ô|u|û)/, 'û');
         }
 
         // Tests for He as a final mater or with mappiq or tests for furtive patach
@@ -64,10 +62,10 @@ module.exports = (array, options = {'qametsQatan': false}) => {
             element = changeElementSplit(element, /ēh$/, 'ê');
         } else if (/eh$/.test(element)) {
             element = changeElementSplit(element, /eh$/, 'ê');
-        } else if (/h9$/.test(element)) {
-            element = changeElementSplit(element, /h9$/, 'h');
-        } else if (/h9a$/.test(element)) {
-            element = changeElementSplit(element, /h9a$/, 'ah');
+        } else if (/h\u05BC$/.test(element)) {
+            element = changeElementSplit(element, /h\u05BC$/, 'h');
+        } else if (/h\u05BCa$/.test(element)) {
+            element = changeElementSplit(element, /h\u05BCa$/, 'ah');
         } else if (/ḥa$/.test(element)) {
             element = changeElementSplit(element, /ḥa$/, 'aḥ');
         } else if (/ʿa$/.test(element)) {
@@ -98,8 +96,8 @@ module.exports = (array, options = {'qametsQatan': false}) => {
 
         // tests for Qamets qatan vs gadol
         if (qametsQatan) {
-            if (/k9āl-/.test(element) ) {
-                element = changeElementSplit(element, 'k9āl-', 'k9ol-');
+            if (/k\u05BCāl-/.test(element) ) {
+                element = changeElementSplit(element, 'k\u05BCāl-', 'k\u05BCol-');
             } else if (/kāl-/.test(element)) {
                 element = changeElementSplit(element, 'kāl-', 'kol-');
             }
@@ -109,10 +107,10 @@ module.exports = (array, options = {'qametsQatan': false}) => {
         }
 
         // tests for a doubling dagesh
-        if (element.includes('9')) {
+        if (element.includes('\u05BC')) {
             const elArray = element.split("");
             elArray.forEach( (e, i) => {
-               if (e === '9' && /a|ā|e|ē|i|î|u|û|o|ō|ô/.test(elArray[i-2]) && Boolean(elArray[i-2]) ) {
+               if (e === '\u05BC' && /a|ā|e|ē|i|î|u|û|o|ō|ô/.test(elArray[i-2]) && Boolean(elArray[i-2]) ) {
                    elArray[i] = elArray[i-1];
                 }
             })
@@ -128,9 +126,9 @@ module.exports = (array, options = {'qametsQatan': false}) => {
             element = changeElementSplit(element, 'yhwâ', 'yhwh');
         }
 
-        // removes any remaining digits
-        if (/\d/.test(element)) {
-            element = changeElementSplit(element, /\d/, '')
+        // removes any remaining dageshes
+        if (/\u05BC/.test(element)) {
+            element = changeElementSplit(element, /\u05BC/, '')
         }
 
         return element;

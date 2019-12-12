@@ -1,6 +1,4 @@
 module.exports = {
-    // preserves white space
-    ' ':' ',
     // # consonants
     // ## BMP
     'א':'ʾ',
@@ -57,8 +55,8 @@ module.exports = {
     '\uFB46':'ṣ9',
     '\uFB47':'q9',
     '\uFB48':'r9',
-    '\u05C1':'8',
-    '\u05C2':'7',
+    // '\u05C1':'8',
+    // '\u05C2':'7',
     '\uFB2A':'š', //ligature for שׁ
     '\uFB2C':'š9',
     '\uFB2B':'ś', //ligature for שׂ
@@ -77,7 +75,7 @@ module.exports = {
     '\u05B9':'ō', //holam
     '\u05BA':'ō', //this is the codepoint for a holam on a const waw, but it is rarely used
     '\u05BB':'u', //qibbuts
-    '\u05BC': '9', // dagesh
+    // '\u05BC': '9', // dagesh
     '\u05BD': '', // metheg
     '\u05BE':'-', // maqqef
     '\u05BF':'', // rafe

@@ -1,8 +1,6 @@
 // obj for removing vowels AND cantillation
  
 module.exports = {
-    // preserves white space
-    ' ':' ',
     // consonants
     'א':'א',
     '\uFB2E':'א',
