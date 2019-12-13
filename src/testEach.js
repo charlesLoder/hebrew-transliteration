@@ -56,20 +56,20 @@ module.exports = (array, options = {qametsQatan: false}) => {
         }
 
         // Tests for He as a final mater or with mappiq or tests for furtive patach
-        if (/āh$/.test(element) ) {
-            element = changeElementSplit(element, /āh$/, 'â');  
-        } else if (/ēh$/.test(element)) {
-            element = changeElementSplit(element, /ēh$/, 'ê');
-        } else if (/eh$/.test(element)) {
-            element = changeElementSplit(element, /eh$/, 'ê');
-        } else if (/h\u05BC$/.test(element)) {
-            element = changeElementSplit(element, /h\u05BC$/, 'h');
-        } else if (/h\u05BCa$/.test(element)) {
-            element = changeElementSplit(element, /h\u05BCa$/, 'ah');
-        } else if (/ḥa$/.test(element)) {
-            element = changeElementSplit(element, /ḥa$/, 'aḥ');
-        } else if (/ʿa$/.test(element)) {
-            element = changeElementSplit(element, /ʿa$/, 'aʿ');
+        if (/āh$/m.test(element) ) {
+            element = changeElementSplit(element, /āh$/m, 'â');  
+        } else if (/ēh$/m.test(element)) {
+            element = changeElementSplit(element, /ēh$/m, 'ê');
+        } else if (/eh$/m.test(element)) {
+            element = changeElementSplit(element, /eh$/m, 'ê');
+        } else if (/h\u05BC$/m.test(element)) {
+            element = changeElementSplit(element, /h\u05BC$/m, 'h');
+        } else if (/h\u05BCa$/m.test(element)) {
+            element = changeElementSplit(element, /h\u05BCa$/m, 'ah');
+        } else if (/ḥa$/m.test(element)) {
+            element = changeElementSplit(element, /ḥa$/m, 'aḥ');
+        } else if (/ʿa$/m.test(element)) {
+            element = changeElementSplit(element, /ʿa$/m, 'aʿ');
         }
 
         // Tests if a shewa exists in the element

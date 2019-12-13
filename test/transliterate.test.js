@@ -9,6 +9,30 @@ test('longer string of text', () => {
     .toEqual('wǝhāʾāreṣ hāyǝtâ tōhû wābōhû wǝḥōšek ʿal-pǝnê tǝhôm wǝrûaḥ ʾĕlōhîm mǝraḥepet ʿal-pǝnê hammāyim')
 })
 
+test('with verse numbers', () => {
+    expect(transliterate(`
+    v.1 וְהָאָ֗רֶץ הָיְתָ֥ה תֹ֨הוּ֙ וָבֹ֔הוּ וְחֹ֖שֶׁךְ עַל־פְּנֵ֣י תְהֹ֑ום וְר֣וּחַ אֱלֹהִ֔ים מְרַחֶ֖פֶת עַל־פְּנֵ֥י הַמָּֽיִם׃
+    `))
+    .toEqual(`
+    v.1 wǝhāʾāreṣ hāyǝtâ tōhû wābōhû wǝḥōšek ʿal-pǝnê tǝhôm wǝrûaḥ ʾĕlōhîm mǝraḥepet ʿal-pǝnê hammāyim
+    `)
+})
+
+test('with line breaks', () => {
+    expect(transliterate(`
+    אֱלֹהִים
+    תֹורָה
+    אִ֛ישׁ
+    מַלְכֵי
+    `))
+    .toEqual(`
+    ʾĕlōhîm
+    tôrâ
+    ʾîš
+    malkê
+    `)
+})
+
 test('With qametsQatan false', () => {
     expect(transliterate('כָּל־הָעָם')).toEqual('kāl-hāʿām');
 })
