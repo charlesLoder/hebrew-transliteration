@@ -40,8 +40,9 @@ module.exports = (array, options = {qametsQatan: false}) => {
             // this is a workaround for lack of lookbehind support
             let rev = [...element].reverse().reduce((a, c) => a + c);
             if (/ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u)/.test(rev)) {
-                element = changeElementSplit(element, /wō/, 'ô');   
+                rev = changeElementSplit(rev, /ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u)/, 'ô');   
             }
+            element = [...rev].reverse().reduce((a, c) => a + c);
         }
 
         // Tests for waw as a holem-mater

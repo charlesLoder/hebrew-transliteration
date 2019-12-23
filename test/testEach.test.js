@@ -45,8 +45,15 @@ test('check for consonantal waw with any vowel but holem', () => {
 })
 
 test('check consonantal waw with holem as vowel', () => {
-    expect((testEach(['ʿāwōn', 'miṣǝwōt'])))
+    expect(testEach(['ʿāwōn', 'miṣǝwōt']))
         .toEqual(['ʿāwōn', 'miṣwōt'])
+})
+
+test('check consonantal waw, with a waw mater in the same word', () => {
+    // first: (ayin + patach) + (waw + holem) + (nun + holem + waw)
+    // second: (ayin + patach) + (waw + holem) + (nun + waw + holem)
+    expect(testEach(['ʿăwōnōwteynw\u05BC', 'ʿăwōnwōteynw\u05BC']))
+        .toEqual(['ʿăwōnôtênû', 'ʿăwōnôtênû'])
 })
 
 test('check for he mater', () => {
