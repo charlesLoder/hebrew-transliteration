@@ -56,10 +56,10 @@ module.exports = {
     'ש':'ש',
     '\u05C1':'\u05C1', 
     '\u05C2':'\u05C2',
-    '\uFB2A':'uFB2A', // ligature for שׁ
-    '\uFB2C':'uFB2C',
-    '\uFB2B':'uFB2B', // ligature for שׂ
-    '\uFB2D':'uFB2D',
+    '\uFB2A':'\uFB2A', // ligature for שׁ
+    '\uFB2C':'\uFB2C',
+    '\uFB2B':'\uFB2B', // ligature for שׂ
+    '\uFB2D':'\uFB2D',
     'ת':'ת',
     '\uFB4A':'ת',
     // vowels
