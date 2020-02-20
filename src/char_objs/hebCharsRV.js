@@ -1,6 +1,36 @@
 // obj for removing vowels AND cantillation
+// only block letters should remain expect for sin and shin dot
  
 module.exports = {
+    // alphabetic presentation block
+    '\uFB2C':'\uFB2A',
+    '\uFB2D':'\uFB2B',
+    '\uFB30':'א',
+    '\uFB31':'ב',
+    '\uFB32':'ג',
+    '\uFB33':'ד',
+    '\uFB34':'ה',
+    '\uFB35':'ו',
+    '\uFB36':'ז',
+    '\uFB38':'ט',
+    '\uFB39':'י',
+    '\uFB3A':'ך',
+    '\uFB3B':'כ',
+    '\uFB3C':'ל',
+    '\uFB3E':'מ',
+    '\uFB340':'נ',
+    '\uFB341':'ס',
+    '\uFB343':'ף',
+    '\uFB344':'פ',
+    '\uFB346':'צ',
+    '\uFB347':'ק',
+    '\uFB348':'ר',
+    '\uFB349':'ש',
+    '\uFB34A':'ת',
+    '\uFB34B':'ו',
+    '\uFB34C':'ב',
+    '\uFB34D':'כ',
+    '\uFB34E':'פ',
     // vowels
     '\u05B0':'', // shewa
     '\u05B1':'', // hataf segol
