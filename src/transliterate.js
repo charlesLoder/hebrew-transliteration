@@ -1,6 +1,6 @@
-const sequence = require('./sequence');
-const titForTat = require('./titForTat');
-const testEach = require('./testEach');
+const sequence = require("./sequence")
+const titForTat = require("./titForTat")
+const testEach = require("./testEach")
 
 /***
  * @param {string} text
@@ -10,11 +10,11 @@ const testEach = require('./testEach');
  * @returns {string}
  */
 
-module.exports = (text, options = {isSequenced: true, qametsQatan: false}) => {
-    let newSeq = options.isSequenced ? sequence(text) : text;
-    let titTat = titForTat(newSeq);
-    let array = titTat.split(' ');
-    let modArray = testEach(array, {qametsQatan: options.qametsQatan});
-    let transliteration = modArray.join(' ');
-    return transliteration;
+module.exports = (text, options = { isSequenced: true, qametsQatan: false }) => {
+  let newSeq = options.isSequenced ? sequence(text) : text
+  let titTat = titForTat(newSeq)
+  let array = titTat.split(" ")
+  let modArray = testEach(array, { qametsQatan: options.qametsQatan })
+  let transliteration = modArray.join(" ")
+  return transliteration
 }

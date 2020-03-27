@@ -4,7 +4,8 @@
   "description": "a package for transliterating Hebrew according to SBL guidelines",
   "main": "./src/index.js",
   "scripts": {
-    "test": "clear && jest"
+    "test": "clear && jest",
+    "format": "prettier --write 'src/**/*.js' 'test/**/*.js'"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,7 @@
   "author": "Charles Loder",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "prettier": "^2.0.2"
   }
 }

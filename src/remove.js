@@ -1,5 +1,5 @@
-const hebCharsRC = require('./char_objs/hebCharsRC');
-const hebCharsRV = require('./char_objs/hebCharsRV');
+const hebCharsRC = require("./char_objs/hebCharsRC")
+const hebCharsRV = require("./char_objs/hebCharsRV")
 
 /***
  * @param {string} text
@@ -8,10 +8,9 @@ const hebCharsRV = require('./char_objs/hebCharsRV');
  * @returns {string}
  */
 
-const remCant = char => char in  hebCharsRC ? hebCharsRC[char] : char;
-const remVow = char => char in  hebCharsRV ? hebCharsRV[char] : char;
+const remCant = (char) => (char in hebCharsRC ? hebCharsRC[char] : char)
+const remVow = (char) => (char in hebCharsRV ? hebCharsRV[char] : char)
 
-module.exports = (text, options = {removeVowels: false}) => {
-    return [...text].map(char => !options.removeVowels ? remCant(char) : remVow(char))
-                    .reduce((a, c) => a + c);
-};
+module.exports = (text, options = { removeVowels: false }) => {
+  return [...text].map((char) => (!options.removeVowels ? remCant(char) : remVow(char))).reduce((a, c) => a + c)
+}
