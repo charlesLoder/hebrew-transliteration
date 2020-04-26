@@ -1,6 +1,6 @@
 type Dict = { [key: string]: string };
 
-export const hebCharsTrans: Dict = {
+export const transliterateMap: Dict = {
   // # consonants
   // ## BMP
   א: "ʾ",
@@ -68,10 +68,11 @@ export const hebCharsTrans: Dict = {
   רּ: "r\u{05BC}",
   // '\u05C1':'8',
   // '\u05C2':'7',
-  שׁ: "š", //ligature - shin + shin-dot
-  שּׁ: "š\u{05BC}",
-  שׂ: "ś", //ligature for שׂ
-  שּׂ: "ś\u{05BC}",
+  שּ: "š\u{05BC}", // shin + dagesh, no shin-dot
+  שׁ: "š", // shin + shin-dot
+  שּׁ: "š\u{05BC}", // shin + shin-dot + dagesh
+  שׂ: "ś", // shin + sin dot
+  שּׂ: "ś\u{05BC}", // shin + sin dot + dagesh
   תּ: "t\u{05BC}",
   // # vowels
   "\u05B0": "ǝ", //shewa
@@ -129,9 +130,7 @@ export const hebCharsTrans: Dict = {
   "\u05C5": ""
 };
 
-// obj for removing vowels AND cantillation
-// only block letters should remain expect for sin and shin dot
-export const hebCharsRV: Dict = {
+export const removeVowels: Dict = {
   // alphabetic presentation block
   שּׁ: "\uFB2A",
   שּׂ: "\uFB2B",
@@ -221,8 +220,7 @@ export const hebCharsRV: Dict = {
   "\u05F4": "" //gereshayim
 };
 
-// obj for removing ONLY cantillation
-export const hebCharsRC: Dict = {
+export const removeCantillation: Dict = {
   // extra marks and cantillations
   "\u0591": "", // athna
   "\u0592": "",

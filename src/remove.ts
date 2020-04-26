@@ -1,12 +1,11 @@
-import { hebCharsRC, hebCharsRV } from "./hebCharsTrans";
+import { removeCantillation, removeVowels } from "./hebCharsTrans";
 
-const remCant = (char: string) => (char in hebCharsRC ? hebCharsRC[char] : char);
-const remVow = (char: string) => (char in hebCharsRV ? hebCharsRV[char] : char);
+const remCant = (char: string) => (char in removeCantillation ? removeCantillation[char] : char);
+const remVow = (char: string) => (char in removeVowels ? removeVowels[char] : char);
 
 interface OptionsRemove {
   removeVowels?: boolean;
 }
 
-export const remove = (text: string, { removeVowels = false }: OptionsRemove = {}) => {
-  return [...text].map((char: string) => (!removeVowels ? remCant(char) : remVow(char))).reduce((a, c) => a + c);
-};
+export const remove = (text: string, { removeVowels = false }: OptionsRemove = {}) =>
+  [...text].map((char: string) => (!removeVowels ? remCant(char) : remVow(char))).reduce((a, c) => a + c);

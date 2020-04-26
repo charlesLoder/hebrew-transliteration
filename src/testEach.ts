@@ -6,9 +6,10 @@ const changeElementSubstr = (input: string, index: number, join: string) =>
 interface Options {
   isSequenced?: boolean;
   qametsQatan?: boolean;
+  isSimple?: boolean;
 }
 
-export const testEach = (array: Array<string>, { qametsQatan = false }: Options = {}) => {
+const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = false }: Options = {}) => {
   return array.map((element: string) => {
     // Tests for shin non-ligatures
     if (element.includes("\u05C1")) {
@@ -56,14 +57,21 @@ export const testEach = (array: Array<string>, { qametsQatan = false }: Options 
       element = changeElementSplit(element, /w\u05BC(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|â|o|ô|u|û)/, "û");
     }
 
-    // Tests for He as a final mater or with mappiq or tests for furtive patach
-    if (/āh$/m.test(element)) {
-      element = changeElementSplit(element, /āh$/m, "â");
-    } else if (/ēh$/m.test(element)) {
-      element = changeElementSplit(element, /ēh$/m, "ê");
-    } else if (/eh$/m.test(element)) {
-      element = changeElementSplit(element, /eh$/m, "ê");
-    } else if (/h\u05BC$/m.test(element)) {
+    // Tests for He as a final mater
+    /* if using simple version, ēh remains so that it is passed into simpleRules
+    if not, then there would be now way to distinguish between ê$ from tsere-yod vs he-mater */
+    if (!isSimple) {
+      if (/āh$/m.test(element)) {
+        element = changeElementSplit(element, /āh$/m, "â");
+      } else if (/ēh$/m.test(element)) {
+        element = changeElementSplit(element, /ēh$/m, "ê");
+      } else if (/eh$/m.test(element)) {
+        element = changeElementSplit(element, /eh$/m, "ê");
+      }
+    }
+
+    // tests for he with mappiq or furtive patach
+    if (/h\u05BC$/m.test(element)) {
       element = changeElementSplit(element, /h\u05BC$/m, "h");
     } else if (/h\u05BCa$/m.test(element)) {
       element = changeElementSplit(element, /h\u05BCa$/m, "ah");
@@ -133,4 +141,169 @@ export const testEach = (array: Array<string>, { qametsQatan = false }: Options 
 
     return element;
   }); // map
+};
+
+const simpleRules = (array: Array<string>) => {
+  return array.map((element: string) => {
+    // remove aleph half-ring
+    if (/ʾ/.test(element)) {
+      element = changeElementSplit(element, /ʾ/, "");
+    }
+
+    // remove ayin half-ring
+    if (/ʿ/.test(element)) {
+      element = changeElementSplit(element, /ʿ/, "");
+    }
+
+    // simplify he-mater
+    if (/āh$/.test(element)) {
+      element = changeElementSplit(element, /āh$/, "ah");
+    } else if (/ēh$/.test(element)) {
+      element = changeElementSplit(element, /ēh$/, "eh");
+    }
+
+    // simplify hiriq-yod
+    if (/î/.test(element)) {
+      element = changeElementSplit(element, /î/, "i");
+    }
+
+    // simplify tsere-yod / seghol-yod
+    if (/ê/.test(element)) {
+      element = changeElementSplit(element, /ê/, "e");
+    }
+
+    // simplify holem-waw
+    if (/ô/.test(element)) {
+      element = changeElementSplit(element, /ô/, "o");
+    }
+
+    // simplify shureq
+    if (/û/.test(element)) {
+      element = changeElementSplit(element, /û/, "u");
+    }
+
+    // remove doubling of shin
+    if (/šš/.test(element)) {
+      element = changeElementSplit(element, /šš/, "š");
+    }
+
+    // remove doubling of tsade
+    if (/ṣṣ/.test(element)) {
+      element = changeElementSplit(element, /ṣṣ/, "ṣ");
+    }
+
+    // simplify long-a
+    if (/ā/.test(element)) {
+      element = changeElementSplit(element, /ā/, "a");
+    }
+
+    // simplify short-a
+    if (/ă/.test(element)) {
+      element = changeElementSplit(element, /ă/, "a");
+    }
+
+    // simplify long-e
+    if (/ē/.test(element)) {
+      element = changeElementSplit(element, /ē/, "e");
+    }
+
+    // simplify short-e
+    if (/ĕ/.test(element)) {
+      element = changeElementSplit(element, /ĕ/, "e");
+    }
+
+    // simplify long-i
+    if (/ī/.test(element)) {
+      element = changeElementSplit(element, /ī/, "i");
+    }
+
+    // simplify long-o
+    if (/ō/.test(element)) {
+      element = changeElementSplit(element, /ō/, "o");
+    }
+
+    // simplify short-o
+    if (/ŏ/.test(element)) {
+      element = changeElementSplit(element, /ŏ/, "o");
+    }
+
+    // simplify long-u
+    if (/ū/.test(element)) {
+      element = changeElementSplit(element, /ū/, "u");
+    }
+
+    // simplify shewa
+    if (/ǝ/.test(element)) {
+      element = changeElementSplit(element, /ǝ/, "e");
+    }
+
+    // spirantized cons
+
+    /* Since the negative lookbehind regex is not well supported, 
+    the string is reversed and then the regex searches the pattern of
+    the consonant that is followed by a vowel (which preceded it in the original direction) 
+    */
+
+    let rev = [...element].reverse().reduce((a, c) => a + c, "");
+    // change b > v
+    if (/b/.test(element) && !/bb/.test(element)) {
+      if (/b(?=[aeiou])/.test(rev)) {
+        rev = changeElementSplit(rev, /b(?=[aeiou])/, "v");
+      }
+    }
+
+    // change p > f
+    if (/p/.test(element) && !/pp/.test(element)) {
+      if (/p(?=[aeiou])/.test(rev)) {
+        rev = changeElementSplit(rev, /p(?=[aeiou])/, "f");
+      }
+    }
+
+    // change k > kh
+    if (/k/.test(element) && !/kk/.test(element)) {
+      if (/k(?=[aeiou])/.test(rev)) {
+        //   when the string is reversed back 'hk' > 'kh'
+        rev = changeElementSplit(rev, /k(?=[aeiou])/, "hk");
+      }
+    }
+
+    element = [...rev].reverse().reduce((a, c) => a + c, "");
+
+    // simplify ṭet
+    if (/ṭ/.test(element)) {
+      element = changeElementSplit(element, /ṭ/, "t");
+    }
+
+    // simplify tsade
+    if (/ṣ/.test(element)) {
+      element = changeElementSplit(element, /ṣ/, "ts");
+    }
+
+    // simplify shin
+    if (/š/.test(element)) {
+      element = changeElementSplit(element, /š/, "sh");
+    }
+
+    // simplify sin
+    if (/ś/.test(element)) {
+      element = changeElementSplit(element, /ś/, "s");
+    }
+
+    // simplify ḥet
+    if (/ḥ/.test(element)) {
+      element = changeElementSplit(element, /ḥ/, "kh");
+    }
+
+    // simplify waw
+    if (/w/.test(element)) {
+      element = changeElementSplit(element, /w/, "v");
+    }
+
+    return element;
+  }); // map
+};
+
+export const testEach = (array: Array<string>, { qametsQatan = false, isSimple = false }: Options = {}) => {
+  const academic = academicRules(array, { qametsQatan: qametsQatan, isSimple: isSimple });
+  return !isSimple ? academic : simpleRules(academic);
 };
