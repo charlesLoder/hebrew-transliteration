@@ -84,7 +84,7 @@ MIT
 
 Use it live at [charlesLoder.github.io/hebrewTransliteration](https://charlesloder.github.io/hebrewTransliteration/index.html)
 
-## Changelong
+## Changelog
 
 - v1.1.0: in `transliterate()` the `options` was changed from the misspelled `isSeqeunced` to `isSequenced`.
 - v1.2.0:
