@@ -3,7 +3,7 @@
   "version": "1.2.1",
   "description": "a package for transliterating Hebrew according to SBL guidelines",
   "main": "./dist/index.js",
-  "types": "index.d.ts",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "clear && jest",
