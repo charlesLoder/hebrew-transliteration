@@ -88,7 +88,7 @@ export const transliterateMap: Dict = {
   "\u05BA": "ō", //this is the codepoint for a holam on a const waw, but it is rarely used
   "\u05BB": "u", //qibbuts
   // '\u05BC': '9', // dagesh
-  "\u05BD": "", // metheg
+  //   "\u05BD": "", // metheg
   "\u05BE": "-", // maqqef
   "\u05BF": "", // rafe
   "\u05C7": "o", //qamets hatuf/qatan. Not used often, most use a qamats instead
@@ -125,6 +125,7 @@ export const transliterateMap: Dict = {
   "\u05AE": "",
   "\u05AF": "",
   "\u05C0": "",
+  "\u05C1": "",
   "\u05C3": "",
   "\u05C4": "",
   "\u05C5": ""
