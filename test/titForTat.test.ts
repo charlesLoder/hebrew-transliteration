@@ -1,6 +1,6 @@
 import { titForTat } from "../src/titForTat";
 
-xdescribe("using the default academic stlye", () => {
+describe("using the default academic stlye", () => {
   test("return a one to one correspondence from Heb to Eng", () => {
     // consonants from BMP
     expect(titForTat("אבגדהוזחטיכךלמםנןסעפףצץקרשׂשׁת")).toBe("ʾbgdhwzḥṭykklmmnnsʿppṣṣqrśšt");
