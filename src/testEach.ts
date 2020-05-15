@@ -20,10 +20,10 @@ const qametsQatanDict: Dict = {
   watּāqāֽm: "wattāqom", // with siluq
   tּākǝniyt: "toknît", // Ezk 28:12
   hadּārǝbāֽn: "haddorbān", // 1 Sam 13:21
-  lǝʾākǝlāֽh: "lǝʾoklâ", // with siluq
+  lǝʾākǝlāֽh: "lǝʾoklāh", // with siluq
   haqּārǝbāֽn: "haqqorbān", // Ezk 40:43
   ḥāpǝniy: "ḥopnî",
-  ʿārǝpּāh: "ʿorpâ",
+  ʿārǝpּāh: "ʿorpāh",
   ḥāpǝraʿ: "ḥopraʿ"
 };
 
@@ -40,11 +40,11 @@ const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = f
       }
 
       if (qametsQatanDict[element]) {
-        return qametsQatanDict[element];
+        element = qametsQatanDict[element];
       } else if (/ḥāq-/.test(element)) {
         element = changeElementSplit(element, /ḥāq-/, "ḥoq-");
       } else if (/ḥākǝmāh$/m.test(element)) {
-        element = changeElementSplit(element, /ḥākǝmāh$/m, "ḥokmâ");
+        element = changeElementSplit(element, /ḥākǝmāh$/m, "ḥokmāh");
       } else if (/ḥākǝmāt/.test(element)) {
         element = changeElementSplit(element, /ḥākǝmāt/, "ḥokmāt");
       } else if (/ḥākǝmat/.test(element)) {
@@ -88,7 +88,7 @@ const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = f
       } else if (/ʿāpǝniy/.test(element)) {
         element = changeElementSplit(element, /ʿāpǝniy/, "ʿopnî");
       } else if (/ʿāpǝrāh/.test(element)) {
-        element = changeElementSplit(element, /ʿāpǝrāh/, "ʿoprâ");
+        element = changeElementSplit(element, /ʿāpǝrāh/, "ʿoprāh");
       } else if (/ʿāpǝrāt/.test(element)) {
         element = changeElementSplit(element, /ʿāpǝrāt/, "ʿoprāt");
       } else if (/ḥāpǝšiy/.test(element)) {

@@ -220,7 +220,13 @@ describe("using simple style", () => {
     expect(transliterate("כָּל־הָעָם", { isSimple: true })).toEqual("kal-haam");
   });
 
-  test("qametsQatan true", () => {
+  test("qametsQatan true (1)", () => {
     expect(transliterate("כָּל־הָעָם", { qametsQatan: true, isSimple: true })).toEqual("kol-haam");
+  });
+
+  test("qametsQatan true (2)", () => {
+    expect(transliterate("וַתָּקָם עָרְפָּה אֶת־כָל־חָכְמָה", { qametsQatan: true, isSimple: true })).toEqual(
+      "vattaqom orpah et-kol-khokhmah"
+    );
   });
 });
