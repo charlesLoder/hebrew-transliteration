@@ -1,263 +1,53 @@
-type Dict = { [key: string]: string };
+import { Dict } from "./interfaces";
 
 export const transliterateMap: Dict = {
-  // # consonants
-  // ## BMP
-  א: "ʾ",
-  ב: "b",
-  ג: "g",
-  ד: "d",
-  ה: "h",
-  ו: "w",
-  ז: "z",
-  ח: "ḥ",
-  ט: "ṭ",
-  י: "y",
-  כ: "k",
-  ך: "k",
-  ל: "l",
-  מ: "m",
-  ם: "m",
-  נ: "n",
-  ן: "n",
-  ס: "s",
-  ע: "ʿ",
-  פ: "p",
-  ף: "p",
-  צ: "ṣ",
-  ץ: "ṣ",
-  ק: "q",
-  ר: "r",
-  ש: "š",
-  ת: "t",
-  // ## Alphabetic Presentation Block
-  ﬠ: "ʿ",
-  ﬡ: "ʾ",
-  ﬢ: "d",
-  ﬣ: "h",
-  ﬤ: "k",
-  ﬥ: "l",
-  ﬦ: "m",
-  ﬧ: "r",
-  ﬨ: "t",
-  אַ: "ʾa",
-  אָ: "ʾā",
-  אּ: "ʾ\u{05BC}",
-  בּ: "b\u{05BC}",
-  בֿ: "b",
-  גּ: "g\u{05BC}",
-  דּ: "d\u{05BC}",
-  הּ: "h\u{05BC}",
-  וּ: "w\u{05BC}",
-  וֹ: "wō",
-  זּ: "z\u{05BC}",
-  טּ: "ṭ\u{05BC}",
-  יּ: "y\u{05BC}",
-  כּ: "k\u{05BC}",
-  כֿ: "k",
-  ךּ: "k\u{05BC}",
-  לּ: "l\u{05BC}",
-  מּ: "m\u{05BC}",
-  נּ: "n\u{05BC}",
-  סּ: "s\u{05BC}",
-  פּ: "p\u{05BC}",
-  פֿ: "p",
-  ףּ: "p\u{05BC}",
-  צּ: "ṣ\u{05BC}",
-  קּ: "q\u{05BC}",
-  רּ: "r\u{05BC}",
-  // '\u05C1':'8',
-  // '\u05C2':'7',
-  שּ: "š\u{05BC}", // shin + dagesh, no shin-dot
-  שׁ: "š", // shin + shin-dot
-  שּׁ: "š\u{05BC}", // shin + shin-dot + dagesh
-  שׂ: "ś", // shin + sin dot
-  שּׂ: "ś\u{05BC}", // shin + sin dot + dagesh
-  תּ: "t\u{05BC}",
-  // # vowels
-  "\u05B0": "ǝ", //shewa
-  "\u05B1": "ĕ", //hataf segol
-  "\u05B2": "ă", //hataf patach
-  "\u05B3": "ŏ", //hataf qamats
-  "\u05B4": "i", //hiriq
-  "\u05B5": "ē", //tsere
-  "\u05B6": "e", //segol
-  "\u05B7": "a", //patach
-  "\u05B8": "ā", //qamats
-  "\u05B9": "ō", //holam
-  "\u05BA": "ō", //this is the codepoint for a holam on a const waw, but it is rarely used
-  "\u05BB": "u", //qibbuts
-  // '\u05BC': '9', // dagesh
-  //   "\u05BD": "", // metheg
-  "\u05BE": "-", // maqqef
-  "\u05BF": "", // rafe
-  "\u05C7": "o", //qamets hatuf/qatan. Not used often, most use a qamats instead
-  // # extra marks and cantillations
-  "\u0591": "", //athna
-  "\u0592": "",
-  "\u0593": "",
-  "\u0594": "",
-  "\u0595": "",
-  "\u0596": "",
-  "\u0597": "",
-  "\u0598": "",
-  "\u0599": "",
-  "\u059A": "",
-  "\u059B": "",
-  "\u059C": "",
-  "\u059D": "",
-  "\u059E": "",
-  "\u059F": "",
-  "\u05A0": "",
-  "\u05A1": "",
-  "\u05A2": "",
-  "\u05A3": "",
-  "\u05A4": "",
-  "\u05A5": "",
-  "\u05A6": "",
-  "\u05A7": "",
-  "\u05A8": "",
-  "\u05A9": "",
-  "\u05AA": "",
-  "\u05AB": "",
-  "\u05AC": "",
-  "\u05AD": "",
-  "\u05AE": "",
-  "\u05AF": "",
-  "\u05C0": "",
-  "\u05C1": "",
-  "\u05C3": "",
-  "\u05C4": "",
-  "\u05C5": ""
-};
-
-export const removeVowels: Dict = {
-  // alphabetic presentation block
-  שּׁ: "\uFB2A",
-  שּׂ: "\uFB2B",
-  אּ: "א",
-  בּ: "ב",
-  גּ: "ג",
-  דּ: "ד",
-  הּ: "ה",
-  וּ: "ו",
-  זּ: "ז",
-  טּ: "ט",
-  יּ: "י",
-  ךּ: "ך",
-  כּ: "כ",
-  לּ: "ל",
-  מּ: "מ",
-  הּ0: "נ",
-  הּ1: "ס",
-  הּ3: "ף",
-  הּ4: "פ",
-  הּ6: "צ",
-  הּ7: "ק",
-  הּ8: "ר",
-  הּ9: "ש",
-  הּA: "ת",
-  הּB: "ו",
-  הּC: "ב",
-  הּD: "כ",
-  הּE: "פ",
-  // vowels
-  "\u05B0": "", // shewa
-  "\u05B1": "", // hataf segol
-  "\u05B2": "", // hataf patach
-  "\u05B3": "", // hataf qamats
-  "\u05B4": "", // hiriq
-  "\u05B5": "", // tsere
-  "\u05B6": "", // segol
-  "\u05B7": "", // patach
-  "\u05B8": "", // qamats
-  "\u05B9": "", // holam
-  "\u05BA": "", // this is the codepoint for a holam on a const waw, but it is rarely used
-  "\u05BB": "", // qibbuts
-  "\u05BC": "",
-  "\u05BD": "",
-  // '\u05BE':'\u05BE', // maqqef
-  "\u05BF": "\u05BF", // rafe
-  "\u05C7": "", // qamets hatuf/qatan. Not used often, most use a qamats instead
-  // extra marks and cantillations
-  "\u0591": "", // athna
-  "\u0592": "",
-  "\u0593": "",
-  "\u0594": "",
-  "\u0595": "",
-  "\u0596": "",
-  "\u0597": "",
-  "\u0598": "",
-  "\u0599": "",
-  "\u059A": "",
-  "\u059B": "",
-  "\u059C": "",
-  "\u059D": "",
-  "\u059E": "",
-  "\u059F": "",
-  "\u05A0": "",
-  "\u05A1": "",
-  "\u05A2": "",
-  "\u05A3": "",
-  "\u05A4": "",
-  "\u05A5": "",
-  "\u05A6": "",
-  "\u05A7": "",
-  "\u05A8": "",
-  "\u05A9": "",
-  "\u05AA": "",
-  "\u05AB": "",
-  "\u05AC": "",
-  "\u05AD": "",
-  "\u05AE": "",
-  "\u05AF": "",
-  "\u05C0": "",
-  "\u05C1": "", // shin dot
-  "\u05C2": "", // sin dot
-  "\u05C3": "",
-  "\u05C4": "",
-  "\u05C5": "",
-  "\u05F3": "", //geresh
-  "\u05F4": "" //gereshayim
-};
-
-export const removeCantillation: Dict = {
-  // extra marks and cantillations
-  "\u0591": "", // athna
-  "\u0592": "",
-  "\u0593": "",
-  "\u0594": "",
-  "\u0595": "",
-  "\u0596": "",
-  "\u0597": "",
-  "\u0598": "",
-  "\u0599": "",
-  "\u059A": "",
-  "\u059B": "",
-  "\u059C": "",
-  "\u059D": "",
-  "\u059E": "",
-  "\u059F": "",
-  "\u05A0": "",
-  "\u05A1": "",
-  "\u05A2": "",
-  "\u05A3": "",
-  "\u05A4": "",
-  "\u05A5": "",
-  "\u05A6": "",
-  "\u05A7": "",
-  "\u05A8": "",
-  "\u05A9": "",
-  "\u05AA": "",
-  "\u05AB": "",
-  "\u05AC": "",
-  "\u05AD": "",
-  "\u05AE": "",
-  "\u05AF": "",
-  "\u05C0": "",
-  "\u05C3": "",
-  "\u05C4": "",
-  "\u05C5": "",
-  "\u05F3": "", //geresh
-  "\u05F4": "" //gereshayim
+  //   niqqud
+  "\u{05B0}": "ǝ", // HEBREW POINT SHEVA (U+05B0)
+  "\u{05B1}": "ĕ", // HEBREW POINT HATAF SEGOL (U+05B1)
+  "\u{05B2}": "ă", // HEBREW POINT HATAF PATAH (U+05B2)
+  "\u{05B3}": "ŏ", // HEBREW POINT HATAF QAMATS (U+05B3)
+  "\u{05B4}": "i", // HEBREW POINT HIRIQ (U+05B4)
+  "\u{05B5}": "ē", // HEBREW POINT TSERE (U+05B5)
+  "\u{05B6}": "e", // HEBREW POINT SEGOL (U+05B6)
+  "\u{05B7}": "a", // HEBREW POINT PATAH (U+05B7)
+  "\u{05B8}": "ā", // HEBREW POINT QAMATS (U+05B8)
+  "\u{05B9}": "ō", // HEBREW POINT HOLAM (U+05B9)
+  "\u{05BA}": "ō", // HEBREW POINT HOLAM HASER FOR VAV (U+05BA)
+  "\u{05BB}": "u", // HEBREW POINT QUBUTS (U+05BB)
+  //  "\u{05BC}": "", // HEBREW POINT DAGESH OR MAPIQ (U+05BC)
+  //  "\u{05BD}": "", // HEBREW POINT METEG (U+05BD)
+  "\u{05BE}": "-", // HEBREW PUNCTUATION MAQAF (U+05BE)
+  "\u{05C7}": "ο", // HEBREW POINT QAMATS QATAN (U+05C7)
+  //   consonants
+  א: "ʾ", // HEBREW LETTER ALEF (U+05D0)
+  ב: "b", // HEBREW LETTER BET (U+05D1)
+  ג: "g", // HEBREW LETTER GIMEL (U+05D2)
+  ד: "d", // HEBREW LETTER DALET (U+05D3)
+  ה: "h", // HEBREW LETTER HE (U+05D4)
+  ו: "w", // HEBREW LETTER VAV (U+05D5)
+  ז: "z", // HEBREW LETTER ZAYIN (U+05D6)
+  ח: "ḥ", // HEBREW LETTER HET (U+05D7)
+  ט: "ṭ", // HEBREW LETTER TET (U+05D8)
+  י: "y", // HEBREW LETTER YOD (U+05D9)
+  ך: "k", // HEBREW LETTER FINAL KAF (U+05DA)
+  כ: "k", // HEBREW LETTER KAF (U+05DB)
+  ל: "l", // HEBREW LETTER LAMED (U+05DC)
+  ם: "m", // HEBREW LETTER FINAL MEM (U+05DD)
+  מ: "m", // HEBREW LETTER MEM (U+05DE)
+  ן: "n", // HEBREW LETTER FINAL NUN (U+05DF)
+  נ: "n", // HEBREW LETTER NUN (U+05E0)
+  ס: "s", // HEBREW LETTER SAMEKH (U+05E1)
+  ע: "ʿ", // HEBREW LETTER AYIN (U+05E2)
+  ף: "p", // HEBREW LETTER FINAL PE (U+05E3)
+  פ: "p", // HEBREW LETTER PE (U+05E4)
+  ץ: "ṣ", // HEBREW LETTER FINAL TSADI (U+05E5)
+  צ: "ṣ", // HEBREW LETTER TSADI (U+05E6)
+  ק: "q", // HEBREW LETTER QOF (U+05E7)
+  ר: "r", // HEBREW LETTER RESH (U+05E8)
+  ש: "š", // HEBREW LETTER SHIN (U+05E9)
+  ת: "t", // HEBREW LETTER TAV (U+05EA)
+  "\u{05EF}": "", // HEBREW YOD TRIANGLE (U+05EF)
+  װ: "", // HEBREW LIGATURE YIDDISH DOUBLE VAV (U+05F0)
+  ױ: "", // HEBREW LIGATURE YIDDISH VAV YOD (U+05F1)
+  ײ: "" // HEBREW LIGATURE YIDDISH DOUBLE YOD (U+05F2)
 };

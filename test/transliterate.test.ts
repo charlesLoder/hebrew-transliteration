@@ -1,4 +1,4 @@
-import { transliterate } from "../src/transliterate";
+import { transliterate } from "../src/index";
 
 describe("using default academic style", () => {
   describe("default options", () => {

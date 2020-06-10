@@ -1,4 +1,4 @@
-import { sequence } from "../src/sequence";
+import { sequence } from "../src/index";
 // Normalize Heb characters acc. to SBL Hebrew guidelines
 
 test("just consonants, no vowels", () => {

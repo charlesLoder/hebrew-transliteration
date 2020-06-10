@@ -1,15 +1,10 @@
+import { TransOptions, Dict } from "./interfaces";
+
 const changeElementSplit = (input: string, split: RegExp, join: string) => input.split(split).join(join);
 
 const changeElementSubstr = (input: string, index: number, join: string) =>
   input.substring(0, index) + join + input.substring(index + 1);
 
-interface Options {
-  isSequenced?: boolean;
-  qametsQatan?: boolean;
-  isSimple?: boolean;
-}
-
-type Dict = { [key: string]: string };
 const qametsQatanDict: Dict = {
   // for certain inflected and contextual occurences
   ḥāqǝkā: "ḥoqkā", // Lev 10:13, 14
@@ -27,14 +22,23 @@ const qametsQatanDict: Dict = {
   ḥāpǝraʿ: "ḥopraʿ"
 };
 
-const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = false }: Options = {}) => {
+const academicRules = (array: string[], { qametsQatan = false, isSimple = false }: TransOptions = {}) => {
   return array.map((element: string) => {
-    // eval("console").log(element);
+    // Tests for shin non-ligatures
+    if (/\u{05C1}/u.test(element)) {
+      element = changeElementSplit(element, /\u{05C1}/u, "");
+    }
+
+    // Tests for sin non-ligatures
+    if (/š\u{05C2}/u.test(element)) {
+      element = changeElementSplit(element, /š\u{05C2}/u, "ś");
+    }
+
     // tests for Qamets qatan vs gadol
     if (qametsQatan) {
       // tests kol
-      if (/k\u05BCāl-/.test(element)) {
-        element = changeElementSplit(element, /k\u05BCāl-/, "k\u05BCol-");
+      if (/k\u{05BC}āl-/u.test(element)) {
+        element = changeElementSplit(element, /k\u{05BC}āl-/u, "k\u{05BC}ol-");
       } else if (/kāl-/.test(element)) {
         element = changeElementSplit(element, /kāl-/, "kol-");
       }
@@ -58,12 +62,12 @@ const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = f
         element = changeElementSplit(element, /ḥānּēniy/, "ḥonnēnî");
       } else if (/ʾākǝl/.test(element)) {
         element = changeElementSplit(element, /ʾākǝl/, "ʾokl");
-      } else if (/qārǝb\u05BCān/.test(element)) {
-        element = changeElementSplit(element, /qārǝb\u05BCān/, "qorbān");
-      } else if (/qārǝb\u05BCan/.test(element)) {
-        element = changeElementSplit(element, /qārǝb\u05BCan/, "qorban");
-      } else if (/qārǝb\u05BCǝn/.test(element)) {
-        element = changeElementSplit(element, /qārǝb\u05BCǝn/, "qorbǝn");
+      } else if (/qārǝb\u{05BC}ān/u.test(element)) {
+        element = changeElementSplit(element, /qārǝb\u{05BC}ān/u, "qorbān");
+      } else if (/qārǝb\u{05BC}an/u.test(element)) {
+        element = changeElementSplit(element, /qārǝb\u{05BC}an/u, "qorban");
+      } else if (/qārǝb\u{05BC}ǝn/u.test(element)) {
+        element = changeElementSplit(element, /qārǝb\u{05BC}ǝn/u, "qorbǝn");
       } else if (/dārǝbān/.test(element)) {
         // in case this word out of context is used
         element = changeElementSplit(element, /dārǝbān/, "dorbān");
@@ -77,8 +81,8 @@ const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = f
         element = changeElementSplit(element, /šārǝš/, "šorš");
       } else if (/šārāš/.test(element)) {
         element = changeElementSplit(element, /šārāš/, "šorāš");
-      } else if (/š\u05BCārāš/.test(element)) {
-        element = changeElementSplit(element, /š\u05BCārāš/, "ššorāš");
+      } else if (/š\u{05BC}ārāš/u.test(element)) {
+        element = changeElementSplit(element, /š\u{05BC}ārāš/u, "ššorāš");
       } else if (/ʾābǝdan/.test(element)) {
         element = changeElementSplit(element, /ʾābǝdan/, "ʾobdan");
       } else if (/ʾābǝn/.test(element)) {
@@ -107,32 +111,22 @@ const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = f
     }
 
     // remove metheg that is left in for checking qamets qatan vs gadol
-    if (/\u05BD/.test(element)) {
-      element = changeElementSplit(element, /\u05BD/, "");
-    }
-
-    // Tests for shin non-ligatures
-    if (element.includes("\u05C1")) {
-      element = changeElementSplit(element, /\u05C1/, "");
-    }
-
-    // Tests for sin non-ligatures
-    if (element.includes("\u05C2")) {
-      element = changeElementSplit(element, /š\u05C2/, "ś");
+    if (/\u{05BD}/u.test(element)) {
+      element = changeElementSplit(element, /\u{05BD}/u, "");
     }
 
     // Tests for hiriq-yod mater
-    if (/iy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/.test(element)) {
+    if (/iy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u{05BC})/u.test(element)) {
       element = changeElementSplit(element, /iy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/, "î");
     }
 
     // Tests for tsere-yod mater
-    if (/ēy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/.test(element)) {
+    if (/ēy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u{05BC})/u.test(element)) {
       element = changeElementSplit(element, /ēy(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/, "ê");
     }
 
     // Tests for seghol-yod mater
-    if (/ey(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/.test(element)) {
+    if (/ey(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u{05BC})/u.test(element)) {
       element = changeElementSplit(element, /ey(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|ō|u|\u05BC)/, "ê");
     }
 
@@ -148,12 +142,12 @@ const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = f
 
     // Tests for waw as a holem-mater
     // this will catch a waw as a consonant like - C+ō+w+V+C > CōwVC
-    if (/ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|\u05BC)/.test(element)) {
+    if (/ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|\u{05BC})/u.test(element)) {
       element = changeElementSplit(element, /ōw(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|u|\u05BC)/, "ô");
     }
 
     // Tests for waw as a shureq-mater
-    if (/w\u05BC(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|â|o|ô|u|û)/.test(element)) {
+    if (/w\u{05BC}(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|â|o|ô|u|û)/u.test(element)) {
       element = changeElementSplit(element, /w\u05BC(?!ǝ|ĕ|ă|ŏ|i|ē|e|a|ā|â|o|ô|u|û)/, "û");
     }
 
@@ -171,10 +165,10 @@ const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = f
     }
 
     // tests for he with mappiq or furtive patach
-    if (/h\u05BC$/m.test(element)) {
-      element = changeElementSplit(element, /h\u05BC$/m, "h");
-    } else if (/h\u05BCa$/m.test(element)) {
-      element = changeElementSplit(element, /h\u05BCa$/m, "ah");
+    if (/h\u{05BC}$/mu.test(element)) {
+      element = changeElementSplit(element, /h\u{05BC}$/mu, "h");
+    } else if (/h\u{05BC}a$/mu.test(element)) {
+      element = changeElementSplit(element, /h\u{05BC}a$/mu, "ah");
     } else if (/ḥa$/m.test(element)) {
       element = changeElementSplit(element, /ḥa$/m, "aḥ");
     } else if (/ʿa$/m.test(element)) {
@@ -182,7 +176,7 @@ const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = f
     }
 
     // Tests if a shewa exists in the element
-    if (element.includes("ǝ")) {
+    if (/ǝ/.test(element)) {
       let pos = element.indexOf("ǝ");
       while (pos !== -1) {
         // shewa at the end of a word
@@ -204,7 +198,7 @@ const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = f
     }
 
     // tests for a doubling dagesh
-    if (element.includes("\u05BC")) {
+    if (/\u{05BC}/u.test(element)) {
       const elArray = element.split("");
       elArray.forEach((e, i) => {
         if (e === "\u05BC" && /a|ā|e|ē|i|î|u|û|o|ō|ô/.test(elArray[i - 2]) && Boolean(elArray[i - 2])) {
@@ -224,15 +218,15 @@ const academicRules = (array: Array<string>, { qametsQatan = false, isSimple = f
     }
 
     // removes any remaining dageshes
-    if (/\u05BC/.test(element)) {
-      element = changeElementSplit(element, /\u05BC/, "");
+    if (/\u{05BC}/u.test(element)) {
+      element = changeElementSplit(element, /\u{05BC}/u, "");
     }
 
     return element;
   }); // map
 };
 
-const simpleRules = (array: Array<string>) => {
+const simpleRules = (array: string[]) => {
   return array.map((element: string) => {
     // remove aleph half-ring
     if (/ʾ/.test(element)) {
@@ -245,10 +239,10 @@ const simpleRules = (array: Array<string>) => {
     }
 
     // simplify he-mater
-    if (/āh$/.test(element)) {
-      element = changeElementSplit(element, /āh$/, "ah");
+    if (/āh$/m.test(element)) {
+      element = changeElementSplit(element, /āh$/m, "ah");
     } else if (/ēh$/.test(element)) {
-      element = changeElementSplit(element, /ēh$/, "eh");
+      element = changeElementSplit(element, /ēh$/m, "eh");
     }
 
     // simplify hiriq-yod
@@ -392,7 +386,7 @@ const simpleRules = (array: Array<string>) => {
   }); // map
 };
 
-export const testEach = (array: Array<string>, { qametsQatan = false, isSimple = false }: Options = {}) => {
+export const testEach = (array: string[], { qametsQatan = false, isSimple = false }: TransOptions = {}) => {
   const academic = academicRules(array, { qametsQatan: qametsQatan, isSimple: isSimple });
   return !isSimple ? academic : simpleRules(academic);
 };
