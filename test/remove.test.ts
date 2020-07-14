@@ -1,9 +1,9 @@
 import { remove } from "../src/index";
 
 test("remove ONLY the cantillation", () => {
-  expect(remove("בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים")).toBe("בְּרֵאשִׁית בָּרָא אֱלֹהִים");
+  expect(remove("בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים")).toBe("בְּרֵאשִית בָּרָא אֱלֹהִים");
 });
 
 test("remove cantillation AND vowels", () => {
-  expect(remove("בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים", { removeVowels: true })).toBe("בראשׁית ברא אלהים");
+  expect(remove("בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים", { removeVowels: true })).toBe("בראשית ברא אלהים");
 });
