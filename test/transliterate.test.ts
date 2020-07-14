@@ -58,8 +58,16 @@ describe("using default academic style", () => {
       expect(transliterate("וַיָּ֥קָם קַ֛יִן אֶל־הֶ֥בֶל", { qametsQatan: true })).toEqual("wayyāqom qayin ʾel-hebel");
     });
 
-    test("tayyāqom", () => {
+    test("wattāqom", () => {
       expect(transliterate("וַתָּ֤קָם הַצְּעִירָה֙", { qametsQatan: true })).toEqual("wattāqom haṣṣǝʿîrâ");
+    });
+
+    test("wayyāmot", () => {
+      expect(transliterate("וַיָּ֥מָת תֶּ֖רַח בְּחָרָֽן", { qametsQatan: true })).toEqual("wayyāmot teraḥ bǝḥārān");
+    });
+
+    test("wattāmot", () => {
+      expect(transliterate("וַתָּ֣מָת שָׂרָ֗ה", { qametsQatan: true })).toEqual("wattāmot śārâ");
     });
 
     test("toknît (Ezk 28:12, 43:10)", () => {
@@ -170,6 +178,14 @@ describe("using default academic style", () => {
 
     test("ḥopšît", () => {
       expect(transliterate("בְּבֵ֣ית הַחָפְשִׁ֑ית", { qametsQatan: true })).toEqual("bǝbêt haḥopšît");
+    });
+
+    test("bošet (1)", () => {
+      expect(transliterate("עַל־עֵ֣קֶב בָּשְׁתָּ֑ם", { qametsQatan: true })).toEqual("ʿal-ʿēqeb boštām");
+    });
+
+    test("bošet (2)", () => {
+      expect(transliterate("וּ֭בָשְׁתִּי וּכְלִמָּתִ֑י", { qametsQatan: true })).toEqual("ûboštî ûkǝlimmātî");
     });
   });
 
