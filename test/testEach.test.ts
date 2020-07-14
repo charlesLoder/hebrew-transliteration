@@ -2,10 +2,6 @@ import { testEach } from "../src/testEach";
 
 describe("using defaut academic style", () => {
   describe("consonant ligatures", () => {
-    test("check for shin-dot and remove", () => {
-      expect(testEach(["š\u{05C1}in"])).toEqual(["šin"]);
-    });
-
     test("check for sin-dot and change combination to s with a grave", () => {
       expect(testEach(["š\u{05C2}in"])).toEqual(["śin"]);
     });
