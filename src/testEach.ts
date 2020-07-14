@@ -1,113 +1,23 @@
-import { TransOptions, Dict } from "./interfaces";
+import { TransOptions } from "./interfaces";
 
 const changeElementSplit = (input: string, split: RegExp, join: string) => input.split(split).join(join);
 
 const changeElementSubstr = (input: string, index: number, join: string) =>
   input.substring(0, index) + join + input.substring(index + 1);
 
-const qametsQatanDict: Dict = {
-  // for certain inflected and contextual occurences
-  ḥāqǝkā: "ḥoqkā", // Lev 10:13, 14
-  ḥāqǝkem: "ḥoqkem", // Exod 5:14
-  wayּāqām: "wayyāqom",
-  wayּāqāֽm: "wayyāqom", // with siluq
-  watּāqām: "wattāqom",
-  watּāqāֽm: "wattāqom", // with siluq
-  tּākǝniyt: "toknît", // Ezk 28:12
-  hadּārǝbāֽn: "haddorbān", // 1 Sam 13:21
-  lǝʾākǝlāֽh: "lǝʾoklāh", // with siluq
-  haqּārǝbāֽn: "haqqorbān", // Ezk 40:43
-  ḥāpǝniy: "ḥopnî",
-  ʿārǝpּāh: "ʿorpāh",
-  ḥāpǝraʿ: "ḥopraʿ"
-};
-
-const academicRules = (array: string[], { qametsQatan = false, isSimple = false }: TransOptions = {}) => {
+const academicRules = (array: string[], { isSimple = false }: TransOptions = {}) => {
   return array.map((element: string) => {
-    // Tests for shin non-ligatures
-    if (/\u{05C1}/u.test(element)) {
-      element = changeElementSplit(element, /\u{05C1}/u, "");
+    if (element === " " || !element) {
+      return element;
     }
+    // Tests for shin non-ligatures
+    // if (/\u{05C1}/u.test(element)) {
+    //   element = changeElementSplit(element, /\u{05C1}/u, "");
+    // }
 
     // Tests for sin non-ligatures
     if (/š\u{05C2}/u.test(element)) {
       element = changeElementSplit(element, /š\u{05C2}/u, "ś");
-    }
-
-    // tests for Qamets qatan vs gadol
-    if (qametsQatan) {
-      // tests kol
-      if (/k\u{05BC}āl-/u.test(element)) {
-        element = changeElementSplit(element, /k\u{05BC}āl-/u, "k\u{05BC}ol-");
-      } else if (/kāl-/.test(element)) {
-        element = changeElementSplit(element, /kāl-/, "kol-");
-      }
-
-      if (qametsQatanDict[element]) {
-        element = qametsQatanDict[element];
-      } else if (/ḥāq-/.test(element)) {
-        element = changeElementSplit(element, /ḥāq-/, "ḥoq-");
-      } else if (/ḥākǝmāh$/m.test(element)) {
-        element = changeElementSplit(element, /ḥākǝmāh$/m, "ḥokmāh");
-      } else if (/ḥākǝmāt/.test(element)) {
-        element = changeElementSplit(element, /ḥākǝmāt/, "ḥokmāt");
-      } else if (/ḥākǝmat/.test(element)) {
-        element = changeElementSplit(element, /ḥākǝmat/, "ḥokmat");
-      } else if (/ʾāzǝn/.test(element)) {
-        element = changeElementSplit(element, /ʾāzǝn/, "ʾozn");
-      } else if (/tּākǝniֽyt/.test(element)) {
-        // only for Ezk 43:10!
-        element = changeElementSplit(element, /tּākǝniֽyt/, "toknît");
-      } else if (/ḥānּēniy/.test(element)) {
-        element = changeElementSplit(element, /ḥānּēniy/, "ḥonnēnî");
-      } else if (/ʾākǝl/.test(element)) {
-        element = changeElementSplit(element, /ʾākǝl/, "ʾokl");
-      } else if (/qārǝb\u{05BC}ān/u.test(element)) {
-        element = changeElementSplit(element, /qārǝb\u{05BC}ān/u, "qorbān");
-      } else if (/qārǝb\u{05BC}an/u.test(element)) {
-        element = changeElementSplit(element, /qārǝb\u{05BC}an/u, "qorban");
-      } else if (/qārǝb\u{05BC}ǝn/u.test(element)) {
-        element = changeElementSplit(element, /qārǝb\u{05BC}ǝn/u, "qorbǝn");
-      } else if (/dārǝbān/.test(element)) {
-        // in case this word out of context is used
-        element = changeElementSplit(element, /dārǝbān/, "dorbān");
-      } else if (/qādǝqōd/.test(element)) {
-        element = changeElementSplit(element, /qādǝqōd/, "qodqōd");
-      } else if (/qādǝqŏd/.test(element)) {
-        element = changeElementSplit(element, /qādǝqŏd/, "qodqŏd");
-      } else if (/qādǝš/.test(element)) {
-        element = changeElementSplit(element, /qādǝš/, "qodš");
-      } else if (/šārǝš/.test(element)) {
-        element = changeElementSplit(element, /šārǝš/, "šorš");
-      } else if (/šārāš/.test(element)) {
-        element = changeElementSplit(element, /šārāš/, "šorāš");
-      } else if (/š\u{05BC}ārāš/u.test(element)) {
-        element = changeElementSplit(element, /š\u{05BC}ārāš/u, "ššorāš");
-      } else if (/ʾābǝdan/.test(element)) {
-        element = changeElementSplit(element, /ʾābǝdan/, "ʾobdan");
-      } else if (/ʾābǝn/.test(element)) {
-        element = changeElementSplit(element, /ʾābǝn/, "ʾobn");
-      } else if (/ʾāpǝn/.test(element)) {
-        element = changeElementSplit(element, /ʾāpǝn/, "ʾopn");
-      } else if (/ʿāpǝniy/.test(element)) {
-        element = changeElementSplit(element, /ʿāpǝniy/, "ʿopnî");
-      } else if (/ʿāpǝrāh/.test(element)) {
-        element = changeElementSplit(element, /ʿāpǝrāh/, "ʿoprāh");
-      } else if (/ʿāpǝrāt/.test(element)) {
-        element = changeElementSplit(element, /ʿāpǝrāt/, "ʿoprāt");
-      } else if (/ḥāpǝšiy/.test(element)) {
-        element = changeElementSplit(element, /ḥāpǝšiy/, "ḥopšî");
-      } else if (/ḥāpǝn/.test(element)) {
-        element = changeElementSplit(element, /ḥāpǝn/, "ḥopn");
-      } else if (/ḥāpǝšiyt/.test(element)) {
-        element = changeElementSplit(element, /ḥāpǝšiyt/, "ḥopšît");
-      } else if (/ŏ/.test(element)) {
-        // tests for certain rules
-        let pos = element.indexOf("ŏ");
-        if (element.charAt(pos - 2) === "ā") {
-          element = changeElementSubstr(element, pos - 2, "o");
-        }
-      }
     }
 
     // remove metheg that is left in for checking qamets qatan vs gadol
@@ -228,6 +138,9 @@ const academicRules = (array: string[], { qametsQatan = false, isSimple = false 
 
 const simpleRules = (array: string[]) => {
   return array.map((element: string) => {
+    if (element === " " || !element) {
+      return element;
+    }
     // remove aleph half-ring
     if (/ʾ/.test(element)) {
       element = changeElementSplit(element, /ʾ/, "");

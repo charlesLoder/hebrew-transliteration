@@ -1,6 +1,7 @@
 import { TransOptions } from "./interfaces";
 import { Sequence } from "./sequence";
 import { Remove } from "./remove";
+import { qametsQ } from "./qametsQatan";
 import { titForTat } from "./titForTat";
 import { testEach } from "./testEach";
 
@@ -11,8 +12,9 @@ export const Transliterate = (
   const newSeq = isSequenced ? Sequence(text) : text;
   const rmvCantillation = Remove(newSeq);
   const titTat = titForTat(rmvCantillation);
-  const array = titTat.split(" ");
-  const modArray = testEach(array, { qametsQatan: qametsQatan, isSimple: isSimple });
-  const transliteration = modArray.join(" ");
+  const array = titTat.split(/(\s|\S*\-)/);
+  const sanitized = qametsQatan ? qametsQ(array) : array;
+  const modArray = testEach(sanitized, { isSimple: isSimple });
+  const transliteration = modArray.reduce((a, c) => a + c, "");
   return transliteration;
 };

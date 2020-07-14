@@ -2,10 +2,6 @@ import { testEach } from "../src/testEach";
 
 describe("using defaut academic style", () => {
   describe("consonant ligatures", () => {
-    test("check for shin-dot and remove", () => {
-      expect(testEach(["š\u{05C1}in"])).toEqual(["šin"]);
-    });
-
     test("check for sin-dot and change combination to s with a grave", () => {
       expect(testEach(["š\u{05C2}in"])).toEqual(["śin"]);
     });
@@ -86,49 +82,6 @@ describe("using defaut academic style", () => {
   });
 
   describe("qamets qatan/gadol", () => {
-    test("common words", () => {
-      expect(
-        testEach(
-          [
-            "kāl-hāʿam",
-            "ḥāq-ʾĕlohiym",
-            "b\u05BCǝḥākǝmātāh\u05BC",
-            "k\u05BCāl-ḥākǝmat",
-            "b\u05BCǝʾāzǝneyhem",
-            "way\u05BCāqām",
-            "wat\u05BCāqām",
-            "t\u05BCākǝniyt",
-            "had\u05BCārǝbā\u05BDn"
-          ],
-          {
-            qametsQatan: true
-          }
-        )
-      ).toEqual([
-        "kol-hāʿam",
-        "ḥoq-ʾĕlohîm",
-        "bǝḥokmātāh",
-        "kol-ḥokmat",
-        "bǝʾoznêhem",
-        "wayyāqom",
-        "wattāqom",
-        "toknît",
-        "haddorbān"
-      ]);
-    });
-
-    test("qamets proceeded by hatef qamets", () => {
-      expect(
-        testEach(["nāʿŏmiy", "ʾāhŏlāh"], {
-          qametsQatan: true
-        })
-      ).toEqual(["noʿŏmî", "ʾohŏlâ"]);
-    });
-
-    test("qamets with metheg and no metheg", () => {
-      expect(testEach(["ḥā\u05BDkǝmāh", "ḥākǝmāh"], { qametsQatan: true })).toEqual(["ḥākǝmâ", "ḥokmâ"]);
-    });
-
     test("option false", () => {
       expect(testEach(["kāl-hāʿam"])).toEqual(["kāl-hāʿam"]);
     });
