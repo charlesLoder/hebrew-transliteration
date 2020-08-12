@@ -13,7 +13,9 @@ export const transliterate = (
 
 export const remove = (text: string, { removeVowels = false }: RemoveOptions = {}) => {
   let normalized = text.normalize("NFKD");
-  return Remove(normalized, { removeVowels: removeVowels });
+  let removed = Remove(normalized, { removeVowels: removeVowels });
+  let noMetheg = removed.replace(/\u{05BD}/gu, "");
+  return noMetheg;
 };
 
 export const sequence = (text: string) => {
