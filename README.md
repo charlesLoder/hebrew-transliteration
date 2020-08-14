@@ -24,7 +24,8 @@ npm run build
 const heb = require("hebrew-transliteration");
 const transliterate = heb.transliterate;
 
-transliterate("אֱלֹהִים") >>> "ʾĕlōhîm";
+transliterate("אֱלֹהִים");
+// "ʾĕlōhîm";
 ```
 
 ## DOCS
@@ -38,13 +39,17 @@ heb.transliterate(text, { isSequenced: true, qametsQatan: false, isSimple: false
 Takes `text` \<\<String\>\> and `[options]` \<\<Object\>\>.
 
 ```javascript
-heb.transliterate("כָּל־הָעָם") >>> "kāl-hāʿām";
+heb.transliterate("כָּל־הָעָם");
+// "kāl-hāʿām";
 
-heb.transliterate("כָּל־הָעָם", { qametsQatan: true }) >>> "kol-hāʿām";
+heb.transliterate("כָּל־הָעָם", { qametsQatan: true });
+// "kol-hāʿām";
 
-heb.transliterate("שָׁלֹום") >>> "šālôm";
+heb.transliterate("שָׁלֹום");
+// "šālôm";
 
-heb.transliterate("שָׁלֹום", { isSimple: true }) >>> "shalom";
+heb.transliterate("שָׁלֹום", { isSimple: true });
+// "shalom";
 ```
 
 ---
@@ -52,13 +57,20 @@ heb.transliterate("שָׁלֹום", { isSimple: true }) >>> "shalom";
 ### remove
 
 ```javascript
-heb.remove(text, { removeVowels: false });
+heb.remove(text, { removeVowels: false, removeShinDot: false, removeSinDot: false });
 ```
 
 Takes `text` \<\<String\>\> and `[options]` \<\<Object\>\>. With `{removeVowels: false}`, will only remove cantillation (i.e., accent) marks.
 
 ```javascript
-heb.remove("כָּל־הָעָם", { removeVowels: true }) >>> "כל־העם";
+heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔");
+// "שָׂרַי אִשְׁתְּךָ";
+
+heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔", { removeVowels: true });
+// "שׂרי אשׁתך";
+
+heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔", { removeVowels: true, removeShinDot: true, removeSinDot: true });
+// "שרי אשתך";
 ```
 
 ---
@@ -72,8 +84,8 @@ heb.sequence(text);
 Takes `text` \<\<String\>\>. Returns a string of properly sequenced characters according to the [SBL Hebrew Font manual](https://www.sbl-site.org/Fonts/SBLHebrewUserManual1.5x.pdf).
 
 ```javascript
-heb.sequence("\u{5D1}\u{5B0}\u{5BC}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5B4}\u{5C1}\u{596}\u{5D9}\u{5EA}") >>>
-  "\u{5D1}\u{5BC}\u{5B0}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5C1}\u{5B4}\u{596}\u{5D9}\u{5EA}";
+heb.sequence("\u{5D1}\u{5B0}\u{5BC}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5B4}\u{5C1}\u{596}\u{5D9}\u{5EA}");
+// --------- "\u{5D1}\u{5BC}\u{5B0}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5C1}\u{5B4}\u{596}\u{5D9}\u{5EA}";
 ```
 
 ## License
@@ -90,6 +102,7 @@ Use it live at [charlesLoder.github.io/hebrewTransliteration](https://charleslod
 - v1.2.0:
   - rewrote in in TypeScript
   - added `isSimple` option to `transliterate()` for SBL's General Purpose Style
+- v1.3.0: added `removeShinDot` and `removeSinDot` option to `remove()` for more granular control
 
 ## Contributing
 
