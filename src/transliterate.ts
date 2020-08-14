@@ -10,7 +10,7 @@ export const Transliterate = (
   { isSequenced = true, qametsQatan = false, isSimple = false }: TransOptions = {}
 ) => {
   const newSeq = isSequenced ? Sequence(text) : text;
-  const rmvCantillation = Remove(newSeq);
+  const rmvCantillation = Remove(newSeq, { removeShinDot: true });
   const titTat = titForTat(rmvCantillation);
   const array = titTat.split(/(\s|\S*\-)/);
   const sanitized = qametsQatan ? qametsQ(array) : array;
