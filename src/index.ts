@@ -11,11 +11,19 @@ export const transliterate = (
   return Transliterate(normalized, { isSequenced: isSequenced, qametsQatan: qametsQatan, isSimple: isSimple });
 };
 
-export const remove = (text: string, { removeVowels = false }: RemoveOptions = {}) => {
+export const remove = (
+  text: string,
+  { removeVowels = false, removeShinDot = false, removeSinDot = false }: RemoveOptions = {}
+) => {
   let normalized = text.normalize("NFKD");
-  let removed = Remove(normalized, { removeVowels: removeVowels });
+  let removed = Remove(normalized, {
+    removeVowels: removeVowels,
+    removeShinDot: removeShinDot,
+    removeSinDot: removeSinDot
+  });
   let noMetheg = removed.replace(/\u{05BD}/gu, "");
-  return noMetheg;
+  let sequenced = Sequence(noMetheg);
+  return sequenced;
 };
 
 export const sequence = (text: string) => {

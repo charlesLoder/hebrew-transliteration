@@ -6,6 +6,8 @@ export interface TransOptions {
 
 export interface RemoveOptions {
   removeVowels?: boolean;
+  removeShinDot?: boolean;
+  removeSinDot?: boolean;
 }
 
 export interface Dict {
