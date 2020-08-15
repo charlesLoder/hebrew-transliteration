@@ -1,26 +1,20 @@
 import { remove } from "../src/index";
 import { sequence } from "../src/index";
 
-test("remove ONLY the cantillation, keep shin dot", () => {
-  let test = "בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים הָאָֽרֶץ׃";
-  let result = sequence("בְּרֵאשִׁית בָּרָא אֱלֹהִים הָאָרֶץ");
+test("remove only the cantillation", () => {
+  let test = "שָׂרַ֣י אִשְׁתְּךָ֔";
+  let result = sequence("שָׂרַי אִשְׁתְּךָ");
   expect(remove(test)).toBe(result);
 });
 
-test("remove ONLY the cantillation, and shin dot", () => {
-  let test = "בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים הָאָֽרֶץ׃";
-  let result = sequence("בְּרֵאשִית בָּרָא אֱלֹהִים הָאָרֶץ");
-  expect(remove(test, { removeShinDot: true })).toBe(result);
-});
-
-test("remove cantillation AND vowels, keep shin dot", () => {
-  let test = "בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים הָאָֽרֶץ׃";
-  let result = sequence("בראשׁית ברא אלהים הארץ");
+test("remove cantillation and vowels, keep shin/sin dot", () => {
+  let test = "שָׂרַ֣י אִשְׁתְּךָ֔";
+  let result = sequence("שׂרי אשׁתך");
   expect(remove(test, { removeVowels: true })).toBe(result);
 });
 
-test("remove cantillation AND vowels, and shin dot", () => {
-  let test = "בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים הָאָֽרֶץ׃";
-  let result = sequence("בראשית ברא אלהים הארץ");
-  expect(remove(test, { removeVowels: true, removeShinDot: true })).toBe(result);
+test("remove cantillation and vowels, and shin/sin dot", () => {
+  let test = "שָׂרַ֣י אִשְׁתְּךָ֔";
+  let result = sequence("שרי אשתך");
+  expect(remove(test, { removeVowels: true, removeShinDot: true, removeSinDot: true })).toBe(result);
 });
