@@ -97,7 +97,7 @@ const academicRules = (array: string[], { isSimple = false }: TransOptions = {})
         if (/ǝ|a|e|i|u|o/.test(element.charAt(pos - 2))) {
           // if it SQeNeM LeVY letters in wayyiqtol forms
           if (/s|ṣ|š|ś|q|n|m|l|w|y/.test(element.charAt(pos - 1)) && /w/.test(element.charAt(pos - 3))) {
-            element;
+            element = element;
           } else {
             element = changeElementSubstr(element, pos, "");
           }
@@ -235,9 +235,9 @@ const simpleRules = (array: string[]) => {
 
     // spirantized cons
 
-    /* Since the negative lookbehind regex is not well supported, 
+    /* Since the negative lookbehind regex is not well supported,
     the string is reversed and then the regex searches the pattern of
-    the consonant that is followed by a vowel (which preceded it in the original direction) 
+    the consonant that is followed by a vowel (which preceded it in the original direction)
     */
 
     let rev = [...element].reverse().reduce((a, c) => a + c, "");
@@ -300,6 +300,6 @@ const simpleRules = (array: string[]) => {
 };
 
 export const testEach = (array: string[], { qametsQatan = false, isSimple = false }: TransOptions = {}) => {
-  const academic = academicRules(array, { qametsQatan: qametsQatan, isSimple: isSimple });
+  const academic = academicRules(array, { qametsQatan, isSimple });
   return !isSimple ? academic : simpleRules(academic);
 };

@@ -14,7 +14,7 @@ export const Transliterate = (
   const titTat = titForTat(rmvCantillation);
   const array = titTat.split(/(\s|\S*\-)/);
   const sanitized = qametsQatan ? qametsQ(array) : array;
-  const modArray = testEach(sanitized, { isSimple: isSimple });
+  const modArray = testEach(sanitized, { isSimple });
   const transliteration = modArray.reduce((a, c) => a + c, "");
   return transliteration;
 };

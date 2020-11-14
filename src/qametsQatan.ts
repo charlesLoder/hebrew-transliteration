@@ -99,22 +99,21 @@ export const qametsQ = (text: string[]) => {
     }
 
     if (/ŏ/.test(word)) {
-      let pos = word.indexOf("ŏ");
+      const pos = word.indexOf("ŏ");
       if (word.charAt(pos - 2) === "ā") {
         return word.substring(pos - 2) + "o" + word.substring(pos - 1);
       }
     }
 
-    for (let index = 0; index < qQRgx.length; index++) {
-      const rgx = qQRgx[index];
+    for (const rgx of qQRgx) {
       if (rgx.test(word)) {
         let newRgx = rgx.source.split("ā").join("o");
         const matches = rgx.source.match(/ā/g);
 
         // checks for qQ forms w/ two ā's
         if (matches && matches.length >= 2) {
-          let parts = rgx.source.split("ā");
-          let firstMatch = [parts.shift(), parts.join("ā")];
+          const parts = rgx.source.split("ā");
+          const firstMatch = [parts.shift(), parts.join("ā")];
           newRgx = firstMatch.join("o");
         }
 
