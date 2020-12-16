@@ -295,6 +295,11 @@ const simpleRules = (array: string[]) => {
       element = changeElementSplit(element, /w/, "v");
     }
 
+    //  tests for yhwh
+    if (element === "yehvah") {
+      element = "yhwh";
+    }
+
     return element;
   }); // map
 };

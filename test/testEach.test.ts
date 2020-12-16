@@ -128,4 +128,10 @@ describe("using simple style", () => {
   test("shin > sh, and no doubling", () => {
     expect(testEach(["šālôm", "maššāʿ"], { isSimple: true })).toEqual(["shalom", "masha"]);
   });
+
+  describe("divine name", () => {
+    test("check for divine name", () => {
+      expect(testEach(["yǝhwâ", "yǝhwâ", "yhwâ"], { isSimple: true })).toEqual(["yhvh", "yhvh", "yhvh"]);
+    });
+  });
 });
