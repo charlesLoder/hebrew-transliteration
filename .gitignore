@@ -12,7 +12,6 @@ CVS
 npm-debug.log
 node_modules
 *.tgz
-package-lock.json
 /.vscode
 foo.js
 /dist
