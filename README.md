@@ -103,6 +103,8 @@ Use it live at [charlesLoder.github.io/hebrewTransliteration](https://charleslod
   - rewrote in in TypeScript
   - added `isSimple` option to `transliterate()` for SBL's General Purpose Style
 - v1.3.0: added `removeShinDot` and `removeSinDot` option to `remove()` for more granular control
+- v1.3.1: fixed Divine Name not correct using simple transliteration
+- v1.3.2: fixed incorrect qamets qatan before qamets chatuph
 
 ## Contributing
 
