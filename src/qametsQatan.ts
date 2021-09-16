@@ -99,10 +99,7 @@ export const qametsQ = (text: string[]) => {
     }
 
     if (/ŏ/.test(word)) {
-      const pos = word.indexOf("ŏ");
-      if (word.charAt(pos - 2) === "ā") {
-        return word.substring(pos - 2) + "o" + word.substring(pos - 1);
-      }
+      return word.replace("ā", "o");
     }
 
     for (const rgx of qQRgx) {

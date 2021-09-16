@@ -187,6 +187,10 @@ describe("using default academic style", () => {
     test("bošet (2)", () => {
       expect(transliterate("וּ֭בָשְׁתִּי וּכְלִמָּתִ֑י", { qametsQatan: true })).toEqual("ûboštî ûkǝlimmātî");
     });
+
+    test("qamets followed by qamets chatuph", () => {
+      expect(transliterate("פָּעֳלֹו", { qametsQatan: true })).toEqual("poʿŏlô");
+    });
   });
 
   describe("sequence", () => {
