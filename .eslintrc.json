@@ -1,0 +1,13 @@
+{
+  "env": {
+    "node": true,
+    "browser": true,
+    "jest": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["eslint-plugin-jsdoc", "eslint-plugin-prefer-arrow", "@typescript-eslint"],
+  "extends": ["plugin:@typescript-eslint/recommended-requiring-type-checking", "prettier"],
+  "parserOptions": {
+    "project": "./tsconfig.eslintrc.json"
+  }
+}
