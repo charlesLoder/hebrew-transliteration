@@ -13,5 +13,5 @@ npm-debug.log
 node_modules
 *.tgz
 /.vscode
-foo.js
+*.test.js
 /dist
