@@ -1,17 +1,13 @@
-import { TransOptions } from "./interfaces";
 import { sequence } from "./sequence";
 import { remove } from "./remove";
 import { titForTat } from "./titForTat";
 import { testEach } from "./testEach";
 
-export const transliterate = (
-  text: string,
-  { isSequenced = true, qametsQatan = false, isSimple = false }: TransOptions = {}
-) => {
-  const newSeq = isSequenced ? sequence(text, qametsQatan) : text;
+export const transliterate = (text: string, qametsQatan = false) => {
+  const newSeq = sequence(text, qametsQatan);
   const rmvCantillation = remove(newSeq, { removeShinDot: true });
   const titTat = titForTat(rmvCantillation);
   const array = titTat.split(/(\s|\S*\-)/);
-  const modArray = testEach(array, { isSimple });
+  const modArray = testEach(array);
   return modArray.join("");
 };

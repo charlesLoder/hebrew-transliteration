@@ -1,9 +1,3 @@
-export interface TransOptions {
-  isSequenced?: boolean;
-  qametsQatan?: boolean;
-  isSimple?: boolean;
-}
-
 /**
  * Options for the `remove()` function
  */
