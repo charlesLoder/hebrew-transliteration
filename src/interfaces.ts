@@ -37,10 +37,6 @@ export interface RemoveOptions {
   removeSinDot?: boolean;
 }
 
-export interface Dict {
-  [key: string]: string;
-}
-
 export interface Schema {
   // vowel characters
   VOCAL_SHEVA: string; // HEBREW POINT SHEVA (U+05B0)
