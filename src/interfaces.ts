@@ -31,69 +31,392 @@ export interface RemoveOptions {
   removeSinDot?: boolean;
 }
 
+/**
+ * interface for defining a schema for transliteration
+ */
 export interface Schema {
-  // vowel characters
-  VOCAL_SHEVA: string; // HEBREW POINT SHEVA (U+05B0)
-  HATAF_SEGOL: string; // HEBREW POINT HATAF SEGOL (U+05B1)
-  HATAF_PATAH: string; // HEBREW POINT HATAF PATAH (U+05B2)
-  HATAF_QAMATS: string; // HEBREW POINT HATAF QAMATS (U+05B3)
-  HIRIQ: string; // HEBREW POINT HIRIQ (U+05B4)
-  TSERE: string; // HEBREW POINT TSERE (U+05B5)
-  SEGOL: string; // HEBREW POINT SEGOL (U+05B6)
-  PATAH: string; // HEBREW POINT PATAH (U+05B7)
-  QAMATS: string; // HEBREW POINT QAMATS (U+05B8)
-  HOLAM: string; // HEBREW POINT HOLAM (U+05B9)
-  QUBUTS: string; // HEBREW POINT QUBUTS (U+05BB)
-  DAGESH: string; // HEBREW POINT DAGESH OR MAPIQ (U+05BC)
-  METEG: string; // HEBREW POINT METEG (U+05BD)
-  MAQAF: string; // HEBREW PUNCTUATION MAQAF (U+05BE)
-  QAMATS_QATAN: string; // HEBREW POINT QAMATS QATAN (U+05C7)
+  [k: string]: any;
+  /**
+   * HEBREW POINT SHEVA (U+05B0) ְ◌
+   * @example
+   * 'ǝ'
+   */
+  VOCAL_SHEVA: string;
+  /**
+   * HEBREW POINT HATAF SEGOL (U+05B1) ֱ◌
+   * @example
+   * 'ĕ'
+   */
+  HATAF_SEGOL: string;
+  /**
+   * HEBREW POINT HATAF PATAH (U+05B2) ֲ◌
+   * @example
+   * 'ă'
+   */
+  HATAF_PATAH: string;
+  /**
+   * HEBREW POINT HATAF QAMATS (U+05B3) ֳ◌
+   * @example
+   * 'ŏ'
+   */
+  HATAF_QAMATS: string;
+  /**
+   * HEBREW POINT HIRIQ (U+05B4) ִ◌
+   * @example
+   * 'i'
+   */
+  HIRIQ: string;
+  /**
+   * HEBREW POINT TSERE (U+05B5) ֵ◌
+   * @example
+   * 'ē'
+   */
+  TSERE: string;
+  /**
+   * HEBREW POINT SEGOL (U+05B6) ֶ◌
+   * @example
+   * 'e'
+   */
+  SEGOL: string;
+  /**
+   * HEBREW POINT PATAH (U+05B7) ַ◌
+   * @example
+   * 'a'
+   */
+  PATAH: string;
+  /**
+   * HEBREW POINT QAMATS (U+05B8) ָ◌
+   * @example
+   * 'ā'
+   */
+  QAMATS: string;
+  /**
+   * HEBREW POINT HOLAM (U+05B9) ֹ◌
+   * @example
+   * 'ō'
+   */
+  HOLAM: string;
+  /**
+   * HEBREW POINT QUBUTS (U+05BB) ֻ◌
+   * @example
+   * 'u'
+   */
+  QUBUTS: string;
+  /**
+   * HEBREW POINT DAGESH OR MAPIQ (U+05BC) ּ◌
+   * @description if true, repeats the consonant with the dagesh
+   * @example
+   * ```js
+   * transliterate('שַׁבָּת', { DAGESH_CHAZAQ: true });
+   * // 'shabbat'
+   * ```
+   */
+  DAGESH_CHAZAQ: boolean;
+  /**
+   * HEBREW PUNCTUATION MAQAF (U+05BE) ־◌
+   * @example
+   * '-'
+   */
+  MAQAF: string;
+  /**
+   * HEBREW POINT QAMATS QATAN (U+05C7) ׇ◌
+   * @example
+   * 'o'
+   */
+  QAMATS_QATAN: string;
+  /**
+   * HEBREW POINT PATAH (U+05B7) ◌ַ
+   * @example
+   * 'a'
+   */
   FURTIVE_PATAH: string;
-  // vowel-consonant sequences
+  /**
+   * HEBREW POINT HIRIQ (U+05B4) and YOD (U+05D9) י◌ִ
+   * @example
+   * 'î'
+   */
   HIRIQ_YOD: string;
+  /**
+   * HEBREW POINT TSERE (U+05B5) and YOD (U+05D9) י◌ֵ
+   * @example
+   * 'ê'
+   */
   TSERE_YOD: string;
+  /**
+   * HEBREW POINT SEGOL (U+05B6) and YOD (U+05D9) י◌ֶ
+   * @example
+   * 'ê'
+   */
   SEGOL_YOD: string;
+  /**
+   * HEBREW LETTER VAV (U+05D5) and DAGESH (U+05BC) וּ
+   * @example
+   * 'û'
+   */
   SHUREQ: string;
+  /**
+   * HEBREW LETTER HOLAM (U+05B9) and VAV (U+05D5) ֹו◌
+   * @example
+   * 'ô'
+   */
   HOLAM_VAV: string;
+  /**
+   * HEBREW POINT QAMATS (U+05B8) and HE (U+05D4) ה◌ָ
+   * @example
+   * 'â'
+   */
   QAMATS_HE: string;
+  /**
+   * HEBREW LETTER QAMATS (U+05B8) and YOD (U+05D9) and VAV (U+05D5) יו◌ָ
+   * @example
+   * 'āyw'
+   */
   MS_SUFX: string;
-  // consonant characters
-  ALEF: string; // HEBREW LETTER ALEF (U+05D0)
-  BET: string; // HEBREW LETTER BET (U+05D1)
-  GIMEL: string; // HEBREW LETTER GIMEL (U+05D2)
-  DALET: string; // HEBREW LETTER DALET (U+05D3)
-  HE: string; // HEBREW LETTER HE (U+05D4)
-  VAV: string; // HEBREW LETTER VAV (U+05D5)
-  ZAYIN: string; // HEBREW LETTER ZAYIN (U+05D6)
-  HET: string; // HEBREW LETTER HET (U+05D7)
-  TET: string; // HEBREW LETTER TET (U+05D8)
-  YOD: string; // HEBREW LETTER YOD (U+05D9)
-  FINAL_KAF: string; // HEBREW LETTER FINAL KAF (U+05DA)
-  KAF: string; // HEBREW LETTER KAF (U+05DB)
-  LAMED: string; // HEBREW LETTER LAMED (U+05DC)
-  FINAL_MEM: string; // HEBREW LETTER FINAL MEM (U+05DD)
-  MEM: string; // HEBREW LETTER MEM (U+05DE)
-  FINAL_NUN: string; // HEBREW LETTER FINAL NUN (U+05DF)
-  NUN: string; // HEBREW LETTER NUN (U+05E0)
-  SAMEKH: string; // HEBREW LETTER SAMEKH (U+05E1)
-  AYIN: string; // HEBREW LETTER AYIN (U+05E2)
-  FINAL_PE: string; // HEBREW LETTER FINAL PE (U+05E3)
-  PE: string; // HEBREW LETTER PE (U+05E4)
-  FINAL_TSADI: string; // HEBREW LETTER FINAL TSADI (U+05E5)
-  TSADI: string; // HEBREW LETTER TSADI (U+05E6)
-  QOF: string; // HEBREW LETTER QOF (U+05E7)
-  RESH: string; // HEBREW LETTER RESH (U+05E8)
-  SHIN: string; // HEBREW LETTER SHIN (U+05E9)
-  TAV: string; // HEBREW LETTER TAV (U+05EA)
-  TRIANGLE: string; // HEBREW YOD TRIANGLE (U+05EF)
-  DOUBLE_VAV: string; // HEBREW LIGATURE YIDDISH DOUBLE VAV (U+05F0)
-  VAV_YOD: string; // HEBREW LIGATURE YIDDISH VAV YOD (U+05F1)
-  DOUBLE_YOD: string; // HEBREW LIGATURE YIDDISH DOUBLE YOD (U+05F2)
-  // spirantized form
-  BET_DAGESH: string;
-  GIMEL_DAGESH: string;
-  DALET_DAGESH: string;
-  KAF_DAGESH: string;
-  PE_DAGESH: string;
-  TAV_DAGESH: string;
+  /**
+   * HEBREW LETTER ALEF (U+05D0) א
+   * @example
+   * 'ʾ'
+   */
+  ALEF: string;
+  /**
+   * HEBREW LETTER BET (U+05D1) ב
+   * @example
+   * 'b' or 'v'
+   */
+  BET: string;
+  /**
+   * HEBREW LETTER BET (U+05D1) and DAGESH (U+05BC) ּב
+   * @description
+   * the letter bet with a dagesh kal
+   * @description
+   * use when need to distinguish between spirantized forms
+   * @example
+   * 'b'
+   */
+  BET_DAGESH?: string;
+  /**
+   * HEBREW LETTER GIMEL (U+05D2) ג
+   * @example
+   * 'g'
+   */
+  GIMEL: string;
+  /**
+   * HEBREW LETTER GIMEL (U+05D2) and DAGESH (U+05BC) גּ
+   * @description
+   * the letter gimel with a dagesh kal
+   * @description
+   * use when need to distinguish between spirantized forms
+   * @example
+   * 'g'
+   */
+  GIMEL_DAGESH?: string;
+  /**
+   * HEBREW LETTER DALET (U+05D3) ד
+   * @example
+   * 'd'
+   */
+  DALET: string;
+  /**
+   * HEBREW LETTER DALET (U+05D3) and DAGESH (U+05BC) דּ
+   * @description
+   * the letter dalet with a dagesh kal
+   * @description
+   * use when need to distinguish between spirantized forms
+   * @example
+   * 'd'
+   */
+  DALET_DAGESH?: string;
+  /**
+   * HEBREW LETTER HE (U+05D4) ה
+   * @example
+   * 'h'
+   */
+  HE: string;
+  /**
+   * HEBREW LETTER VAV (U+05D5) ו
+   * @example
+   * 'w'
+   */
+  VAV: string;
+  /**
+   * HEBREW LETTER ZAYIN (U+05D6) ז
+   * @example
+   * 'z'
+   */
+  ZAYIN: string;
+  /**
+   * HEBREW LETTER HET (U+05D7) ח
+   * @example
+   * 'ḥ'
+   */
+  HET: string;
+  /**
+   * HEBREW LETTER TET (U+05D8) ט
+   * @example
+   * 'ṭ'
+   */
+  TET: string;
+  /**
+   * HEBREW LETTER YOD (U+05D9) י
+   * @example
+   * 'y'
+   */
+  YOD: string;
+  /**
+   * HEBREW LETTER FINAL KAF (U+05DA) ך
+   * @example
+   * 'k' or 'kh'
+   */
+  FINAL_KAF: string;
+  /**
+   * HEBREW LETTER KAF (U+05DB) כ
+   * @example
+   * 'k' or 'kh'
+   */
+  KAF: string;
+  /**
+   * HEBREW LETTER KAF (U+05DB) and DAGESH (U+05BC) כּ
+   * @description
+   * the letter kaf with a dagesh kal
+   * @description
+   * use when need to distinguish between spirantized forms
+   * @example
+   * 'k'
+   */
+  KAF_DAGESH?: string;
+  /**
+   * HEBREW LETTER LAMED (U+05DC) ל
+   * @example
+   * 'l'
+   */
+  LAMED: string;
+  /**
+   * HEBREW LETTER FINAL MEM (U+05DD) ם
+   * @example
+   * 'm'
+   */
+  FINAL_MEM: string;
+  /**
+   * HEBREW LETTER MEM (U+05DE) מ
+   * @example
+   * 'm'
+   */
+  MEM: string;
+  /**
+   * HEBREW LETTER FINAL NUN (U+05DF) ן
+   * @example
+   * 'n'
+   */
+  FINAL_NUN: string;
+  /**
+   * HEBREW LETTER NUN (U+05E0) נ
+   * @example
+   * 'n'
+   */
+  NUN: string;
+  /**
+   * HEBREW LETTER SAMEKH (U+05E1) ס
+   * @example
+   * 's'
+   */
+  SAMEKH: string;
+  /**
+   * HEBREW LETTER AYIN (U+05E2) ע
+   * @example
+   * 'ʿ'
+   */
+  AYIN: string;
+  /**
+   * HEBREW LETTER FINAL PE (U+05E3) ף
+   * @example
+   * 'p' or 'f'
+   */
+  FINAL_PE: string;
+  /**
+   * HEBREW LETTER PE (U+05E4) פ
+   * @example
+   * 'p' or 'f'
+   */
+  PE: string;
+  /**
+   * HEBREW LETTER  PE (U+05E4) and DAGESH (U+05BC) פּ
+   * @description
+   * the letter pe with a dagesh kal
+   * @description
+   * use when need to distinguish between spirantized forms
+   * @example
+   * 'p'
+   */
+  PE_DAGESH?: string;
+  /**
+   * HEBREW LETTER FINAL TSADI (U+05E5) ץ
+   * @example
+   * 'ṣ'
+   */
+  FINAL_TSADI: string;
+  /**
+   * HEBREW LETTER TSADI (U+05E6) צ
+   * @example
+   * 'ṣ'
+   */
+  TSADI: string;
+  /**
+   * HEBREW LETTER QOF (U+05E7) ק
+   * @example
+   * 'q'
+   */
+  QOF: string;
+  /**
+   * HEBREW LETTER RESH (U+05E8) ר
+   * @example
+   * 'r'
+   */
+  RESH: string;
+  /**
+   * HEBREW LETTER SHIN (U+05E9) and SHIN DOT (U+05C1) שׁ
+   * @example
+   * 'š'
+   */
+  SHIN: string;
+  /**
+   * HEBREW LETTER SHIN (U+05E9) and SIN DOT (U+05C2) שׁ
+   * @example
+   * 'ś'
+   */
+  SIN: string;
+  /**
+   * HEBREW LETTER TAV (U+05EA) ת
+   * @example
+   * 't' or 'th'
+   */
+  TAV: string;
+  /**
+   * HEBREW LETTER TAV (U+05EA) and DAGESH (U+05BC) תּ
+   * @description
+   * the letter tav with a dagesh kal
+   * @description
+   * use when need to distinguish between spirantized forms
+   * @example
+   * 't'
+   */
+  TAV_DAGESH?: string;
+  /**
+   * define additional sequences of characters
+   * @example
+   * [{
+   *   HEBREW: 'זּ',
+   *   TRANSLITERATION: 'dz'
+   * }]
+   */
+  ADDITIONAL_SEQUENCES?: { HEBREW: string; TRANSLITERATION: string }[];
+  /**
+   * the full form of the divine name - יהוה
+   * @example
+   * 'yhwh'
+   */
+  DIVINE_NAME: string;
+}
+
+export interface map {
+  [k: string]: keyof Schema;
 }
