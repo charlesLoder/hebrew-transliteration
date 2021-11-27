@@ -1,17 +1,23 @@
-import { TransOptions } from "./interfaces";
-import { sequence } from "./sequence";
-import { remove } from "./remove";
-import { titForTat } from "./titForTat";
-import { testEach } from "./testEach";
+import { vowels } from "./sequence";
+import { sylRules, wordRules } from "./rules";
+import { mapChars } from "./mapChars";
+import { SBL, Schema } from "./interfaces";
+import { Text } from "havarotjs";
+import { Word } from "havarotjs/dist/word";
 
-export const transliterate = (
-  text: string,
-  { isSequenced = true, qametsQatan = false, isSimple = false }: TransOptions = {}
-) => {
-  const newSeq = isSequenced ? sequence(text, qametsQatan) : text;
-  const rmvCantillation = remove(newSeq, { removeShinDot: true });
-  const titTat = titForTat(rmvCantillation);
-  const array = titTat.split(/(\s|\S*\-)/);
-  const modArray = testEach(array, { isSimple });
-  return modArray.join("");
+export const transliterate = (text: string | Text, schema?: Partial<Schema> | Schema) => {
+  const transSchema = schema instanceof Schema ? schema : new SBL(schema ?? {});
+  const isText = text instanceof Text;
+  // prevents Text from throwing error when no vowels
+  if (!isText && !vowels.test(text)) return mapChars(text, transSchema);
+  const newText = isText ? text : new Text(text, transSchema);
+  return newText.words
+    .map((word) => {
+      let transliteration = wordRules(word, transSchema);
+      if (transliteration instanceof Word) {
+        transliteration = word.syllables.map((s) => sylRules(s, transSchema)).join("");
+      }
+      return `${transliteration}${word.whiteSpaceAfter}`;
+    })
+    .join("");
 };
