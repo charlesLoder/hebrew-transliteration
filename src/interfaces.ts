@@ -34,10 +34,9 @@ export interface RemoveOptions {
 }
 
 /**
- * interface for defining a schema for transliteration
+ * class for defining a schema for transliteration
  */
-export interface Schema {
-  [k: string]: any;
+export class Schema {
   /**
    * HEBREW POINT SHEVA (U+05B0) ְ◌
    * @example
@@ -417,6 +416,117 @@ export interface Schema {
    * 'yhwh'
    */
   DIVINE_NAME: string;
+  constructor(schema: Schema) {
+    (this.VOCAL_SHEVA = schema.VOCAL_SHEVA),
+      (this.HATAF_SEGOL = schema.HATAF_SEGOL),
+      (this.HATAF_PATAH = schema.HATAF_PATAH),
+      (this.HATAF_QAMATS = schema.HATAF_QAMATS),
+      (this.HIRIQ = schema.HIRIQ),
+      (this.TSERE = schema.TSERE),
+      (this.SEGOL = schema.SEGOL),
+      (this.PATAH = schema.PATAH),
+      (this.QAMATS = schema.QAMATS),
+      (this.HOLAM = schema.HOLAM),
+      (this.QUBUTS = schema.QUBUTS),
+      (this.DAGESH_CHAZAQ = schema.DAGESH_CHAZAQ || true),
+      (this.MAQAF = schema.MAQAF),
+      (this.QAMATS_QATAN = schema.QAMATS_QATAN),
+      (this.FURTIVE_PATAH = schema.FURTIVE_PATAH),
+      (this.HIRIQ_YOD = schema.HIRIQ_YOD),
+      (this.TSERE_YOD = schema.TSERE_YOD),
+      (this.SEGOL_YOD = schema.SEGOL_YOD),
+      (this.SHUREQ = schema.SHUREQ),
+      (this.HOLAM_VAV = schema.HOLAM_VAV),
+      (this.QAMATS_HE = schema.QAMATS_HE),
+      (this.MS_SUFX = schema.MS_SUFX),
+      (this.ALEF = schema.ALEF),
+      (this.BET = schema.BET),
+      (this.GIMEL = schema.GIMEL),
+      (this.DALET = schema.DALET),
+      (this.HE = schema.HE),
+      (this.VAV = schema.VAV),
+      (this.ZAYIN = schema.ZAYIN),
+      (this.HET = schema.HET),
+      (this.TET = schema.TET),
+      (this.YOD = schema.YOD),
+      (this.FINAL_KAF = schema.FINAL_KAF),
+      (this.KAF = schema.KAF),
+      (this.LAMED = schema.LAMED),
+      (this.FINAL_MEM = schema.FINAL_MEM),
+      (this.MEM = schema.MEM),
+      (this.FINAL_NUN = schema.FINAL_NUN),
+      (this.NUN = schema.NUN),
+      (this.SAMEKH = schema.SAMEKH),
+      (this.AYIN = schema.AYIN),
+      (this.FINAL_PE = schema.FINAL_PE),
+      (this.PE = schema.PE),
+      (this.FINAL_TSADI = schema.FINAL_TSADI),
+      (this.TSADI = schema.TSADI),
+      (this.QOF = schema.QOF),
+      (this.RESH = schema.RESH),
+      (this.SHIN = schema.SHIN),
+      (this.SIN = schema.SIN),
+      (this.TAV = schema.TAV),
+      (this.DIVINE_NAME = schema.DIVINE_NAME);
+  }
+}
+
+export class SBL extends Schema {
+  constructor(schema: Partial<Schema>) {
+    super({
+      VOCAL_SHEVA: schema.VOCAL_SHEVA || "ǝ",
+      HATAF_SEGOL: schema.HATAF_SEGOL || "ĕ",
+      HATAF_PATAH: schema.HATAF_PATAH || "ă",
+      HATAF_QAMATS: schema.HATAF_QAMATS || "ŏ",
+      HIRIQ: schema.HIRIQ || "i",
+      TSERE: schema.TSERE || "ē",
+      SEGOL: schema.SEGOL || "e",
+      PATAH: schema.PATAH || "a",
+      QAMATS: schema.QAMATS || "ā",
+      HOLAM: schema.HOLAM || "ō",
+      QUBUTS: schema.QUBUTS || "ū",
+      DAGESH_CHAZAQ: schema.DAGESH_CHAZAQ || true,
+      MAQAF: schema.MAQAF || "-",
+      QAMATS_QATAN: schema.QAMATS_QATAN || "o",
+      FURTIVE_PATAH: schema.FURTIVE_PATAH || "a",
+      HIRIQ_YOD: schema.HIRIQ_YOD || "î",
+      TSERE_YOD: schema.TSERE_YOD || "ê",
+      SEGOL_YOD: schema.SEGOL_YOD || "ê",
+      SHUREQ: schema.SHUREQ || "û",
+      HOLAM_VAV: schema.HOLAM_VAV || "ô",
+      QAMATS_HE: schema.QAMATS_HE || "â",
+      MS_SUFX: schema.MS_SUFX || "āyw",
+      ALEF: schema.ALEF || "ʾ",
+      BET: schema.BET || "b",
+      GIMEL: schema.GIMEL || "g",
+      DALET: schema.DALET || "d",
+      HE: schema.HE || "h",
+      VAV: schema.VAV || "w",
+      ZAYIN: schema.ZAYIN || "z",
+      HET: schema.HET || "ḥ",
+      TET: schema.TET || "ṭ",
+      YOD: schema.YOD || "y",
+      FINAL_KAF: schema.FINAL_KAF || "k",
+      KAF: schema.KAF || "k",
+      LAMED: schema.LAMED || "l",
+      FINAL_MEM: schema.FINAL_MEM || "m",
+      MEM: schema.MEM || "m",
+      FINAL_NUN: schema.FINAL_NUN || "n",
+      NUN: schema.NUN || "n",
+      SAMEKH: schema.SAMEKH || "s",
+      AYIN: schema.AYIN || "ʿ",
+      FINAL_PE: schema.FINAL_PE || "p",
+      PE: schema.PE || "p",
+      FINAL_TSADI: schema.FINAL_TSADI || "ṣ",
+      TSADI: schema.TSADI || "ṣ",
+      QOF: schema.QOF || "q",
+      RESH: schema.RESH || "r",
+      SHIN: schema.SHIN || "š",
+      SIN: schema.SIN || "ś",
+      TAV: schema.TAV || "t",
+      DIVINE_NAME: schema.DIVINE_NAME || "yhwh"
+    });
+  }
 }
 
 export interface map {
