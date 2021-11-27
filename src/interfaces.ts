@@ -36,7 +36,7 @@ export interface RemoveOptions {
 /**
  * class for defining a schema for transliteration
  */
-export class Schema {
+export class Schema implements SylOpts {
   /**
    * HEBREW POINT SHEVA (U+05B0) ְ◌
    * @example
@@ -416,6 +416,10 @@ export class Schema {
    * 'yhwh'
    */
   DIVINE_NAME: string;
+  longVowels: SylOpts["longVowels"];
+  qametsQatan: SylOpts["qametsQatan"];
+  sqnmlvy: SylOpts["sqnmlvy"];
+  wawShureq: SylOpts["wawShureq"];
   constructor(schema: Schema) {
     (this.VOCAL_SHEVA = schema.VOCAL_SHEVA),
       (this.HATAF_SEGOL = schema.HATAF_SEGOL),
@@ -468,6 +472,10 @@ export class Schema {
       (this.SIN = schema.SIN),
       (this.TAV = schema.TAV),
       (this.DIVINE_NAME = schema.DIVINE_NAME);
+    this.longVowels = schema.longVowels;
+    this.qametsQatan = schema.qametsQatan;
+    this.sqnmlvy = schema.sqnmlvy;
+    this.wawShureq = schema.wawShureq;
   }
 }
 
@@ -524,7 +532,11 @@ export class SBL extends Schema {
       SHIN: schema.SHIN || "š",
       SIN: schema.SIN || "ś",
       TAV: schema.TAV || "t",
-      DIVINE_NAME: schema.DIVINE_NAME || "yhwh"
+      DIVINE_NAME: schema.DIVINE_NAME || "yhwh",
+      longVowels: true,
+      qametsQatan: true,
+      sqnmlvy: true,
+      wawShureq: true
     });
   }
 }
