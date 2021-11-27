@@ -1,3 +1,5 @@
+import { SylOpts } from "havarotjs/dist/text";
+
 /**
  * Options for the `remove()` function
  */
