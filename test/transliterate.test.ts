@@ -6,7 +6,7 @@ import { transliterate } from "../src/index";
 
 describe("using default options", () => {
   describe("basic tests", () => {
-    test.concurrent.each`
+    test.each`
       description                    | hebrew                           | transliteration
       ${"consonants"}                | ${"אבגדהוזחטיכךלמםנןסעפףצץקרשת"} | ${"ʾbgdhwzḥṭykklmmnnsʿppṣṣqršt"}
       ${"no special cases"}          | ${"רַ֛עַל"}                      | ${"raʿal"}
