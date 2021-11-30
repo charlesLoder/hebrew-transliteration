@@ -9,6 +9,11 @@ const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
 const changeElementSplit = (input: string, split: RegExp, join: string) => input.split(split).join(join);
 
 const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
+  // mappiq he
+  if (/ה\u{05BC}/u.test(clusterText)) {
+    return changeElementSplit(clusterText, /ה\u{05BC}/u, schema.HE);
+  }
+
   // dagesh chazaq
   const prevHasVowel = cluster.prev instanceof Cluster ? cluster.prev.hasVowel : false;
   if (schema.DAGESH_CHAZAQ && prevHasVowel && /\u{05BC}/u.test(clusterText)) {

@@ -24,6 +24,7 @@ describe("using default options", () => {
       ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"} | ${"masgēr"}
       ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"} | ${"minnǝzār"}
       ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}   | ${"maggāl"}
+      ${"mappiq he"}                       | ${"וְלַ֨הּ"}   | ${"wǝlah"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
