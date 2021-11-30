@@ -16,4 +16,13 @@ describe("using default options", () => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
   });
+
+  describe("dagesh tests", () => {
+    test.each`
+      description                        | hebrew       | transliteration
+      ${"dagesh lene beginning of word"} | ${"בֹּ֔סֶר"} | ${"bōser"}
+    `("$description", ({ hebrew, transliteration }) => {
+      expect(transliterate(hebrew)).toBe(transliteration);
+    });
+  });
 });
