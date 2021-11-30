@@ -19,8 +19,11 @@ describe("using default options", () => {
 
   describe("dagesh tests", () => {
     test.each`
-      description                        | hebrew       | transliteration
-      ${"dagesh lene beginning of word"} | ${"בֹּ֔סֶר"} | ${"bōser"}
+      description                          | hebrew         | transliteration
+      ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}   | ${"bōser"}
+      ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"} | ${"masgēr"}
+      ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"} | ${"minnǝzār"}
+      ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}   | ${"maggāl"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
