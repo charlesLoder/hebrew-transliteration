@@ -105,6 +105,13 @@ export class Schema implements SylOpts {
   QUBUTS: string;
   /**
    * HEBREW POINT DAGESH OR MAPIQ (U+05BC) ּ◌
+   * @description typically, this will be a blank string
+   * @example
+   * ''
+   */
+  DAGESH: string;
+  /**
+   * HEBREW POINT DAGESH OR MAPIQ (U+05BC) ּ◌
    * @description if true, repeats the consonant with the dagesh
    * @example
    * ```js
@@ -432,7 +439,8 @@ export class Schema implements SylOpts {
       (this.QAMATS = schema.QAMATS),
       (this.HOLAM = schema.HOLAM),
       (this.QUBUTS = schema.QUBUTS),
-      (this.DAGESH_CHAZAQ = schema.DAGESH_CHAZAQ || true),
+      (this.DAGESH = schema.DAGESH),
+      (this.DAGESH_CHAZAQ = schema.DAGESH_CHAZAQ),
       (this.MAQAF = schema.MAQAF),
       (this.QAMATS_QATAN = schema.QAMATS_QATAN),
       (this.FURTIVE_PATAH = schema.FURTIVE_PATAH),
@@ -493,6 +501,7 @@ export class SBL extends Schema {
       QAMATS: schema.QAMATS || "ā",
       HOLAM: schema.HOLAM || "ō",
       QUBUTS: schema.QUBUTS || "ū",
+      DAGESH: schema.DAGESH || "",
       DAGESH_CHAZAQ: schema.DAGESH_CHAZAQ || true,
       MAQAF: schema.MAQAF || "-",
       QAMATS_QATAN: schema.QAMATS_QATAN || "o",
