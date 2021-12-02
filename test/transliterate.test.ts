@@ -29,4 +29,17 @@ describe("using default options", () => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
   });
+
+  describe("mater tests", () => {
+    test.each`
+      description     | hebrew          | transliteration
+      ${"hiriq yod"}  | ${"עִ֔יר"}      | ${"ʿîr"}
+      ${"tsere yod"}  | ${"אֵ֤ין"}      | ${"ʾên"}
+      ${"seghol yod"} | ${"אֱלֹהֶ֑יךָ"} | ${"ʾĕlōhêkā"}
+      ${"holem vav"}  | ${"ס֣וֹא"}      | ${"sôʾ"}
+      ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʿēṣâ"}
+    `("$description", ({ hebrew, transliteration }) => {
+      expect(transliterate(hebrew)).toBe(transliteration);
+    });
+  });
 });
