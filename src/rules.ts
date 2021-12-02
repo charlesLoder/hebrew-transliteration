@@ -122,6 +122,11 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
     if (/\u{05B8}/u.test(prevText)) {
       return changeElementSplit(noMaterText, /\u{05B8}/u, schema.QAMATS_HE);
     }
+
+    // seghol
+    if (/\u{05B6}/u.test(prevText)) {
+      return changeElementSplit(noMaterText, /\u{05B6}/u, schema.SEGOL_HE);
+    }
   }
 
   return materText;

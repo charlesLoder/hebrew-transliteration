@@ -175,6 +175,12 @@ export class Schema implements SylOpts {
    */
   QAMATS_HE: string;
   /**
+   * HEBREW POINT SEGOL (U+05B6) and HE (U+05D4) ה◌ֶ
+   * @example
+   * 'ê'
+   */
+  SEGOL_HE: string;
+  /**
    * HEBREW LETTER QAMATS (U+05B8) and YOD (U+05D9) and VAV (U+05D5) יו◌ָ
    * @example
    * 'āyw'
@@ -450,6 +456,7 @@ export class Schema implements SylOpts {
       (this.SHUREQ = schema.SHUREQ),
       (this.HOLAM_VAV = schema.HOLAM_VAV),
       (this.QAMATS_HE = schema.QAMATS_HE),
+      (this.SEGOL_HE = schema.SEGOL_HE),
       (this.MS_SUFX = schema.MS_SUFX),
       (this.ALEF = schema.ALEF),
       (this.BET = schema.BET),
@@ -512,6 +519,7 @@ export class SBL extends Schema {
       SHUREQ: schema.SHUREQ || "û",
       HOLAM_VAV: schema.HOLAM_VAV || "ô",
       QAMATS_HE: schema.QAMATS_HE || "â",
+      SEGOL_HE: schema.SEGOL_HE || "ê",
       MS_SUFX: schema.MS_SUFX || "āyw",
       ALEF: schema.ALEF || "ʾ",
       BET: schema.BET || "b",

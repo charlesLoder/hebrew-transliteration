@@ -38,6 +38,7 @@ describe("using default options", () => {
       ${"seghol yod"} | ${"אֱלֹהֶ֑יךָ"} | ${"ʾĕlōhêkā"}
       ${"holem vav"}  | ${"ס֣וֹא"}      | ${"sôʾ"}
       ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʿēṣâ"}
+      ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"yiqrê"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
