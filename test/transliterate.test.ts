@@ -44,4 +44,14 @@ describe("using default options", () => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
   });
+
+  describe("mater edge tests", () => {
+    test.each`
+      description                        | hebrew             | transliteration
+      ${"const yod with hiriq as vowel"} | ${"יַ֣יִן"}        | ${"yayin"}
+      ${"final hiriq yod with maqaf"}    | ${"וַֽיְהִי־כֵֽן"} | ${"wayǝhî-kēn"}
+    `("$description", ({ hebrew, transliteration }) => {
+      expect(transliterate(hebrew)).toBe(transliteration);
+    });
+  });
 });

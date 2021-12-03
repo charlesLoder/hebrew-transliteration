@@ -89,11 +89,15 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
   const materText = mater.text;
   const prevText = (prev?.text || "").replace(taamim, "");
   // string comprised of all non-mater clusters in a syl with a mater
-  const noMaterText = syl.clusters
+  let noMaterText = syl.clusters
     .filter((c) => !c.isMater)
     .map((c) => c.text)
     .join("")
     .replace(taamim, "");
+
+  // workaround for maqaf
+  const hasMaqaf = mater.text.includes("־");
+  noMaterText = hasMaqaf ? noMaterText.concat("־") : noMaterText;
 
   if (/י/.test(materText)) {
     // hiriq
