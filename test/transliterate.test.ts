@@ -12,6 +12,7 @@ describe("using default options", () => {
       ${"no special cases"}          | ${"רַ֛עַל"}                      | ${"raʿal"}
       ${"preserve non-Hebrew chars"} | ${"v1. רַ֛עַל"}                  | ${"v1. raʿal"}
       ${"preserve line breaks"}      | ${"v1.\n רַ֛עַל"}                | ${"v1.\n raʿal"}
+      ${"multiple words and passeq"} | ${"רַ֛עַל ׀ רַ֛עַל"}             | ${"raʿal  raʿal"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
@@ -47,9 +48,10 @@ describe("using default options", () => {
 
   describe("mater edge tests", () => {
     test.each`
-      description                        | hebrew             | transliteration
-      ${"const yod with hiriq as vowel"} | ${"יַ֣יִן"}        | ${"yayin"}
-      ${"final hiriq yod with maqaf"}    | ${"וַֽיְהִי־כֵֽן"} | ${"wayǝhî-kēn"}
+      description                                  | hebrew             | transliteration
+      ${"const yod with hiriq as vowel"}           | ${"יַ֣יִן"}        | ${"yayin"}
+      ${"final hiriq yod with maqaf"}              | ${"וַֽיְהִי־כֵֽן"} | ${"wayǝhî-kēn"}
+      ${"hiriq followed by const yod (fake word)"} | ${"רִיֵם"}         | ${"riyēm"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });

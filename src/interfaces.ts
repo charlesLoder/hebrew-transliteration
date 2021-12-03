@@ -127,6 +127,18 @@ export class Schema implements SylOpts {
    */
   MAQAF: string;
   /**
+   * HEBREW PUNCTUATION PASEQ (U+05C0) ׀ ◌
+   * @description if a blank string, two spaces will occur between words
+   * @example
+   * '|' or ''
+   * @example
+   * ```js
+   * transliterate('כְּשֶׁ֣בֶת ׀ הַמֶּ֣לֶךְ', { PASEQ: '' });
+   * // 'kǝšebet  hammelek'
+   * ```
+   */
+  PASEQ: string;
+  /**
    * HEBREW POINT QAMATS QATAN (U+05C7) ׇ◌
    * @example
    * 'o'
@@ -454,6 +466,7 @@ export class Schema implements SylOpts {
       (this.DAGESH = schema.DAGESH),
       (this.DAGESH_CHAZAQ = schema.DAGESH_CHAZAQ),
       (this.MAQAF = schema.MAQAF),
+      (this.PASEQ = schema.PASEQ),
       (this.QAMATS_QATAN = schema.QAMATS_QATAN),
       (this.FURTIVE_PATAH = schema.FURTIVE_PATAH),
       (this.HIRIQ_YOD = schema.HIRIQ_YOD),
@@ -518,6 +531,7 @@ export class SBL extends Schema {
       DAGESH: schema.DAGESH || "",
       DAGESH_CHAZAQ: schema.DAGESH_CHAZAQ || true,
       MAQAF: schema.MAQAF || "-",
+      PASEQ: schema.PASEQ || "",
       QAMATS_QATAN: schema.QAMATS_QATAN || "o",
       FURTIVE_PATAH: schema.FURTIVE_PATAH || "a",
       HIRIQ_YOD: schema.HIRIQ_YOD || "î",
