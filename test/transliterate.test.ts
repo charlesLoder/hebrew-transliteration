@@ -39,6 +39,7 @@ describe("using default options", () => {
       ${"holem vav"}  | ${"ס֣וֹא"}      | ${"sôʾ"}
       ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʿēṣâ"}
       ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"yiqrê"}
+      ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hāʾaryê"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });

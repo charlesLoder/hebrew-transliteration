@@ -127,6 +127,11 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
     if (/\u{05B6}/u.test(prevText)) {
       return changeElementSplit(noMaterText, /\u{05B6}/u, schema.SEGOL_HE);
     }
+
+    // tsere
+    if (/\u{05B5}/u.test(prevText)) {
+      return changeElementSplit(noMaterText, /\u{05B5}/u, schema.SEGOL_HE);
+    }
   }
 
   return materText;
