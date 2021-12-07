@@ -13,6 +13,9 @@ describe("using default options", () => {
       ${"preserve non-Hebrew chars"} | ${"v1. רַ֛עַל"}                  | ${"v1. raʿal"}
       ${"preserve line breaks"}      | ${"v1.\n רַ֛עַל"}                | ${"v1.\n raʿal"}
       ${"multiple words and passeq"} | ${"רַ֛עַל ׀ רַ֛עַל"}             | ${"raʿal  raʿal"}
+      ${"furtive patach, chet"}      | ${"נֹ֖חַ"}                       | ${"nōaḥ"}
+      ${"furtive patach, ayin"}      | ${"רָקִ֖יעַ"}                    | ${"rāqîaʿ"}
+      ${"furtive patach, he"}        | ${"גָּבֹ֗הַּ"}                   | ${"gābōah"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
@@ -41,6 +44,7 @@ describe("using default options", () => {
       ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʿēṣâ"}
       ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"yiqrê"}
       ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hāʾaryê"}
+      ${"shureq"}     | ${"קוּם"}       | ${"qûm"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
@@ -48,10 +52,14 @@ describe("using default options", () => {
 
   describe("mater edge tests", () => {
     test.each`
-      description                                  | hebrew             | transliteration
-      ${"const yod with hiriq as vowel"}           | ${"יַ֣יִן"}        | ${"yayin"}
-      ${"final hiriq yod with maqaf"}              | ${"וַֽיְהִי־כֵֽן"} | ${"wayǝhî-kēn"}
-      ${"hiriq followed by const yod (fake word)"} | ${"רִיֵם"}         | ${"riyēm"}
+      description                                                            | hebrew             | transliteration
+      ${"const yod with hiriq as vowel"}                                     | ${"יַ֣יִן"}        | ${"yayin"}
+      ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"} | ${"wayǝhî-kēn"}
+      ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}         | ${"riyēm"}
+      ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}        | ${"ʿāwōn"}
+      ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}       | ${"ʿāwôn"}
+      ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"} | ${"ʿăwōnôtênû"}
+      ${"initial shureq"}                                                    | ${"וּמִן"}         | ${"ûmin"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });

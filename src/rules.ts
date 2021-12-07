@@ -10,8 +10,25 @@ const changeElementSplit = (input: string, split: RegExp, join: string) => input
 
 const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
   // mappiq he
-  if (/ה\u{05BC}/u.test(clusterText)) {
+  if (/ה\u{05BC}$/mu.test(clusterText)) {
     return changeElementSplit(clusterText, /ה\u{05BC}/u, schema.HE);
+  }
+
+  if (syl.isFinal && !syl.isClosed) {
+    const furtiveChet = /\u{05D7}\u{05B7}$/mu;
+    if (furtiveChet.test(clusterText)) {
+      return changeElementSplit(clusterText, furtiveChet, "\u{05B7}\u{05D7}");
+    }
+
+    const furtiveAyin = /\u{05E2}\u{05B7}$/mu;
+    if (furtiveAyin.test(clusterText)) {
+      return changeElementSplit(clusterText, furtiveAyin, "\u{05B7}\u{05E2}");
+    }
+
+    const furtiveHe = /\u{05D4}\u{05BC}\u{05B7}$/mu;
+    if (furtiveHe.test(clusterText)) {
+      return changeElementSplit(clusterText, furtiveHe, "\u{05B7}\u{05D4}\u{05BC}");
+    }
   }
 
   // dagesh chazaq
@@ -61,23 +78,6 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   if (cluster.hasShewa && syl.isClosed) {
     const shewa = /\u{05B0}/u;
     return clusterText.replace(shewa, "");
-  }
-
-  if (syl.isFinal && !syl.isClosed) {
-    const furtiveChet = /\u{05D7}\u{05B7}$/mu;
-    if (furtiveChet.test(clusterText)) {
-      return changeElementSplit(clusterText, furtiveChet, "\u{05B7}\u{05D7}");
-    }
-
-    const furtiveAyin = /\u{05E2}\u{05B7}$/mu;
-    if (furtiveAyin.test(clusterText)) {
-      return changeElementSplit(clusterText, furtiveAyin, "\u{05B7}\u{05E2}");
-    }
-
-    const furtiveHe = /\u{05D4}\u{05BC}\u{05B7}$/mu;
-    if (furtiveHe.test(clusterText)) {
-      return changeElementSplit(clusterText, furtiveHe, "\u{05B7}");
-    }
   }
 
   return clusterText;
