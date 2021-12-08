@@ -64,4 +64,26 @@ describe("using default options", () => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
   });
+
+  describe("spirantization and ligature tests", () => {
+    test.each`
+      description              | hebrew       | transliteration
+      ${"unspirantized bet"}   | ${"בָּ֣ם"}   | ${"bām"}
+      ${"spirantized bet"}     | ${"אָ֣ב"}    | ${"ʾāb"}
+      ${"unspirantized gimel"} | ${"גָּדַ֣ל"} | ${"gādal"}
+      ${"spirantized gimel"}   | ${"חָ֣ג"}    | ${"ḥāg"}
+      ${"unspirantized dalet"} | ${"דָּ֣ם"}   | ${"dām"}
+      ${"spirantized dalet"}   | ${"סַ֣ד"}    | ${"sad"}
+      ${"unspirantized kaf"}   | ${"כָּמָ֣ר"} | ${"kāmār"}
+      ${"spirantized kaf"}     | ${"לֵ֣ךְ"}   | ${"lēk"}
+      ${"unspirantized peh"}   | ${"פֹּ֣ה"}   | ${"pōh"}
+      ${"spirantized peh"}     | ${"אֶ֣לֶף"}  | ${"ʾelep"}
+      ${"unspirantized tav"}   | ${"תָּ֣ם"}   | ${"tām"}
+      ${"spirantized tav"}     | ${"מַ֣ת"}    | ${"mat"}
+      ${"shin"}                | ${"שֶׁ֣לֶם"}  | ${"šelem"}
+      ${"sin"}                 | ${"אָ֣רַשׂ"}  | ${"ʾāraś"}
+    `("$description", ({ hebrew, transliteration }) => {
+      expect(transliterate(hebrew)).toBe(transliteration);
+    });
+  });
 });
