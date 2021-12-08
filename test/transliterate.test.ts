@@ -63,6 +63,18 @@ describe("using default options", () => {
         expect(transliterate(hebrew)).toBe(transliteration);
       });
     });
+
+    describe("shewa", () => {
+      test.each`
+        description           | hebrew          | transliteration
+        ${"vocal shewa"}      | ${"סְלִ֣ק"}     | ${"sǝliq"}
+        ${"silent shewa"}     | ${"סַלְכָ֣ה"}   | ${"salkâ"}
+        ${"final shewa"}      | ${"כָּ֣ךְ"}     | ${"kāk"}
+        ${"two final shewas"} | ${"קָטַ֣לְתְּ"} | ${"qāṭalt"}
+      `("$description", ({ hebrew, transliteration }) => {
+        expect(transliterate(hebrew)).toBe(transliteration);
+      });
+    });
   });
 
   describe("mater features", () => {
