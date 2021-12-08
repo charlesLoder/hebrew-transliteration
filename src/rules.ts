@@ -68,7 +68,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   }
 
   if (/ש\u{05C2}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ש\u{05C1}/u, schema.SIN);
+    return changeElementSplit(clusterText, /ש\u{05C2}/u, schema.SIN);
   }
 
   if (cluster.isShureq) {
