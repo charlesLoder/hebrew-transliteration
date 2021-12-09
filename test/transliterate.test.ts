@@ -109,6 +109,17 @@ describe("using default options", () => {
       });
     });
   });
+
+  describe("divine name", () => {
+    test.each`
+      description             | hebrew           | transliteration
+      ${"by itself"}          | ${"יְהוָ֥ה"}     | ${"yhwh"}
+      ${"with a maqqef"}      | ${"אֶת־יְהוָ֤ה"} | ${"ʾet-yhwh"}
+      ${"with a preposition"} | ${"בַּֽיהוָ֔ה"}  | ${"ba-yhwh"}
+    `("$description", ({ hebrew, transliteration }) => {
+      expect(transliterate(hebrew)).toBe(transliteration);
+    });
+  });
 });
 
 describe("using custom schema (SBL simple)", () => {
@@ -280,6 +291,17 @@ describe("using custom schema (SBL simple)", () => {
       `("$description", ({ hebrew, transliteration }) => {
         expect(transliterate(hebrew, schema)).toBe(transliteration);
       });
+    });
+  });
+
+  describe("divine name", () => {
+    test.each`
+      description             | hebrew           | transliteration
+      ${"by itself"}          | ${"יְהוָ֥ה"}     | ${"yhwh"}
+      ${"with a maqqef"}      | ${"אֶת־יְהוָ֤ה"} | ${"et-yhwh"}
+      ${"with a preposition"} | ${"בַּֽיהוָ֔ה"}  | ${"ba-yhwh"}
+    `("$description", ({ hebrew, transliteration }) => {
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
     });
   });
 });
