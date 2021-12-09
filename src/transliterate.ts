@@ -26,7 +26,7 @@ export const transliterate = (text: string | Text, schema?: Partial<Schema> | Sc
   const isText = text instanceof Text;
   // prevents Text from throwing error when no vowels
   if (!isText && !vowels.test(text)) return mapChars(text, transSchema);
-  const sylOptions = getSylOpts(schema ?? {});
+  const sylOptions = getSylOpts(transSchema ?? {});
   const newText = isText ? text : new Text(text, sylOptions);
   return newText.words
     .map((word) => {
