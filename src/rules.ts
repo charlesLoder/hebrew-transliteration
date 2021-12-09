@@ -9,6 +9,28 @@ const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
 const changeElementSplit = (input: string, split: RegExp, join: string) => input.split(split).join(join);
 
 const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
+  // mappiq he
+  if (/ה\u{05BC}$/mu.test(clusterText)) {
+    return changeElementSplit(clusterText, /ה\u{05BC}/u, schema.HE);
+  }
+
+  if (syl.isFinal && !syl.isClosed) {
+    const furtiveChet = /\u{05D7}\u{05B7}$/mu;
+    if (furtiveChet.test(clusterText)) {
+      return changeElementSplit(clusterText, furtiveChet, "\u{05B7}\u{05D7}");
+    }
+
+    const furtiveAyin = /\u{05E2}\u{05B7}$/mu;
+    if (furtiveAyin.test(clusterText)) {
+      return changeElementSplit(clusterText, furtiveAyin, "\u{05B7}\u{05E2}");
+    }
+
+    const furtiveHe = /\u{05D4}\u{05BC}\u{05B7}$/mu;
+    if (furtiveHe.test(clusterText)) {
+      return changeElementSplit(clusterText, furtiveHe, "\u{05B7}\u{05D4}\u{05BC}");
+    }
+  }
+
   // dagesh chazaq
   const prevHasVowel = cluster.prev instanceof Cluster ? cluster.prev.hasVowel : false;
   if (schema.DAGESH_CHAZAQ && prevHasVowel && /\u{05BC}/u.test(clusterText)) {
@@ -46,7 +68,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   }
 
   if (/ש\u{05C2}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ש\u{05C1}/u, schema.SIN);
+    return changeElementSplit(clusterText, /ש\u{05C2}/u, schema.SIN);
   }
 
   if (cluster.isShureq) {
@@ -58,23 +80,6 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return clusterText.replace(shewa, "");
   }
 
-  if (syl.isFinal && !syl.isClosed) {
-    const furtiveChet = /\u{05D7}\u{05B7}$/mu;
-    if (furtiveChet.test(clusterText)) {
-      return changeElementSplit(clusterText, furtiveChet, "\u{05B7}\u{05D7}");
-    }
-
-    const furtiveAyin = /\u{05E2}\u{05B7}$/mu;
-    if (furtiveAyin.test(clusterText)) {
-      return changeElementSplit(clusterText, furtiveAyin, "\u{05B7}\u{05E2}");
-    }
-
-    const furtiveHe = /\u{05D4}\u{05BC}\u{05B7}$/mu;
-    if (furtiveHe.test(clusterText)) {
-      return changeElementSplit(clusterText, furtiveHe, "\u{05B7}");
-    }
-  }
-
   return clusterText;
 };
 
@@ -84,11 +89,15 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
   const materText = mater.text;
   const prevText = (prev?.text || "").replace(taamim, "");
   // string comprised of all non-mater clusters in a syl with a mater
-  const noMaterText = syl.clusters
+  let noMaterText = syl.clusters
     .filter((c) => !c.isMater)
     .map((c) => c.text)
     .join("")
     .replace(taamim, "");
+
+  // workaround for maqaf
+  const hasMaqaf = mater.text.includes("־");
+  noMaterText = hasMaqaf ? noMaterText.concat("־") : noMaterText;
 
   if (/י/.test(materText)) {
     // hiriq
@@ -116,6 +125,16 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
     // qamets
     if (/\u{05B8}/u.test(prevText)) {
       return changeElementSplit(noMaterText, /\u{05B8}/u, schema.QAMATS_HE);
+    }
+
+    // seghol
+    if (/\u{05B6}/u.test(prevText)) {
+      return changeElementSplit(noMaterText, /\u{05B6}/u, schema.SEGOL_HE);
+    }
+
+    // tsere
+    if (/\u{05B5}/u.test(prevText)) {
+      return changeElementSplit(noMaterText, /\u{05B5}/u, schema.SEGOL_HE);
     }
   }
 

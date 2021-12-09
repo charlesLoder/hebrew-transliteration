@@ -105,6 +105,13 @@ export class Schema implements SylOpts {
   QUBUTS: string;
   /**
    * HEBREW POINT DAGESH OR MAPIQ (U+05BC) ּ◌
+   * @description typically, this will be a blank string
+   * @example
+   * ''
+   */
+  DAGESH: string;
+  /**
+   * HEBREW POINT DAGESH OR MAPIQ (U+05BC) ּ◌
    * @description if true, repeats the consonant with the dagesh
    * @example
    * ```js
@@ -119,6 +126,18 @@ export class Schema implements SylOpts {
    * '-'
    */
   MAQAF: string;
+  /**
+   * HEBREW PUNCTUATION PASEQ (U+05C0) ׀ ◌
+   * @description if a blank string, two spaces will occur between words
+   * @example
+   * '|' or ''
+   * @example
+   * ```js
+   * transliterate('כְּשֶׁ֣בֶת ׀ הַמֶּ֣לֶךְ', { PASEQ: '' });
+   * // 'kǝšebet  hammelek'
+   * ```
+   */
+  PASEQ: string;
   /**
    * HEBREW POINT QAMATS QATAN (U+05C7) ׇ◌
    * @example
@@ -167,6 +186,18 @@ export class Schema implements SylOpts {
    * 'â'
    */
   QAMATS_HE: string;
+  /**
+   * HEBREW POINT SEGOL (U+05B6) and HE (U+05D4) ה◌ֶ
+   * @example
+   * 'ê'
+   */
+  SEGOL_HE: string;
+  /**
+   * HEBREW POINT TSERE (U+05B5) and HE (U+05D4) ה◌ֵ
+   * @example
+   * 'ê'
+   */
+  TSERE_HE: string;
   /**
    * HEBREW LETTER QAMATS (U+05B8) and YOD (U+05D9) and VAV (U+05D5) יו◌ָ
    * @example
@@ -432,8 +463,10 @@ export class Schema implements SylOpts {
       (this.QAMATS = schema.QAMATS),
       (this.HOLAM = schema.HOLAM),
       (this.QUBUTS = schema.QUBUTS),
-      (this.DAGESH_CHAZAQ = schema.DAGESH_CHAZAQ || true),
+      (this.DAGESH = schema.DAGESH),
+      (this.DAGESH_CHAZAQ = schema.DAGESH_CHAZAQ),
       (this.MAQAF = schema.MAQAF),
+      (this.PASEQ = schema.PASEQ),
       (this.QAMATS_QATAN = schema.QAMATS_QATAN),
       (this.FURTIVE_PATAH = schema.FURTIVE_PATAH),
       (this.HIRIQ_YOD = schema.HIRIQ_YOD),
@@ -442,11 +475,16 @@ export class Schema implements SylOpts {
       (this.SHUREQ = schema.SHUREQ),
       (this.HOLAM_VAV = schema.HOLAM_VAV),
       (this.QAMATS_HE = schema.QAMATS_HE),
+      (this.SEGOL_HE = schema.SEGOL_HE),
+      (this.TSERE_HE = schema.TSERE_HE),
       (this.MS_SUFX = schema.MS_SUFX),
       (this.ALEF = schema.ALEF),
+      (this.BET_DAGESH = schema.BET_DAGESH),
       (this.BET = schema.BET),
       (this.GIMEL = schema.GIMEL),
+      (this.GIMEL_DAGESH = schema.GIMEL_DAGESH),
       (this.DALET = schema.DALET),
+      (this.DALET_DAGESH = schema.DALET_DAGESH),
       (this.HE = schema.HE),
       (this.VAV = schema.VAV),
       (this.ZAYIN = schema.ZAYIN),
@@ -455,6 +493,7 @@ export class Schema implements SylOpts {
       (this.YOD = schema.YOD),
       (this.FINAL_KAF = schema.FINAL_KAF),
       (this.KAF = schema.KAF),
+      (this.KAF_DAGESH = schema.KAF_DAGESH),
       (this.LAMED = schema.LAMED),
       (this.FINAL_MEM = schema.FINAL_MEM),
       (this.MEM = schema.MEM),
@@ -464,6 +503,7 @@ export class Schema implements SylOpts {
       (this.AYIN = schema.AYIN),
       (this.FINAL_PE = schema.FINAL_PE),
       (this.PE = schema.PE),
+      (this.PE_DAGESH = schema.PE_DAGESH),
       (this.FINAL_TSADI = schema.FINAL_TSADI),
       (this.TSADI = schema.TSADI),
       (this.QOF = schema.QOF),
@@ -471,11 +511,12 @@ export class Schema implements SylOpts {
       (this.SHIN = schema.SHIN),
       (this.SIN = schema.SIN),
       (this.TAV = schema.TAV),
-      (this.DIVINE_NAME = schema.DIVINE_NAME);
-    this.longVowels = schema.longVowels;
-    this.qametsQatan = schema.qametsQatan;
-    this.sqnmlvy = schema.sqnmlvy;
-    this.wawShureq = schema.wawShureq;
+      (this.TAV_DAGESH = schema.TAV_DAGESH),
+      (this.DIVINE_NAME = schema.DIVINE_NAME),
+      (this.longVowels = schema.longVowels),
+      (this.qametsQatan = schema.qametsQatan),
+      (this.sqnmlvy = schema.sqnmlvy),
+      (this.wawShureq = schema.wawShureq);
   }
 }
 
@@ -493,8 +534,10 @@ export class SBL extends Schema {
       QAMATS: schema.QAMATS || "ā",
       HOLAM: schema.HOLAM || "ō",
       QUBUTS: schema.QUBUTS || "ū",
+      DAGESH: schema.DAGESH || "",
       DAGESH_CHAZAQ: schema.DAGESH_CHAZAQ || true,
       MAQAF: schema.MAQAF || "-",
+      PASEQ: schema.PASEQ || "",
       QAMATS_QATAN: schema.QAMATS_QATAN || "o",
       FURTIVE_PATAH: schema.FURTIVE_PATAH || "a",
       HIRIQ_YOD: schema.HIRIQ_YOD || "î",
@@ -503,6 +546,8 @@ export class SBL extends Schema {
       SHUREQ: schema.SHUREQ || "û",
       HOLAM_VAV: schema.HOLAM_VAV || "ô",
       QAMATS_HE: schema.QAMATS_HE || "â",
+      SEGOL_HE: schema.SEGOL_HE || "ê",
+      TSERE_HE: schema.TSERE_HE || "ê",
       MS_SUFX: schema.MS_SUFX || "āyw",
       ALEF: schema.ALEF || "ʾ",
       BET: schema.BET || "b",
