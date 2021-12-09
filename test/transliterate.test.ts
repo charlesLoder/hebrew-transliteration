@@ -120,6 +120,15 @@ describe("using default options", () => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
   });
+
+  describe("qamets qatan", () => {
+    test.each`
+      description   | hebrew           | transliteration
+      ${"standard"} | ${"כָּל־הָעָ֖ם"} | ${"kol-hāʿām"}
+    `("$description", ({ hebrew, transliteration }) => {
+      expect(transliterate(hebrew)).toBe(transliteration);
+    });
+  });
 });
 
 describe("using custom schema (SBL simple)", () => {
@@ -300,6 +309,15 @@ describe("using custom schema (SBL simple)", () => {
       ${"by itself"}          | ${"יְהוָ֥ה"}     | ${"yhwh"}
       ${"with a maqqef"}      | ${"אֶת־יְהוָ֤ה"} | ${"et-yhwh"}
       ${"with a preposition"} | ${"בַּֽיהוָ֔ה"}  | ${"ba-yhwh"}
+    `("$description", ({ hebrew, transliteration }) => {
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    });
+  });
+
+  describe("qamets qatan", () => {
+    test.each`
+      description   | hebrew           | transliteration
+      ${"standard"} | ${"כָּל־הָעָ֖ם"} | ${"kol-haam"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew, schema)).toBe(transliteration);
     });
