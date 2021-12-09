@@ -123,8 +123,9 @@ describe("using default options", () => {
 
   describe("qamets qatan", () => {
     test.each`
-      description   | hebrew           | transliteration
-      ${"standard"} | ${"כָּל־הָעָ֖ם"} | ${"kol-hāʿām"}
+      description            | hebrew           | transliteration
+      ${"standard"}          | ${"כָּל־הָעָ֖ם"} | ${"kol-hāʿām"}
+      ${"with hatef qamets"} | ${"נָעֳמִי֙"}    | ${"noʿŏmî"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
@@ -170,7 +171,7 @@ describe("using custom schema (SBL simple)", () => {
     PATAH: "a",
     HATAF_PATAH: "a",
     QAMATS: "a",
-    HATAF_QAMATS: "a",
+    HATAF_QAMATS: "o",
     SEGOL: "e",
     HATAF_SEGOL: "e",
     TSERE: "e",
@@ -316,8 +317,9 @@ describe("using custom schema (SBL simple)", () => {
 
   describe("qamets qatan", () => {
     test.each`
-      description   | hebrew           | transliteration
-      ${"standard"} | ${"כָּל־הָעָ֖ם"} | ${"kol-haam"}
+      description            | hebrew           | transliteration
+      ${"standard"}          | ${"כָּל־הָעָ֖ם"} | ${"kol-haam"}
+      ${"with hatef qamets"} | ${"נָעֳמִי֙"}    | ${"noomi"}
     `("$description", ({ hebrew, transliteration }) => {
       expect(transliterate(hebrew, schema)).toBe(transliteration);
     });
