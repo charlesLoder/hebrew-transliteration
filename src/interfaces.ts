@@ -479,9 +479,12 @@ export class Schema implements SylOpts {
       (this.TSERE_HE = schema.TSERE_HE),
       (this.MS_SUFX = schema.MS_SUFX),
       (this.ALEF = schema.ALEF),
+      (this.BET_DAGESH = schema.BET_DAGESH),
       (this.BET = schema.BET),
       (this.GIMEL = schema.GIMEL),
+      (this.GIMEL_DAGESH = schema.GIMEL_DAGESH),
       (this.DALET = schema.DALET),
+      (this.DALET_DAGESH = schema.DALET_DAGESH),
       (this.HE = schema.HE),
       (this.VAV = schema.VAV),
       (this.ZAYIN = schema.ZAYIN),
@@ -490,6 +493,7 @@ export class Schema implements SylOpts {
       (this.YOD = schema.YOD),
       (this.FINAL_KAF = schema.FINAL_KAF),
       (this.KAF = schema.KAF),
+      (this.KAF_DAGESH = schema.KAF_DAGESH),
       (this.LAMED = schema.LAMED),
       (this.FINAL_MEM = schema.FINAL_MEM),
       (this.MEM = schema.MEM),
@@ -499,6 +503,7 @@ export class Schema implements SylOpts {
       (this.AYIN = schema.AYIN),
       (this.FINAL_PE = schema.FINAL_PE),
       (this.PE = schema.PE),
+      (this.PE_DAGESH = schema.PE_DAGESH),
       (this.FINAL_TSADI = schema.FINAL_TSADI),
       (this.TSADI = schema.TSADI),
       (this.QOF = schema.QOF),
@@ -506,11 +511,12 @@ export class Schema implements SylOpts {
       (this.SHIN = schema.SHIN),
       (this.SIN = schema.SIN),
       (this.TAV = schema.TAV),
-      (this.DIVINE_NAME = schema.DIVINE_NAME);
-    this.longVowels = schema.longVowels;
-    this.qametsQatan = schema.qametsQatan;
-    this.sqnmlvy = schema.sqnmlvy;
-    this.wawShureq = schema.wawShureq;
+      (this.TAV_DAGESH = schema.TAV_DAGESH),
+      (this.DIVINE_NAME = schema.DIVINE_NAME),
+      (this.longVowels = schema.longVowels),
+      (this.qametsQatan = schema.qametsQatan),
+      (this.sqnmlvy = schema.sqnmlvy),
+      (this.wawShureq = schema.wawShureq);
   }
 }
 
