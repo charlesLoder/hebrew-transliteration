@@ -21,6 +21,45 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
   return options;
 };
 
+/**
+ * transliterates Hebrew text
+ *
+ * @param text - a string or {@link https://charlesloder.github.io/havarot/classes/text.Text.html | Text} of Hebrew characters
+ * @param schema - a {@link Schema} for transliterating the text
+ * @returns a transliterated text
+ *
+ * @remarks
+ *
+ * If no {@link Schema} is passed, then the package defaults to SBL's academic style
+ *
+ * You can pass in a partial schema that will modify SBL's academic style:
+ *
+ * ```ts
+ * transliterate("שָׁלוֹם", { SHIN: "sh" })
+ * // shālôm
+ * ```
+ *
+ * If you need a fully custom schema, it is best to use the {@link Schema} constructur:
+ *
+ * ```ts
+ * import { transliterate, Schema } from "hebrew-transliteration";
+ *
+ * const schema = new Schema({ ALEF: "'", BET: "B", ... QAMETS: "A", ... }) // truncated for brevity
+ *
+ * transliterate("אָ֣ב", schema)
+ * // 'AB
+ * ```
+ *
+ *
+ * @example Default
+ * ```ts
+ * import { transliterate } from "hebrew-transliteration";
+ *
+ * transliterate("אֱלֹהִים");
+ * // "ʾĕlōhîm";
+ * ```
+ *
+ */
 export const transliterate = (text: string | Text, schema?: Partial<Schema> | Schema) => {
   const transSchema = schema instanceof Schema ? schema : new SBL(schema ?? {});
   const isText = text instanceof Text;
