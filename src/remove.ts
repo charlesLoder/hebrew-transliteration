@@ -8,10 +8,32 @@ const sinDot = /\u{05C2}/gu;
 const removeItem = (text: string, item: RegExp) => text.replace(item, "");
 
 /**
+ * removes taamim and optionally removes certain niqqudim
  *
- * @param text {string}
- * @param RemoveOptions
- * @returns string with niqqud removed
+ * @param text - a string of Hebrew characters
+ * @param RemoveOptions - {@link RemoveOptions}
+ * @returns Hebrew characters with taamim and niqqud optionally removed
+ *
+ * @example Default
+ *
+ * ```ts
+ * heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔");
+ * // "שָׂרַי אִשְׁתְּךָ";
+ * ```
+ *
+ * @example Remove vowels
+ *
+ * ```ts
+ * heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔", { removeVowels: true });
+ * // "שׂרי אשׁתך";
+ * ```
+ *
+ * @example Remove all
+ *
+ * ```ts
+ * heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔", { removeVowels: true, removeShinDot: true, removeSinDot: true });
+ * // "שרי אשתך";
+ * ```
  */
 export const remove = (
   text: string,
