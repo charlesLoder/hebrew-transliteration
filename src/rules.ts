@@ -63,6 +63,10 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return changeElementSplit(clusterText, /פ\u{05BC}/u, schema.PE_DAGESH);
   }
 
+  if (schema.TAV_DAGESH && /ת\u{05BC}/u.test(clusterText)) {
+    return changeElementSplit(clusterText, /ת\u{05BC}/u, schema.TAV_DAGESH);
+  }
+
   if (/ש\u{05C1}/u.test(clusterText)) {
     return changeElementSplit(clusterText, /ש\u{05C1}/u, schema.SHIN);
   }
