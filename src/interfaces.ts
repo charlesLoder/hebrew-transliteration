@@ -450,6 +450,17 @@ export class Schema implements SylOpts {
    * 'yhwh'
    */
   DIVINE_NAME: string;
+  /**
+   * a syllable separator, usually an empty string
+   *  @example
+   * '' or '-'
+   * @example
+   * ```js
+   * transliterate('הָאָֽרֶץ', { SYLLABLE_SEPARATOR: '-' });
+   * // 'hā-ʾā-reṣ'
+   * ```
+   */
+  SYLLABLE_SEPARATOR?: string;
   longVowels: SylOpts["longVowels"];
   qametsQatan: SylOpts["qametsQatan"];
   sqnmlvy: SylOpts["sqnmlvy"];
@@ -516,6 +527,7 @@ export class Schema implements SylOpts {
       (this.TAV = schema.TAV),
       (this.TAV_DAGESH = schema.TAV_DAGESH),
       (this.DIVINE_NAME = schema.DIVINE_NAME),
+      (this.SYLLABLE_SEPARATOR = schema.SYLLABLE_SEPARATOR),
       (this.longVowels = schema.longVowels),
       (this.qametsQatan = schema.qametsQatan),
       (this.sqnmlvy = schema.sqnmlvy),
@@ -554,8 +566,11 @@ export class SBL extends Schema {
       MS_SUFX: schema.MS_SUFX || "āyw",
       ALEF: schema.ALEF || "ʾ",
       BET: schema.BET || "b",
+      BET_DAGESH: schema.BET_DAGESH || undefined,
       GIMEL: schema.GIMEL || "g",
+      GIMEL_DAGESH: schema.GIMEL_DAGESH || undefined,
       DALET: schema.DALET || "d",
+      DALET_DAGESH: schema.DALET_DAGESH || undefined,
       HE: schema.HE || "h",
       VAV: schema.VAV || "w",
       ZAYIN: schema.ZAYIN || "z",
@@ -564,6 +579,7 @@ export class SBL extends Schema {
       YOD: schema.YOD || "y",
       FINAL_KAF: schema.FINAL_KAF || "k",
       KAF: schema.KAF || "k",
+      KAF_DAGESH: schema.KAF_DAGESH || undefined,
       LAMED: schema.LAMED || "l",
       FINAL_MEM: schema.FINAL_MEM || "m",
       MEM: schema.MEM || "m",
@@ -573,6 +589,7 @@ export class SBL extends Schema {
       AYIN: schema.AYIN || "ʿ",
       FINAL_PE: schema.FINAL_PE || "p",
       PE: schema.PE || "p",
+      PE_DAGESH: schema.PE_DAGESH || undefined,
       FINAL_TSADI: schema.FINAL_TSADI || "ṣ",
       TSADI: schema.TSADI || "ṣ",
       QOF: schema.QOF || "q",
@@ -580,7 +597,9 @@ export class SBL extends Schema {
       SHIN: schema.SHIN || "š",
       SIN: schema.SIN || "ś",
       TAV: schema.TAV || "t",
+      TAV_DAGESH: schema.TAV_DAGESH || undefined,
       DIVINE_NAME: schema.DIVINE_NAME || "yhwh",
+      SYLLABLE_SEPARATOR: schema.SYLLABLE_SEPARATOR || undefined,
       longVowels: true,
       qametsQatan: true,
       sqnmlvy: true,

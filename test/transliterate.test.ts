@@ -132,6 +132,51 @@ describe("using default options", () => {
   });
 });
 
+/**
+ * users should have the ability to enter any optional argument
+ * even if it is not part of the SBL schema
+ */
+describe("extending SBL schema for optional arguments", () => {
+  describe("basic tests", () => {
+    test.each`
+      description             | hebrew      | transliteration
+      ${"syllable separator"} | ${"רַ֛עַל"} | ${"ra-ʿal"}
+    `("$description", ({ hebrew, transliteration }) => {
+      expect(transliterate(hebrew, { SYLLABLE_SEPARATOR: "-" })).toBe(transliteration);
+    });
+  });
+
+  describe("consonant features", () => {
+    describe("spirantization and ligature tests", () => {
+      test.each`
+        description              | hebrew       | transliteration
+        ${"unspirantized bet"}   | ${"בָּ֣ם"}   | ${"Bām"}
+        ${"spirantized bet"}     | ${"אָ֣ב"}    | ${"ʾāb"}
+        ${"unspirantized gimel"} | ${"גָּדַ֣ל"} | ${"Gādal"}
+        ${"spirantized gimel"}   | ${"חָ֣ג"}    | ${"ḥāg"}
+        ${"unspirantized dalet"} | ${"דָּ֣ם"}   | ${"Dām"}
+        ${"spirantized dalet"}   | ${"סַ֣ד"}    | ${"sad"}
+        ${"unspirantized kaf"}   | ${"כָּמָ֣ר"} | ${"Kāmār"}
+        ${"spirantized kaf"}     | ${"לֵ֣ךְ"}   | ${"lēk"}
+        ${"unspirantized peh"}   | ${"פֹּ֣ה"}   | ${"Pōh"}
+        ${"spirantized peh"}     | ${"אֶ֣לֶף"}  | ${"ʾelep"}
+        ${"unspirantized tav"}   | ${"תָּ֣ם"}   | ${"Tām"}
+        ${"spirantized tav"}     | ${"מַ֣ת"}    | ${"mat"}
+      `("$description", ({ hebrew, transliteration }) => {
+        const options: Partial<Schema> = {
+          BET_DAGESH: "B",
+          GIMEL_DAGESH: "G",
+          DALET_DAGESH: "D",
+          KAF_DAGESH: "K",
+          PE_DAGESH: "P",
+          TAV_DAGESH: "T"
+        };
+        expect(transliterate(hebrew, options)).toBe(transliteration);
+      });
+    });
+  });
+});
+
 describe("using custom schema (SBL simple)", () => {
   const schema = new Schema({
     ALEF: "",
