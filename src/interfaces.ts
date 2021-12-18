@@ -450,6 +450,17 @@ export class Schema implements SylOpts {
    * 'yhwh'
    */
   DIVINE_NAME: string;
+  /**
+   * a syllable separator, usually an empty string
+   *  @example
+   * '' or '-'
+   * @example
+   * ```js
+   * transliterate('הָאָֽרֶץ', { SYLLABLE_SEPARATOR: '-' });
+   * // 'hā-ʾā-reṣ'
+   * ```
+   */
+  SYLLABLE_SEPARATOR?: string;
   longVowels: SylOpts["longVowels"];
   qametsQatan: SylOpts["qametsQatan"];
   sqnmlvy: SylOpts["sqnmlvy"];
@@ -516,6 +527,7 @@ export class Schema implements SylOpts {
       (this.TAV = schema.TAV),
       (this.TAV_DAGESH = schema.TAV_DAGESH),
       (this.DIVINE_NAME = schema.DIVINE_NAME),
+      (this.SYLLABLE_SEPARATOR = schema.SYLLABLE_SEPARATOR),
       (this.longVowels = schema.longVowels),
       (this.qametsQatan = schema.qametsQatan),
       (this.sqnmlvy = schema.sqnmlvy),
