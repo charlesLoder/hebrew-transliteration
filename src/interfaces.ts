@@ -602,11 +602,11 @@ export class SBL extends Schema {
       TAV_DAGESH: schema.TAV_DAGESH || undefined,
       DIVINE_NAME: schema.DIVINE_NAME || "yhwh",
       SYLLABLE_SEPARATOR: schema.SYLLABLE_SEPARATOR || undefined,
-      longVowels: true,
-      qametsQatan: true,
-      sqnmlvy: true,
-      wawShureq: true,
-      article: true
+      longVowels: schema.longVowels ?? true,
+      qametsQatan: schema.qametsQatan ?? true,
+      sqnmlvy: schema.sqnmlvy ?? true,
+      wawShureq: schema.wawShureq ?? true,
+      article: schema.article ?? true
     });
   }
 }
