@@ -18,6 +18,7 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
   if ("qametsQatan" in schema) options.qametsQatan = schema.qametsQatan;
   if ("sqnmlvy" in schema) options.sqnmlvy = schema.sqnmlvy;
   if ("wawShureq" in schema) options.wawShureq = schema.wawShureq;
+  if ("article" in schema) options.article = schema.article;
   return options;
 };
 
