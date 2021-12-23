@@ -465,6 +465,7 @@ export class Schema implements SylOpts {
   qametsQatan: SylOpts["qametsQatan"];
   sqnmlvy: SylOpts["sqnmlvy"];
   wawShureq: SylOpts["wawShureq"];
+  article: SylOpts["article"];
   constructor(schema: Schema) {
     (this.VOCAL_SHEVA = schema.VOCAL_SHEVA),
       (this.HATAF_SEGOL = schema.HATAF_SEGOL),
@@ -531,7 +532,8 @@ export class Schema implements SylOpts {
       (this.longVowels = schema.longVowels),
       (this.qametsQatan = schema.qametsQatan),
       (this.sqnmlvy = schema.sqnmlvy),
-      (this.wawShureq = schema.wawShureq);
+      (this.wawShureq = schema.wawShureq),
+      (this.article = schema.article);
   }
 }
 
@@ -603,7 +605,8 @@ export class SBL extends Schema {
       longVowels: true,
       qametsQatan: true,
       sqnmlvy: true,
-      wawShureq: true
+      wawShureq: true,
+      article: true
     });
   }
 }
