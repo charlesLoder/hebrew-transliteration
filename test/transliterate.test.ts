@@ -66,11 +66,12 @@ describe("using default options", () => {
 
     describe("shewa", () => {
       test.each`
-        description           | hebrew          | transliteration
-        ${"vocal shewa"}      | ${"סְלִ֣ק"}     | ${"sǝliq"}
-        ${"silent shewa"}     | ${"סַלְכָ֣ה"}   | ${"salkâ"}
-        ${"final shewa"}      | ${"כָּ֣ךְ"}     | ${"kāk"}
-        ${"two final shewas"} | ${"קָטַ֣לְתְּ"} | ${"qāṭalt"}
+        description                              | hebrew          | transliteration
+        ${"vocal shewa"}                         | ${"סְלִ֣ק"}     | ${"sǝliq"}
+        ${"silent shewa"}                        | ${"סַלְכָ֣ה"}   | ${"salkâ"}
+        ${"final shewa"}                         | ${"כָּ֣ךְ"}     | ${"kāk"}
+        ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"} | ${"qāṭalt"}
+        ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}   | ${"hayǝʾōr"}
       `("$description", ({ hebrew, transliteration }) => {
         expect(transliterate(hebrew)).toBe(transliteration);
       });
@@ -240,7 +241,8 @@ describe("using custom schema (SBL simple)", () => {
     longVowels: true,
     sqnmlvy: true,
     qametsQatan: true,
-    wawShureq: true
+    wawShureq: true,
+    article: true
   });
 
   describe("basic tests", () => {
@@ -305,11 +307,12 @@ describe("using custom schema (SBL simple)", () => {
 
     describe("shewa", () => {
       test.each`
-        description           | hebrew          | transliteration
-        ${"vocal shewa"}      | ${"סְלִ֣ק"}     | ${"seliq"}
-        ${"silent shewa"}     | ${"סַלְכָ֣ה"}   | ${"salkhah"}
-        ${"final shewa"}      | ${"כָּ֣ךְ"}     | ${"kakh"}
-        ${"two final shewas"} | ${"קָטַ֣לְתְּ"} | ${"qatalt"}
+        description                              | hebrew          | transliteration
+        ${"vocal shewa"}                         | ${"סְלִ֣ק"}     | ${"seliq"}
+        ${"silent shewa"}                        | ${"סַלְכָ֣ה"}   | ${"salkhah"}
+        ${"final shewa"}                         | ${"כָּ֣ךְ"}     | ${"kakh"}
+        ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"} | ${"qatalt"}
+        ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}   | ${"hayeor"}
       `("$description", ({ hebrew, transliteration }) => {
         expect(transliterate(hebrew, schema)).toBe(transliteration);
       });
