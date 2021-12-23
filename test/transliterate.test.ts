@@ -66,12 +66,14 @@ describe("using default options", () => {
 
     describe("shewa", () => {
       test.each`
-        description                              | hebrew          | transliteration
-        ${"vocal shewa"}                         | ${"סְלִ֣ק"}     | ${"sǝliq"}
-        ${"silent shewa"}                        | ${"סַלְכָ֣ה"}   | ${"salkâ"}
-        ${"final shewa"}                         | ${"כָּ֣ךְ"}     | ${"kāk"}
-        ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"} | ${"qāṭalt"}
-        ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}   | ${"hayǝʾōr"}
+        description                                     | hebrew             | transliteration
+        ${"vocal shewa"}                                | ${"סְלִ֣ק"}        | ${"sǝliq"}
+        ${"silent shewa"}                               | ${"סַלְכָ֣ה"}      | ${"salkâ"}
+        ${"final shewa"}                                | ${"כָּ֣ךְ"}        | ${"kāk"}
+        ${"two final shewas"}                           | ${"קָטַ֣לְתְּ"}    | ${"qāṭalt"}
+        ${"omitted dagesh chazaq after article, yod"}   | ${"הַיְאֹ֗ר"}      | ${"hayǝʾōr"}
+        ${"omitted dagesh chazaq after article, mem"}   | ${"הַמְיַלֶּ֗דֶת"} | ${"hamǝyalledet"}
+        ${"omitted dagesh chazaq after article, lamed"} | ${"הַלְוִיִּ֔ם"}   | ${"halǝwiyyim"}
       `("$description", ({ hebrew, transliteration }) => {
         expect(transliterate(hebrew)).toBe(transliteration);
       });
