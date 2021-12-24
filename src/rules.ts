@@ -164,7 +164,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
 
   // regular syllables
   const returnTxt = syl.clusters.map((cluster) => {
-    let clusterText = cluster.text.replace(taamim, "");
+    const clusterText = cluster.text.replace(taamim, "");
     return consonantFeatures(clusterText, syl, cluster, schema);
   });
 
