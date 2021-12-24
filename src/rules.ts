@@ -156,6 +156,8 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   }
 
   // syllable has a mater
+  // unsure why eslint throwing error here, but not other places...
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
   const hasMater = syl.clusters.map((c) => c.isMater).includes(true);
   if (hasMater) {
     const materSyl = materFeatures(syl, schema);
