@@ -17,6 +17,6 @@ export const vowels = /[\u{05B0}-\u{05BD}\u{05BF}\u{05C7}]/u;
  *              "\u{5D1}\u{5BC}\u{5B0}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5C1}\u{5B4}\u{596}\u{5D9}\u{5EA}";
  * ```
  */
-export const sequence = (text: string, qametsQatan: boolean = false): string => {
+export const sequence = (text: string, qametsQatan = false): string => {
   return vowels.test(text) ? new Text(text, { qametsQatan }).text : text;
 };
