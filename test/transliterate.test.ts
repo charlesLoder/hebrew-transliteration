@@ -1,5 +1,9 @@
 import { transliterate, Schema } from "../src/index";
 
+interface Inputs {
+  hebrew: string;
+  transliteration: string;
+}
 /**
  * all tests (except the first) use taamim
  */
@@ -12,7 +16,8 @@ describe("using default options", () => {
       ${"preserve non-Hebrew chars"} | ${"v1. רַ֛עַל"}                  | ${"v1. raʿal"}
       ${"preserve line breaks"}      | ${"v1.\n רַ֛עַל"}                | ${"v1.\n raʿal"}
       ${"multiple words and passeq"} | ${"רַ֛עַל ׀ רַ֛עַל"}             | ${"raʿal  raʿal"}
-    `("$description", ({ hebrew, transliteration }) => {
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew)).toBe(transliteration);
     });
   });
@@ -35,7 +40,8 @@ describe("using default options", () => {
         ${"spirantized tav"}     | ${"מַ֣ת"}    | ${"mat"}
         ${"shin"}                | ${"שֶׁ֣לֶם"}  | ${"šelem"}
         ${"sin"}                 | ${"אָ֣רַשׂ"}  | ${"ʾāraś"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
       });
     });
@@ -46,7 +52,8 @@ describe("using default options", () => {
         ${"furtive patach, chet"} | ${"נֹ֖חַ"}     | ${"nōaḥ"}
         ${"furtive patach, ayin"} | ${"רָקִ֖יעַ"}  | ${"rāqîaʿ"}
         ${"furtive patach, he"}   | ${"גָּבֹ֗הַּ"} | ${"gābōah"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
       });
     });
@@ -59,7 +66,8 @@ describe("using default options", () => {
         ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"} | ${"minnǝzār"}
         ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}   | ${"maggāl"}
         ${"mappiq he"}                       | ${"וְלַ֨הּ"}   | ${"wǝlah"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
       });
     });
@@ -74,7 +82,8 @@ describe("using default options", () => {
         ${"omitted dagesh chazaq after article, yod"}   | ${"הַיְאֹ֗ר"}      | ${"hayǝʾōr"}
         ${"omitted dagesh chazaq after article, mem"}   | ${"הַמְיַלֶּ֗דֶת"} | ${"hamǝyalledet"}
         ${"omitted dagesh chazaq after article, lamed"} | ${"הַלְוִיִּ֔ם"}   | ${"halǝwiyyim"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
       });
     });
@@ -92,7 +101,8 @@ describe("using default options", () => {
         ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"yiqrê"}
         ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hāʾaryê"}
         ${"shureq"}     | ${"קוּם"}       | ${"qûm"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
       });
     });
@@ -107,7 +117,8 @@ describe("using default options", () => {
         ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}       | ${"ʿāwôn"}
         ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"} | ${"ʿăwōnôtênû"}
         ${"initial shureq"}                                                    | ${"וּמִן"}         | ${"ûmin"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
       });
     });
@@ -119,7 +130,8 @@ describe("using default options", () => {
       ${"by itself"}          | ${"יְהוָ֥ה"}     | ${"yhwh"}
       ${"with a maqqef"}      | ${"אֶת־יְהוָ֤ה"} | ${"ʾet-yhwh"}
       ${"with a preposition"} | ${"בַּֽיהוָ֔ה"}  | ${"ba-yhwh"}
-    `("$description", ({ hebrew, transliteration }) => {
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew)).toBe(transliteration);
     });
   });
@@ -129,7 +141,8 @@ describe("using default options", () => {
       description            | hebrew           | transliteration
       ${"standard"}          | ${"כָּל־הָעָ֖ם"} | ${"kol-hāʿām"}
       ${"with hatef qamets"} | ${"נָעֳמִי֙"}    | ${"noʿŏmî"}
-    `("$description", ({ hebrew, transliteration }) => {
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew)).toBe(transliteration);
     });
   });
@@ -144,7 +157,8 @@ describe("extending SBL schema for optional arguments", () => {
     test.each`
       description             | hebrew      | transliteration
       ${"syllable separator"} | ${"רַ֛עַל"} | ${"ra-ʿal"}
-    `("$description", ({ hebrew, transliteration }) => {
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, { SYLLABLE_SEPARATOR: "-" })).toBe(transliteration);
     });
   });
@@ -165,7 +179,8 @@ describe("extending SBL schema for optional arguments", () => {
         ${"spirantized peh"}     | ${"אֶ֣לֶף"}  | ${"ʾelep"}
         ${"unspirantized tav"}   | ${"תָּ֣ם"}   | ${"Tām"}
         ${"spirantized tav"}     | ${"מַ֣ת"}    | ${"mat"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         const options: Partial<Schema> = {
           BET_DAGESH: "B",
           GIMEL_DAGESH: "G",
@@ -255,7 +270,8 @@ describe("using custom schema (SBL simple)", () => {
       ${"preserve non-Hebrew chars"} | ${"v1. רַ֛עַל"}                  | ${"v1. raal"}
       ${"preserve line breaks"}      | ${"v1.\n רַ֛עַל"}                | ${"v1.\n raal"}
       ${"multiple words and passeq"} | ${"רַ֛עַל ׀ רַ֛עַל"}             | ${"raal  raal"}
-    `("$description", ({ hebrew, transliteration }) => {
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
     });
   });
@@ -278,7 +294,8 @@ describe("using custom schema (SBL simple)", () => {
         ${"spirantized tav"}     | ${"מַ֣ת"}    | ${"mat"}
         ${"shin"}                | ${"שֶׁ֣לֶם"}  | ${"shelem"}
         ${"sin"}                 | ${"אָ֣רַשׂ"}  | ${"aras"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
       });
     });
@@ -289,7 +306,8 @@ describe("using custom schema (SBL simple)", () => {
         ${"furtive patach, chet"} | ${"נֹ֖חַ"}     | ${"noakh"}
         ${"furtive patach, ayin"} | ${"רָקִ֖יעַ"}  | ${"raqia"}
         ${"furtive patach, he"}   | ${"גָּבֹ֗הַּ"} | ${"gavoah"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
       });
     });
@@ -302,7 +320,8 @@ describe("using custom schema (SBL simple)", () => {
         ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"} | ${"minnezar"}
         ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}   | ${"maggal"}
         ${"mappiq he"}                       | ${"וְלַ֨הּ"}   | ${"velah"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
       });
     });
@@ -315,7 +334,8 @@ describe("using custom schema (SBL simple)", () => {
         ${"final shewa"}                         | ${"כָּ֣ךְ"}     | ${"kakh"}
         ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"} | ${"qatalt"}
         ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}   | ${"hayeor"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
       });
     });
@@ -333,7 +353,8 @@ describe("using custom schema (SBL simple)", () => {
         ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"yiqreh"}
         ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"haaryeh"}
         ${"shureq"}     | ${"קוּם"}       | ${"qum"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
       });
     });
@@ -348,7 +369,8 @@ describe("using custom schema (SBL simple)", () => {
         ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}       | ${"avon"}
         ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"} | ${"avonotenu"}
         ${"initial shureq"}                                                    | ${"וּמִן"}         | ${"umin"}
-      `("$description", ({ hebrew, transliteration }) => {
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
       });
     });
@@ -360,7 +382,8 @@ describe("using custom schema (SBL simple)", () => {
       ${"by itself"}          | ${"יְהוָ֥ה"}     | ${"yhwh"}
       ${"with a maqqef"}      | ${"אֶת־יְהוָ֤ה"} | ${"et-yhwh"}
       ${"with a preposition"} | ${"בַּֽיהוָ֔ה"}  | ${"ba-yhwh"}
-    `("$description", ({ hebrew, transliteration }) => {
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
     });
   });
@@ -370,7 +393,8 @@ describe("using custom schema (SBL simple)", () => {
       description            | hebrew           | transliteration
       ${"standard"}          | ${"כָּל־הָעָ֖ם"} | ${"kol-haam"}
       ${"with hatef qamets"} | ${"נָעֳמִי֙"}    | ${"noomi"}
-    `("$description", ({ hebrew, transliteration }) => {
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
     });
   });

@@ -156,6 +156,8 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   }
 
   // syllable has a mater
+  // unsure why eslint throwing error here, but not other places...
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
   const hasMater = syl.clusters.map((c) => c.isMater).includes(true);
   if (hasMater) {
     const materSyl = materFeatures(syl, schema);
@@ -164,7 +166,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
 
   // regular syllables
   const returnTxt = syl.clusters.map((cluster) => {
-    let clusterText = cluster.text.replace(taamim, "");
+    const clusterText = cluster.text.replace(taamim, "");
     return consonantFeatures(clusterText, syl, cluster, schema);
   });
 

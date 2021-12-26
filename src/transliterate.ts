@@ -76,7 +76,7 @@ export const transliterate = (text: string | Text, schema?: Partial<Schema> | Sc
           .map((s) => sylRules(s, transSchema))
           .join(transSchema.SYLLABLE_SEPARATOR || "");
       }
-      return `${transliteration}${word.whiteSpaceAfter}`;
+      return `${transliteration}${word.whiteSpaceAfter ?? ""}`;
     })
     .join("");
 };
