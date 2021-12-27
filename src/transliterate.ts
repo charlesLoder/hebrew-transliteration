@@ -29,6 +29,16 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
  * @param schema - a {@link Schema} for transliterating the text
  * @returns a transliterated text
  *
+ * @example Default
+ * ```ts
+ * import { transliterate } from "hebrew-transliteration";
+ *
+ * transliterate("אֱלֹהִים");
+ * // "ʾĕlōhîm";
+ * ```
+ *
+ * ---
+ *
  * @remarks
  *
  * If no {@link Schema} is passed, then the package defaults to SBL's academic style
@@ -40,7 +50,9 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
  * // shālôm
  * ```
  *
- * If you need a fully custom schema, it is best to use the {@link Schema} constructur:
+ * ---
+ *
+ * If you need a fully custom schema, it is best to use the {@link Schema} constructor:
  *
  * ```ts
  * import { transliterate, Schema } from "hebrew-transliteration";
@@ -49,15 +61,6 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
  *
  * transliterate("אָ֣ב", schema)
  * // 'AB
- * ```
- *
- *
- * @example Default
- * ```ts
- * import { transliterate } from "hebrew-transliteration";
- *
- * transliterate("אֱלֹהִים");
- * // "ʾĕlōhîm";
  * ```
  *
  */
