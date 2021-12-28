@@ -3,6 +3,7 @@ import { transliterate, Schema } from "../src/index";
 interface Inputs {
   hebrew: string;
   transliteration: string;
+  options?: Partial<Schema>;
 }
 /**
  * all tests (except the first) use taamim
@@ -189,6 +190,18 @@ describe("extending SBL schema for optional arguments", () => {
           PE_DAGESH: "P",
           TAV_DAGESH: "T"
         };
+        expect(transliterate(hebrew, options)).toBe(transliteration);
+      });
+    });
+
+    describe("dagesh chazaq", () => {
+      test.each`
+        description                                 | hebrew           | transliteration | options
+        ${"dagesh chazaq - false"}                  | ${"שַׁבָּת֔וֹן"} | ${"šabātôn"}    | ${{ DAGESH_CHAZAQ: false }}
+        ${"dagesh chazaq - false, different chars"} | ${"שַׁבָּת֔וֹן"} | ${"šavātôn"}    | ${{ DAGESH_CHAZAQ: false, BET: "v" }}
+        ${"dagesh chazaq - false, different chars"} | ${"שַׁבָּת֔וֹן"} | ${"šabātôn"}    | ${{ DAGESH_CHAZAQ: false, BET: "v", BET_DAGESH: "b" }}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration, options } = inputs;
         expect(transliterate(hebrew, options)).toBe(transliteration);
       });
     });
