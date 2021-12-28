@@ -552,7 +552,7 @@ export class SBL extends Schema {
       HOLAM: schema.HOLAM || "ō",
       QUBUTS: schema.QUBUTS || "ū",
       DAGESH: schema.DAGESH || "",
-      DAGESH_CHAZAQ: schema.DAGESH_CHAZAQ || true,
+      DAGESH_CHAZAQ: schema.DAGESH_CHAZAQ ?? true,
       MAQAF: schema.MAQAF || "-",
       PASEQ: schema.PASEQ || "",
       QAMATS_QATAN: schema.QAMATS_QATAN || "o",
