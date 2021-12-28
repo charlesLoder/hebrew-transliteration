@@ -142,6 +142,12 @@ export class Schema implements SylOpts {
    */
   PASEQ: string;
   /**
+   * HEBREW PUNCTUATION SOF PASUQ (U+05C3) ׃◌
+   * @example
+   * '' or '.'
+   */
+  SOF_PASUQ: string;
+  /**
    * HEBREW POINT QAMATS QATAN (U+05C7) ׇ◌
    * @example
    * 'o'
@@ -482,6 +488,7 @@ export class Schema implements SylOpts {
       (this.DAGESH_CHAZAQ = schema.DAGESH_CHAZAQ),
       (this.MAQAF = schema.MAQAF),
       (this.PASEQ = schema.PASEQ),
+      (this.SOF_PASUQ = schema.SOF_PASUQ),
       (this.QAMATS_QATAN = schema.QAMATS_QATAN),
       (this.FURTIVE_PATAH = schema.FURTIVE_PATAH),
       (this.HIRIQ_YOD = schema.HIRIQ_YOD),
@@ -555,6 +562,7 @@ export class SBL extends Schema {
       DAGESH_CHAZAQ: schema.DAGESH_CHAZAQ ?? true,
       MAQAF: schema.MAQAF || "-",
       PASEQ: schema.PASEQ || "",
+      SOF_PASUQ: schema.SOF_PASUQ || "",
       QAMATS_QATAN: schema.QAMATS_QATAN || "o",
       FURTIVE_PATAH: schema.FURTIVE_PATAH || "a",
       HIRIQ_YOD: schema.HIRIQ_YOD || "î",
