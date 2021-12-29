@@ -77,7 +77,7 @@ export const transliterate = (text: string | Text, schema?: Partial<Schema> | Sc
       if (transliteration instanceof Word) {
         transliteration = word.syllables
           .map((s) => sylRules(s, transSchema))
-          .join(transSchema.SYLLABLE_SEPARATOR || "");
+          .join(transSchema.SYLLABLE_SEPARATOR ?? "");
       }
       return `${transliteration}${word.whiteSpaceAfter ?? ""}`;
     })
