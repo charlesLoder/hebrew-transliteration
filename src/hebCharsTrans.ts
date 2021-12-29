@@ -1,4 +1,4 @@
-import { Schema } from "./interfaces";
+import { Schema } from "./schema";
 
 interface map {
   [k: string]: keyof Schema;

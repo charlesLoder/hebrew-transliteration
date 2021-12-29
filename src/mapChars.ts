@@ -1,5 +1,5 @@
 import { transliterateMap as map } from "./hebCharsTrans";
-import { Schema } from "./interfaces";
+import { Schema } from "./schema";
 
 /**
  * maps single Hebrew characters to transliteration characters according to the schema

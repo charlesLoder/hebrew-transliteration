@@ -1,7 +1,7 @@
 import { vowels } from "./sequence";
 import { sylRules, wordRules } from "./rules";
 import { mapChars } from "./mapChars";
-import { SBL, Schema } from "./interfaces";
+import { SBL, Schema } from "./schema";
 import { Text } from "havarotjs";
 import { Word } from "havarotjs/dist/word";
 import { SylOpts } from "havarotjs/dist/text";

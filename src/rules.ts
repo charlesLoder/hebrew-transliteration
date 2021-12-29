@@ -1,7 +1,7 @@
 import { Cluster } from "havarotjs/dist/cluster";
 import { Syllable } from "havarotjs/dist/syllable";
 import { Word } from "havarotjs/dist/word";
-import { Schema } from "./interfaces";
+import { Schema } from "./schema";
 import { mapChars } from "./mapChars";
 
 const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
