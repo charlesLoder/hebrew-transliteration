@@ -136,7 +136,7 @@ If a `Text` is passed into [`transliterate()`](#transliterate) instead of a `str
 
 #### Schema
 
-A `Schema` is used to define a schema for transliteration. This will not cover all aspects of a `Schema` but rather the major parts.
+A `Schema` is used to define a schema for transliteration.
 
 ````ts
 export class Schema implements SylOpts {
@@ -241,6 +241,12 @@ export class Schema implements SylOpts {
    * ```
    */
   PASEQ: string;
+  /**
+   * HEBREW PUNCTUATION SOF PASUQ (U+05C3) ׃◌
+   * @example
+   * '' or '.'
+   */
+  SOF_PASUQ: string;
   /**
    * HEBREW POINT QAMATS QATAN (U+05C7) ׇ◌
    * @example
@@ -537,13 +543,24 @@ export class Schema implements SylOpts {
   TAV_DAGESH?: string;
   /**
    * define additional sequences of characters
+   *
+   * ⚠️ there may be unpredictable results
+   *
    * @example
    * [{
+   *   FEATURE: 'cluster',
    *   HEBREW: 'זּ',
-   *   TRANSLITERATION: 'dz'
+   *   TRANSLITERATION: 'tz'
    * }]
    */
-  ADDITIONAL_SEQUENCES?: { HEBREW: string; TRANSLITERATION: string }[];
+  ADDITIONAL_FEATURES?: {
+    /**
+     * orthographic feature
+     */
+    FEATURE: "word" | "syllable" | "mater" | "cluster";
+    HEBREW: string;
+    TRANSLITERATION: string;
+  }[];
   /**
    * the full form of the divine name - יהוה
    * @example
@@ -569,7 +586,12 @@ export class Schema implements SylOpts {
 }
 ````
 
-`SylOpts` are the syllabification options that are passed to the `Text` class.
+- `SylOpts` are the syllabification options that are passed to the [`Text`](#text) class
+- the `ADDITIONAL_FEATURES` property is for defining non-typical Hebrew orthography, example:
+  - the orthography `זּ` is most often a doubling of the `ZAYIN` (i.e. 'z' with no dagesh, and 'zz' with a _dagesh chazaq_)
+  - in the Romaniote reading tradition, the `ZAYIN` is usually transliterated with 'z' (really ζ),
+  - but a `ZAYIN` followed by a _dagesh_ is transliterated as 'tz' (really τζ)
+  - :warning: this is an experimental property; results may not always meet expectations
 
 ## Live
 
