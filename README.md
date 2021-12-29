@@ -52,7 +52,7 @@ And it exports 2 [classes](#classes):
 
 #### `transliterate()`
 
-Takes a `string` or `Text`, and optionally a `Schema` or `Partial<Schema>`
+Takes a `string` or [`Text`](#text), and optionally a [`Schema`](#schema) or `Partial<Schema>`
 
 ```javascript
 const heb = require("hebrew-transliteration");
@@ -61,7 +61,7 @@ transliterate("אֱלֹהִים");
 // "ʾĕlōhîm";
 ```
 
-If no [Schema](#schema) is passed, then the package defaults to SBL's academic style.
+If no [`Schema`](#schema) is passed, then the package defaults to SBL's academic style.
 
 You can pass in a `Partial<Schema>` that will modify SBL's academic style:
 
@@ -70,14 +70,20 @@ transliterate("שָׁלוֹם", { SHIN: "sh" });
 // shālôm
 ```
 
-If you need a fully customized transliteration, it is best to use the [Schema](#schema) constructor:
+If you need a fully customized transliteration, it is best to use the [`Schema`](#schema) constructor:
 
 ```javascript
 const heb = require("hebrew-transliteration");
 const transliterate = heb.transliterate;
 const Schema = heb.Schema;
 
-const schema = new Schema({ ALEF: "'", BET: "B", ... QAMETS: "A", ... }) // truncated for brevity
+const schema = new Schema({
+  ALEF: "'",
+  BET: "B",
+  ...
+  QAMETS: "A",
+  ...
+}) // truncated for brevity
 
 transliterate("אָ֣ב", schema)
 // 'AB
@@ -89,7 +95,7 @@ transliterate("אָ֣ב", schema)
 
 Takes a string and options
 
-Takes string and options. With `{removeVowels: false}`, will only remove cantillation (i.e., accent) marks.
+Takes `string` and options. The default only removes taamim (i.e., accent or cantillation) marks.
 
 ```javascript
 heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔");
@@ -110,14 +116,14 @@ Takes string. Returns a string of properly sequenced characters according to the
 
 ```javascript
 heb.sequence("\u{5D1}\u{5B0}\u{5BC}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5B4}\u{5C1}\u{596}\u{5D9}\u{5EA}");
-// --------- "\u{5D1}\u{5BC}\u{5B0}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5C1}\u{5B4}\u{596}\u{5D9}\u{5EA}";
+//           "\u{5D1}\u{5BC}\u{5B0}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5C1}\u{5B4}\u{596}\u{5D9}\u{5EA}"
 ```
 
 ### Classes
 
 #### Text
 
-The [`Text`](https://charlesloder.github.io/havarot/classes/text.Text.html) class from the `havarotjs` package.
+The [`Text`](https://charlesloder.github.io/havarot/classes/text.Text.html) class from the [`havarotjs`](https://www.npmjs.com/package/havarotjs) package.
 
 This is used to syllabify Hebrew text.
 
@@ -132,7 +138,9 @@ text.syllables;
 //  ]
 ```
 
-If a `Text` is passed into [`transliterate()`](#transliterate) instead of a `string`, then the syllabification from the `Text` class is used instead the [syllabification options from the `Schema` class](#syllabification)
+If a `Text` is passed into [`transliterate()`](#transliterate) instead of a `string`, then the syllabification from the `Text` class is used.
+
+If a `string` is paased in, then syllabification come from the options passed into the [`Schema`](#schema).
 
 #### Schema
 
@@ -554,10 +562,9 @@ export class Schema implements SylOpts {
    * }]
    */
   ADDITIONAL_FEATURES?: {
-    /**
-     * orthographic feature
-     */
+    /** orthographic features */
     FEATURE: "word" | "syllable" | "mater" | "cluster";
+    /** use consonants and vowels; do not use taamim */
     HEBREW: string;
     TRANSLITERATION: string;
   }[];
@@ -586,7 +593,7 @@ export class Schema implements SylOpts {
 }
 ````
 
-- `SylOpts` are the syllabification options that are passed to the [`Text`](#text) class
+- `SylOpts` are the syllabification options that are used if a `string` is passed into [`transliterate()`](#transliterate)
 - the `ADDITIONAL_FEATURES` property is for defining non-typical Hebrew orthography, example:
   - the orthography `זּ` is most often a doubling of the `ZAYIN` (i.e. 'z' with no dagesh, and 'zz' with a _dagesh chazaq_)
   - in the Romaniote reading tradition, the `ZAYIN` is usually transliterated with 'z' (really ζ),
