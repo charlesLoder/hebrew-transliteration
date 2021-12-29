@@ -418,10 +418,9 @@ export class Schema implements SylOpts {
    * }]
    */
   ADDITIONAL_FEATURES?: {
-    /**
-     * orthographic feature
-     */
+    /** orthographic features */
     FEATURE: "word" | "syllable" | "mater" | "cluster";
+    /** use consonants and vowels; do not use taamim */
     HEBREW: string;
     TRANSLITERATION: string;
   }[];
