@@ -443,13 +443,24 @@ export class Schema implements SylOpts {
   TAV_DAGESH?: string;
   /**
    * define additional sequences of characters
+   *
+   * ⚠️ there may be unpredictable results
+   *
    * @example
    * [{
+   *   FEATURE: 'cluster',
    *   HEBREW: 'זּ',
-   *   TRANSLITERATION: 'dz'
+   *   TRANSLITERATION: 'tz'
    * }]
    */
-  ADDITIONAL_SEQUENCES?: { HEBREW: string; TRANSLITERATION: string }[];
+  ADDITIONAL_FEATURES?: {
+    /**
+     * orthographic feature
+     */
+    FEATURE: "word" | "syllable" | "mater" | "cluster";
+    HEBREW: string;
+    TRANSLITERATION: string;
+  }[];
   /**
    * the full form of the divine name - יהוה
    * @example
@@ -536,6 +547,7 @@ export class Schema implements SylOpts {
       (this.TAV_DAGESH = schema.TAV_DAGESH),
       (this.DIVINE_NAME = schema.DIVINE_NAME),
       (this.SYLLABLE_SEPARATOR = schema.SYLLABLE_SEPARATOR),
+      (this.ADDITIONAL_FEATURES = schema.ADDITIONAL_FEATURES),
       (this.longVowels = schema.longVowels),
       (this.qametsQatan = schema.qametsQatan),
       (this.sqnmlvy = schema.sqnmlvy),
@@ -610,6 +622,7 @@ export class SBL extends Schema {
       TAV_DAGESH: schema.TAV_DAGESH || undefined,
       DIVINE_NAME: schema.DIVINE_NAME || "yhwh",
       SYLLABLE_SEPARATOR: schema.SYLLABLE_SEPARATOR || undefined,
+      ADDITIONAL_FEATURES: schema.ADDITIONAL_FEATURES || undefined,
       longVowels: schema.longVowels ?? true,
       qametsQatan: schema.qametsQatan ?? true,
       sqnmlvy: schema.sqnmlvy ?? true,
