@@ -9,6 +9,17 @@ const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
 const changeElementSplit = (input: string, split: RegExp, join: string) => input.split(split).join(join);
 
 const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
+  if (schema.ADDITIONAL_FEATURES?.length) {
+    const clusterSeqs = schema.ADDITIONAL_FEATURES.filter((s) => s.FEATURE === "cluster");
+    for (const seq of clusterSeqs) {
+      const heb = new RegExp(seq.HEBREW, "u");
+      if (heb.test(clusterText)) {
+        const sylSeq = changeElementSplit(clusterText, heb, seq.TRANSLITERATION);
+        return [...sylSeq].map((char) => mapChars(char, schema)).join("");
+      }
+    }
+  }
+
   // mappiq he
   if (/ה\u{05BC}$/mu.test(clusterText)) {
     return changeElementSplit(clusterText, /ה\u{05BC}/u, schema.HE);
@@ -148,6 +159,17 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
 export const sylRules = (syl: Syllable, schema: Schema): string => {
   const sylTxt = syl.text.replace(taamim, "");
 
+  if (schema.ADDITIONAL_FEATURES?.length) {
+    const sylSeqs = schema.ADDITIONAL_FEATURES.filter((s) => s.FEATURE === "syllable");
+    for (const seq of sylSeqs) {
+      const heb = new RegExp(seq.HEBREW, "u");
+      if (heb.test(sylTxt)) {
+        const wordSeq = changeElementSplit(sylTxt, heb, seq.TRANSLITERATION);
+        return [...wordSeq].map((char) => mapChars(char, schema)).join("");
+      }
+    }
+  }
+
   // syllable is 3ms sufx
   const mSSuffix = /\u{05B8}\u{05D9}\u{05D5}/u;
   if (syl.isFinal && mSSuffix.test(sylTxt)) {
@@ -176,5 +198,16 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
 export const wordRules = (word: Word, schema: Schema): string | Word => {
   if (word.isDivineName) return schema.DIVINE_NAME;
   if (word.hasDivineName) return `${sylRules(word.syllables[0], schema)}-${schema.DIVINE_NAME}`;
+  if (schema.ADDITIONAL_FEATURES?.length) {
+    const wordSeqs = schema.ADDITIONAL_FEATURES.filter((s) => s.FEATURE === "word");
+    for (const seq of wordSeqs) {
+      const heb = new RegExp(seq.HEBREW, "u");
+      const wordText = word.text.replace(taamim, "");
+      if (heb.test(wordText)) {
+        const wordSeq = changeElementSplit(wordText, heb, seq.TRANSLITERATION);
+        return [...wordSeq].map((char) => mapChars(char, schema)).join("");
+      }
+    }
+  }
   return word;
 };
