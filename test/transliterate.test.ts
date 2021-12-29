@@ -206,6 +206,18 @@ describe("extending SBL schema for optional arguments", () => {
       });
     });
   });
+
+  describe("additional features", () => {
+    test.each`
+      description           | hebrew                    | transliteration      | options
+      ${"cluster feature"}  | ${"הַזֹּאת"}              | ${"hatzōʾt"}         | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "cluster", HEBREW: "זּ", TRANSLITERATION: "tz" }] }}
+      ${"syllable feature"} | ${"בְּרֵאשִׁ֖ית בָּרָ֣א"} | ${"bǝRAYšׁît bārāʾ"} | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "syllable", HEBREW: "רֵא", TRANSLITERATION: "RAY" }] }}
+      ${"word feature"}     | ${"וְאֵ֥ת הָאָֽרֶץ"}      | ${"wǝʾēt The Earth"} | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "word", HEBREW: "הָאָרֶץ", TRANSLITERATION: "The Earth" }] }}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration, options } = inputs;
+      expect(transliterate(hebrew, options)).toBe(transliteration);
+    });
+  });
 });
 
 describe("using custom schema (SBL simple)", () => {
@@ -266,6 +278,7 @@ describe("using custom schema (SBL simple)", () => {
     SHUREQ: "u",
     MS_SUFX: "ayw",
     PASEQ: "",
+    SOF_PASUQ: "",
     MAQAF: "-",
     DIVINE_NAME: "yhwh",
     longVowels: true,
