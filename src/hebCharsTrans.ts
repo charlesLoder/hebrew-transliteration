@@ -1,4 +1,8 @@
-import { map } from "./interfaces";
+import { Schema } from "./interfaces";
+
+interface map {
+  [k: string]: keyof Schema;
+}
 
 export const transliterateMap: map = {
   //   niqqud

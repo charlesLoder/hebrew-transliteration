@@ -595,7 +595,3 @@ export class SBL extends Schema {
     });
   }
 }
-
-export interface map {
-  [k: string]: keyof Schema;
-}
