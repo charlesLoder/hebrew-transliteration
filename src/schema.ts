@@ -418,8 +418,14 @@ export class Schema implements SylOpts {
    * }]
    */
   ADDITIONAL_FEATURES?: {
-    /** orthographic features */
-    FEATURE: "word" | "syllable" | "mater" | "cluster";
+    /**
+     * additional orthographic feature
+     *
+     * - `"cluster"` is any combination of a single character and optionally a _dagesh_ and vowel.
+     * - `"syllable"` is any combination of a multiple characters and a single vowel and optionally a _dagesh_
+     * - `"word"` covers everything else
+     */
+    FEATURE: "word" | "syllable" | "cluster";
     /** use consonants and vowels; do not use taamim */
     HEBREW: string;
     TRANSLITERATION: string;
