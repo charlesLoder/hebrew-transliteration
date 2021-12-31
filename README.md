@@ -39,9 +39,9 @@ This is a JavaScript package for transliterating Hebrew.
 
 It exports 3 [functions](#functions):
 
-1. [`transliterate`](#transliterate) — the main function which transliterates Hebrew
-2. [`remove`](#remove) — removes taamim and optionally removes certain niqqudim
-3. [`sequence`](#sequence) — sequences Hebrew charactes according to the [SBL Hebrew Font Manual](https://www.sbl-site.org/Fonts/SBLHebrewUserManual1.5x.pdf)
+1. [`transliterate()`](#transliterate) — the main function which transliterates Hebrew
+2. [`remove()`](#remove) — removes taamim and optionally removes certain niqqudim
+3. [`sequence()`](#sequence) — sequences Hebrew characters according to the [SBL Hebrew Font Manual](https://www.sbl-site.org/Fonts/SBLHebrewUserManual1.5x.pdf)
 
 And it exports 2 [classes](#classes):
 
@@ -55,9 +55,7 @@ And it exports 2 [classes](#classes):
 Takes a `string` or [`Text`](#text), and optionally a [`Schema`](#schema) or `Partial<Schema>`
 
 ```javascript
-const heb = require("hebrew-transliteration");
-const transliterate = heb.transliterate;
-transliterate("אֱלֹהִים");
+heb.transliterate("אֱלֹהִים");
 // "ʾĕlōhîm";
 ```
 
@@ -66,18 +64,14 @@ If no [`Schema`](#schema) is passed, then the package defaults to SBL's academic
 You can pass in a `Partial<Schema>` that will modify SBL's academic style:
 
 ```javascript
-transliterate("שָׁלוֹם", { SHIN: "sh" });
+heb.transliterate("שָׁלוֹם", { SHIN: "sh" });
 // shālôm
 ```
 
 If you need a fully customized transliteration, it is best to use the [`Schema`](#schema) constructor:
 
 ```javascript
-const heb = require("hebrew-transliteration");
-const transliterate = heb.transliterate;
-const Schema = heb.Schema;
-
-const schema = new Schema({
+const schema = new heb.Schema({
   ALEF: "'",
   BET: "B",
   ...
@@ -85,15 +79,13 @@ const schema = new Schema({
   ...
 }) // truncated for brevity
 
-transliterate("אָ֣ב", schema)
+heb.transliterate("אָ֣ב", schema)
 // 'AB
 ```
 
 ---
 
 #### `remove()`
-
-Takes a string and options
 
 Takes `string` and options. The default only removes taamim (i.e., accent or cantillation) marks.
 
@@ -112,7 +104,7 @@ heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔", { removeVowels: true, remove
 
 #### `sequence()`
 
-Takes string. Returns a string of properly sequenced characters according to the [SBL Hebrew Font manual](https://www.sbl-site.org/Fonts/SBLHebrewUserManual1.5x.pdf) following the pattern of: consonant - dagesh - vowel - ta'am
+Takes a `string`. Returns a string of properly sequenced characters according to the [SBL Hebrew Font manual](https://www.sbl-site.org/Fonts/SBLHebrewUserManual1.5x.pdf) following the pattern of: consonant - dagesh - vowel - ta'am
 
 ```javascript
 heb.sequence("\u{5D1}\u{5B0}\u{5BC}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5B4}\u{5C1}\u{596}\u{5D9}\u{5EA}");
@@ -125,10 +117,9 @@ heb.sequence("\u{5D1}\u{5B0}\u{5BC}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5B4}\u{5C1}\u{
 
 The [`Text`](https://charlesloder.github.io/havarot/classes/text.Text.html) class from the [`havarotjs`](https://www.npmjs.com/package/havarotjs) package.
 
-This is used to syllabify Hebrew text.
+This class is used by [`transliterate()`](#transliterate) internally to syllabify Hebrew text, but it is exposed as well.
 
 ```javascript
-const heb = require("hebrew-transliteration");
 const text = new heb.Text("הֲבָרֹות");
 text.syllables;
 // [
@@ -139,466 +130,155 @@ text.syllables;
 ```
 
 If a `Text` is passed into [`transliterate()`](#transliterate) instead of a `string`, then the syllabification from the `Text` class is used.
-
-If a `string` is paased in, then syllabification come from the options passed into the [`Schema`](#schema).
+If a `string` is passed in, then syllabification come from the options passed into the [`Schema`](#schema).
+See more under [syllabification](#syllabification).
 
 #### Schema
 
-A `Schema` is used to define a schema for transliteration.
+A `Schema` is used to define a schema for transliteration. See the [`Schema` source](src/schema.ts) for all available properties.
 
-````ts
-export class Schema implements SylOpts {
-  /**
-   * HEBREW POINT SHEVA (U+05B0) ְ◌
-   * @example
-   * 'ǝ'
-   */
-  VOCAL_SHEVA: string;
-  /**
-   * HEBREW POINT HATAF SEGOL (U+05B1) ֱ◌
-   * @example
-   * 'ĕ'
-   */
-  HATAF_SEGOL: string;
-  /**
-   * HEBREW POINT HATAF PATAH (U+05B2) ֲ◌
-   * @example
-   * 'ă'
-   */
-  HATAF_PATAH: string;
-  /**
-   * HEBREW POINT HATAF QAMATS (U+05B3) ֳ◌
-   * @example
-   * 'ŏ'
-   */
-  HATAF_QAMATS: string;
-  /**
-   * HEBREW POINT HIRIQ (U+05B4) ִ◌
-   * @example
-   * 'i'
-   */
-  HIRIQ: string;
-  /**
-   * HEBREW POINT TSERE (U+05B5) ֵ◌
-   * @example
-   * 'ē'
-   */
-  TSERE: string;
-  /**
-   * HEBREW POINT SEGOL (U+05B6) ֶ◌
-   * @example
-   * 'e'
-   */
-  SEGOL: string;
-  /**
-   * HEBREW POINT PATAH (U+05B7) ַ◌
-   * @example
-   * 'a'
-   */
-  PATAH: string;
-  /**
-   * HEBREW POINT QAMATS (U+05B8) ָ◌
-   * @example
-   * 'ā'
-   */
-  QAMATS: string;
-  /**
-   * HEBREW POINT HOLAM (U+05B9) ֹ◌
-   * @example
-   * 'ō'
-   */
-  HOLAM: string;
-  /**
-   * HEBREW POINT QUBUTS (U+05BB) ֻ◌
-   * @example
-   * 'u'
-   */
-  QUBUTS: string;
-  /**
-   * HEBREW POINT DAGESH OR MAPIQ (U+05BC) ּ◌
-   * @description typically, this will be a blank string
-   * @example
-   * ''
-   */
-  DAGESH: string;
-  /**
-   * HEBREW POINT DAGESH OR MAPIQ (U+05BC) ּ◌
-   * @description if true, repeats the consonant with the dagesh
-   * @example
-   * ```js
-   * transliterate('שַׁבָּת', { DAGESH_CHAZAQ: true });
-   * // 'shabbat'
-   * ```
-   */
-  DAGESH_CHAZAQ: boolean;
-  /**
-   * HEBREW PUNCTUATION MAQAF (U+05BE) ־◌
-   * @example
-   * '-'
-   */
-  MAQAF: string;
-  /**
-   * HEBREW PUNCTUATION PASEQ (U+05C0) ׀ ◌
-   * @description if a blank string, two spaces will occur between words
-   * @example
-   * '|' or ''
-   * @example
-   * ```js
-   * transliterate('כְּשֶׁ֣בֶת ׀ הַמֶּ֣לֶךְ', { PASEQ: '' });
-   * // 'kǝšebet  hammelek'
-   * ```
-   */
-  PASEQ: string;
-  /**
-   * HEBREW PUNCTUATION SOF PASUQ (U+05C3) ׃◌
-   * @example
-   * '' or '.'
-   */
-  SOF_PASUQ: string;
-  /**
-   * HEBREW POINT QAMATS QATAN (U+05C7) ׇ◌
-   * @example
-   * 'o'
-   */
-  QAMATS_QATAN: string;
-  /**
-   * HEBREW POINT PATAH (U+05B7) ◌ַ
-   * @example
-   * 'a'
-   */
-  FURTIVE_PATAH: string;
-  /**
-   * HEBREW POINT HIRIQ (U+05B4) and YOD (U+05D9) י◌ִ
-   * @example
-   * 'î'
-   */
-  HIRIQ_YOD: string;
-  /**
-   * HEBREW POINT TSERE (U+05B5) and YOD (U+05D9) י◌ֵ
-   * @example
-   * 'ê'
-   */
-  TSERE_YOD: string;
-  /**
-   * HEBREW POINT SEGOL (U+05B6) and YOD (U+05D9) י◌ֶ
-   * @example
-   * 'ê'
-   */
-  SEGOL_YOD: string;
-  /**
-   * HEBREW LETTER VAV (U+05D5) and DAGESH (U+05BC) וּ
-   * @example
-   * 'û'
-   */
-  SHUREQ: string;
-  /**
-   * HEBREW LETTER HOLAM (U+05B9) and VAV (U+05D5) ֹו◌
-   * @example
-   * 'ô'
-   */
-  HOLAM_VAV: string;
-  /**
-   * HEBREW POINT QAMATS (U+05B8) and HE (U+05D4) ה◌ָ
-   * @example
-   * 'â'
-   */
-  QAMATS_HE: string;
-  /**
-   * HEBREW POINT SEGOL (U+05B6) and HE (U+05D4) ה◌ֶ
-   * @example
-   * 'ê'
-   */
-  SEGOL_HE: string;
-  /**
-   * HEBREW POINT TSERE (U+05B5) and HE (U+05D4) ה◌ֵ
-   * @example
-   * 'ê'
-   */
-  TSERE_HE: string;
-  /**
-   * HEBREW LETTER QAMATS (U+05B8) and YOD (U+05D9) and VAV (U+05D5) יו◌ָ
-   * @example
-   * 'āyw'
-   */
-  MS_SUFX: string;
-  /**
-   * HEBREW LETTER ALEF (U+05D0) א
-   * @example
-   * 'ʾ'
-   */
-  ALEF: string;
-  /**
-   * HEBREW LETTER BET (U+05D1) ב
-   * @example
-   * 'b' or 'v'
-   */
-  BET: string;
-  /**
-   * HEBREW LETTER BET (U+05D1) and DAGESH (U+05BC) ּב
-   * @description
-   * the letter bet with a dagesh kal
-   * @description
-   * use when need to distinguish between spirantized forms
-   * @example
-   * 'b'
-   */
-  BET_DAGESH?: string;
-  /**
-   * HEBREW LETTER GIMEL (U+05D2) ג
-   * @example
-   * 'g'
-   */
-  GIMEL: string;
-  /**
-   * HEBREW LETTER GIMEL (U+05D2) and DAGESH (U+05BC) גּ
-   * @description
-   * the letter gimel with a dagesh kal
-   * @description
-   * use when need to distinguish between spirantized forms
-   * @example
-   * 'g'
-   */
-  GIMEL_DAGESH?: string;
-  /**
-   * HEBREW LETTER DALET (U+05D3) ד
-   * @example
-   * 'd'
-   */
-  DALET: string;
-  /**
-   * HEBREW LETTER DALET (U+05D3) and DAGESH (U+05BC) דּ
-   * @description
-   * the letter dalet with a dagesh kal
-   * @description
-   * use when need to distinguish between spirantized forms
-   * @example
-   * 'd'
-   */
-  DALET_DAGESH?: string;
-  /**
-   * HEBREW LETTER HE (U+05D4) ה
-   * @example
-   * 'h'
-   */
-  HE: string;
-  /**
-   * HEBREW LETTER VAV (U+05D5) ו
-   * @example
-   * 'w'
-   */
-  VAV: string;
-  /**
-   * HEBREW LETTER ZAYIN (U+05D6) ז
-   * @example
-   * 'z'
-   */
-  ZAYIN: string;
-  /**
-   * HEBREW LETTER HET (U+05D7) ח
-   * @example
-   * 'ḥ'
-   */
-  HET: string;
-  /**
-   * HEBREW LETTER TET (U+05D8) ט
-   * @example
-   * 'ṭ'
-   */
-  TET: string;
-  /**
-   * HEBREW LETTER YOD (U+05D9) י
-   * @example
-   * 'y'
-   */
-  YOD: string;
-  /**
-   * HEBREW LETTER FINAL KAF (U+05DA) ך
-   * @example
-   * 'k' or 'kh'
-   */
-  FINAL_KAF: string;
-  /**
-   * HEBREW LETTER KAF (U+05DB) כ
-   * @example
-   * 'k' or 'kh'
-   */
-  KAF: string;
-  /**
-   * HEBREW LETTER KAF (U+05DB) and DAGESH (U+05BC) כּ
-   * @description
-   * the letter kaf with a dagesh kal
-   * @description
-   * use when need to distinguish between spirantized forms
-   * @example
-   * 'k'
-   */
-  KAF_DAGESH?: string;
-  /**
-   * HEBREW LETTER LAMED (U+05DC) ל
-   * @example
-   * 'l'
-   */
-  LAMED: string;
-  /**
-   * HEBREW LETTER FINAL MEM (U+05DD) ם
-   * @example
-   * 'm'
-   */
-  FINAL_MEM: string;
-  /**
-   * HEBREW LETTER MEM (U+05DE) מ
-   * @example
-   * 'm'
-   */
-  MEM: string;
-  /**
-   * HEBREW LETTER FINAL NUN (U+05DF) ן
-   * @example
-   * 'n'
-   */
-  FINAL_NUN: string;
-  /**
-   * HEBREW LETTER NUN (U+05E0) נ
-   * @example
-   * 'n'
-   */
-  NUN: string;
-  /**
-   * HEBREW LETTER SAMEKH (U+05E1) ס
-   * @example
-   * 's'
-   */
-  SAMEKH: string;
-  /**
-   * HEBREW LETTER AYIN (U+05E2) ע
-   * @example
-   * 'ʿ'
-   */
-  AYIN: string;
-  /**
-   * HEBREW LETTER FINAL PE (U+05E3) ף
-   * @example
-   * 'p' or 'f'
-   */
-  FINAL_PE: string;
-  /**
-   * HEBREW LETTER PE (U+05E4) פ
-   * @example
-   * 'p' or 'f'
-   */
-  PE: string;
-  /**
-   * HEBREW LETTER  PE (U+05E4) and DAGESH (U+05BC) פּ
-   * @description
-   * the letter pe with a dagesh kal
-   * @description
-   * use when need to distinguish between spirantized forms
-   * @example
-   * 'p'
-   */
-  PE_DAGESH?: string;
-  /**
-   * HEBREW LETTER FINAL TSADI (U+05E5) ץ
-   * @example
-   * 'ṣ'
-   */
-  FINAL_TSADI: string;
-  /**
-   * HEBREW LETTER TSADI (U+05E6) צ
-   * @example
-   * 'ṣ'
-   */
-  TSADI: string;
-  /**
-   * HEBREW LETTER QOF (U+05E7) ק
-   * @example
-   * 'q'
-   */
-  QOF: string;
-  /**
-   * HEBREW LETTER RESH (U+05E8) ר
-   * @example
-   * 'r'
-   */
-  RESH: string;
-  /**
-   * HEBREW LETTER SHIN (U+05E9) and SHIN DOT (U+05C1) שׁ
-   * @example
-   * 'š'
-   */
-  SHIN: string;
-  /**
-   * HEBREW LETTER SHIN (U+05E9) and SIN DOT (U+05C2) שׁ
-   * @example
-   * 'ś'
-   */
-  SIN: string;
-  /**
-   * HEBREW LETTER TAV (U+05EA) ת
-   * @example
-   * 't' or 'th'
-   */
-  TAV: string;
-  /**
-   * HEBREW LETTER TAV (U+05EA) and DAGESH (U+05BC) תּ
-   * @description
-   * the letter tav with a dagesh kal
-   * @description
-   * use when need to distinguish between spirantized forms
-   * @example
-   * 't'
-   */
-  TAV_DAGESH?: string;
-  /**
-   * define additional sequences of characters
-   *
-   * ⚠️ there may be unpredictable results
-   *
-   * @example
-   * [{
-   *   FEATURE: 'cluster',
-   *   HEBREW: 'זּ',
-   *   TRANSLITERATION: 'tz'
-   * }]
-   */
-  ADDITIONAL_FEATURES?: {
-    /** orthographic features */
-    FEATURE: "word" | "syllable" | "mater" | "cluster";
-    /** use consonants and vowels; do not use taamim */
-    HEBREW: string;
-    TRANSLITERATION: string;
-  }[];
-  /**
-   * the full form of the divine name - יהוה
-   * @example
-   * 'yhwh'
-   */
-  DIVINE_NAME: string;
-  /**
-   * a syllable separator, usually an empty string
-   *  @example
-   * '' or '-'
-   * @example
-   * ```js
-   * transliterate('הָאָֽרֶץ', { SYLLABLE_SEPARATOR: '-' });
-   * // 'hā-ʾā-reṣ'
-   * ```
-   */
-  SYLLABLE_SEPARATOR?: string;
-  longVowels: SylOpts["longVowels"];
-  qametsQatan: SylOpts["qametsQatan"];
-  sqnmlvy: SylOpts["sqnmlvy"];
-  wawShureq: SylOpts["wawShureq"];
-  article: SylOpts["article"];
-}
-````
+The `Schema` can be divided into a few categories.
 
-- `SylOpts` are the syllabification options that are used if a `string` is passed into [`transliterate()`](#transliterate)
-- the `ADDITIONAL_FEATURES` property is for defining non-typical Hebrew orthography, example:
-  - the orthography `זּ` is most often a doubling of the `ZAYIN` (i.e. 'z' with no dagesh, and 'zz' with a _dagesh chazaq_)
-  - in the Romaniote reading tradition, the `ZAYIN` is usually transliterated with 'z' (really ζ),
-  - but a `ZAYIN` followed by a _dagesh_ is transliterated as 'tz' (really τζ)
-  - :warning: this is an experimental property; results may not always meet expectations
+##### 1) Syllabification
+
+The options used for syllabifying Hebrew text can be found [here](https://charlesloder.github.io/havarot/interfaces/text.SylOpts.html)
+
+###### Differences between `Text` and `Schema`
+
+There are 5 options for syllabification that are the [same as the ones used by the `Text`](https://charlesloder.github.io/havarot/interfaces/text.SylOpts.html) class. The only `Text` syllabification option that `Schema` does not use is `schema` (yes, that's confusing):
+
+```javascript
+const text = new heb.Text("חׇכְמָ֣ה", { schema: "traditional" }); // this is okay
+const schema = new heb.Schema({ schema: "traditional" }); // this does nothing
+```
+
+Read more about the syllabification options for the [`Text`](https://charlesloder.github.io/havarot/interfaces/text.SylOpts.html) and a [higher level overview](https://charlesloder.github.io/havarot/pages/Linguistic/syllabification.html)
+
+###### Precedence of `Text` over `Schema`
+
+The syllabification options set by `Schema` are used if a `string` is passed into [`transliterate()`](#transliterate). If a `Text` is passed into [`transliterate()`](#transliterate) instead of a `string`, then the syllabification from the `Text` class is used:
+
+```javascript
+// using default
+heb.transliterate("חָכְמָ֣ה"); // ḥokmâ
+
+// using Schema for syllabification
+heb.transliterate("חָכְמָ֣ה", { qametsQatan: false }); // ḥākǝmâ
+
+// using Text for syllabification
+heb.transliterate(new heb.Text("חָכְמָ֣ה", { qametsQatan: false })); // ḥākǝmâ
+
+// using Schema and Text — Text takes precedence
+heb.transliterate(new heb.Text("חָכְמָ֣ה", { qametsQatan: true }), { qametsQatan: false }); // ḥokmâ
+```
+
+**Note**: `qametsQatan` only converts a regular _qamets_ character; if a [_qamets qatan_ character](https://www.compart.com/en/unicode/U+05C7) is used, it will always be a _qamets qatan_.
+
+##### 2) Characters
+
+Most `Schema` properties are for defining single Hebrew characters:
+
+```javascript
+heb.transliterate("אָ", { ALEF: "@", QAMETS: "A" });
+// @A
+```
+
+##### 3) Orthographic Features
+
+Some properties are for defining common Hebrew orthographies for:
+
+###### _BeGaDKePhaT_
+
+There are properties for the digraphs of _BeGaDKePhaT_ letters:
+
+- `BET_DAGESH`
+- `GIMEL_DAGESH`
+- `DALET_DAGESH`
+- `KAF_DAGESH`
+- `PE_DAGESH`
+- `TAV_DAGESH`
+
+Each one is the consonant character followed by the _dagesh_ character (U+05BC).
+
+These are helpful for distinguishing between spirantized forms.
+
+```javascript
+heb.transliterate("בְּבֵית", { BET: "b" });
+// bǝbêt
+
+heb.transliterate("בְּבֵית", { BET: "v", BET_DAGESH: "b" });
+// bǝvêt
+```
+
+###### Matres Lectionis
+
+The following properties are for _matres lectionis_:
+
+- `HIRIQ_YOD`
+- `TSERE_YOD`
+- `SEGOL_YOD`
+- `SHUREQ`
+- `HOLAM_VAV`
+- `QAMATS_HE`
+- `SEGOL_HE`
+- `TSERE_HE`
+
+```javascript
+heb.transliterate("פֶּה", { SEGOL_HE: "é" });
+// pé
+```
+
+###### Others
+
+There are other orthographic features:
+
+- `MS_SUFX` — HEBREW LETTER QAMATS (U+05B8) and YOD (U+05D9) and VAV (U+05D5) יו◌ָ
+- `DIVINE_NAME` — the full form of the divine name - יהוה
+- `SYLLABLE_SEPARATOR` — a syllable separator, usually an empty string
+- `DAGESH_CHAZAQ` — if true, repeats the consonant with the _dagesh_
+
+```javascript
+heb.transliterate("שַׁבָּת", { DAGESH_CHAZAQ: true });
+// šabbāt
+
+heb.transliterate("שַׁבָּת", { DAGESH_CHAZAQ: false });
+// šabāt
+
+heb.transliterate("הָאָֽרֶץ", { SYLLABLE_SEPARATOR: "-" });
+// hā-ʾā-reṣ
+```
+
+##### 4) Additional Features
+
+The `ADDITIONAL_FEATURES` property is for defining non-typical Hebrew orthography, example:
+
+```javascript
+heb.transliterate("הַזֹּאת", {
+  ADDITIONAL_FEATURES: [
+    {
+      FEATURE: "cluster",
+      HEBREW: "זּ",
+      TRANSLITERATION: "tz"
+    }
+  ]
+});
+// hatzōʾt
+```
+
+- The orthography `זּ` is most often a doubling of the `ZAYIN` (i.e. `'z'` with no _dagesh_, and `'zz'` with a _dagesh chazaq_)
+- In the Romaniote reading tradition, however, the `ZAYIN` is usually transliterated with `'z'` (really `'ζ'`),
+- but a `ZAYIN` followed by a _dagesh_ is transliterated as `'tz'` (really `'τζ'`)
+
+Each additional feature consists of 3 parts:
+
+1. `FEATURE` — has three options:
+  - `"cluster"` — a `cluster` is any combination of a single character and optionally a *dagesh* and vowel.
+  - `"syllable"` — a `syllable` is any combination of a multiple characters and a single vowel and optionally a *dagesh*
+  - `"word"` — covers everything else
+2. `HEBREW` — the Hebrew text to be transliterated
+3. `TRANSLITERATION` — the text used to transliterate the Hebrew text
+
+:warning: this is an experimental property; results may not always meet expectations
 
 ## Live
 
