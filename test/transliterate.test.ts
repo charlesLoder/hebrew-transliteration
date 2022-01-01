@@ -201,6 +201,7 @@ describe("extending SBL schema for optional arguments", () => {
         ${"dagesh chazaq - false"}                  | ${"שַׁבָּת֔וֹן"} | ${"šabātôn"}    | ${{ DAGESH_CHAZAQ: false }}
         ${"dagesh chazaq - false, different chars"} | ${"שַׁבָּת֔וֹן"} | ${"šavātôn"}    | ${{ DAGESH_CHAZAQ: false, BET: "v" }}
         ${"dagesh chazaq - false, different chars"} | ${"שַׁבָּת֔וֹן"} | ${"šabātôn"}    | ${{ DAGESH_CHAZAQ: false, BET: "v", BET_DAGESH: "b" }}
+        ${"dagesh chazaq - true, different chars"}  | ${"שַׁבָּת֔וֹן"} | ${"šabbātôn"}   | ${{ DAGESH_CHAZAQ: true, BET: "v", BET_DAGESH: "b" }}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration, options } = inputs;
         expect(transliterate(hebrew, options)).toBe(transliteration);

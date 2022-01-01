@@ -44,46 +44,48 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
 
   // dagesh chazaq
   const prevHasVowel = cluster.prev instanceof Cluster ? cluster.prev.hasVowel : false;
-  if (schema.DAGESH_CHAZAQ && prevHasVowel && /\u{05BC}/u.test(clusterText)) {
-    const consonant = cluster.chars[0].text;
-    const consonantDagesh = new RegExp(consonant + "\u{05BC}", "u");
-    return changeElementSplit(clusterText, consonantDagesh, `${consonant + consonant}`);
-  }
+  const isDoubled = schema.DAGESH_CHAZAQ && prevHasVowel && /\u{05BC}/u.test(clusterText);
 
   if (schema.BET_DAGESH && /ב\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ב\u{05BC}/u, schema.BET_DAGESH);
+    return changeElementSplit(clusterText, /ב\u{05BC}/u, schema.BET_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.GIMEL_DAGESH && /ג\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ג\u{05BC}/u, schema.GIMEL_DAGESH);
+    return changeElementSplit(clusterText, /ג\u{05BC}/u, schema.GIMEL_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.DALET_DAGESH && /ד\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ד\u{05BC}/u, schema.DALET_DAGESH);
+    return changeElementSplit(clusterText, /ד\u{05BC}/u, schema.DALET_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.KAF_DAGESH && /כ\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /כ\u{05BC}/u, schema.KAF_DAGESH);
+    return changeElementSplit(clusterText, /כ\u{05BC}/u, schema.KAF_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.KAF_DAGESH && /ך\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ך\u{05BC}/u, schema.KAF_DAGESH);
+    return changeElementSplit(clusterText, /ך\u{05BC}/u, schema.KAF_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.PE_DAGESH && /פ\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /פ\u{05BC}/u, schema.PE_DAGESH);
+    return changeElementSplit(clusterText, /פ\u{05BC}/u, schema.PE_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.TAV_DAGESH && /ת\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ת\u{05BC}/u, schema.TAV_DAGESH);
+    return changeElementSplit(clusterText, /ת\u{05BC}/u, schema.TAV_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (/ש\u{05C1}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ש\u{05C1}/u, schema.SHIN);
+    return changeElementSplit(clusterText, /ש\u{05C1}/u, schema.SHIN.repeat(isDoubled ? 2 : 1));
   }
 
   if (/ש\u{05C2}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ש\u{05C2}/u, schema.SIN);
+    return changeElementSplit(clusterText, /ש\u{05C2}/u, schema.SIN.repeat(isDoubled ? 2 : 1));
+  }
+
+  if (isDoubled) {
+    const consonant = cluster.chars[0].text;
+    const consonantDagesh = new RegExp(consonant + "\u{05BC}", "u");
+    return changeElementSplit(clusterText, consonantDagesh, `${consonant + consonant}`);
   }
 
   if (cluster.isShureq) {
