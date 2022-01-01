@@ -50,6 +50,6 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
-    "havarotjs": "^0.7.0"
+    "havarotjs": "^0.7.1"
   }
 }
