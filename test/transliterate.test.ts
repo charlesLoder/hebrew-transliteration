@@ -118,6 +118,7 @@ describe("using default options", () => {
         ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}       | ${"ʿāwôn"}
         ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"} | ${"ʿăwōnôtênû"}
         ${"initial shureq"}                                                    | ${"וּמִן"}         | ${"ûmin"}
+        ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}      | ${"bîṭôn"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
@@ -395,6 +396,7 @@ describe("using custom schema (SBL simple)", () => {
         ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}       | ${"avon"}
         ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"} | ${"avonotenu"}
         ${"initial shureq"}                                                    | ${"וּמִן"}         | ${"umin"}
+        ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}      | ${"biton"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
