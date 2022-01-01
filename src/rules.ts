@@ -106,9 +106,8 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
   // string comprised of all non-mater clusters in a syl with a mater
   let noMaterText = syl.clusters
     .filter((c) => !c.isMater)
-    .map((c) => c.text)
-    .join("")
-    .replace(taamim, "");
+    .map((c) => consonantFeatures(c.text.replace(taamim, ""), syl, c, schema))
+    .join("");
 
   // workaround for maqaf
   const hasMaqaf = mater.text.includes("־");
