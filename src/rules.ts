@@ -20,6 +20,8 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     }
   }
 
+  clusterText = cluster.hasShewa && syl.isClosed ? clusterText.replace(/\u{05B0}/u, "") : clusterText;
+
   // mappiq he
   if (/ה\u{05BC}$/mu.test(clusterText)) {
     return changeElementSplit(clusterText, /ה\u{05BC}/u, schema.HE);
@@ -90,11 +92,6 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
 
   if (cluster.isShureq) {
     return schema.SHUREQ;
-  }
-
-  if (cluster.hasShewa && syl.isClosed) {
-    const shewa = /\u{05B0}/u;
-    return clusterText.replace(shewa, "");
   }
 
   return clusterText;

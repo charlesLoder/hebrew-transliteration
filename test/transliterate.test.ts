@@ -6,7 +6,7 @@ interface Inputs {
   options?: Partial<Schema>;
 }
 /**
- * all tests (except the first) use taamim
+ * most tests use taamim
  */
 describe("using default options", () => {
   describe("basic tests", () => {
@@ -75,14 +75,15 @@ describe("using default options", () => {
 
     describe("shewa", () => {
       test.each`
-        description                                     | hebrew             | transliteration
-        ${"vocal shewa"}                                | ${"סְלִ֣ק"}        | ${"sǝliq"}
-        ${"silent shewa"}                               | ${"סַלְכָ֣ה"}      | ${"salkâ"}
-        ${"final shewa"}                                | ${"כָּ֣ךְ"}        | ${"kāk"}
-        ${"two final shewas"}                           | ${"קָטַ֣לְתְּ"}    | ${"qāṭalt"}
-        ${"omitted dagesh chazaq after article, yod"}   | ${"הַיְאֹ֗ר"}      | ${"hayǝʾōr"}
-        ${"omitted dagesh chazaq after article, mem"}   | ${"הַמְיַלֶּ֗דֶת"} | ${"hamǝyalledet"}
-        ${"omitted dagesh chazaq after article, lamed"} | ${"הַלְוִיִּ֔ם"}   | ${"halǝwiyyim"}
+        description                                     | hebrew              | transliteration
+        ${"vocal shewa"}                                | ${"סְלִ֣ק"}         | ${"sǝliq"}
+        ${"silent shewa"}                               | ${"סַלְכָ֣ה"}       | ${"salkâ"}
+        ${"final shewa"}                                | ${"כָּ֣ךְ"}         | ${"kāk"}
+        ${"two final shewas"}                           | ${"קָטַ֣לְתְּ"}     | ${"qāṭalt"}
+        ${"omitted dagesh chazaq after article, yod"}   | ${"הַיְאֹ֗ר"}       | ${"hayǝʾōr"}
+        ${"omitted dagesh chazaq after article, mem"}   | ${"הַמְיַלֶּ֗דֶת"}  | ${"hamǝyalledet"}
+        ${"omitted dagesh chazaq after article, lamed"} | ${"הַלְוִיִּ֔ם"}    | ${"halǝwiyyim"}
+        ${"silent shewa and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʾaškǝnazzî"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
@@ -356,12 +357,13 @@ describe("using custom schema (SBL simple)", () => {
 
     describe("shewa", () => {
       test.each`
-        description                              | hebrew          | transliteration
-        ${"vocal shewa"}                         | ${"סְלִ֣ק"}     | ${"seliq"}
-        ${"silent shewa"}                        | ${"סַלְכָ֣ה"}   | ${"salkhah"}
-        ${"final shewa"}                         | ${"כָּ֣ךְ"}     | ${"kakh"}
-        ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"} | ${"qatalt"}
-        ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}   | ${"hayeor"}
+        description                              | hebrew              | transliteration
+        ${"vocal shewa"}                         | ${"סְלִ֣ק"}         | ${"seliq"}
+        ${"silent shewa"}                        | ${"סַלְכָ֣ה"}       | ${"salkhah"}
+        ${"final shewa"}                         | ${"כָּ֣ךְ"}         | ${"kakh"}
+        ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"}     | ${"qatalt"}
+        ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"hayeor"}
+        ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ashkenazzi"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
