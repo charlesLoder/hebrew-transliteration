@@ -118,6 +118,7 @@ describe("using default options", () => {
         ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}       | ${"ʿāwôn"}
         ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"} | ${"ʿăwōnôtênû"}
         ${"initial shureq"}                                                    | ${"וּמִן"}         | ${"ûmin"}
+        ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}      | ${"bîṭôn"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
@@ -211,7 +212,7 @@ describe("extending SBL schema for optional arguments", () => {
     test.each`
       description           | hebrew                    | transliteration      | options
       ${"cluster feature"}  | ${"הַזֹּאת"}              | ${"hatzōʾt"}         | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "cluster", HEBREW: "זּ", TRANSLITERATION: "tz" }] }}
-      ${"syllable feature"} | ${"בְּרֵאשִׁ֖ית בָּרָ֣א"} | ${"bǝRAYšׁît bārāʾ"} | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "syllable", HEBREW: "רֵא", TRANSLITERATION: "RAY" }] }}
+      ${"syllable feature"} | ${"בְּרֵאשִׁ֖ית בָּרָ֣א"} | ${"bǝRAYšît bārāʾ"}  | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "syllable", HEBREW: "רֵא", TRANSLITERATION: "RAY" }] }}
       ${"word feature"}     | ${"וְאֵ֥ת הָאָֽרֶץ"}      | ${"wǝʾēt The Earth"} | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "word", HEBREW: "הָאָרֶץ", TRANSLITERATION: "The Earth" }] }}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration, options } = inputs;
@@ -395,6 +396,7 @@ describe("using custom schema (SBL simple)", () => {
         ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}       | ${"avon"}
         ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"} | ${"avonotenu"}
         ${"initial shureq"}                                                    | ${"וּמִן"}         | ${"umin"}
+        ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}      | ${"biton"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
