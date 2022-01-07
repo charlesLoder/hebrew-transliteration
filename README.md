@@ -248,7 +248,9 @@ heb.transliterate("הָאָֽרֶץ", { SYLLABLE_SEPARATOR: "-" });
 // hā-ʾā-reṣ
 ```
 
-##### 4) Additional Features
+##### 4) Others
+
+###### Additional Features
 
 The `ADDITIONAL_FEATURES` property is for defining non-typical Hebrew orthography, example:
 
@@ -279,6 +281,32 @@ Each additional feature consists of 3 parts:
 3. `TRANSLITERATION` — the text used to transliterate the Hebrew text
 
 :warning: this is an experimental property; results may not always meet expectations
+
+###### Stress Marker
+
+The `STRESS_MARKER` property is an optional mark to indicate stress in transliteration.
+
+```javascript
+heb.transliterate("מֶ֣לֶךְ", { STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } });
+// mélek
+```
+
+The `location` has four options:
+
+- `"before-syllable"`
+- `"after-syllable"`
+- `"before-vowel"`
+- `"after-vowel"`
+
+A combining mark (e.g. `"\u0301"`) placed `"after-vowel"` will print on top of the vowel, and placed after a digraph will print on the second vowel.
+
+```javascript
+heb.transliterate("בֵּ֣ית", {
+  TSERE_YOD: "ei",
+  STRESS_MARKER: { location: "after-vowel", mark: "\u0301" }
+});
+// beít
+```
 
 ## Live
 
