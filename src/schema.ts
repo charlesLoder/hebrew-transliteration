@@ -456,7 +456,7 @@ export class Schema implements SylOpts {
    * 'ˈ' or '\u0341'
    * @example
    * ```js
-   * transliterate('מֶ֣לֶךְ', { STRESS_MARKER: { location: 'after-vowel', mark: '\u0341' } });
+   * transliterate('מֶ֣לֶךְ', { STRESS_MARKER: { location: 'after-vowel', mark: '\u0301' } });
    * // 'mélek'
    * ```
    */
