@@ -221,6 +221,20 @@ describe("extending SBL schema for optional arguments", () => {
       expect(transliterate(hebrew, options)).toBe(transliteration);
     });
   });
+
+  describe("stress marks", () => {
+    test.each`
+      description                 | hebrew         | transliteration | options
+      ${"before-syllable"}        | ${"דָּבָ֑ר"}   | ${"dāˈbār"}     | ${{ STRESS_MARKER: { location: "before-syllable", mark: "ˈ" } }}
+      ${"after-syllable"}         | ${"דָּבָ֑ר"}   | ${"dābārˈ"}     | ${{ STRESS_MARKER: { location: "after-syllable", mark: "ˈ" } }}
+      ${"before-vowel"}           | ${"מֶ֣לֶךְ"}   | ${"ḿelek"}      | ${{ STRESS_MARKER: { location: "before-vowel", mark: "\u0341" } }}
+      ${"after-vowel"}            | ${"מֶ֣לֶךְ"}   | ${"mélek"}      | ${{ STRESS_MARKER: { location: "after-after", mark: "\u0341" } }}
+      ${"after-vowel with mater"} | ${"אֱלֹהִ֔ים"} | ${"ʾĕlōhî́m"}    | ${{ STRESS_MARKER: { location: "after-after", mark: "\u0341" } }}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration, options } = inputs;
+      expect(transliterate(hebrew, options)).toBe(transliteration);
+    });
+  });
 });
 
 describe("using custom schema (SBL simple)", () => {
