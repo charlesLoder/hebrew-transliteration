@@ -28,7 +28,7 @@ npm run build
 const heb = require("hebrew-transliteration");
 const transliterate = heb.transliterate;
 transliterate("אֱלֹהִים");
-// "ʾĕlōhîm";
+// ʾĕlōhîm
 ```
 
 ## DOCS
