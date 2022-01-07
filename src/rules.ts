@@ -190,7 +190,7 @@ const joinChars = (isAccented: boolean, sylChars: string[], schema: Schema): str
       schema.SEGOL_YOD,
       schema.HOLAM_VAV,
       schema.SHUREQ
-    ];
+    ].sort((a, b) => b.length - a.length);
     const vowelRgx = new RegExp(`${vowels.join("|")}`);
     const str = sylChars.map((char) => mapChars(char, schema)).join("");
     const match = str.match(vowelRgx);
