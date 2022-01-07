@@ -154,6 +154,58 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
   return materText;
 };
 
+const joinChars = (isAccented: boolean, sylChars: string[], schema: Schema): string => {
+  if (!isAccented) {
+    return sylChars.map((char) => mapChars(char, schema)).join("");
+  }
+
+  if (schema.STRESS_MARKER) {
+    const location = schema.STRESS_MARKER.location;
+    const mark = schema.STRESS_MARKER.mark;
+    if (location === "before-syllable") {
+      return `${mark}${sylChars.map((char) => mapChars(char, schema)).join("")}`;
+    }
+
+    if (location === "after-syllable") {
+      return `${sylChars.map((char) => mapChars(char, schema)).join("")}${mark}`;
+    }
+
+    const vowels = [
+      schema.PATAH,
+      schema.HATAF_PATAH,
+      schema.QAMATS,
+      schema.HATAF_QAMATS,
+      schema.SEGOL,
+      schema.HATAF_SEGOL,
+      schema.TSERE,
+      schema.HIRIQ,
+      schema.HOLAM,
+      schema.QAMATS_QATAN,
+      schema.QUBUTS,
+      schema.QAMATS_HE,
+      schema.SEGOL_HE,
+      schema.TSERE_HE,
+      schema.HIRIQ_YOD,
+      schema.TSERE_YOD,
+      schema.SEGOL_YOD,
+      schema.HOLAM_VAV,
+      schema.SHUREQ
+    ];
+    const vowelRgx = new RegExp(`${vowels.join("|")}`);
+    const str = sylChars.map((char) => mapChars(char, schema)).join("");
+    const match = str.match(vowelRgx);
+
+    if (location === "before-vowel") {
+      return match?.length ? str.replace(match[0], `${mark}${match[0]}`) : str;
+    }
+
+    // after-vowel
+    return match?.length ? str.replace(match[0], `${match[0]}${mark}`) : str;
+  }
+
+  return sylChars.map((char) => mapChars(char, schema)).join("");
+};
+
 export const sylRules = (syl: Syllable, schema: Schema): string => {
   const sylTxt = syl.text.replace(taamim, "");
 
@@ -163,7 +215,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
       const heb = new RegExp(seq.HEBREW, "u");
       if (heb.test(sylTxt)) {
         const wordSeq = changeElementSplit(sylTxt, heb, seq.TRANSLITERATION);
-        return [...wordSeq].map((char) => mapChars(char, schema)).join("");
+        return joinChars(syl.isAccented, [...wordSeq], schema);
       }
     }
   }
@@ -172,7 +224,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   const mSSuffix = /\u{05B8}\u{05D9}\u{05D5}/u;
   if (syl.isFinal && mSSuffix.test(sylTxt)) {
     const sufxSyl = changeElementSplit(sylTxt, mSSuffix, schema.MS_SUFX);
-    return [...sufxSyl].map((char) => mapChars(char, schema)).join("");
+    return joinChars(syl.isAccented, [...sufxSyl], schema);
   }
 
   // syllable has a mater
@@ -181,7 +233,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   const hasMater = syl.clusters.map((c) => c.isMater).includes(true);
   if (hasMater) {
     const materSyl = materFeatures(syl, schema);
-    return [...materSyl].map((char) => mapChars(char, schema)).join("");
+    return joinChars(syl.isAccented, [...materSyl], schema);
   }
 
   // regular syllables
@@ -190,7 +242,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
     return consonantFeatures(clusterText, syl, cluster, schema);
   });
 
-  return returnTxt.map((char) => mapChars(char, schema)).join("");
+  return joinChars(syl.isAccented, returnTxt, schema);
 };
 
 export const wordRules = (word: Word, schema: Schema): string | Word => {
