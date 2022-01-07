@@ -447,6 +447,23 @@ export class Schema implements SylOpts {
    * ```
    */
   SYLLABLE_SEPARATOR?: string;
+  /**
+   * a mark for indentifying the stressed syllable
+   *
+   * @description
+   * taamim are needed in the Hebrew text to correctly identify stress
+   *  @example
+   * 'ˈ' or '\u0341'
+   * @example
+   * ```js
+   * transliterate('מֶ֣לֶךְ', { STRESS_MARKER: { location: 'after-vowel', mark: '\u0301' } });
+   * // 'mélek'
+   * ```
+   */
+  STRESS_MARKER?: {
+    location: "before-syllable" | "after-syllable" | "before-vowel" | "after-vowel";
+    mark: string;
+  };
   longVowels: SylOpts["longVowels"];
   qametsQatan: SylOpts["qametsQatan"];
   sqnmlvy: SylOpts["sqnmlvy"];
@@ -517,6 +534,7 @@ export class Schema implements SylOpts {
       (this.DIVINE_NAME = schema.DIVINE_NAME),
       (this.SYLLABLE_SEPARATOR = schema.SYLLABLE_SEPARATOR),
       (this.ADDITIONAL_FEATURES = schema.ADDITIONAL_FEATURES),
+      (this.STRESS_MARKER = schema.STRESS_MARKER),
       (this.longVowels = schema.longVowels),
       (this.qametsQatan = schema.qametsQatan),
       (this.sqnmlvy = schema.sqnmlvy),
@@ -592,6 +610,7 @@ export class SBL extends Schema {
       DIVINE_NAME: schema.DIVINE_NAME || "yhwh",
       SYLLABLE_SEPARATOR: schema.SYLLABLE_SEPARATOR || undefined,
       ADDITIONAL_FEATURES: schema.ADDITIONAL_FEATURES || undefined,
+      STRESS_MARKER: schema.STRESS_MARKER || undefined,
       longVowels: schema.longVowels ?? true,
       qametsQatan: schema.qametsQatan ?? true,
       sqnmlvy: schema.sqnmlvy ?? true,
