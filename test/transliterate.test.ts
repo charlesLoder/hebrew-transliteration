@@ -1,252 +1,447 @@
-import { transliterate } from "../src/index";
+import { transliterate, Schema } from "../src/index";
 
-describe("using default academic style", () => {
-  describe("default options", () => {
-    test("basic transliteration", () => {
-      expect(transliterate("אֱלֹהִים")).toEqual("ʾĕlōhîm");
-    });
-
-    test("longer string of text", () => {
-      expect(
-        transliterate(
-          "וְהָאָ֗רֶץ הָיְתָ֥ה תֹ֨הוּ֙ וָבֹ֔הוּ וְחֹ֖שֶׁךְ עַל־פְּנֵ֣י תְהֹ֑ום וְר֣וּחַ אֱלֹהִ֔ים מְרַחֶ֖פֶת עַל־פְּנֵ֥י הַמָּֽיִם׃"
-        )
-      ).toEqual("wǝhāʾāreṣ hāyǝtâ tōhû wābōhû wǝḥōšek ʿal-pǝnê tǝhôm wǝrûaḥ ʾĕlōhîm mǝraḥepet ʿal-pǝnê hammāyim");
-    });
-
-    test("verse numbers", () => {
-      expect(
-        transliterate(`
-    v.1 וְהָאָ֗רֶץ הָיְתָ֥ה תֹ֨הוּ֙ וָבֹ֔הוּ וְחֹ֖שֶׁךְ עַל־פְּנֵ֣י תְהֹ֑ום וְר֣וּחַ אֱלֹהִ֔ים מְרַחֶ֖פֶת עַל־פְּנֵ֥י הַמָּֽיִם׃
-    `)
-      ).toEqual(`
-    v.1 wǝhāʾāreṣ hāyǝtâ tōhû wābōhû wǝḥōšek ʿal-pǝnê tǝhôm wǝrûaḥ ʾĕlōhîm mǝraḥepet ʿal-pǝnê hammāyim
-    `);
-    });
-
-    test("line breaks", () => {
-      expect(
-        transliterate(`
-    אֱלֹהִים
-    תֹורָה
-    אִ֛ישׁ
-    מַלְכֵי
-    `)
-      ).toEqual(`
-    ʾĕlōhîm
-    tôrâ
-    ʾîš
-    malkê
-    `);
-    });
-
-    test("qametsQatan false", () => {
-      expect(transliterate("כָּל־הָעָם")).toEqual("kāl-hāʿām");
+interface Inputs {
+  hebrew: string;
+  transliteration: string;
+  options?: Partial<Schema>;
+}
+/**
+ * most tests use taamim
+ */
+describe("using default options", () => {
+  describe("basic tests", () => {
+    test.each`
+      description                    | hebrew                           | transliteration
+      ${"consonants"}                | ${"אבגדהוזחטיכךלמםנןסעפףצץקרשת"} | ${"ʾbgdhwzḥṭykklmmnnsʿppṣṣqršt"}
+      ${"no special cases"}          | ${"רַ֛עַל"}                      | ${"raʿal"}
+      ${"preserve non-Hebrew chars"} | ${"v1. רַ֛עַל"}                  | ${"v1. raʿal"}
+      ${"preserve line breaks"}      | ${"v1.\n רַ֛עַל"}                | ${"v1.\n raʿal"}
+      ${"multiple words and passeq"} | ${"רַ֛עַל ׀ רַ֛עַל"}             | ${"raʿal  raʿal"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew)).toBe(transliteration);
     });
   });
 
-  describe("qametsQatan true", () => {
-    test("kol", () => {
-      expect(transliterate("כָּל־הָעָם", { qametsQatan: true })).toEqual("kol-hāʿām");
+  describe("consonant features", () => {
+    describe("spirantization and ligature tests", () => {
+      test.each`
+        description              | hebrew       | transliteration
+        ${"unspirantized bet"}   | ${"בָּ֣ם"}   | ${"bām"}
+        ${"spirantized bet"}     | ${"אָ֣ב"}    | ${"ʾāb"}
+        ${"unspirantized gimel"} | ${"גָּדַ֣ל"} | ${"gādal"}
+        ${"spirantized gimel"}   | ${"חָ֣ג"}    | ${"ḥāg"}
+        ${"unspirantized dalet"} | ${"דָּ֣ם"}   | ${"dām"}
+        ${"spirantized dalet"}   | ${"סַ֣ד"}    | ${"sad"}
+        ${"unspirantized kaf"}   | ${"כָּמָ֣ר"} | ${"kāmār"}
+        ${"spirantized kaf"}     | ${"לֵ֣ךְ"}   | ${"lēk"}
+        ${"unspirantized peh"}   | ${"פֹּ֣ה"}   | ${"pōh"}
+        ${"spirantized peh"}     | ${"אֶ֣לֶף"}  | ${"ʾelep"}
+        ${"unspirantized tav"}   | ${"תָּ֣ם"}   | ${"tām"}
+        ${"spirantized tav"}     | ${"מַ֣ת"}    | ${"mat"}
+        ${"shin"}                | ${"שֶׁ֣לֶם"}  | ${"šelem"}
+        ${"sin"}                 | ${"אָ֣רַשׂ"}  | ${"ʾāraś"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew)).toBe(transliteration);
+      });
     });
 
-    test("ḥoq", () => {
-      expect(transliterate("לְחָק־עוֹלָ֗ם", { qametsQatan: true })).toEqual("lǝḥoq-ʿôlām");
+    describe("furtive", () => {
+      test.each`
+        description               | hebrew         | transliteration
+        ${"furtive patach, chet"} | ${"נֹ֖חַ"}     | ${"nōaḥ"}
+        ${"furtive patach, ayin"} | ${"רָקִ֖יעַ"}  | ${"rāqîaʿ"}
+        ${"furtive patach, he"}   | ${"גָּבֹ֗הַּ"} | ${"gābōah"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew)).toBe(transliteration);
+      });
     });
 
-    test("wayyāqom", () => {
-      expect(transliterate("וַיָּ֥קָם קַ֛יִן אֶל־הֶ֥בֶל", { qametsQatan: true })).toEqual("wayyāqom qayin ʾel-hebel");
+    describe("dagesh", () => {
+      test.each`
+        description                          | hebrew         | transliteration
+        ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}   | ${"bōser"}
+        ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"} | ${"masgēr"}
+        ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"} | ${"minnǝzār"}
+        ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}   | ${"maggāl"}
+        ${"mappiq he"}                       | ${"וְלַ֨הּ"}   | ${"wǝlah"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew)).toBe(transliteration);
+      });
     });
 
-    test("wattāqom", () => {
-      expect(transliterate("וַתָּ֤קָם הַצְּעִירָה֙", { qametsQatan: true })).toEqual("wattāqom haṣṣǝʿîrâ");
-    });
-
-    test("wayyāmot", () => {
-      expect(transliterate("וַיָּ֥מָת תֶּ֖רַח בְּחָרָֽן", { qametsQatan: true })).toEqual("wayyāmot teraḥ bǝḥārān");
-    });
-
-    test("wattāmot", () => {
-      expect(transliterate("וַתָּ֣מָת שָׂרָ֗ה", { qametsQatan: true })).toEqual("wattāmot śārâ");
-    });
-
-    test("toknît (Ezk 28:12, 43:10)", () => {
-      expect(transliterate("אֶת־תָּכְנִֽית חוֹתֵ֣ם תָּכְנִ֔ית", { qametsQatan: true })).toEqual(
-        "ʾet-toknît ḥôtēm toknît"
-      );
-    });
-
-    test("dorbān (1 Sam 13:21)", () => {
-      expect(transliterate("וּלְהַצִּ֖יב הַדָּרְבָֽן", { qametsQatan: true })).toEqual("ûlǝhaṣṣîb haddorbān");
-    });
-
-    test("ḥonnenî", () => {
-      expect(transliterate("פְּנֵה־אֵלַ֥י וְחָנֵּ֑נִי", { qametsQatan: true })).toEqual("pǝnê-ʾēlay wǝḥonnēnî");
-    });
-
-    test("ʾoklâ (1, with siluq)", () => {
-      expect(transliterate("לָכֶ֥ם יִֽהְיֶ֖ה לְאָכְלָֽה", { qametsQatan: true })).toEqual("lākem yihyê lǝʾoklâ");
-    });
-
-    test("ʾoklâ (2)", () => {
-      expect(transliterate("אֶת־כָּל־יֶ֥רֶק עֵ֖שֶׂב לְאָכְלָ֑ה", { qametsQatan: true })).toEqual(
-        "ʾet-kol-yereq ʿēśeb lǝʾoklâ"
-      );
-    });
-
-    test("ʾokel inflected", () => {
-      expect(transliterate("לְפִ֣י אָכְל֑וֹ", { qametsQatan: true })).toEqual("lǝpî ʾoklô");
-    });
-
-    test("qorbān", () => {
-      expect(transliterate("יָבִ֧יא אֶת־קָרְבָּנ֛וֹ לַיהוָ֖ה", { qametsQatan: true })).toEqual(
-        "yābîʾ ʾet-qorbānô layhwh"
-      );
-    });
-
-    test("qorbān w/ heavy suffix, Lev 7:38", () => {
-      expect(transliterate("אֶת־קָרְבְּנֵיהֶ֛ם", { qametsQatan: true })).toEqual("ʾet-qorbǝnêhem");
-    });
-
-    test("qodqod (1)", () => {
-      expect(transliterate("וּלְקָדְקֹ֖ד נְזִ֥יר", { qametsQatan: true })).toEqual("ûlǝqodqōd nǝzîr");
-    });
-
-    test("qodqod (2)", () => {
-      expect(transliterate("וְעַ֥ד קָדְקֳדֶֽךָ", { qametsQatan: true })).toEqual("wǝʿad qodqŏdekā");
-    });
-
-    test("qodesh", () => {
-      expect(transliterate("לְכָֽל־מַתְּנֹ֖ת קָדְשֵׁיהֶ֑ם", { qametsQatan: true })).toEqual("lǝkāl-mattǝnōt qodšêhem");
-    });
-
-    test("shoresh (1)", () => {
-      expect(transliterate("שָׁרְשָׁם֙ בַּעֲמָלֵ֔ק", { qametsQatan: true })).toEqual("šoršām baʿămālēq");
-    });
-
-    test("shoresh (2)", () => {
-      expect(transliterate("אֶת־שָׁרָשֶׁ֨יהָ", { qametsQatan: true })).toEqual("ʾet-šorāšêhā");
-    });
-
-    test("shoresh (3, with dagesh)", () => {
-      expect(transliterate("מִשָּׁרָשָׁ֥יו יִפְרֶֽה", { qametsQatan: true })).toEqual("miššorāšāyw yiprê");
-    });
-
-    test("ʾobdan", () => {
-      expect(transliterate("בְּאָבְדַ֖ן מוֹלַדְתִּֽי", { qametsQatan: true })).toEqual("bǝʾobdan môladtî");
-    });
-
-    test("ʾoben", () => {
-      expect(transliterate("עַל־הָאָבְנָ֑יִם", { qametsQatan: true })).toEqual("ʿal-hāʾobnāyim");
-    });
-
-    test("ʾopen", () => {
-      expect(transliterate("עַל־אָפְנָֽיו׃", { qametsQatan: true })).toEqual("ʿal-ʾopnāyw");
-    });
-
-    test("ʾopnî", () => {
-      expect(transliterate("וְהָֽעָפְנִ֖י", { qametsQatan: true })).toEqual("wǝhāʿopnî");
-    });
-
-    test("ʿoprâ (1)", () => {
-      expect(transliterate("בְּעָפְרָ֔ה", { qametsQatan: true })).toEqual("bǝʿoprâ");
-    });
-
-    test("ʿoprâ (2)", () => {
-      expect(transliterate("בֵית־אָבִיו֙ עָפְרָ֔תָה", { qametsQatan: true })).toEqual("bêt-ʾābîw ʿoprātâ");
-    });
-
-    test("ḥopšî", () => {
-      expect(transliterate("אֲשֶׁ֥ר שִׁלְּח֖וּ חָפְשִׁ֑ים", { qametsQatan: true })).toEqual("ʾăšer šillǝḥû ḥopšîm");
-    });
-
-    test("ḥopnî, PN", () => {
-      expect(transliterate("חָפְנִי֙ וּפִ֣נְחָ֔ס", { qametsQatan: true })).toEqual("ḥopnî ûpinḥās");
-    });
-
-    test("ḥopen", () => {
-      expect(transliterate("מְלֹ֣א חָפְנֵיכֶ֔ם", { qametsQatan: true })).toEqual("mǝlōʾ ḥopnêkem");
-    });
-
-    test("ʿorpâ (PN)", () => {
-      expect(transliterate("הָֽאַחַת֙ עָרְפָּ֔ה", { qametsQatan: true })).toEqual("hāʾaḥat ʿorpâ");
-    });
-
-    test("ḥopraʿ (PN)", () => {
-      expect(transliterate("אֶת־פַּרְעֹ֨ה חָפְרַ֤ע", { qametsQatan: true })).toEqual("ʾet-parʿōh ḥopraʿ");
-    });
-
-    test("ḥopšît", () => {
-      expect(transliterate("בְּבֵ֣ית הַחָפְשִׁ֑ית", { qametsQatan: true })).toEqual("bǝbêt haḥopšît");
-    });
-
-    test("bošet (1)", () => {
-      expect(transliterate("עַל־עֵ֣קֶב בָּשְׁתָּ֑ם", { qametsQatan: true })).toEqual("ʿal-ʿēqeb boštām");
-    });
-
-    test("bošet (2)", () => {
-      expect(transliterate("וּ֭בָשְׁתִּי וּכְלִמָּתִ֑י", { qametsQatan: true })).toEqual("ûboštî ûkǝlimmātî");
-    });
-
-    test("qamets followed by qamets chatuph", () => {
-      expect(transliterate("פָּעֳלֹו", { qametsQatan: true })).toEqual("poʿŏlô");
+    describe("shewa", () => {
+      test.each`
+        description                                     | hebrew              | transliteration
+        ${"vocal shewa"}                                | ${"סְלִ֣ק"}         | ${"sǝliq"}
+        ${"silent shewa"}                               | ${"סַלְכָ֣ה"}       | ${"salkâ"}
+        ${"final shewa"}                                | ${"כָּ֣ךְ"}         | ${"kāk"}
+        ${"two final shewas"}                           | ${"קָטַ֣לְתְּ"}     | ${"qāṭalt"}
+        ${"omitted dagesh chazaq after article, yod"}   | ${"הַיְאֹ֗ר"}       | ${"hayǝʾōr"}
+        ${"omitted dagesh chazaq after article, mem"}   | ${"הַמְיַלֶּ֗דֶת"}  | ${"hamǝyalledet"}
+        ${"omitted dagesh chazaq after article, lamed"} | ${"הַלְוִיִּ֔ם"}    | ${"halǝwiyyim"}
+        ${"silent shewa and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʾaškǝnazzî"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew)).toBe(transliteration);
+      });
     });
   });
 
-  describe("sequence", () => {
-    test("sequence true", () => {
-      expect(transliterate("\u{5D4}\u{5B7}\u{5E9}\u{5B8}\u{5BC}")).toEqual("haššā");
+  describe("mater features", () => {
+    describe("typical", () => {
+      test.each`
+        description     | hebrew          | transliteration
+        ${"hiriq yod"}  | ${"עִ֔יר"}      | ${"ʿîr"}
+        ${"tsere yod"}  | ${"אֵ֤ין"}      | ${"ʾên"}
+        ${"seghol yod"} | ${"אֱלֹהֶ֑יךָ"} | ${"ʾĕlōhêkā"}
+        ${"holem vav"}  | ${"ס֣וֹא"}      | ${"sôʾ"}
+        ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʿēṣâ"}
+        ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"yiqrê"}
+        ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hāʾaryê"}
+        ${"shureq"}     | ${"קוּם"}       | ${"qûm"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew)).toBe(transliteration);
+      });
     });
 
-    test("sequence false", () => {
-      expect(transliterate("\u{5D4}\u{5B7}\u{5E9}\u{5B8}\u{5BC}", { isSequenced: false })).toEqual("hašā");
+    describe("edge cases", () => {
+      test.each`
+        description                                                            | hebrew             | transliteration
+        ${"const yod with hiriq as vowel"}                                     | ${"יַ֣יִן"}        | ${"yayin"}
+        ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"} | ${"wayǝhî-kēn"}
+        ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}         | ${"riyēm"}
+        ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}        | ${"ʿāwōn"}
+        ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}       | ${"ʿāwôn"}
+        ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"} | ${"ʿăwōnôtênû"}
+        ${"initial shureq"}                                                    | ${"וּמִן"}         | ${"ûmin"}
+        ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}      | ${"bîṭôn"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew)).toBe(transliteration);
+      });
+    });
+  });
+
+  describe("divine name", () => {
+    test.each`
+      description             | hebrew           | transliteration
+      ${"by itself"}          | ${"יְהוָ֥ה"}     | ${"yhwh"}
+      ${"with a maqqef"}      | ${"אֶת־יְהוָ֤ה"} | ${"ʾet-yhwh"}
+      ${"with a preposition"} | ${"בַּֽיהוָ֔ה"}  | ${"ba-yhwh"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew)).toBe(transliteration);
+    });
+  });
+
+  describe("qamets qatan", () => {
+    test.each`
+      description            | hebrew           | transliteration
+      ${"standard"}          | ${"כָּל־הָעָ֖ם"} | ${"kol-hāʿām"}
+      ${"with hatef qamets"} | ${"נָעֳמִי֙"}    | ${"noʿŏmî"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew)).toBe(transliteration);
     });
   });
 });
 
-describe("using simple style", () => {
-  test("basic transliteration", () => {
-    expect(transliterate("בְּרֵאשִׁית בָּרָא אֱלֹהִים", { isSimple: true })).toEqual("bereshit bara elohim");
+/**
+ * users should have the ability to enter any optional argument
+ * even if it is not part of the SBL schema
+ */
+describe("extending SBL schema for optional arguments", () => {
+  describe("basic tests", () => {
+    test.each`
+      description             | hebrew      | transliteration
+      ${"syllable separator"} | ${"רַ֛עַל"} | ${"ra-ʿal"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew, { SYLLABLE_SEPARATOR: "-" })).toBe(transliteration);
+    });
   });
 
-  test("common words", () => {
-    expect(transliterate("שָׁלֹום, דָּוִיד, אַבְרָם, סֶפֶר", { isSimple: true })).toEqual("shalom, david, avram, sefer");
+  describe("consonant features", () => {
+    describe("spirantization and ligature tests", () => {
+      test.each`
+        description              | hebrew       | transliteration
+        ${"unspirantized bet"}   | ${"בָּ֣ם"}   | ${"Bām"}
+        ${"spirantized bet"}     | ${"אָ֣ב"}    | ${"ʾāb"}
+        ${"unspirantized gimel"} | ${"גָּדַ֣ל"} | ${"Gādal"}
+        ${"spirantized gimel"}   | ${"חָ֣ג"}    | ${"ḥāg"}
+        ${"unspirantized dalet"} | ${"דָּ֣ם"}   | ${"Dām"}
+        ${"spirantized dalet"}   | ${"סַ֣ד"}    | ${"sad"}
+        ${"unspirantized kaf"}   | ${"כָּמָ֣ר"} | ${"Kāmār"}
+        ${"spirantized kaf"}     | ${"לֵ֣ךְ"}   | ${"lēk"}
+        ${"unspirantized peh"}   | ${"פֹּ֣ה"}   | ${"Pōh"}
+        ${"spirantized peh"}     | ${"אֶ֣לֶף"}  | ${"ʾelep"}
+        ${"unspirantized tav"}   | ${"תָּ֣ם"}   | ${"Tām"}
+        ${"spirantized tav"}     | ${"מַ֣ת"}    | ${"mat"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        const options: Partial<Schema> = {
+          BET_DAGESH: "B",
+          GIMEL_DAGESH: "G",
+          DALET_DAGESH: "D",
+          KAF_DAGESH: "K",
+          PE_DAGESH: "P",
+          TAV_DAGESH: "T"
+        };
+        expect(transliterate(hebrew, options)).toBe(transliteration);
+      });
+    });
+
+    describe("dagesh chazaq", () => {
+      test.each`
+        description                                 | hebrew           | transliteration | options
+        ${"dagesh chazaq - false"}                  | ${"שַׁבָּת֔וֹן"} | ${"šabātôn"}    | ${{ DAGESH_CHAZAQ: false }}
+        ${"dagesh chazaq - false, different chars"} | ${"שַׁבָּת֔וֹן"} | ${"šavātôn"}    | ${{ DAGESH_CHAZAQ: false, BET: "v" }}
+        ${"dagesh chazaq - false, different chars"} | ${"שַׁבָּת֔וֹן"} | ${"šabātôn"}    | ${{ DAGESH_CHAZAQ: false, BET: "v", BET_DAGESH: "b" }}
+        ${"dagesh chazaq - true, different chars"}  | ${"שַׁבָּת֔וֹן"} | ${"šabbātôn"}   | ${{ DAGESH_CHAZAQ: true, BET: "v", BET_DAGESH: "b" }}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration, options } = inputs;
+        expect(transliterate(hebrew, options)).toBe(transliteration);
+      });
+    });
   });
 
-  test("line breaks", () => {
-    expect(
-      transliterate(
-        `
-    אֱלֹהִים
-    תֹורָה
-    אִ֛ישׁ
-    מַלְכֵי
-    `,
-        { isSimple: true }
-      )
-    ).toEqual(`
-    elohim
-    torah
-    ish
-    malke
-    `);
+  describe("additional features", () => {
+    test.each`
+      description           | hebrew                    | transliteration      | options
+      ${"cluster feature"}  | ${"הַזֹּאת"}              | ${"hatzōʾt"}         | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "cluster", HEBREW: "זּ", TRANSLITERATION: "tz" }] }}
+      ${"syllable feature"} | ${"בְּרֵאשִׁ֖ית בָּרָ֣א"} | ${"bǝRAYšît bārāʾ"}  | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "syllable", HEBREW: "רֵא", TRANSLITERATION: "RAY" }] }}
+      ${"word feature"}     | ${"וְאֵ֥ת הָאָֽרֶץ"}      | ${"wǝʾēt The Earth"} | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "word", HEBREW: "הָאָרֶץ", TRANSLITERATION: "The Earth" }] }}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration, options } = inputs;
+      expect(transliterate(hebrew, options)).toBe(transliteration);
+    });
   });
 
-  test("doubling", () => {
-    expect(transliterate("הִנֵּה מַשָּׁא", { isSimple: true })).toEqual("hinneh masha");
+  describe("stress marks", () => {
+    test.each`
+      description                   | hebrew         | transliteration | options
+      ${"before-syllable"}          | ${"דָּבָ֑ר"}   | ${"dāˈbār"}     | ${{ STRESS_MARKER: { location: "before-syllable", mark: "ˈ" } }}
+      ${"after-syllable"}           | ${"דָּבָ֑ר"}   | ${"dābārˈ"}     | ${{ STRESS_MARKER: { location: "after-syllable", mark: "ˈ" } }}
+      ${"before-vowel"}             | ${"מֶ֣לֶךְ"}   | ${"ḿelek"}      | ${{ STRESS_MARKER: { location: "before-vowel", mark: "\u0301" } }}
+      ${"after-vowel"}              | ${"מֶ֣לֶךְ"}   | ${"mélek"}      | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } }}
+      ${"after-vowel with mater"}   | ${"אֱלֹהִ֔ים"} | ${"ʾĕlōhî́m"}    | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } }}
+      ${"after-vowel with digraph"} | ${"בֵּ֣ית"}    | ${"beít"}       | ${{ TSERE_YOD: "ei", STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } }}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration, options } = inputs;
+      expect(transliterate(hebrew, options)).toBe(transliteration);
+    });
+  });
+});
+
+describe("using custom schema (SBL simple)", () => {
+  const schema = new Schema({
+    ALEF: "",
+    BET: "v",
+    BET_DAGESH: "b",
+    GIMEL: "g",
+    DALET: "d",
+    HE: "h",
+    VAV: "v",
+    ZAYIN: "z",
+    HET: "kh",
+    TET: "t",
+    YOD: "y",
+    KAF: "kh",
+    KAF_DAGESH: "k",
+    FINAL_KAF: "kh",
+    LAMED: "l",
+    MEM: "m",
+    FINAL_MEM: "m",
+    NUN: "n",
+    FINAL_NUN: "n",
+    SAMEKH: "s",
+    AYIN: "",
+    PE: "f",
+    PE_DAGESH: "p",
+    FINAL_PE: "f",
+    TSADI: "ts",
+    FINAL_TSADI: "ts",
+    QOF: "q",
+    RESH: "r",
+    SIN: "s",
+    SHIN: "sh",
+    TAV: "t",
+    DAGESH: "",
+    DAGESH_CHAZAQ: true,
+    VOCAL_SHEVA: "e",
+    PATAH: "a",
+    HATAF_PATAH: "a",
+    QAMATS: "a",
+    HATAF_QAMATS: "o",
+    SEGOL: "e",
+    HATAF_SEGOL: "e",
+    TSERE: "e",
+    HIRIQ: "i",
+    HOLAM: "o",
+    QUBUTS: "u",
+    QAMATS_HE: "ah",
+    SEGOL_HE: "eh",
+    TSERE_HE: "eh",
+    SEGOL_YOD: "e",
+    HIRIQ_YOD: "i",
+    TSERE_YOD: "e",
+    FURTIVE_PATAH: "a",
+    QAMATS_QATAN: "o",
+    HOLAM_VAV: "o",
+    SHUREQ: "u",
+    MS_SUFX: "ayw",
+    PASEQ: "",
+    SOF_PASUQ: "",
+    MAQAF: "-",
+    DIVINE_NAME: "yhwh",
+    longVowels: true,
+    sqnmlvy: true,
+    qametsQatan: true,
+    wawShureq: true,
+    article: true
   });
 
-  test("qametsQatan false", () => {
-    expect(transliterate("כָּל־הָעָם", { isSimple: true })).toEqual("kal-haam");
+  describe("basic tests", () => {
+    test.each`
+      description                    | hebrew                           | transliteration
+      ${"consonants"}                | ${"אבגדהוזחטיכךלמםנןסעפףצץקרשת"} | ${"vgdhvzkhtykhkhlmmnnsfftstsqrsht"}
+      ${"no special cases"}          | ${"רַ֛עַל"}                      | ${"raal"}
+      ${"preserve non-Hebrew chars"} | ${"v1. רַ֛עַל"}                  | ${"v1. raal"}
+      ${"preserve line breaks"}      | ${"v1.\n רַ֛עַל"}                | ${"v1.\n raal"}
+      ${"multiple words and passeq"} | ${"רַ֛עַל ׀ רַ֛עַל"}             | ${"raal  raal"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    });
   });
 
-  test("qametsQatan true (1)", () => {
-    expect(transliterate("כָּל־הָעָם", { qametsQatan: true, isSimple: true })).toEqual("kol-haam");
+  describe("consonant features", () => {
+    describe("spirantization and ligature tests", () => {
+      test.each`
+        description              | hebrew       | transliteration
+        ${"unspirantized bet"}   | ${"בָּ֣ם"}   | ${"bam"}
+        ${"spirantized bet"}     | ${"אָ֣ב"}    | ${"av"}
+        ${"unspirantized gimel"} | ${"גָּדַ֣ל"} | ${"gadal"}
+        ${"spirantized gimel"}   | ${"חָ֣ג"}    | ${"khag"}
+        ${"unspirantized dalet"} | ${"דָּ֣ם"}   | ${"dam"}
+        ${"spirantized dalet"}   | ${"סַ֣ד"}    | ${"sad"}
+        ${"unspirantized kaf"}   | ${"כָּמָ֣ר"} | ${"kamar"}
+        ${"spirantized kaf"}     | ${"לֵ֣ךְ"}   | ${"lekh"}
+        ${"unspirantized peh"}   | ${"פֹּ֣ה"}   | ${"poh"}
+        ${"spirantized peh"}     | ${"אֶ֣לֶף"}  | ${"elef"}
+        ${"unspirantized tav"}   | ${"תָּ֣ם"}   | ${"tam"}
+        ${"spirantized tav"}     | ${"מַ֣ת"}    | ${"mat"}
+        ${"shin"}                | ${"שֶׁ֣לֶם"}  | ${"shelem"}
+        ${"sin"}                 | ${"אָ֣רַשׂ"}  | ${"aras"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
+    });
+
+    describe("furtive", () => {
+      test.each`
+        description               | hebrew         | transliteration
+        ${"furtive patach, chet"} | ${"נֹ֖חַ"}     | ${"noakh"}
+        ${"furtive patach, ayin"} | ${"רָקִ֖יעַ"}  | ${"raqia"}
+        ${"furtive patach, he"}   | ${"גָּבֹ֗הַּ"} | ${"gavoah"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
+    });
+
+    describe("dagesh", () => {
+      test.each`
+        description                          | hebrew         | transliteration
+        ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}   | ${"boser"}
+        ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"} | ${"masger"}
+        ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"} | ${"minnezar"}
+        ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}   | ${"maggal"}
+        ${"mappiq he"}                       | ${"וְלַ֨הּ"}   | ${"velah"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
+    });
+
+    describe("shewa", () => {
+      test.each`
+        description                              | hebrew              | transliteration
+        ${"vocal shewa"}                         | ${"סְלִ֣ק"}         | ${"seliq"}
+        ${"silent shewa"}                        | ${"סַלְכָ֣ה"}       | ${"salkhah"}
+        ${"final shewa"}                         | ${"כָּ֣ךְ"}         | ${"kakh"}
+        ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"}     | ${"qatalt"}
+        ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"hayeor"}
+        ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ashkenazzi"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
+    });
   });
 
-  test("qametsQatan true (2)", () => {
-    expect(transliterate("וַתָּקָם עָרְפָּה אֶת־כָל־חָכְמָה", { qametsQatan: true, isSimple: true })).toEqual(
-      "vattaqom orpah et-kol-khokhmah"
-    );
+  describe("mater features", () => {
+    describe("typical", () => {
+      test.each`
+        description     | hebrew          | transliteration
+        ${"hiriq yod"}  | ${"עִ֔יר"}      | ${"ir"}
+        ${"tsere yod"}  | ${"אֵ֤ין"}      | ${"en"}
+        ${"seghol yod"} | ${"אֱלֹהֶ֑יךָ"} | ${"elohekha"}
+        ${"holem vav"}  | ${"ס֣וֹא"}      | ${"so"}
+        ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"etsah"}
+        ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"yiqreh"}
+        ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"haaryeh"}
+        ${"shureq"}     | ${"קוּם"}       | ${"qum"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
+    });
+
+    describe("edge cases", () => {
+      test.each`
+        description                                                            | hebrew             | transliteration
+        ${"const yod with hiriq as vowel"}                                     | ${"יַ֣יִן"}        | ${"yayin"}
+        ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"} | ${"vayehi-khen"}
+        ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}         | ${"riyem"}
+        ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}        | ${"avon"}
+        ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}       | ${"avon"}
+        ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"} | ${"avonotenu"}
+        ${"initial shureq"}                                                    | ${"וּמִן"}         | ${"umin"}
+        ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}      | ${"biton"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
+    });
+  });
+
+  describe("divine name", () => {
+    test.each`
+      description             | hebrew           | transliteration
+      ${"by itself"}          | ${"יְהוָ֥ה"}     | ${"yhwh"}
+      ${"with a maqqef"}      | ${"אֶת־יְהוָ֤ה"} | ${"et-yhwh"}
+      ${"with a preposition"} | ${"בַּֽיהוָ֔ה"}  | ${"ba-yhwh"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    });
+  });
+
+  describe("qamets qatan", () => {
+    test.each`
+      description            | hebrew           | transliteration
+      ${"standard"}          | ${"כָּל־הָעָ֖ם"} | ${"kol-haam"}
+      ${"with hatef qamets"} | ${"נָעֳמִי֙"}    | ${"noomi"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    });
   });
 });
