@@ -22,6 +22,6 @@ build({
 const { Generator } = require("npm-dts");
 
 new Generator({
-  entry: "src/index.ts",
+  entry: "index.ts",
   output: "dist/index.d.ts"
 }).generate();
