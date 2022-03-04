@@ -2,6 +2,10 @@
 
 ## Version 2
 
+- v2.0.2: update havarotjs
+
+- v2.0.1: reduce build size
+
 - v2.0.0: complete rewrite
   - uses `havarotjs` for syllabification
   - use `Schema()` for defining custom transliteration schemas
