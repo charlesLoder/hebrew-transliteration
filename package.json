@@ -1,7 +1,7 @@
 {
   "name": "hebrew-transliteration",
   "version": "2.0.2",
-  "description": "a package for transliterating Hebrew according to SBL guidelines",
+  "description": "a package for transliterating Hebrew",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "module": "dist/indes.esm.js",
