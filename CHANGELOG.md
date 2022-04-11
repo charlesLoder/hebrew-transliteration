@@ -2,6 +2,10 @@
 
 ## Version 2
 
+- v2.0.4: update havarotjs and other packages
+
+- v2.0.3: update havarotjs and other packages
+
 - v2.0.2: update havarotjs
 
 - v2.0.1: reduce build size
