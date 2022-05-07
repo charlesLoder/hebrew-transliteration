@@ -68,7 +68,12 @@ export const transliterate = (text: string | Text, schema?: Partial<Schema> | Sc
   const transSchema = schema instanceof Schema ? schema : new SBL(schema ?? {});
   const isText = text instanceof Text;
   // prevents Text from throwing error when no vowels
-  if (!isText && !vowels.test(text)) return mapChars(text, transSchema);
+  if (!isText && !vowels.test(text)) {
+    const sin = new RegExp(transSchema.SHIN + "\u{05C2}", "gu");
+    return mapChars(text, transSchema)
+      .replace(sin, transSchema.SIN)
+      .replace(/\u{05C1}/gu, "");
+  }
   const sylOptions = getSylOpts(transSchema ?? {});
   const newText = isText ? text : new Text(text, sylOptions);
   return newText.words

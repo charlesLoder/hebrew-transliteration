@@ -13,6 +13,7 @@ describe("using default options", () => {
     test.each`
       description                    | hebrew                           | transliteration
       ${"consonants"}                | ${"אבגדהוזחטיכךלמםנןסעפףצץקרשת"} | ${"ʾbgdhwzḥṭykklmmnnsʿppṣṣqršt"}
+      ${"sin ligature w/o vowels"}   | ${"שׂגב"}                        | ${"śgb"}
       ${"no special cases"}          | ${"רַ֛עַל"}                      | ${"raʿal"}
       ${"preserve non-Hebrew chars"} | ${"v1. רַ֛עַל"}                  | ${"v1. raʿal"}
       ${"preserve line breaks"}      | ${"v1.\n רַ֛עַל"}                | ${"v1.\n raʿal"}
