@@ -2,6 +2,10 @@
 
 ## Version 2
 
+- v2.0.5:
+  - update havarotjs and other packages
+  - add check if word is not Hebrew
+
 - v2.0.4: update havarotjs and other packages
 
 - v2.0.3: update havarotjs and other packages
