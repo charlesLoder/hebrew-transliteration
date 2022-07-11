@@ -2,6 +2,12 @@
 
 ## Version 2
 
+- v2.0.7:
+  - still transliterates if word has taamim, but not niqqud (i.e. vowels)
+
+- v2.0.6:
+  - add check if word is not Hebrew
+
 - v2.0.5:
   - update havarotjs and other packages
   - add check if word is not Hebrew
