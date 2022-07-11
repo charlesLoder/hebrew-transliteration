@@ -1,6 +1,6 @@
 import { Text } from "havarotjs";
 
-export const vowels = /[\u{05B0}-\u{05BD}\u{05BF}\u{05C7}]/u;
+export const vowels = /[\u{05B0}-\u{05BC}\u{05C7}]/u;
 
 /**
  * sequences Hebrew charactes according to the [SBL Hebrew Font Manual](https://www.sbl-site.org/Fonts/SBLHebrewUserManual1.5x.pdf)
