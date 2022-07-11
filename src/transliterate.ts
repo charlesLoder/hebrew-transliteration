@@ -72,7 +72,7 @@ export const transliterate = (text: string | Text, schema?: Partial<Schema> | Sc
     const sin = new RegExp(transSchema.SHIN + "\u{05C2}", "gu");
     return mapChars(text, transSchema)
       .replace(sin, transSchema.SIN)
-      .replace(/\u{05C1}/gu, "");
+      .replace(/[\u{0590}-\u{05AF}\u{05BD}-\u{05C6}]/gu, "");
   }
   const sylOptions = getSylOpts(transSchema ?? {});
   const newText = isText ? text : new Text(text, sylOptions);
