@@ -2,6 +2,9 @@
 
 ## Version 2
 
+- v2.0.8:
+  - update havarotjs and other packages
+
 - v2.0.7:
   - still transliterates if word has taamim, but not niqqud (i.e. vowels)
 
