@@ -2,6 +2,11 @@
 
 ## Version 2
 
+- v2.1.0:
+  - update havarotjs and other packages
+  - new update improves how text w/o niqqud is handled
+  - Schema now gets a new syllabification option
+
 - v2.0.8:
   - update havarotjs and other packages
 
