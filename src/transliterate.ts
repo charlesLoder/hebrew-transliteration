@@ -1,6 +1,4 @@
-import { vowels } from "./sequence";
 import { sylRules, wordRules } from "./rules";
-import { mapChars } from "./mapChars";
 import { SBL, Schema } from "./schema";
 import { Text } from "havarotjs";
 import { Word } from "havarotjs/dist/word";
@@ -67,16 +65,7 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
  */
 export const transliterate = (text: string | Text, schema?: Partial<Schema> | Schema) => {
   const transSchema = schema instanceof Schema ? schema : new SBL(schema ?? {});
-  const isText = text instanceof Text;
-  // prevents Text from throwing error when no vowels
-  if (!isText && !vowels.test(text)) {
-    const sin = new RegExp(transSchema.SHIN + "\u{05C2}", "gu");
-    return mapChars(text, transSchema)
-      .replace(sin, transSchema.SIN)
-      .replace(/[\u{0590}-\u{05AF}\u{05BD}-\u{05C6}]/gu, "");
-  }
-  const sylOptions = getSylOpts(transSchema ?? {});
-  const newText = isText ? text : new Text(text, sylOptions);
+  const newText = text instanceof Text ? text : new Text(text, getSylOpts(transSchema ?? {}));
   return newText.words
     .map((word) => {
       let transliteration = wordRules(word, transSchema);
