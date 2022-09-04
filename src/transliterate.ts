@@ -19,6 +19,7 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
   if ("sqnmlvy" in schema) options.sqnmlvy = schema.sqnmlvy;
   if ("wawShureq" in schema) options.wawShureq = schema.wawShureq;
   if ("article" in schema) options.article = schema.article;
+  if ("allowNoNiqqud" in schema) options.allowNoNiqqud = schema.allowNoNiqqud;
   return options;
 };
 
