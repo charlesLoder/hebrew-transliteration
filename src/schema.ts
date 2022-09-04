@@ -469,6 +469,7 @@ export class Schema implements SylOpts {
   sqnmlvy: SylOpts["sqnmlvy"];
   wawShureq: SylOpts["wawShureq"];
   article: SylOpts["article"];
+  allowNoNiqqud: SylOpts["allowNoNiqqud"];
   constructor(schema: Schema) {
     (this.VOCAL_SHEVA = schema.VOCAL_SHEVA),
       (this.HATAF_SEGOL = schema.HATAF_SEGOL),
@@ -540,6 +541,7 @@ export class Schema implements SylOpts {
       (this.sqnmlvy = schema.sqnmlvy),
       (this.wawShureq = schema.wawShureq),
       (this.article = schema.article);
+    this.allowNoNiqqud = schema.allowNoNiqqud;
   }
 }
 
@@ -615,7 +617,8 @@ export class SBL extends Schema {
       qametsQatan: schema.qametsQatan ?? true,
       sqnmlvy: schema.sqnmlvy ?? true,
       wawShureq: schema.wawShureq ?? true,
-      article: schema.article ?? true
+      article: schema.article ?? true,
+      allowNoNiqqud: schema.allowNoNiqqud ?? true
     });
   }
 }
