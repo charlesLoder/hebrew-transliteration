@@ -305,7 +305,8 @@ describe("using custom schema (SBL simple)", () => {
     sqnmlvy: true,
     qametsQatan: true,
     wawShureq: true,
-    article: true
+    article: true,
+    allowNoNiqqud: true
   });
 
   describe("basic tests", () => {
