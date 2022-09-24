@@ -2,6 +2,9 @@
 
 ## Version 2
 
+- v2.1.1
+  - update havarotjs and other packages
+
 - v2.1.0:
   - update havarotjs and other packages
   - new update improves how text w/o niqqud is handled
