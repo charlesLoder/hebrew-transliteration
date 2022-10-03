@@ -1,6 +1,7 @@
 import { Cluster } from "havarotjs/dist/cluster";
 import { Syllable } from "havarotjs/dist/syllable";
 import { Word } from "havarotjs/dist/word";
+import { hebChars } from "havarotjs/dist/utils/regularExpressions";
 import { Schema } from "./schema";
 import { mapChars } from "./mapChars";
 
@@ -245,9 +246,22 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   return joinChars(syl.isAccented, returnTxt, schema);
 };
 
+/**
+ * formats the Divine Name with any Latin chars
+ *
+ * @param str word text
+ * @param schema
+ * @returns the Divine Name with any pre or proceding Latin chars
+ */
+const getDivineName = (str: string, schema: Schema): string => {
+  const begn = str[0];
+  const end = str[str.length - 1];
+  return `${hebChars.test(begn) ? "" : begn}${schema.DIVINE_NAME}${hebChars.test(end) ? "" : end}`;
+};
+
 export const wordRules = (word: Word, schema: Schema): string | Word => {
-  if (word.isDivineName) return schema.DIVINE_NAME;
-  if (word.hasDivineName) return `${sylRules(word.syllables[0], schema)}-${schema.DIVINE_NAME}`;
+  if (word.isDivineName) return getDivineName(word.text, schema);
+  if (word.hasDivineName) return `${sylRules(word.syllables[0], schema)}-${getDivineName(word.text, schema)}`;
   if (word.isNotHebrew) return word.text;
   if (schema.ADDITIONAL_FEATURES?.length) {
     const wordSeqs = schema.ADDITIONAL_FEATURES.filter((s) => s.FEATURE === "word");
