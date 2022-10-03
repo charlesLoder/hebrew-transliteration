@@ -427,10 +427,11 @@ describe("using custom schema (SBL simple)", () => {
 
   describe("divine name", () => {
     test.each`
-      description             | hebrew           | transliteration
-      ${"by itself"}          | ${"יְהוָ֥ה"}     | ${"yhwh"}
-      ${"with a maqqef"}      | ${"אֶת־יְהוָ֤ה"} | ${"et-yhwh"}
-      ${"with a preposition"} | ${"בַּֽיהוָ֔ה"}  | ${"ba-yhwh"}
+      description                    | hebrew           | transliteration
+      ${"by itself"}                 | ${"יְהוָ֥ה"}     | ${"yhwh"}
+      ${"with a maqqef"}             | ${"אֶת־יְהוָ֤ה"} | ${"et-yhwh"}
+      ${"with a preposition"}        | ${"בַּֽיהוָ֔ה"}  | ${"ba-yhwh"}
+      ${"with latin char following"} | ${"יְהוָ֥ה,"}    | ${"yhwh,"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
