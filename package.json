@@ -4,7 +4,7 @@
   "description": "a package for transliterating Hebrew",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "module": "dist/indes.esm.js",
+  "module": "dist/index.esm.js",
   "scripts": {
     "build": "tsc",
     "test": "clear && jest",
