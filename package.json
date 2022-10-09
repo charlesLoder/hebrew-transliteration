@@ -1,12 +1,27 @@
 {
   "name": "hebrew-transliteration",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "a package for transliterating Hebrew",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "module": "dist/indes.esm.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    },
+    "./schemas": {
+      "types": "./dist/schemas/index.d.ts",
+      "require": "./dist/schemas/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "schemas": [
+        "./dist/schemas/index.d.ts"
+      ]
+    }
+  },
   "scripts": {
-    "build": "node build.js",
+    "build": "tsc",
     "test": "clear && jest",
     "format": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
     "lint": "eslint . --ext .ts",

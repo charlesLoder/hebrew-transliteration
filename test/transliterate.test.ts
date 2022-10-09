@@ -1,4 +1,5 @@
 import { transliterate, Schema } from "../src/index";
+import { sblSimple } from "../src/schemas/index";
 
 interface Inputs {
   hebrew: string;
@@ -241,73 +242,7 @@ describe("extending SBL schema for optional arguments", () => {
 });
 
 describe("using custom schema (SBL simple)", () => {
-  const schema = new Schema({
-    ALEF: "",
-    BET: "v",
-    BET_DAGESH: "b",
-    GIMEL: "g",
-    DALET: "d",
-    HE: "h",
-    VAV: "v",
-    ZAYIN: "z",
-    HET: "kh",
-    TET: "t",
-    YOD: "y",
-    KAF: "kh",
-    KAF_DAGESH: "k",
-    FINAL_KAF: "kh",
-    LAMED: "l",
-    MEM: "m",
-    FINAL_MEM: "m",
-    NUN: "n",
-    FINAL_NUN: "n",
-    SAMEKH: "s",
-    AYIN: "",
-    PE: "f",
-    PE_DAGESH: "p",
-    FINAL_PE: "f",
-    TSADI: "ts",
-    FINAL_TSADI: "ts",
-    QOF: "q",
-    RESH: "r",
-    SIN: "s",
-    SHIN: "sh",
-    TAV: "t",
-    DAGESH: "",
-    DAGESH_CHAZAQ: true,
-    VOCAL_SHEVA: "e",
-    PATAH: "a",
-    HATAF_PATAH: "a",
-    QAMATS: "a",
-    HATAF_QAMATS: "o",
-    SEGOL: "e",
-    HATAF_SEGOL: "e",
-    TSERE: "e",
-    HIRIQ: "i",
-    HOLAM: "o",
-    QUBUTS: "u",
-    QAMATS_HE: "ah",
-    SEGOL_HE: "eh",
-    TSERE_HE: "eh",
-    SEGOL_YOD: "e",
-    HIRIQ_YOD: "i",
-    TSERE_YOD: "e",
-    FURTIVE_PATAH: "a",
-    QAMATS_QATAN: "o",
-    HOLAM_VAV: "o",
-    SHUREQ: "u",
-    MS_SUFX: "ayw",
-    PASEQ: "",
-    SOF_PASUQ: "",
-    MAQAF: "-",
-    DIVINE_NAME: "yhwh",
-    longVowels: true,
-    sqnmlvy: true,
-    qametsQatan: true,
-    wawShureq: true,
-    article: true,
-    allowNoNiqqud: true
-  });
+  const schema = sblSimple;
 
   describe("basic tests", () => {
     test.each`

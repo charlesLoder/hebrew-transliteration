@@ -2,6 +2,11 @@
 
 ## Version 2
 
+- v2.2.0
+  - fix DN with Latin chars (Issue #26)
+  - remove build scripts so no longer bundled as one file
+  - add premade schemas (Issue #25)
+
 - v2.1.2
   - update havarotjs and other packages
 
