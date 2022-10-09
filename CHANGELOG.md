@@ -2,6 +2,9 @@
 
 ## Version 2
 
+- v2.2.2
+  - fix export of package.json
+
 - v2.2.1
   - fix broken exports and type
 
