@@ -3,14 +3,17 @@
   "version": "2.2.0",
   "description": "a package for transliterating Hebrew",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js"
+      "require": "./dist/index.js",
+      "import": "./dist/index.js"
     },
     "./schemas": {
       "types": "./dist/schemas/index.d.ts",
-      "require": "./dist/schemas/index.js"
+      "require": "./dist/schemas/index.js",
+      "import": "./dist/schemas/index.js"
     }
   },
   "typesVersions": {
