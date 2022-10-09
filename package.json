@@ -10,6 +10,7 @@
       "require": "./dist/index.js",
       "import": "./dist/index.js"
     },
+    "./package.json": "./package.json",
     "./schemas": {
       "types": "./dist/schemas/index.d.ts",
       "require": "./dist/schemas/index.js",
