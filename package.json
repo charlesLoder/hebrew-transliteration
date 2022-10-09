@@ -3,8 +3,23 @@
   "version": "2.1.2",
   "description": "a package for transliterating Hebrew",
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "module": "dist/index.esm.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    },
+    "./schemas": {
+      "types": "./dist/schemas/index.d.ts",
+      "require": "./dist/schemas/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "schemas": [
+        "./dist/schemas/index.d.ts"
+      ]
+    }
+  },
   "scripts": {
     "build": "tsc",
     "test": "clear && jest",
