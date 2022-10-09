@@ -68,6 +68,23 @@ heb.transliterate("שָׁלוֹם", { SHIN: "sh" });
 // shālôm
 ```
 
+There are premade schemas as well.
+
+```javascript
+const brillAcademic = require("hebrew-transliteration/schemas").brillAcademic;
+
+heb.transliterate("בְּבֵית", brillAcademic)
+// bᵉḇêṯ
+```
+**Note**: schemas are not endorsed by publishers.
+
+The available schemas are:
+
+- brillAcademic
+- brillSimple
+- sblAcademicSpirantization
+- sblSimple
+
 If you need a fully customized transliteration, it is best to use the [`Schema`](#schema) constructor:
 
 ```javascript
