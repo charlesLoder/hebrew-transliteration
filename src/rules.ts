@@ -1,6 +1,6 @@
-import { Cluster } from "havarotjs/dist/cluster";
-import { Syllable } from "havarotjs/dist/syllable";
-import { Word } from "havarotjs/dist/word";
+import { Cluster } from "havarotjs/cluster";
+import { Syllable } from "havarotjs/syllable";
+import { Word } from "havarotjs/word";
 import { hebChars } from "havarotjs/dist/utils/regularExpressions";
 import { Schema } from "./schema";
 import { mapChars } from "./mapChars";

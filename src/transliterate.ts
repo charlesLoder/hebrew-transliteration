@@ -1,8 +1,8 @@
 import { sylRules, wordRules } from "./rules";
 import { SBL, Schema } from "./schema";
 import { Text } from "havarotjs";
-import { Word } from "havarotjs/dist/word";
-import { SylOpts } from "havarotjs/dist/text";
+import { Word } from "havarotjs/word";
+import { SylOpts } from "havarotjs/text";
 
 /**
  *
