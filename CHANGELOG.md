@@ -2,6 +2,10 @@
 
 ## Version 2
 
+- v2.2.3
+  - update packages
+  -update imports from havarotjs
+
 - v2.2.2
   - fix export of package.json
 
