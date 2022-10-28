@@ -45,7 +45,7 @@ It exports 3 [functions](#functions):
 
 And it exports 2 [classes](#classes):
 
-1. [`Text`](#text) — the [`Text`](https://charlesloder.github.io/havarot/classes/text.Text.html) class from the `havarotjs` package
+1. [`Text`](#text) — the [`Text`](https://charlesloder.github.io/havarotjs/classes/text.Text.html) class from the `havarotjs` package
 2. [`Schema`](#schema) — a schema for transliterating Hebrew
 
 ### Functions
@@ -132,7 +132,7 @@ heb.sequence("\u{5D1}\u{5B0}\u{5BC}\u{5E8}\u{5B5}\u{5D0}\u{5E9}\u{5B4}\u{5C1}\u{
 
 #### Text
 
-The [`Text`](https://charlesloder.github.io/havarot/classes/text.Text.html) class from the [`havarotjs`](https://www.npmjs.com/package/havarotjs) package.
+The [`Text`](https://charlesloder.github.io/havarotjs/classes/text.Text.html) class from the [`havarotjs`](https://www.npmjs.com/package/havarotjs) package.
 
 This class is used by [`transliterate()`](#transliterate) internally to syllabify Hebrew text, but it is exposed as well.
 
@@ -158,18 +158,13 @@ The `Schema` can be divided into a few categories.
 
 ##### 1) Syllabification
 
-The options used for syllabifying Hebrew text can be found [here](https://charlesloder.github.io/havarot/interfaces/text.SylOpts.html)
+The options used for syllabifying Hebrew text can be found [here](https://charlesloder.github.io/havarotjs/interfaces/text.SylOpts.html)
 
 ###### Differences between `Text` and `Schema`
 
-There are 5 options for syllabification that are the [same as the ones used by the `Text`](https://charlesloder.github.io/havarot/interfaces/text.SylOpts.html) class. The only `Text` syllabification option that `Schema` does not use is `schema` (yes, that's confusing):
+There are 5 options for syllabification that are the [same as the ones used by the `Text`](https://charlesloder.github.io/havarotjs/interfaces/text.SylOpts.html) class.
 
-```javascript
-const text = new heb.Text("חׇכְמָ֣ה", { schema: "traditional" }); // this is okay
-const schema = new heb.Schema({ schema: "traditional" }); // this does nothing
-```
-
-Read more about the syllabification options for the [`Text`](https://charlesloder.github.io/havarot/interfaces/text.SylOpts.html) and a [higher level overview](https://charlesloder.github.io/havarot/pages/Linguistic/syllabification.html)
+Read more about the syllabification options for the [`Text`](https://charlesloder.github.io/havarotjs/interfaces/text.SylOpts.html) and a [higher level overview](https://charlesloder.github.io/havarotjs/pages/Linguistic/syllabification.html)
 
 ###### Precedence of `Text` over `Schema`
 
