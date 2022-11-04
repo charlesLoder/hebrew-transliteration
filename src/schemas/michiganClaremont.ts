@@ -62,5 +62,6 @@ export const michiganClaremont: Schema = {
   sqnmlvy: false,
   wawShureq: true,
   article: false,
-  allowNoNiqqud: true
+  allowNoNiqqud: true,
+  strict: false
 };
