@@ -69,5 +69,6 @@ export const brillAcademic: Schema = {
   sqnmlvy: true,
   wawShureq: true,
   article: true,
-  allowNoNiqqud: true
+  allowNoNiqqud: true,
+  strict: false
 };

@@ -470,6 +470,7 @@ export class Schema implements SylOpts {
   wawShureq: SylOpts["wawShureq"];
   article: SylOpts["article"];
   allowNoNiqqud: SylOpts["allowNoNiqqud"];
+  strict: SylOpts["strict"];
   constructor(schema: Schema) {
     (this.VOCAL_SHEVA = schema.VOCAL_SHEVA),
       (this.HATAF_SEGOL = schema.HATAF_SEGOL),
@@ -540,8 +541,9 @@ export class Schema implements SylOpts {
       (this.qametsQatan = schema.qametsQatan),
       (this.sqnmlvy = schema.sqnmlvy),
       (this.wawShureq = schema.wawShureq),
-      (this.article = schema.article);
-    this.allowNoNiqqud = schema.allowNoNiqqud;
+      (this.article = schema.article),
+      (this.allowNoNiqqud = schema.allowNoNiqqud),
+      (this.strict = schema.strict);
   }
 }
 
@@ -618,7 +620,8 @@ export class SBL extends Schema {
       sqnmlvy: schema.sqnmlvy ?? true,
       wawShureq: schema.wawShureq ?? true,
       article: schema.article ?? true,
-      allowNoNiqqud: schema.allowNoNiqqud ?? true
+      allowNoNiqqud: schema.allowNoNiqqud ?? true,
+      strict: schema.strict ?? false
     });
   }
 }

@@ -65,5 +65,6 @@ export const sblSimple: Schema = {
   qametsQatan: true,
   wawShureq: true,
   article: true,
-  allowNoNiqqud: true
+  allowNoNiqqud: true,
+  strict: false
 };
