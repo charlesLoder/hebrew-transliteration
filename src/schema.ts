@@ -426,7 +426,12 @@ export class Schema implements SylOpts {
      * - `"word"` covers everything else
      */
     FEATURE: "word" | "syllable" | "cluster";
-    /** use consonants and vowels; do not use taamim */
+    /**
+     * The Hebrew text — use consonants and vowels; do not use taamim
+     *
+     * The text is parsed as a Regex so special characters like `?` and `|` can be used
+     *
+     */
     HEBREW: string;
     TRANSLITERATION: string;
   }[];
