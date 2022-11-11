@@ -60,6 +60,13 @@ export const sblSimple: Schema = {
   SOF_PASUQ: "",
   MAQAF: "-",
   DIVINE_NAME: "yhwh",
+  ADDITIONAL_FEATURES: [
+    {
+      FEATURE: "cluster",
+      HEBREW: "\u{05E9}\u{05C1}\u{05BC}",
+      TRANSLITERATION: "sh"
+    }
+  ],
   longVowels: true,
   sqnmlvy: true,
   qametsQatan: true,
