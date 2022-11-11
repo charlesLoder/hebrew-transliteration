@@ -65,7 +65,7 @@ describe("consonant features", () => {
       ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"} | ${"masger"}
       ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"} | ${"minnezar"}
       ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}   | ${"maggal"}
-      ${"mappiq he"}                       | ${"וְלַ֨הּ"}   | ${"velah"}
+      ${"doubled shin"}                    | ${"מַשָּׁא"}    | ${"masha"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
