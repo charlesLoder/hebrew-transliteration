@@ -35,3 +35,21 @@ describe.each`
     expect(transliteratedHeb).toEqual(transliteration);
   });
 });
+
+describe.each`
+  description                 | hebrew                             | transliteration
+  ${"no special features"}    | ${"לֶחֶם"}                         | ${"λεχεμ"}
+  ${"gemination"}             | ${"רַנֵּן"}                        | ${"ρανεν"}
+  ${"divine name"}            | ${"יְהוָ֣ה"}                       | ${"Αδωνάη"}
+  ${"furtive patach, chet"}   | ${"שָׂמֵחַ"}                        | ${"σαμεαχ"}
+  ${"furtive patach, ayin"}   | ${"שָׁמֵעַ"}                       | ${"σσαμεα"}
+  ${"furtive patach, he"}     | ${"גָבֹהַּ"}                       | ${"γαβωα"}
+  ${"3ms suffix"}             | ${"דְּבָרָ֖יו"}                    | ${"ντεβαράβ"}
+  ${"mixed with latin chars"} | ${"רוּחַ, אֲבֹותֵינוּ (לְעֹולָם)"} | ${"ρουαχ, αβωθενου (λεωλαμ)"}
+  ${"qamets qatan"}           | ${"כָּל הָעוֹלָם כָּל־הָעֵ֛ץ"}     | ${"κολ αωλαμ κολ-αέτς"}
+`("General Rules:", ({ hebrew, transliteration }) => {
+  const transliteratedHeb = transliterate(hebrew, romaniote);
+  test(`${hebrew} to equal: ${transliteration}`, () => {
+    expect(transliteratedHeb).toEqual(transliteration);
+  });
+});
