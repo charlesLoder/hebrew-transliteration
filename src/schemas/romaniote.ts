@@ -36,7 +36,7 @@ export const romaniote: Schema = {
   TAV: "θ",
   TAV_DAGESH: "τ",
   DAGESH: "",
-  DAGESH_CHAZAQ: true,
+  DAGESH_CHAZAQ: false,
   VOCAL_SHEVA: "ε",
   PATAH: "α",
   HATAF_PATAH: "α",
