@@ -63,6 +63,13 @@ export const romaniote: Schema = {
   SOF_PASUQ: "",
   MAQAF: "-",
   DIVINE_NAME: "Αδωνάη",
+  ADDITIONAL_FEATURES: [
+    {
+      FEATURE: "cluster",
+      HEBREW: "זּ",
+      TRANSLITERATION: "τζ"
+    }
+  ],
   longVowels: true,
   sqnmlvy: true,
   qametsQatan: true,
