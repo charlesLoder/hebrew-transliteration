@@ -23,3 +23,15 @@ describe.each`
     expect(transliteratedHeb).toEqual(transliteration);
   });
 });
+
+describe.each`
+  description                  | hebrew      | transliteration
+  ${"shin char plus shin dot"} | ${"שֶׁלֶם"}  | ${"σσελεμ"}
+  ${"shin char plus sin dot"}  | ${"אָרַשׂ"}  | ${"αρασ"}
+  ${"final sigmas"}            | ${"לָבֵשׁ"} | ${"λαβεσς"}
+`("Sibiliants:", ({ hebrew, transliteration }) => {
+  const transliteratedHeb = transliterate(hebrew, romaniote);
+  test(`${hebrew} to equal: ${transliteration}`, () => {
+    expect(transliteratedHeb).toEqual(transliteration);
+  });
+});
