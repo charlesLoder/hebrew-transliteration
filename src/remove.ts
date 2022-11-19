@@ -243,7 +243,7 @@ export const all: RemoveOptions = {
 };
 
 /**
- * removes accents and optionally removes certain niqqudim
+ * removes niqqud from Hebrew text
  *
  * @param text - a string of Hebrew characters
  * @param options
@@ -254,14 +254,16 @@ export const all: RemoveOptions = {
  * ```ts
  * // by default removes all accents and the metheg and rafe
  * remove("שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ");
- * // "שָׂרַי אִשְׁתְּךָ, וַיִּמְצְאוּ;
+ * // שָׂרַי אִשְׁתְּךָ, וַיִּמְצְאוּ
  * ```
  *
- * @example Remove points
+ * @example Remove accents and vowels, but not shin/sin dots
  *
  * ```ts
- * remove("שָׂרַ֣י אִשְׁתְּךָ֔", { points: true });
- * // "שׂרי אשׁתך";
+ * import { accents, vowelsl } from "hebrew-transliteration/removeOptions";
+ *
+ * remove("שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ", { ...accents, ...vowels, METEG: true });
+ * // שׂרי אשׁתך, וימצאו
  * ```
  *
  * @example Remove all
@@ -269,8 +271,8 @@ export const all: RemoveOptions = {
  * ```ts
  * import { all } from "hebrew-transliteration/removeOptions";
  *
- * remove("שרי אשתך, וימצאו", all);
- * // "שרי אשתך";
+ * remove("שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ", all);
+ * // שרי אשתך, וימצאו
  * ```
  */
 export const remove = (text: string, options: RemoveOptions = { ...accents, METEG: true, RAFE: true }): string => {
