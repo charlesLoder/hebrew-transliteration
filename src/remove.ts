@@ -2,65 +2,232 @@ import { sequence } from "./sequence";
 
 interface RemoveOptions {
   // accents //
+  /**
+   * ◌֑
+   */
   ETNAHTA?: boolean;
+  /**
+   * ◌֒
+   */
   SEGOLTA?: boolean;
+  /**
+   * ◌֓
+   */
   SHALSHELET?: boolean;
+  /**
+   * ◌֔
+   */
   ZAQEF_QATAN?: boolean;
+  /**
+   * ◌֕
+   */
   ZAQEF_GADOL?: boolean;
+  /**
+   * ◌֖
+   */
   TIPEHA?: boolean;
+  /**
+   * ◌֗
+   */
   REVIA?: boolean;
+  /**
+   * ◌֘
+   */
   ZARQA?: boolean;
+  /**
+   * ◌֙
+   */
   PASHTA?: boolean;
+  /**
+   * ◌֚
+   */
   YETIV?: boolean;
+  /**
+   * ◌֛
+   */
   TEVIR?: boolean;
+  /**
+   * ◌֜
+   */
   GERESH?: boolean;
+  /**
+   * ◌֝
+   */
   GERESH_MUQDAM?: boolean;
+  /**
+   * ◌֞
+   */
   GERSHAYIM?: boolean;
+  /**
+   * ◌֟
+   */
   QARNEY_PARA?: boolean;
+  /**
+   * ◌֠
+   */
   TELISHA_GEDOLA?: boolean;
+  /**
+   * ◌֡
+   */
   PAZER?: boolean;
+  /**
+   * ◌֢
+   */
   ATNAH_HAFUKH?: boolean;
+  /**
+   * ◌֣
+   */
   MUNAH?: boolean;
+  /**
+   * ◌֤
+   */
   MAHAPAKH?: boolean;
+  /**
+   * ◌֥
+   */
   MERKHA?: boolean;
+  /**
+   * ◌֦
+   */
   MERKHA_KEFULA?: boolean;
+  /**
+   * ◌֧
+   */
   DARGA?: boolean;
+  /**
+   * ◌֨
+   */
   QADMA?: boolean;
+  /**
+   * ◌֩
+   */
   TELISHA_QETANA?: boolean;
+  /**
+   * ◌֪
+   */
   YERAH_BEN_YOMO?: boolean;
+  /**
+   * ◌֫
+   */
   OLE?: boolean;
+  /**
+   * ◌֬
+   */
   ILUY?: boolean;
+  /**
+   * ◌֭
+   */
   DEHI?: boolean;
+  /**
+   * ◌֮
+   */
   ZINOR?: boolean;
   // points //
+  /**
+   * ◌ְ
+   */
   SHEVA?: boolean;
+  /**
+   * ◌ֱ
+   */
   HATAF_SEGOL?: boolean;
+  /**
+   * ◌ֲ
+   */
   HATAF_PATAH?: boolean;
+  /**
+   * ◌ֳ
+   */
   HATAF_QAMATS?: boolean;
+  /**
+   * ◌ִ
+   */
   HIRIQ?: boolean;
+  /**
+   * ◌ֵ
+   */
   TSERE?: boolean;
+  /**
+   * ◌ֶ
+   */
   SEGOL?: boolean;
+  /**
+   * ◌ַ
+   */
   PATAH?: boolean;
+  /**
+   * ◌ָ
+   */
   QAMATS?: boolean;
+  /**
+   * ◌ֹ
+   */
   HOLAM?: boolean;
-  // HOLAM_HASER_FOR_VAV?: boolean;
+  /**
+   * ◌ֻ
+   */
   QUBUTS?: boolean;
+  /**
+   * ◌ּ
+   */
   DAGESH?: boolean;
+  /**
+   * ◌ֽ
+   */
   METEG?: boolean;
+  /**
+   * ◌ֿ
+   */
   RAFE?: boolean;
+  /**
+   * ◌ׁ
+   */
   SHIN_DOT?: boolean;
+  /**
+   * ◌ׂ
+   */
   SIN_DOT?: boolean;
+  /**
+   * ◌ׇ
+   */
   QAMATS_QATAN?: boolean;
   // punctuation //
+  /**
+   * ־◌
+   */
   MAQAF?: boolean;
+  /**
+   * ׀ ◌
+   */
   PASEQ?: boolean;
+  /**
+   * ׃◌
+   */
   SOF_PASUQ?: boolean;
+  /**
+   * ׆
+   */
   NUN_HAFUKHA?: boolean;
+  /**
+   * ׳
+   */
   PUNC_GERESH?: boolean;
+  /**
+   * ״
+   */
   PUNC_GERSHAYIM?: boolean;
   // marks //
+  /**
+   * ◌֯
+   */
   MASORA_CIRCLE?: boolean;
+  /**
+   * ◌ׄ
+   */
   UPPER_DOT?: boolean;
+  /**
+   * ◌ׅ
+   */
   LOWER_DOT?: boolean;
 }
 
