@@ -25,3 +25,9 @@ test("remove all", () => {
   const result = sequence("שרי אשתך, וימצאו");
   expect(remove(test, all)).toBe(result);
 });
+
+test("remove custom", () => {
+  const test = "שָׂרַ֣י אִשְׁתְּךָ֔";
+  const result = sequence("שָרַ֣י אִשְתְּךָ֔");
+  expect(remove(test, { SHIN_DOT: true, SIN_DOT: true })).toBe(result);
+});
