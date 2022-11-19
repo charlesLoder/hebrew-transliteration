@@ -252,7 +252,7 @@ export const all: RemoveOptions = {
  * @example Default
  *
  * ```ts
- * // by default removes all accents and the metheg and rafe
+ * // by default removes all accents and metheg and rafe
  * remove("שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ");
  * // שָׂרַי אִשְׁתְּךָ, וַיִּמְצְאוּ
  * ```
