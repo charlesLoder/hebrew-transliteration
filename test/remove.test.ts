@@ -1,20 +1,33 @@
 import { remove } from "../src/index";
+import { accents, all, vowels } from "../src/remove";
 import { sequence } from "../src/index";
 
-test("remove only the cantillation", () => {
-  const test = "שָׂרַ֣י אִשְׁתְּךָ֔";
-  const result = sequence("שָׂרַי אִשְׁתְּךָ");
+test("default", () => {
+  const test = "שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ";
+  const result = sequence("שָׂרַי אִשְׁתְּךָ, וַיִּמְצְאוּ");
   expect(remove(test)).toBe(result);
 });
 
-test("remove cantillation and vowels, keep shin/sin dot", () => {
-  const test = "שָׂרַ֣י אִשְׁתְּךָ֔";
-  const result = sequence("שׂרי אשׁתך");
-  expect(remove(test, { removeVowels: true })).toBe(result);
+test("remove only accents", () => {
+  const test = "שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ";
+  const result = sequence("שָׂרַי אִשְׁתְּךָ, וַֽיִּמְצְאוּ");
+  expect(remove(test, accents)).toBe(result);
 });
 
-test("remove cantillation and vowels, and shin/sin dot", () => {
+test("remove accents and vowels, but not shin/sin dots", () => {
+  const test = "שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ";
+  const result = sequence("שׂרי אשׁתך, וימצאו");
+  expect(remove(test, { ...accents, ...vowels, METEG: true })).toBe(result);
+});
+
+test("remove all", () => {
+  const test = "שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ";
+  const result = sequence("שרי אשתך, וימצאו");
+  expect(remove(test, all)).toBe(result);
+});
+
+test("remove custom", () => {
   const test = "שָׂרַ֣י אִשְׁתְּךָ֔";
-  const result = sequence("שרי אשתך");
-  expect(remove(test, { removeVowels: true, removeShinDot: true, removeSinDot: true })).toBe(result);
+  const result = sequence("שָרַ֣י אִשְתְּךָ֔");
+  expect(remove(test, { SHIN_DOT: true, SIN_DOT: true })).toBe(result);
 });

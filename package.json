@@ -1,6 +1,6 @@
 {
   "name": "hebrew-transliteration",
-  "version": "2.2.4",
+  "version": "2.2.4-test",
   "description": "a package for transliterating Hebrew",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -15,12 +15,20 @@
       "types": "./dist/schemas/index.d.ts",
       "require": "./dist/schemas/index.js",
       "import": "./dist/schemas/index.js"
+    },
+    "./removeOptions": {
+      "types": "./dist/remove.d.ts",
+      "require": "./dist/remove.js",
+      "import": "./dist/remove.js"
     }
   },
   "typesVersions": {
     "*": {
       "schemas": [
         "./dist/schemas/index.d.ts"
+      ],
+      "removeOptions": [
+        "./dist/remove.d.ts"
       ]
     }
   },

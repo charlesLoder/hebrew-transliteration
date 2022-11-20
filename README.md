@@ -56,7 +56,7 @@ Takes a `string` or [`Text`](#text), and optionally a [`Schema`](#schema) or `Pa
 
 ```javascript
 heb.transliterate("אֱלֹהִים");
-// "ʾĕlōhîm";
+// ʾĕlōhîm
 ```
 
 If no [`Schema`](#schema) is passed, then the package defaults to SBL's academic style.
@@ -78,13 +78,6 @@ heb.transliterate("בְּבֵית", brillAcademic)
 ```
 **Note**: schemas are not endorsed by publishers.
 
-The available schemas are:
-
-- brillAcademic
-- brillSimple
-- sblAcademicSpirantization
-- sblSimple
-
 If you need a fully customized transliteration, it is best to use the [`Schema`](#schema) constructor:
 
 ```javascript
@@ -104,17 +97,32 @@ heb.transliterate("אָ֣ב", schema)
 
 #### `remove()`
 
-Takes `string` and options. The default only removes taamim (i.e., accent or cantillation) marks.
+Takes `string` and `RemoveOptions`.
+
+The default removes accents (i.e. characters called HEBREW ACCENT) and metheg and rafe.
 
 ```javascript
 heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔");
-// "שָׂרַי אִשְׁתְּךָ";
+// שָׂרַי אִשְׁתְּךָ;
+```
 
-heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔", { removeVowels: true });
-// "שׂרי אשׁתך";
+The `RemoveOptions` can be customized.
 
-heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔", { removeVowels: true, removeShinDot: true, removeSinDot: true });
-// "שרי אשתך";
+```javascript
+heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔", { SHIN_DOT: true, SIN_DOT: true });
+// שָרַ֣י אִשְתְּךָ֔
+```
+
+**Note:** unlike a `Schema` where a `Partial<Schema>` extends the default, `RemoveOptions` does not accept a `Partial<RemoveOptions>`.
+
+All properties for `RemoveOptions` can be found in the [source](src/remove.ts).
+
+There are some preset options availables as well.
+
+```javascript
+const opts = require("hebrew-transliteration/removeOptions");
+heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔", opts.all);
+// שרי אשתך, וימצאו
 ```
 
 ---
@@ -322,7 +330,7 @@ heb.transliterate("בֵּ֣ית", {
 
 ## Live
 
-Use it live at [charlesLoder.github.io/hebrewTransliteration](https://charlesloder.github.io/hebrewTransliteration/index.html)
+Use it live at [https://hebrewtransliteration.app](https://hebrewtransliteration.app)
 
 ## Contributing
 
