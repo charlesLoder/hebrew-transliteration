@@ -2,6 +2,9 @@
 
 ## Version 2
 
+- v2.3.0
+  - rewrite the `remove` function to allow for greater control of which character are removed
+
 - v2.2.4
   - update packages for improved `strict` handling
 
