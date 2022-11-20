@@ -337,7 +337,7 @@ heb.transliterate("בֵּ֣ית", {
 
 ## Live
 
-Use it live at [charlesLoder.github.io/hebrewTransliteration](https://charlesloder.github.io/hebrewTransliteration/index.html)
+Use it live at [https://hebrewtransliteration.app](https://hebrewtransliteration.app)
 
 ## Contributing
 
