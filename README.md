@@ -78,13 +78,6 @@ heb.transliterate("בְּבֵית", brillAcademic)
 ```
 **Note**: schemas are not endorsed by publishers.
 
-The available schemas are:
-
-- brillAcademic
-- brillSimple
-- sblAcademicSpirantization
-- sblSimple
-
 If you need a fully customized transliteration, it is best to use the [`Schema`](#schema) constructor:
 
 ```javascript
