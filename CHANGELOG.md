@@ -2,6 +2,10 @@
 
 ## Version 2
 
+- v2.3.1
+  - update packages
+  - Fixes Issue [#39](https://github.com/charlesLoder/hebrew-transliteration/issues/39)
+
 - v2.3.0
   - rewrite the `remove` function to allow for greater control of which character are removed
 
