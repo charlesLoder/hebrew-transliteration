@@ -469,13 +469,13 @@ export class Schema implements SylOpts {
     location: "before-syllable" | "after-syllable" | "before-vowel" | "after-vowel";
     mark: string;
   };
+  allowNoNiqqud: SylOpts["allowNoNiqqud"];
+  article: SylOpts["article"];
   longVowels: SylOpts["longVowels"];
   qametsQatan: SylOpts["qametsQatan"];
   sqnmlvy: SylOpts["sqnmlvy"];
-  wawShureq: SylOpts["wawShureq"];
-  article: SylOpts["article"];
-  allowNoNiqqud: SylOpts["allowNoNiqqud"];
   strict: SylOpts["strict"];
+  wawShureq: SylOpts["wawShureq"];
   constructor(schema: Schema) {
     (this.VOCAL_SHEVA = schema.VOCAL_SHEVA),
       (this.HATAF_SEGOL = schema.HATAF_SEGOL),
