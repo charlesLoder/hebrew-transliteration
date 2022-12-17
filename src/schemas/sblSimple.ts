@@ -78,5 +78,6 @@ export const sblSimple: Schema = {
   wawShureq: true,
   article: true,
   allowNoNiqqud: true,
-  strict: false
+  strict: false,
+  holemHaser: "remove"
 };

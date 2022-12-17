@@ -70,5 +70,6 @@ export const brillAcademic: Schema = {
   wawShureq: true,
   article: true,
   allowNoNiqqud: true,
-  strict: false
+  strict: false,
+  holemHaser: "remove"
 };

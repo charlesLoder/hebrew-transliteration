@@ -63,5 +63,6 @@ export const michiganClaremont: Schema = {
   wawShureq: true,
   article: false,
   allowNoNiqqud: true,
-  strict: false
+  strict: false,
+  holemHaser: "remove"
 };

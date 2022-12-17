@@ -69,5 +69,6 @@ export const brillSimple: Schema = {
   wawShureq: true,
   article: true,
   allowNoNiqqud: true,
-  strict: false
+  strict: false,
+  holemHaser: "remove"
 };

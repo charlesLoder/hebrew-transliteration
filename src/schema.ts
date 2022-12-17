@@ -471,6 +471,7 @@ export class Schema implements SylOpts {
   };
   allowNoNiqqud: SylOpts["allowNoNiqqud"];
   article: SylOpts["article"];
+  holemHaser: SylOpts["holemHaser"];
   longVowels: SylOpts["longVowels"];
   qametsQatan: SylOpts["qametsQatan"];
   sqnmlvy: SylOpts["sqnmlvy"];
@@ -549,6 +550,7 @@ export class Schema implements SylOpts {
       (this.article = schema.article),
       (this.allowNoNiqqud = schema.allowNoNiqqud),
       (this.strict = schema.strict);
+    this.holemHaser = schema.holemHaser;
   }
 }
 
@@ -626,7 +628,8 @@ export class SBL extends Schema {
       wawShureq: schema.wawShureq ?? true,
       article: schema.article ?? true,
       allowNoNiqqud: schema.allowNoNiqqud ?? true,
-      strict: schema.strict ?? false
+      strict: schema.strict ?? false,
+      holemHaser: schema.holemHaser || "remove"
     });
   }
 }
