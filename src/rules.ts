@@ -9,14 +9,18 @@ const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
 
 const changeElementSplit = (input: string, split: RegExp, join: string) => input.split(split).join(join);
 
+const additionalFeatureTransliteration = (text: string, heb: RegExp, transliteration: string, schema: Schema) => {
+  const sylSeq = changeElementSplit(text, heb, transliteration);
+  return [...sylSeq].map((char) => mapChars(char, schema)).join("");
+};
+
 const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
   if (schema.ADDITIONAL_FEATURES?.length) {
     const clusterSeqs = schema.ADDITIONAL_FEATURES.filter((s) => s.FEATURE === "cluster");
     for (const seq of clusterSeqs) {
       const heb = new RegExp(seq.HEBREW, "u");
       if (heb.test(clusterText)) {
-        const sylSeq = changeElementSplit(clusterText, heb, seq.TRANSLITERATION);
-        return [...sylSeq].map((char) => mapChars(char, schema)).join("");
+        return additionalFeatureTransliteration(clusterText, heb, seq.TRANSLITERATION, schema);
       }
     }
   }
@@ -215,8 +219,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
     for (const seq of sylSeqs) {
       const heb = new RegExp(seq.HEBREW, "u");
       if (heb.test(sylTxt)) {
-        const wordSeq = changeElementSplit(sylTxt, heb, seq.TRANSLITERATION);
-        return joinChars(syl.isAccented, [...wordSeq], schema);
+        return additionalFeatureTransliteration(sylTxt, heb, seq.TRANSLITERATION, schema);
       }
     }
   }
@@ -269,8 +272,7 @@ export const wordRules = (word: Word, schema: Schema): string | Word => {
       const heb = new RegExp(seq.HEBREW, "u");
       const wordText = word.text.replace(taamim, "");
       if (heb.test(wordText)) {
-        const wordSeq = changeElementSplit(wordText, heb, seq.TRANSLITERATION);
-        return [...wordSeq].map((char) => mapChars(char, schema)).join("");
+        return additionalFeatureTransliteration(wordText, heb, seq.TRANSLITERATION, schema);
       }
     }
   }
