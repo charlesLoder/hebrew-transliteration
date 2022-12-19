@@ -1,6 +1,57 @@
+import { Cluster } from "havarotjs/cluster";
 import { SylOpts } from "havarotjs/dist/text";
+import { Syllable } from "havarotjs/syllable";
+import { Word } from "havarotjs/word";
 
-/**
+interface HebrewFeature {
+  /**
+   * The Hebrew text — use consonants and vowels; do not use taamim
+   *
+   * The text is parsed as a Regex so special characters like `?` and `|` can be used
+   *
+   */
+  HEBREW: string;
+}
+
+interface WordFeature extends HebrewFeature {
+  /**
+   * additional orthographic feature
+   *
+   * - `"cluster"` is any combination of a single character and optionally a _dagesh_ and vowel.
+   * - `"syllable"` is any combination of a multiple characters and a single vowel and optionally a _dagesh_
+   * - `"word"` covers everything else
+   */
+  FEATURE: "word";
+  TRANSLITERATION: string | ((word: Word) => string);
+}
+
+interface SyllableFeature extends HebrewFeature {
+  /**
+   * additional orthographic feature
+   *
+   * - `"cluster"` is any combination of a single character and optionally a _dagesh_ and vowel.
+   * - `"syllable"` is any combination of a multiple characters and a single vowel and optionally a _dagesh_
+   * - `"word"` covers everything else
+   */
+  FEATURE: "syllable";
+  TRANSLITERATION: string | ((syllable: Syllable) => string);
+}
+
+interface ClusterFeature extends HebrewFeature {
+  /**
+   * additional orthographic feature
+   *
+   * - `"cluster"` is any combination of a single character and optionally a _dagesh_ and vowel.
+   * - `"syllable"` is any combination of a multiple characters and a single vowel and optionally a _dagesh_
+   * - `"word"` covers everything else
+   */
+  FEATURE: "cluster";
+  TRANSLITERATION: string | ((cluster: Cluster) => string);
+}
+
+type AdditionalFeatures = WordFeature | SyllableFeature | ClusterFeature;
+
+/*
  * class for defining a schema for transliteration
  */
 export class Schema implements SylOpts {
@@ -405,6 +456,7 @@ export class Schema implements SylOpts {
    * 't'
    */
   TAV_DAGESH?: string;
+
   /**
    * define additional sequences of characters
    *
@@ -417,24 +469,7 @@ export class Schema implements SylOpts {
    *   TRANSLITERATION: 'tz'
    * }]
    */
-  ADDITIONAL_FEATURES?: {
-    /**
-     * additional orthographic feature
-     *
-     * - `"cluster"` is any combination of a single character and optionally a _dagesh_ and vowel.
-     * - `"syllable"` is any combination of a multiple characters and a single vowel and optionally a _dagesh_
-     * - `"word"` covers everything else
-     */
-    FEATURE: "word" | "syllable" | "cluster";
-    /**
-     * The Hebrew text — use consonants and vowels; do not use taamim
-     *
-     * The text is parsed as a Regex so special characters like `?` and `|` can be used
-     *
-     */
-    HEBREW: string;
-    TRANSLITERATION: string;
-  }[];
+  ADDITIONAL_FEATURES?: AdditionalFeatures[];
   /**
    * the full form of the divine name - יהוה
    * @example

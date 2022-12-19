@@ -16,11 +16,14 @@ const additionalFeatureTransliteration = (text: string, heb: RegExp, translitera
 
 const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
   if (schema.ADDITIONAL_FEATURES?.length) {
-    const clusterSeqs = schema.ADDITIONAL_FEATURES.filter((s) => s.FEATURE === "cluster");
-    for (const seq of clusterSeqs) {
+    const seqs = schema.ADDITIONAL_FEATURES;
+    for (const seq of seqs) {
       const heb = new RegExp(seq.HEBREW, "u");
-      if (heb.test(clusterText)) {
-        return additionalFeatureTransliteration(clusterText, heb, seq.TRANSLITERATION, schema);
+      if (seq.FEATURE === "cluster" && heb.test(clusterText)) {
+        const transliteration = seq.TRANSLITERATION;
+        return typeof transliteration === "string"
+          ? additionalFeatureTransliteration(clusterText, heb, transliteration, schema)
+          : transliteration(cluster);
       }
     }
   }
@@ -215,11 +218,14 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   const sylTxt = syl.text.replace(taamim, "");
 
   if (schema.ADDITIONAL_FEATURES?.length) {
-    const sylSeqs = schema.ADDITIONAL_FEATURES.filter((s) => s.FEATURE === "syllable");
-    for (const seq of sylSeqs) {
+    const seqs = schema.ADDITIONAL_FEATURES;
+    for (const seq of seqs) {
       const heb = new RegExp(seq.HEBREW, "u");
-      if (heb.test(sylTxt)) {
-        return additionalFeatureTransliteration(sylTxt, heb, seq.TRANSLITERATION, schema);
+      if (seq.FEATURE === "syllable" && heb.test(sylTxt)) {
+        const transliteration = seq.TRANSLITERATION;
+        return typeof transliteration === "string"
+          ? additionalFeatureTransliteration(sylTxt, heb, transliteration, schema)
+          : transliteration(syl);
       }
     }
   }
@@ -267,14 +273,18 @@ export const wordRules = (word: Word, schema: Schema): string | Word => {
   if (word.hasDivineName) return `${sylRules(word.syllables[0], schema)}-${getDivineName(word.text, schema)}`;
   if (word.isNotHebrew) return word.text;
   if (schema.ADDITIONAL_FEATURES?.length) {
-    const wordSeqs = schema.ADDITIONAL_FEATURES.filter((s) => s.FEATURE === "word");
-    for (const seq of wordSeqs) {
+    const seqs = schema.ADDITIONAL_FEATURES;
+    for (const seq of seqs) {
       const heb = new RegExp(seq.HEBREW, "u");
-      const wordText = word.text.replace(taamim, "");
-      if (heb.test(wordText)) {
-        return additionalFeatureTransliteration(wordText, heb, seq.TRANSLITERATION, schema);
+      const text = word.text.replace(taamim, "");
+      if (seq.FEATURE === "word" && heb.test(text)) {
+        const transliteration = seq.TRANSLITERATION;
+        return typeof transliteration === "string"
+          ? additionalFeatureTransliteration(text, heb, transliteration, schema)
+          : transliteration(word);
       }
     }
+    return word;
   }
   return word;
 };
