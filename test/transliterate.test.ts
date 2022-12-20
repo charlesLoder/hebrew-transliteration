@@ -1,4 +1,6 @@
+import { Cluster } from "havarotjs/cluster";
 import { transliterate, Schema } from "../src/index";
+import { additionalFeatureTransliteration } from "../src/rules";
 
 interface Inputs {
   hebrew: string;
@@ -221,6 +223,30 @@ describe("extending SBL schema for optional arguments", () => {
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration, options } = inputs;
       expect(transliterate(hebrew, options)).toBe(transliteration);
+    });
+  });
+
+  describe("additional feature with callback", () => {
+    test("cluster callback", () => {
+      const heb = "בְּרֵאשִׁ֖ית";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "\u{05B0}",
+              FEATURE: "cluster",
+              TRANSLITERATION: function (cluster, text, schema) {
+                const tsere = /\u{05B5}/u;
+                const next = cluster.next as Cluster;
+                if (next && tsere.test(next.text)) {
+                  return additionalFeatureTransliteration(cluster.text, new RegExp(text, "u"), schema["TSERE"], schema);
+                }
+                return cluster.text;
+              }
+            }
+          ]
+        })
+      ).toEqual("bērēʾšît");
     });
   });
 
