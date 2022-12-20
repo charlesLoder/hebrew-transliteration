@@ -28,7 +28,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
         const transliteration = seq.TRANSLITERATION;
         return typeof transliteration === "string"
           ? additionalFeatureTransliteration(clusterText, heb, transliteration, schema)
-          : transliteration(cluster);
+          : transliteration(cluster, seq.HEBREW, schema);
       }
     }
   }
@@ -230,7 +230,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
         const transliteration = seq.TRANSLITERATION;
         return typeof transliteration === "string"
           ? additionalFeatureTransliteration(sylTxt, heb, transliteration, schema)
-          : transliteration(syl);
+          : transliteration(syl, seq.HEBREW, schema);
       }
     }
   }
@@ -286,7 +286,7 @@ export const wordRules = (word: Word, schema: Schema): string | Word => {
         const transliteration = seq.TRANSLITERATION;
         return typeof transliteration === "string"
           ? additionalFeatureTransliteration(text, heb, transliteration, schema)
-          : transliteration(word);
+          : transliteration(word, seq.HEBREW, schema);
       }
     }
     return word;
