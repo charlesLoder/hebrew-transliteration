@@ -22,7 +22,7 @@ interface WordFeature extends HebrewFeature {
    * - `"word"` covers everything else
    */
   FEATURE: "word";
-  TRANSLITERATION: string | ((word: Word) => string);
+  TRANSLITERATION: string | ((word: Word, transliteration: string, schema: Schema) => string);
 }
 
 interface SyllableFeature extends HebrewFeature {
@@ -34,7 +34,7 @@ interface SyllableFeature extends HebrewFeature {
    * - `"word"` covers everything else
    */
   FEATURE: "syllable";
-  TRANSLITERATION: string | ((syllable: Syllable) => string);
+  TRANSLITERATION: string | ((syllable: Syllable, transliteration: string, schema: Schema) => string);
 }
 
 interface ClusterFeature extends HebrewFeature {
@@ -46,7 +46,7 @@ interface ClusterFeature extends HebrewFeature {
    * - `"word"` covers everything else
    */
   FEATURE: "cluster";
-  TRANSLITERATION: string | ((cluster: Cluster) => string);
+  TRANSLITERATION: string | ((cluster: Cluster, transliteration: string, schema: Schema) => string);
 }
 
 type AdditionalFeatures = WordFeature | SyllableFeature | ClusterFeature;
