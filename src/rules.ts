@@ -9,7 +9,12 @@ const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
 
 const changeElementSplit = (input: string, split: RegExp, join: string) => input.split(split).join(join);
 
-const additionalFeatureTransliteration = (text: string, heb: RegExp, transliteration: string, schema: Schema) => {
+export const additionalFeatureTransliteration = (
+  text: string,
+  heb: RegExp,
+  transliteration: string,
+  schema: Schema
+) => {
   const sylSeq = changeElementSplit(text, heb, transliteration);
   return [...sylSeq].map((char) => mapChars(char, schema)).join("");
 };
