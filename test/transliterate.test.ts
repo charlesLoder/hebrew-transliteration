@@ -250,6 +250,32 @@ describe("extending SBL schema for optional arguments", () => {
     });
   });
 
+  describe("additional feature with callback for a word", () => {
+    test("cluster callback", () => {
+      const heb = "שְׁתַּיִם";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "שְׁתַּיִם",
+              FEATURE: "word",
+              TRANSLITERATION: function (_word, _text, schema) {
+                return (
+                  schema["SHIN"] +
+                  (schema["TAV_DAGESH"] ?? schema["TAV"]) +
+                  schema["PATAH"] +
+                  schema["YOD"] +
+                  schema["HIRIQ"] +
+                  schema["FINAL_MEM"]
+                );
+              }
+            }
+          ]
+        })
+      ).toEqual("štayim");
+    });
+  });
+
   describe("stress marks", () => {
     test.each`
       description                   | hebrew         | transliteration | options
