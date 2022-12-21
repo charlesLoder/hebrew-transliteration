@@ -226,7 +226,7 @@ describe("extending SBL schema for optional arguments", () => {
     });
   });
 
-  describe("additional feature with callback", () => {
+  describe("additional feature with callback for a cluster", () => {
     test("cluster callback", () => {
       const heb = "בְּרֵאשִׁ֖ית";
       expect(
