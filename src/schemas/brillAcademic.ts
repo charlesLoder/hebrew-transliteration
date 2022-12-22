@@ -3,8 +3,8 @@ import { Schema } from "../schema";
 export const brillAcademic: Schema = {
   VOCAL_SHEVA: "ᵉ",
   HATAF_SEGOL: "ę",
-  HATAF_PATAH: "a",
-  HATAF_QAMATS: "o",
+  HATAF_PATAH: "ᵃ",
+  HATAF_QAMATS: "ᵒ",
   HIRIQ: "ī",
   TSERE: "ē",
   SEGOL: "ę",
