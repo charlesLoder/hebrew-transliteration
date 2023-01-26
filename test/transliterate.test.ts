@@ -235,11 +235,11 @@ describe("extending SBL schema for optional arguments", () => {
             {
               HEBREW: "\u{05B0}",
               FEATURE: "cluster",
-              TRANSLITERATION: function (cluster, text, schema) {
+              TRANSLITERATION: function (cluster, hebrew, schema) {
                 const tsere = /\u{05B5}/u;
                 const next = cluster.next as Cluster;
                 if (next && tsere.test(next.text)) {
-                  return replaceAndTransliterate(cluster.text, new RegExp(text, "u"), schema["TSERE"], schema);
+                  return replaceAndTransliterate(cluster.text, new RegExp(hebrew, "u"), schema["TSERE"], schema);
                 }
                 return cluster.text;
               }
@@ -259,7 +259,7 @@ describe("extending SBL schema for optional arguments", () => {
             {
               HEBREW: "שְׁתַּיִם",
               FEATURE: "word",
-              TRANSLITERATION: function (_word, _text, schema) {
+              TRANSLITERATION: function (_word, _hebrew, schema) {
                 return (
                   schema["SHIN"] +
                   (schema["TAV_DAGESH"] ?? schema["TAV"]) +
