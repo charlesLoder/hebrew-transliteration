@@ -29,20 +29,24 @@ const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
 const replaceWithRegex = (input: string, regex: RegExp, replaceValue: string) => input.replace(regex, replaceValue);
 
 /**
+ * replaces part of a string and transliterates the remaining characters according to the schema
  *
- * @param text the text to be transliterated
- * @param split the regex used to split `text`
- * @param transliteration the value used to replace `split`
+ * @example
+ * ```ts
+ * // replaces בָ as VA, but only when matching the regex sequence
+ * const betAndQamats = /\u{05D1}\u{05B8}/u
+ * replaceAndTransliterate("דָּבָר", betAndQamats, "VA", schema);
+ * // dāVAr
+ * ```
+ *
+ * @param input the text to be transliterated
+ * @param regex the regex used as the search value
+ * @param replaceValue the string to replace the regex
  * @param schema the Schema
  * @returns
  */
-export const additionalFeatureTransliteration = (
-  text: string,
-  split: RegExp,
-  transliteration: string,
-  schema: Schema
-) => {
-  const sylSeq = replaceWithRegex(text, split, transliteration);
+export const replaceAndTransliterate = (input: string, regex: RegExp, replaceValue: string, schema: Schema) => {
+  const sylSeq = replaceWithRegex(input, regex, replaceValue);
   return [...sylSeq].map((char) => mapChars(char, schema)).join("");
 };
 
@@ -54,7 +58,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
       if (seq.FEATURE === "cluster" && heb.test(clusterText)) {
         const transliteration = seq.TRANSLITERATION;
         return typeof transliteration === "string"
-          ? additionalFeatureTransliteration(clusterText, heb, transliteration, schema)
+          ? replaceAndTransliterate(clusterText, heb, transliteration, schema)
           : transliteration(cluster, seq.HEBREW, schema);
       }
     }
@@ -256,7 +260,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
       if (seq.FEATURE === "syllable" && heb.test(sylTxt)) {
         const transliteration = seq.TRANSLITERATION;
         return typeof transliteration === "string"
-          ? additionalFeatureTransliteration(sylTxt, heb, transliteration, schema)
+          ? replaceAndTransliterate(sylTxt, heb, transliteration, schema)
           : transliteration(syl, seq.HEBREW, schema);
       }
     }
@@ -312,7 +316,7 @@ export const wordRules = (word: Word, schema: Schema): string | Word => {
       if (seq.FEATURE === "word" && heb.test(text)) {
         const transliteration = seq.TRANSLITERATION;
         return typeof transliteration === "string"
-          ? additionalFeatureTransliteration(text, heb, transliteration, schema)
+          ? replaceAndTransliterate(text, heb, transliteration, schema)
           : transliteration(word, seq.HEBREW, schema);
       }
     }
