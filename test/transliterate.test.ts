@@ -251,7 +251,7 @@ describe("extending SBL schema for optional arguments", () => {
   });
 
   describe("additional feature with callback for a word", () => {
-    test("cluster callback", () => {
+    test("word callback", () => {
       const heb = "שְׁתַּיִם";
       expect(
         transliterate(heb, {
