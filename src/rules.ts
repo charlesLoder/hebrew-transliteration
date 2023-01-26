@@ -3,7 +3,18 @@ import { Syllable } from "havarotjs/syllable";
 import { Word } from "havarotjs/word";
 import { hebChars } from "havarotjs/dist/utils/regularExpressions";
 import { Schema } from "./schema";
-import { mapChars } from "./mapChars";
+import { transliterateMap as map } from "./hebCharsTrans";
+
+/**
+ * maps Hebrew characters to schema
+ *
+ * @param input - text to be transliterated
+ * @param schema - a {@link Schema} for transliterating the input
+ * @returns transliteration of characters
+ *
+ */
+export const mapChars = (input: string, schema: Schema) =>
+  [...input].map((char: string) => (char in map ? schema[map[char]] : char)).join("");
 
 const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
 
