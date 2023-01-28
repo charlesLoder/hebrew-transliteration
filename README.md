@@ -299,9 +299,45 @@ Each additional feature consists of 3 parts:
   - `"syllable"` — a `syllable` is any combination of a multiple characters and a single vowel and optionally a *dagesh*
   - `"word"` — covers everything else
 2. `HEBREW` — the Hebrew text to be transliterated
-3. `TRANSLITERATION` — the text used to transliterate the Hebrew text
+3. `TRANSLITERATION` — the text used to transliterate the Hebrew text, or a callback function
 
-:warning: this is an experimental property; results may not always meet expectations
+**Using a callback**
+
+A callback can be used `TRANSLITERATION` instead of just a string.
+
+```js
+const heb = require("hebrew-transliteration");
+const rules = require("hebrew-transliteration/dist/rules");
+
+// use a callback to transliterate a vocal sheva with the same character as the next syllable
+heb.transliterate("בְּרֵאשִׁ֖ית וַיַּבְדֵּל", {
+  ADDITIONAL_FEATURES: [
+    {
+      // matches any sheva in a syllable that is NOT preceded by a vowel character
+      HEBREW: "(?<![\u{05B1}-\u{05BB}\u{05C7}].*)\u{05B0}",
+      FEATURE: "syllable",
+      TRANSLITERATION: function (syllable, _hebrew, schema) {
+        const next = syllable.next;
+        // ensure type safety
+        const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName;
+
+        if (next && nextVowel) {
+          const vowel = schema[nextVowel] || "";
+          // replaceAndTransliterate is an internal helper function
+          return rules.replaceAndTransliterate(syllable.text, new RegExp("\u{05B0}", "u"), vowel, schema);
+        }
+
+        return syllable.text;
+      }
+    }
+  ]
+});
+
+// bērēʾšît wayyabdēl
+```
+
+
+:warning: this is an experimental `ADDTIONAL_FEATURES`; results may not always meet expectations.
 
 ###### Stress Marker
 
