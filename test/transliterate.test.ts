@@ -1,4 +1,5 @@
 import { Cluster } from "havarotjs/cluster";
+import { Syllable } from "havarotjs/syllable";
 import { transliterate, Schema } from "../src/index";
 import { replaceAndTransliterate } from "../src/rules";
 
@@ -247,6 +248,60 @@ describe("extending SBL schema for optional arguments", () => {
           ]
         })
       ).toEqual("bērēʾšît");
+    });
+  });
+
+  describe("additional feature with callback for a syllable", () => {
+    test("syllable callback where sheva is vocal", () => {
+      const heb = "בְּרֵאשִׁ֖ית";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "(?<![\u{05B1}-\u{05BB}\u{05C7}].*)\u{05B0}",
+              FEATURE: "syllable",
+              TRANSLITERATION: function (syllable, _hebrew, schema) {
+                const next = syllable.next as Syllable;
+                const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName;
+
+                if (next && nextVowel) {
+                  const vowel = schema[nextVowel] || "";
+                  return replaceAndTransliterate(syllable.text, new RegExp("\u{05B0}", "u"), vowel, schema);
+                }
+
+                return syllable.text;
+              }
+            }
+          ]
+        })
+      ).toEqual("bērēʾšît");
+    });
+  });
+
+  describe("additional feature with callback for a syllable", () => {
+    test("syllable callback where sheva is silent", () => {
+      const heb = "וַיַּבְדֵּל";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "(?<![\u{05B1}-\u{05BB}\u{05C7}].*)\u{05B0}",
+              FEATURE: "syllable",
+              TRANSLITERATION: function (syllable, _hebrew, schema) {
+                const next = syllable.next as Syllable;
+                const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName;
+
+                if (next && nextVowel) {
+                  const vowel = schema[nextVowel] || "";
+                  return replaceAndTransliterate(syllable.text, new RegExp("\u{05B0}", "u"), vowel, schema);
+                }
+
+                return syllable.text;
+              }
+            }
+          ]
+        })
+      ).toEqual("wayyabdēl");
     });
   });
 
