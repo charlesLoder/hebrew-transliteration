@@ -2,6 +2,7 @@ import { Cluster } from "havarotjs/cluster";
 import { SylOpts } from "havarotjs/dist/text";
 import { Syllable } from "havarotjs/syllable";
 import { Word } from "havarotjs/word";
+import { NameToCharMap } from "havarotjs/dist/utils/vowelMap";
 
 interface HebrewFeature {
   /**
@@ -51,10 +52,12 @@ interface ClusterFeature extends HebrewFeature {
 
 type AdditionalFeatures = WordFeature | SyllableFeature | ClusterFeature;
 
+type SchemaVowels = Record<keyof NameToCharMap, string>;
+
 /*
  * class for defining a schema for transliteration
  */
-export class Schema implements SylOpts {
+export class Schema implements SylOpts, SchemaVowels {
   /**
    * HEBREW POINT SHEVA (U+05B0) ְ◌
    * @example
@@ -115,6 +118,12 @@ export class Schema implements SylOpts {
    * 'ō'
    */
   HOLAM: string;
+  /**
+   * HEBREW POINT HOLAM (U+05BA) ֹ◌
+   * @example
+   * 'ō'
+   */
+  HOLAM_HASER: string;
   /**
    * HEBREW POINT QUBUTS (U+05BB) ֻ◌
    * @example
@@ -523,6 +532,7 @@ export class Schema implements SylOpts {
       (this.PATAH = schema.PATAH),
       (this.QAMATS = schema.QAMATS),
       (this.HOLAM = schema.HOLAM),
+      (this.HOLAM_HASER = schema.HOLAM_HASER),
       (this.QUBUTS = schema.QUBUTS),
       (this.DAGESH = schema.DAGESH),
       (this.DAGESH_CHAZAQ = schema.DAGESH_CHAZAQ),
@@ -602,6 +612,7 @@ export class SBL extends Schema {
       PATAH: schema.PATAH ?? "a",
       QAMATS: schema.QAMATS ?? "ā",
       HOLAM: schema.HOLAM ?? "ō",
+      HOLAM_HASER: schema.HOLAM_HASER ?? "ō",
       QUBUTS: schema.QUBUTS ?? "ū",
       DAGESH: schema.DAGESH ?? "",
       DAGESH_CHAZAQ: schema.DAGESH_CHAZAQ ?? true,
