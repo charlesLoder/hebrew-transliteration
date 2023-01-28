@@ -636,6 +636,22 @@ export class Schema implements SylOpts, SchemaVowels {
    */
   DIVINE_NAME: string;
   /**
+   * the full form of the divine name pointed as 'elohim
+   *
+   * @description
+   * matched on the forms:
+   * - יֱהֹוִה
+   * - יֱהוִה
+   * - יְהֹוִה
+   * - יְהוִה
+   *
+   * If undefined, defaults to `DIVINE_NAME`
+   *
+   * @example
+   * 'ʾelōhim'
+   */
+  DIVINE_NAME_ELOHIM?: string;
+  /**
    * a syllable separator, usually an empty string
    *  @example
    * '' or '-'
@@ -735,6 +751,7 @@ export class Schema implements SylOpts, SchemaVowels {
       (this.TAV = schema.TAV),
       (this.TAV_DAGESH = schema.TAV_DAGESH),
       (this.DIVINE_NAME = schema.DIVINE_NAME),
+      (this.DIVINE_NAME_ELOHIM = schema.DIVINE_NAME_ELOHIM),
       (this.SYLLABLE_SEPARATOR = schema.SYLLABLE_SEPARATOR),
       (this.ADDITIONAL_FEATURES = schema.ADDITIONAL_FEATURES),
       (this.STRESS_MARKER = schema.STRESS_MARKER),
@@ -744,8 +761,8 @@ export class Schema implements SylOpts, SchemaVowels {
       (this.wawShureq = schema.wawShureq),
       (this.article = schema.article),
       (this.allowNoNiqqud = schema.allowNoNiqqud),
-      (this.strict = schema.strict);
-    this.holemHaser = schema.holemHaser;
+      (this.strict = schema.strict),
+      (this.holemHaser = schema.holemHaser);
   }
 }
 
@@ -815,6 +832,7 @@ export class SBL extends Schema {
       TAV: schema.TAV ?? "t",
       TAV_DAGESH: schema.TAV_DAGESH ?? undefined,
       DIVINE_NAME: schema.DIVINE_NAME ?? "yhwh",
+      DIVINE_NAME_ELOHIM: schema.DIVINE_NAME_ELOHIM ?? undefined,
       SYLLABLE_SEPARATOR: schema.SYLLABLE_SEPARATOR ?? undefined,
       ADDITIONAL_FEATURES: schema.ADDITIONAL_FEATURES ?? undefined,
       STRESS_MARKER: schema.STRESS_MARKER ?? undefined,
