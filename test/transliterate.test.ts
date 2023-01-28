@@ -266,7 +266,7 @@ describe("extending SBL schema for optional arguments", () => {
 
                 if (next && nextVowel) {
                   const vowel = schema[nextVowel] || "";
-                  return replaceAndTransliterate(syllable.text, new RegExp("\u{05B0}", "u"), vowel, schema);
+                  return replaceAndTransliterate(syllable.text, /\u{05B0}/u, vowel, schema);
                 }
 
                 return syllable.text;
@@ -293,7 +293,7 @@ describe("extending SBL schema for optional arguments", () => {
 
                 if (next && nextVowel) {
                   const vowel = schema[nextVowel] || "";
-                  return replaceAndTransliterate(syllable.text, new RegExp("\u{05B0}", "u"), vowel, schema);
+                  return replaceAndTransliterate(syllable.text, /\u{05B0}/u, vowel, schema);
                 }
 
                 return syllable.text;
