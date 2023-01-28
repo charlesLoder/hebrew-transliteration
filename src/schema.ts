@@ -1,9 +1,213 @@
+import { Cluster } from "havarotjs/cluster";
 import { SylOpts } from "havarotjs/dist/text";
+import { Syllable } from "havarotjs/syllable";
+import { Word } from "havarotjs/word";
+import { NameToCharMap } from "havarotjs/dist/utils/vowelMap";
+
+interface HebrewFeature {
+  /**
+   * The Hebrew text — use consonants and vowels; do not use taamim
+   *
+   * The text is parsed as a Regex so special characters like `?` and `|` can be used
+   *
+   */
+  HEBREW: string | RegExp;
+}
 
 /**
+ * @param word the `Word` object that matches the `HEBREW` property
+ * @param hebrew the `HEBREW` property
+ * @param schema the `Schema` being used
+ */
+type WordCallback = (word: Word, hebrew: string | RegExp, schema: Schema) => string;
+
+interface WordFeature extends HebrewFeature {
+  /**
+   * additional orthographic feature
+   *
+   * - `"cluster"` is any combination of a single character and optionally a _dagesh_ and vowel.
+   * - `"syllable"` is any combination of a multiple characters and a single vowel and optionally a _dagesh_
+   * - `"word"` covers everything else
+   */
+  FEATURE: "word";
+  /**
+   * a string or callback. The callback takes three par
+   *
+   * Using a string
+   * @example
+   *
+   * ```js
+   * transliterate("וְאֵ֥ת הָאָֽרֶץ", {
+   *  ADDITIONAL_FEATURES: [{
+   *    FEATURE: "word",
+   *    HEBREW: "הָאָרֶץ",
+   *    TRANSLITERATION: "The Earth"
+   *  }]
+   * });
+   *
+   * // wǝʾēt The Earth
+   * ```
+   *
+   * Using a callback
+   * @example
+   *
+   * ```js
+   * transliterate(heb, {
+   *  ADDITIONAL_FEATURES: [{
+   *    HEBREW: "שְׁתַּיִם",
+   *    FEATURE: "word",
+   *    TRANSLITERATION: function (_word, _hebrew, schema) {
+   *      return (
+   *        schema["SHIN"] +
+   *        (schema["TAV_DAGESH"] ?? schema["TAV"]) +
+   *        schema["PATAH"] +
+   *        schema["YOD"] +
+   *        schema["HIRIQ"] +
+   *        schema["FINAL_MEM"]
+   *      );
+   *    }
+   *  }]
+   * });
+   *
+   * // štayim
+   * ```
+   */
+  TRANSLITERATION: string | WordCallback;
+}
+
+/**
+ * @param syllable the `Syllable` object that matches the `HEBREW` property
+ * @param hebrew the `HEBREW` property
+ * @param schema the `Schema` being used
+ */
+type SyllableCallback = (syllable: Syllable, hebrew: string | RegExp, schema: Schema) => string;
+
+interface SyllableFeature extends HebrewFeature {
+  /**
+   * additional orthographic feature
+   *
+   * - `"cluster"` is any combination of a single character and optionally a _dagesh_ and vowel.
+   * - `"syllable"` is any combination of a multiple characters and a single vowel and optionally a _dagesh_
+   * - `"word"` covers everything else
+   */
+  FEATURE: "syllable";
+  /**
+   *
+   * DONT COMMIT W/O UPDATING EXAMPLES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   *
+   * a string or callback
+   *
+   * Using a string
+   * @example
+   *
+   * ```js
+   * transliterate("וְאֵ֥ת הָאָֽרֶץ", {
+   *  ADDITIONAL_FEATURES: [{
+   *    FEATURE: "syllable",
+   *    HEBREW: "הָאָרֶץ",
+   *    TRANSLITERATION: "The Earth"
+   *  }]
+   * });
+   *
+   * // wǝʾēt The Earth
+   * ```
+   *
+   * Using a callback
+   * @example
+   *
+   * ```js
+   * transliterate(heb, {
+   *  ADDITIONAL_FEATURES: [{
+   *    HEBREW: "שְׁתַּיִם",
+   *    FEATURE: "syllable",
+   *    TRANSLITERATION: function (_word, _text, schema) {
+   *      return (
+   *        schema["SHIN"] +
+   *        (schema["TAV_DAGESH"] ?? schema["TAV"]) +
+   *        schema["PATAH"] +
+   *        schema["YOD"] +
+   *        schema["HIRIQ"] +
+   *        schema["FINAL_MEM"]
+   *      );
+   *    }
+   *  }]
+   * });
+   *
+   * // štayim
+   * ```
+   */
+  TRANSLITERATION: string | SyllableCallback;
+}
+
+/**
+ * @param cluster the `Cluster` object that matches the `HEBREW` property
+ * @param hebrew the `HEBREW` property
+ * @param schema the `Schema` being used
+ */
+type ClusterCallback = (cluster: Cluster, hebrew: string | RegExp, schema: Schema) => string;
+
+interface ClusterFeature extends HebrewFeature {
+  /**
+   * additional orthographic feature
+   *
+   * - `"cluster"` is any combination of a single character and optionally a _dagesh_ and vowel.
+   * - `"syllable"` is any combination of a multiple characters and a single vowel and optionally a _dagesh_
+   * - `"word"` covers everything else
+   */
+  FEATURE: "cluster";
+  /**
+   * a string or callback
+   *
+   * Using a string
+   * @example
+   *
+   * ```js
+   * transliterate("בְּרֵאשִׁ֖ית", {
+   *  ADDITIONAL_FEATURES: [{
+   *    FEATURE: "cluster",
+   *    HEBREW: "\u{05B0}",
+   *    TRANSLITERATION: "The Earth"
+   *  }]
+   * });
+   *
+   * // wǝʾēt The Earth
+   * ```
+   *
+   * Using a callback
+   * @example
+   *
+   * ```js
+   * transliterate(heb, {
+   *  ADDITIONAL_FEATURES: [{
+   *    HEBREW: "שְׁתַּיִם",
+   *    FEATURE: "syllable",
+   *    TRANSLITERATION: function (_word, _text, schema) {
+   *      return (
+   *        schema["SHIN"] +
+   *        (schema["TAV_DAGESH"] ?? schema["TAV"]) +
+   *        schema["PATAH"] +
+   *        schema["YOD"] +
+   *        schema["HIRIQ"] +
+   *        schema["FINAL_MEM"]
+   *      );
+   *    }
+   *  }]
+   * });
+   *
+   * // štayim
+   * ```
+   */
+  TRANSLITERATION: string | ClusterCallback;
+}
+
+type AdditionalFeatures = WordFeature | SyllableFeature | ClusterFeature;
+
+type SchemaVowels = Record<keyof NameToCharMap, string>;
+
+/*
  * class for defining a schema for transliteration
  */
-export class Schema implements SylOpts {
+export class Schema implements SylOpts, SchemaVowels {
   /**
    * HEBREW POINT SHEVA (U+05B0) ְ◌
    * @example
@@ -64,6 +268,12 @@ export class Schema implements SylOpts {
    * 'ō'
    */
   HOLAM: string;
+  /**
+   * HEBREW POINT HOLAM (U+05BA) ֹ◌
+   * @example
+   * 'ō'
+   */
+  HOLAM_HASER: string;
   /**
    * HEBREW POINT QUBUTS (U+05BB) ֻ◌
    * @example
@@ -405,6 +615,7 @@ export class Schema implements SylOpts {
    * 't'
    */
   TAV_DAGESH?: string;
+
   /**
    * define additional sequences of characters
    *
@@ -417,24 +628,7 @@ export class Schema implements SylOpts {
    *   TRANSLITERATION: 'tz'
    * }]
    */
-  ADDITIONAL_FEATURES?: {
-    /**
-     * additional orthographic feature
-     *
-     * - `"cluster"` is any combination of a single character and optionally a _dagesh_ and vowel.
-     * - `"syllable"` is any combination of a multiple characters and a single vowel and optionally a _dagesh_
-     * - `"word"` covers everything else
-     */
-    FEATURE: "word" | "syllable" | "cluster";
-    /**
-     * The Hebrew text — use consonants and vowels; do not use taamim
-     *
-     * The text is parsed as a Regex so special characters like `?` and `|` can be used
-     *
-     */
-    HEBREW: string;
-    TRANSLITERATION: string;
-  }[];
+  ADDITIONAL_FEATURES?: AdditionalFeatures[];
   /**
    * the full form of the divine name - יהוה
    * @example
@@ -488,6 +682,7 @@ export class Schema implements SylOpts {
       (this.PATAH = schema.PATAH),
       (this.QAMATS = schema.QAMATS),
       (this.HOLAM = schema.HOLAM),
+      (this.HOLAM_HASER = schema.HOLAM_HASER),
       (this.QUBUTS = schema.QUBUTS),
       (this.DAGESH = schema.DAGESH),
       (this.DAGESH_CHAZAQ = schema.DAGESH_CHAZAQ),
@@ -567,6 +762,7 @@ export class SBL extends Schema {
       PATAH: schema.PATAH ?? "a",
       QAMATS: schema.QAMATS ?? "ā",
       HOLAM: schema.HOLAM ?? "ō",
+      HOLAM_HASER: schema.HOLAM_HASER ?? "ō",
       QUBUTS: schema.QUBUTS ?? "ū",
       DAGESH: schema.DAGESH ?? "",
       DAGESH_CHAZAQ: schema.DAGESH_CHAZAQ ?? true,

@@ -3,20 +3,63 @@ import { Syllable } from "havarotjs/syllable";
 import { Word } from "havarotjs/word";
 import { hebChars } from "havarotjs/dist/utils/regularExpressions";
 import { Schema } from "./schema";
-import { mapChars } from "./mapChars";
+import { transliterateMap as map } from "./hebCharsTrans";
+
+/**
+ * maps Hebrew characters to schema
+ *
+ * @param input - text to be transliterated
+ * @param schema - a {@link Schema} for transliterating the input
+ * @returns transliteration of characters
+ *
+ */
+export const mapChars = (input: string, schema: Schema) =>
+  [...input].map((char: string) => (char in map ? schema[map[char]] : char)).join("");
 
 const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
 
-const changeElementSplit = (input: string, split: RegExp, join: string) => input.split(split).join(join);
+/**
+ * a wrapper around String.replace() to constrain to a RegExp
+ *
+ * @param input the string to be modified
+ * @param regex the regex to be used as the search value
+ * @param replaceValue the string to replace the regex
+ * @returns
+ */
+const replaceWithRegex = (input: string, regex: RegExp, replaceValue: string) => input.replace(regex, replaceValue);
+
+/**
+ * replaces part of a string and transliterates the remaining characters according to the schema
+ *
+ * @example
+ * ```ts
+ * // replaces בָ as VA, but only when matching the regex sequence
+ * const betAndQamats = /\u{05D1}\u{05B8}/u
+ * replaceAndTransliterate("דָּבָר", betAndQamats, "VA", schema);
+ * // dāVAr
+ * ```
+ *
+ * @param input the text to be transliterated
+ * @param regex the regex used as the search value
+ * @param replaceValue the string to replace the regex
+ * @param schema the Schema
+ * @returns
+ */
+export const replaceAndTransliterate = (input: string, regex: RegExp, replaceValue: string, schema: Schema) => {
+  const sylSeq = replaceWithRegex(input, regex, replaceValue);
+  return [...sylSeq].map((char) => mapChars(char, schema)).join("");
+};
 
 const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
   if (schema.ADDITIONAL_FEATURES?.length) {
-    const clusterSeqs = schema.ADDITIONAL_FEATURES.filter((s) => s.FEATURE === "cluster");
-    for (const seq of clusterSeqs) {
+    const seqs = schema.ADDITIONAL_FEATURES;
+    for (const seq of seqs) {
       const heb = new RegExp(seq.HEBREW, "u");
-      if (heb.test(clusterText)) {
-        const sylSeq = changeElementSplit(clusterText, heb, seq.TRANSLITERATION);
-        return [...sylSeq].map((char) => mapChars(char, schema)).join("");
+      if (seq.FEATURE === "cluster" && heb.test(clusterText)) {
+        const transliteration = seq.TRANSLITERATION;
+        return typeof transliteration === "string"
+          ? replaceAndTransliterate(clusterText, heb, transliteration, schema)
+          : transliteration(cluster, seq.HEBREW, schema);
       }
     }
   }
@@ -25,23 +68,23 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
 
   // mappiq he
   if (/ה\u{05BC}$/mu.test(clusterText)) {
-    return changeElementSplit(clusterText, /ה\u{05BC}/u, schema.HE);
+    return replaceWithRegex(clusterText, /ה\u{05BC}/u, schema.HE);
   }
 
   if (syl.isFinal && !syl.isClosed) {
     const furtiveChet = /\u{05D7}\u{05B7}$/mu;
     if (furtiveChet.test(clusterText)) {
-      return changeElementSplit(clusterText, furtiveChet, "\u{05B7}\u{05D7}");
+      return replaceWithRegex(clusterText, furtiveChet, "\u{05B7}\u{05D7}");
     }
 
     const furtiveAyin = /\u{05E2}\u{05B7}$/mu;
     if (furtiveAyin.test(clusterText)) {
-      return changeElementSplit(clusterText, furtiveAyin, "\u{05B7}\u{05E2}");
+      return replaceWithRegex(clusterText, furtiveAyin, "\u{05B7}\u{05E2}");
     }
 
     const furtiveHe = /\u{05D4}\u{05BC}\u{05B7}$/mu;
     if (furtiveHe.test(clusterText)) {
-      return changeElementSplit(clusterText, furtiveHe, "\u{05B7}\u{05D4}\u{05BC}");
+      return replaceWithRegex(clusterText, furtiveHe, "\u{05B7}\u{05D4}\u{05BC}");
     }
   }
 
@@ -50,45 +93,45 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   const isDoubled = schema.DAGESH_CHAZAQ && prevHasVowel && /\u{05BC}/u.test(clusterText);
 
   if (schema.BET_DAGESH && /ב\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ב\u{05BC}/u, schema.BET_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(clusterText, /ב\u{05BC}/u, schema.BET_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.GIMEL_DAGESH && /ג\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ג\u{05BC}/u, schema.GIMEL_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(clusterText, /ג\u{05BC}/u, schema.GIMEL_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.DALET_DAGESH && /ד\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ד\u{05BC}/u, schema.DALET_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(clusterText, /ד\u{05BC}/u, schema.DALET_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.KAF_DAGESH && /כ\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /כ\u{05BC}/u, schema.KAF_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(clusterText, /כ\u{05BC}/u, schema.KAF_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.KAF_DAGESH && /ך\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ך\u{05BC}/u, schema.KAF_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(clusterText, /ך\u{05BC}/u, schema.KAF_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.PE_DAGESH && /פ\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /פ\u{05BC}/u, schema.PE_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(clusterText, /פ\u{05BC}/u, schema.PE_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (schema.TAV_DAGESH && /ת\u{05BC}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ת\u{05BC}/u, schema.TAV_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(clusterText, /ת\u{05BC}/u, schema.TAV_DAGESH.repeat(isDoubled ? 2 : 1));
   }
 
   if (/ש\u{05C1}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ש\u{05C1}/u, schema.SHIN.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(clusterText, /ש\u{05C1}/u, schema.SHIN.repeat(isDoubled ? 2 : 1));
   }
 
   if (/ש\u{05C2}/u.test(clusterText)) {
-    return changeElementSplit(clusterText, /ש\u{05C2}/u, schema.SIN.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(clusterText, /ש\u{05C2}/u, schema.SIN.repeat(isDoubled ? 2 : 1));
   }
 
   if (isDoubled) {
     const consonant = cluster.chars[0].text;
     const consonantDagesh = new RegExp(consonant + "\u{05BC}", "u");
-    return changeElementSplit(clusterText, consonantDagesh, `${consonant + consonant}`);
+    return replaceWithRegex(clusterText, consonantDagesh, `${consonant + consonant}`);
   }
 
   if (cluster.isShureq) {
@@ -116,39 +159,39 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
   if (/י/.test(materText)) {
     // hiriq
     if (/\u{05B4}/u.test(prevText)) {
-      return changeElementSplit(noMaterText, /\u{05B4}/u, schema.HIRIQ_YOD);
+      return replaceWithRegex(noMaterText, /\u{05B4}/u, schema.HIRIQ_YOD);
     }
     // tsere
     if (/\u{05B5}/u.test(prevText)) {
-      return changeElementSplit(noMaterText, /\u{05B5}/u, schema.TSERE_YOD);
+      return replaceWithRegex(noMaterText, /\u{05B5}/u, schema.TSERE_YOD);
     }
     // segol
     if (/\u{05B6}/u.test(prevText)) {
-      return changeElementSplit(noMaterText, /\u{05B6}/u, schema.SEGOL_YOD);
+      return replaceWithRegex(noMaterText, /\u{05B6}/u, schema.SEGOL_YOD);
     }
   }
 
   if (/ו/u.test(materText)) {
     // holam
     if (/\u{05B9}/u.test(prevText)) {
-      return changeElementSplit(noMaterText, /\u{05B9}/u, schema.HOLAM_VAV);
+      return replaceWithRegex(noMaterText, /\u{05B9}/u, schema.HOLAM_VAV);
     }
   }
 
   if (/ה/.test(materText)) {
     // qamets
     if (/\u{05B8}/u.test(prevText)) {
-      return changeElementSplit(noMaterText, /\u{05B8}/u, schema.QAMATS_HE);
+      return replaceWithRegex(noMaterText, /\u{05B8}/u, schema.QAMATS_HE);
     }
 
     // seghol
     if (/\u{05B6}/u.test(prevText)) {
-      return changeElementSplit(noMaterText, /\u{05B6}/u, schema.SEGOL_HE);
+      return replaceWithRegex(noMaterText, /\u{05B6}/u, schema.SEGOL_HE);
     }
 
     // tsere
     if (/\u{05B5}/u.test(prevText)) {
-      return changeElementSplit(noMaterText, /\u{05B5}/u, schema.SEGOL_HE);
+      return replaceWithRegex(noMaterText, /\u{05B5}/u, schema.SEGOL_HE);
     }
   }
 
@@ -211,12 +254,14 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   const sylTxt = syl.text.replace(taamim, "");
 
   if (schema.ADDITIONAL_FEATURES?.length) {
-    const sylSeqs = schema.ADDITIONAL_FEATURES.filter((s) => s.FEATURE === "syllable");
-    for (const seq of sylSeqs) {
+    const seqs = schema.ADDITIONAL_FEATURES;
+    for (const seq of seqs) {
       const heb = new RegExp(seq.HEBREW, "u");
-      if (heb.test(sylTxt)) {
-        const wordSeq = changeElementSplit(sylTxt, heb, seq.TRANSLITERATION);
-        return joinChars(syl.isAccented, [...wordSeq], schema);
+      if (seq.FEATURE === "syllable" && heb.test(sylTxt)) {
+        const transliteration = seq.TRANSLITERATION;
+        return typeof transliteration === "string"
+          ? replaceAndTransliterate(sylTxt, heb, transliteration, schema)
+          : transliteration(syl, seq.HEBREW, schema);
       }
     }
   }
@@ -224,7 +269,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   // syllable is 3ms sufx
   const mSSuffix = /\u{05B8}\u{05D9}\u{05D5}/u;
   if (syl.isFinal && mSSuffix.test(sylTxt)) {
-    const sufxSyl = changeElementSplit(sylTxt, mSSuffix, schema.MS_SUFX);
+    const sufxSyl = replaceWithRegex(sylTxt, mSSuffix, schema.MS_SUFX);
     return joinChars(syl.isAccented, [...sufxSyl], schema);
   }
 
@@ -264,15 +309,18 @@ export const wordRules = (word: Word, schema: Schema): string | Word => {
   if (word.hasDivineName) return `${sylRules(word.syllables[0], schema)}-${getDivineName(word.text, schema)}`;
   if (word.isNotHebrew) return word.text;
   if (schema.ADDITIONAL_FEATURES?.length) {
-    const wordSeqs = schema.ADDITIONAL_FEATURES.filter((s) => s.FEATURE === "word");
-    for (const seq of wordSeqs) {
+    const seqs = schema.ADDITIONAL_FEATURES;
+    for (const seq of seqs) {
       const heb = new RegExp(seq.HEBREW, "u");
-      const wordText = word.text.replace(taamim, "");
-      if (heb.test(wordText)) {
-        const wordSeq = changeElementSplit(wordText, heb, seq.TRANSLITERATION);
-        return [...wordSeq].map((char) => mapChars(char, schema)).join("");
+      const text = word.text.replace(taamim, "");
+      if (seq.FEATURE === "word" && heb.test(text)) {
+        const transliteration = seq.TRANSLITERATION;
+        return typeof transliteration === "string"
+          ? replaceAndTransliterate(text, heb, transliteration, schema)
+          : transliteration(word, seq.HEBREW, schema);
       }
     }
+    return word;
   }
   return word;
 };

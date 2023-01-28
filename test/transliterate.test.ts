@@ -1,4 +1,7 @@
+import { Cluster } from "havarotjs/cluster";
+import { Syllable } from "havarotjs/syllable";
 import { transliterate, Schema } from "../src/index";
+import { replaceAndTransliterate } from "../src/rules";
 
 interface Inputs {
   hebrew: string;
@@ -221,6 +224,108 @@ describe("extending SBL schema for optional arguments", () => {
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration, options } = inputs;
       expect(transliterate(hebrew, options)).toBe(transliteration);
+    });
+  });
+
+  describe("additional feature with callback for a cluster", () => {
+    test("cluster callback", () => {
+      const heb = "בְּרֵאשִׁ֖ית";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "\u{05B0}",
+              FEATURE: "cluster",
+              TRANSLITERATION: function (cluster, hebrew, schema) {
+                const tsere = /\u{05B5}/u;
+                const next = cluster.next as Cluster;
+                if (next && tsere.test(next.text)) {
+                  return replaceAndTransliterate(cluster.text, new RegExp(hebrew, "u"), schema["TSERE"], schema);
+                }
+                return cluster.text;
+              }
+            }
+          ]
+        })
+      ).toEqual("bērēʾšît");
+    });
+  });
+
+  describe("additional feature with callback for a syllable", () => {
+    test("syllable callback where sheva is vocal", () => {
+      const heb = "בְּרֵאשִׁ֖ית";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "(?<![\u{05B1}-\u{05BB}\u{05C7}].*)\u{05B0}",
+              FEATURE: "syllable",
+              TRANSLITERATION: function (syllable, _hebrew, schema) {
+                const next = syllable.next as Syllable;
+                const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName;
+
+                if (next && nextVowel) {
+                  const vowel = schema[nextVowel] || "";
+                  return replaceAndTransliterate(syllable.text, /\u{05B0}/u, vowel, schema);
+                }
+
+                return syllable.text;
+              }
+            }
+          ]
+        })
+      ).toEqual("bērēʾšît");
+    });
+
+    test("syllable callback where sheva is silent", () => {
+      const heb = "וַיַּבְדֵּל";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "(?<![\u{05B1}-\u{05BB}\u{05C7}].*)\u{05B0}",
+              FEATURE: "syllable",
+              TRANSLITERATION: function (syllable, _hebrew, schema) {
+                const next = syllable.next as Syllable;
+                const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName;
+
+                if (next && nextVowel) {
+                  const vowel = schema[nextVowel] || "";
+                  return replaceAndTransliterate(syllable.text, /\u{05B0}/u, vowel, schema);
+                }
+
+                return syllable.text;
+              }
+            }
+          ]
+        })
+      ).toEqual("wayyabdēl");
+    });
+  });
+
+  describe("additional feature with callback for a word", () => {
+    test("word callback", () => {
+      const heb = "שְׁתַּיִם";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "שְׁתַּיִם",
+              FEATURE: "word",
+              TRANSLITERATION: function (_word, _hebrew, schema) {
+                return (
+                  schema["SHIN"] +
+                  (schema["TAV_DAGESH"] ?? schema["TAV"]) +
+                  schema["PATAH"] +
+                  schema["YOD"] +
+                  schema["HIRIQ"] +
+                  schema["FINAL_MEM"]
+                );
+              }
+            }
+          ]
+        })
+      ).toEqual("štayim");
     });
   });
 
