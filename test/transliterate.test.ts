@@ -276,9 +276,7 @@ describe("extending SBL schema for optional arguments", () => {
         })
       ).toEqual("bērēʾšît");
     });
-  });
 
-  describe("additional feature with callback for a syllable", () => {
     test("syllable callback where sheva is silent", () => {
       const heb = "וַיַּבְדֵּל";
       expect(
