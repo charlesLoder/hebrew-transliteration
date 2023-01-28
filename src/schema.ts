@@ -14,6 +14,13 @@ interface HebrewFeature {
   HEBREW: string | RegExp;
 }
 
+/**
+ * @param word the `Word` object that matches the `HEBREW` property
+ * @param hebrew the `HEBREW` property
+ * @param schema the `Schema` being used
+ */
+type WordCallback = (word: Word, hebrew: string | RegExp, schema: Schema) => string;
+
 interface WordFeature extends HebrewFeature {
   /**
    * additional orthographic feature
@@ -23,8 +30,57 @@ interface WordFeature extends HebrewFeature {
    * - `"word"` covers everything else
    */
   FEATURE: "word";
-  TRANSLITERATION: string | ((word: Word, transliteration: string | RegExp, schema: Schema) => string);
+  /**
+   * a string or callback. The callback takes three par
+   *
+   * Using a string
+   * @example
+   *
+   * ```js
+   * transliterate("וְאֵ֥ת הָאָֽרֶץ", {
+   *  ADDITIONAL_FEATURES: [{
+   *    FEATURE: "word",
+   *    HEBREW: "הָאָרֶץ",
+   *    TRANSLITERATION: "The Earth"
+   *  }]
+   * });
+   *
+   * // wǝʾēt The Earth
+   * ```
+   *
+   * Using a callback
+   * @example
+   *
+   * ```js
+   * transliterate(heb, {
+   *  ADDITIONAL_FEATURES: [{
+   *    HEBREW: "שְׁתַּיִם",
+   *    FEATURE: "word",
+   *    TRANSLITERATION: function (_word, _hebrew, schema) {
+   *      return (
+   *        schema["SHIN"] +
+   *        (schema["TAV_DAGESH"] ?? schema["TAV"]) +
+   *        schema["PATAH"] +
+   *        schema["YOD"] +
+   *        schema["HIRIQ"] +
+   *        schema["FINAL_MEM"]
+   *      );
+   *    }
+   *  }]
+   * });
+   *
+   * // štayim
+   * ```
+   */
+  TRANSLITERATION: string | WordCallback;
 }
+
+/**
+ * @param syllable the `Syllable` object that matches the `HEBREW` property
+ * @param hebrew the `HEBREW` property
+ * @param schema the `Schema` being used
+ */
+type SyllableCallback = (syllable: Syllable, hebrew: string | RegExp, schema: Schema) => string;
 
 interface SyllableFeature extends HebrewFeature {
   /**
@@ -35,8 +91,60 @@ interface SyllableFeature extends HebrewFeature {
    * - `"word"` covers everything else
    */
   FEATURE: "syllable";
-  TRANSLITERATION: string | ((syllable: Syllable, transliteration: string | RegExp, schema: Schema) => string);
+  /**
+   *
+   * DONT COMMIT W/O UPDATING EXAMPLES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   *
+   * a string or callback
+   *
+   * Using a string
+   * @example
+   *
+   * ```js
+   * transliterate("וְאֵ֥ת הָאָֽרֶץ", {
+   *  ADDITIONAL_FEATURES: [{
+   *    FEATURE: "syllable",
+   *    HEBREW: "הָאָרֶץ",
+   *    TRANSLITERATION: "The Earth"
+   *  }]
+   * });
+   *
+   * // wǝʾēt The Earth
+   * ```
+   *
+   * Using a callback
+   * @example
+   *
+   * ```js
+   * transliterate(heb, {
+   *  ADDITIONAL_FEATURES: [{
+   *    HEBREW: "שְׁתַּיִם",
+   *    FEATURE: "syllable",
+   *    TRANSLITERATION: function (_word, _text, schema) {
+   *      return (
+   *        schema["SHIN"] +
+   *        (schema["TAV_DAGESH"] ?? schema["TAV"]) +
+   *        schema["PATAH"] +
+   *        schema["YOD"] +
+   *        schema["HIRIQ"] +
+   *        schema["FINAL_MEM"]
+   *      );
+   *    }
+   *  }]
+   * });
+   *
+   * // štayim
+   * ```
+   */
+  TRANSLITERATION: string | SyllableCallback;
 }
+
+/**
+ * @param cluster the `Cluster` object that matches the `HEBREW` property
+ * @param hebrew the `HEBREW` property
+ * @param schema the `Schema` being used
+ */
+type ClusterCallback = (cluster: Cluster, hebrew: string | RegExp, schema: Schema) => string;
 
 interface ClusterFeature extends HebrewFeature {
   /**
@@ -47,7 +155,49 @@ interface ClusterFeature extends HebrewFeature {
    * - `"word"` covers everything else
    */
   FEATURE: "cluster";
-  TRANSLITERATION: string | ((cluster: Cluster, transliteration: string | RegExp, schema: Schema) => string);
+  /**
+   * a string or callback
+   *
+   * Using a string
+   * @example
+   *
+   * ```js
+   * transliterate("בְּרֵאשִׁ֖ית", {
+   *  ADDITIONAL_FEATURES: [{
+   *    FEATURE: "cluster",
+   *    HEBREW: "\u{05B0}",
+   *    TRANSLITERATION: "The Earth"
+   *  }]
+   * });
+   *
+   * // wǝʾēt The Earth
+   * ```
+   *
+   * Using a callback
+   * @example
+   *
+   * ```js
+   * transliterate(heb, {
+   *  ADDITIONAL_FEATURES: [{
+   *    HEBREW: "שְׁתַּיִם",
+   *    FEATURE: "syllable",
+   *    TRANSLITERATION: function (_word, _text, schema) {
+   *      return (
+   *        schema["SHIN"] +
+   *        (schema["TAV_DAGESH"] ?? schema["TAV"]) +
+   *        schema["PATAH"] +
+   *        schema["YOD"] +
+   *        schema["HIRIQ"] +
+   *        schema["FINAL_MEM"]
+   *      );
+   *    }
+   *  }]
+   * });
+   *
+   * // štayim
+   * ```
+   */
+  TRANSLITERATION: string | ClusterCallback;
 }
 
 type AdditionalFeatures = WordFeature | SyllableFeature | ClusterFeature;
