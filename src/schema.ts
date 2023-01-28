@@ -639,7 +639,7 @@ export class Schema implements SylOpts, SchemaVowels {
    * the full form of the divine name pointed as 'elohim
    *
    * @description
-   * matched on the forms:
+   * matches on the forms:
    * - יֱהֹוִה
    * - יֱהוִה
    * - יְהֹוִה
