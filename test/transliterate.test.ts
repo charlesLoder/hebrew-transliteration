@@ -144,6 +144,20 @@ describe("using default options", () => {
     });
   });
 
+  describe("divine name, elohim", () => {
+    test.each`
+      description           | hebrew        | transliteration | options
+      ${"full pointing"}    | ${"יֱהֹוִ֡ה"} | ${"ʾelōhim"}    | ${{ DIVINE_NAME_ELOHIM: "ʾelōhim" }}
+      ${"with segol"}       | ${"יֱהוִה"}   | ${"ʾelōhim"}    | ${{ DIVINE_NAME_ELOHIM: "ʾelōhim" }}
+      ${"with holam"}       | ${"יְהֹוִה"}  | ${"ʾelōhim"}    | ${{ DIVINE_NAME_ELOHIM: "ʾelōhim" }}
+      ${"with hiriq"}       | ${"יְהוִֽה׃"} | ${"ʾelōhim"}    | ${{ DIVINE_NAME_ELOHIM: "ʾelōhim" }}
+      ${"undefined option"} | ${"יֱהֹוִ֡ה"} | ${"yhwh"}       | ${{ DIVINE_NAME_ELOHIM: undefined }}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration, options } = inputs;
+      expect(transliterate(hebrew, options)).toBe(transliteration);
+    });
+  });
+
   describe("qamets qatan", () => {
     test.each`
       description            | hebrew           | transliteration

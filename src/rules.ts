@@ -301,7 +301,10 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
 const getDivineName = (str: string, schema: Schema): string => {
   const begn = str[0];
   const end = str[str.length - 1];
-  return `${hebChars.test(begn) ? "" : begn}${schema.DIVINE_NAME}${hebChars.test(end) ? "" : end}`;
+  // if DN is pointed with a hiriq, then it is read as 'elohim
+  const divineName =
+    schema.DIVINE_NAME_ELOHIM && /\u{05B4}/u.test(str) ? schema.DIVINE_NAME_ELOHIM : schema.DIVINE_NAME;
+  return `${hebChars.test(begn) ? "" : begn}${divineName}${hebChars.test(end) ? "" : end}`;
 };
 
 export const wordRules = (word: Word, schema: Schema): string | Word => {

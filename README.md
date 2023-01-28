@@ -254,6 +254,7 @@ There are other orthographic features:
 
 - `MS_SUFX` — HEBREW LETTER QAMATS (U+05B8) and YOD (U+05D9) and VAV (U+05D5) יו◌ָ
 - `DIVINE_NAME` — the full form of the divine name - יהוה
+- `DIVINE_NAME_ELOHIM` — optionally, the form of the divine name pointed as ʾelōhîm (e.g. יֱהֹוִה)
 - `SYLLABLE_SEPARATOR` — a syllable separator, usually an empty string
 - `DAGESH_CHAZAQ` — if true, repeats the consonant with the _dagesh_
 
