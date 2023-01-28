@@ -11,6 +11,7 @@ export const brillSimple: Schema = {
   PATAH: "a",
   QAMATS: "a",
   HOLAM: "o",
+  HOLAM_HASER: "o",
   QUBUTS: "u",
   DAGESH: "",
   DAGESH_CHAZAQ: true,

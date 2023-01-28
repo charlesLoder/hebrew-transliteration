@@ -44,6 +44,7 @@ export const sblSimple: Schema = {
   TSERE: "e",
   HIRIQ: "i",
   HOLAM: "o",
+  HOLAM_HASER: "o",
   QUBUTS: "u",
   QAMATS_HE: "ah",
   SEGOL_HE: "eh",

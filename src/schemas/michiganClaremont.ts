@@ -11,6 +11,7 @@ export const michiganClaremont: Schema = {
   PATAH: "A",
   QAMATS: "F",
   HOLAM: "O",
+  HOLAM_HASER: "O",
   QUBUTS: "U",
   DAGESH: "",
   DAGESH_CHAZAQ: true,
