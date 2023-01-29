@@ -50,6 +50,18 @@ export const replaceAndTransliterate = (input: string, regex: RegExp, replaceVal
   return [...sylSeq].map((char) => mapChars(char, schema)).join("");
 };
 
+const getDageshChazaqVal = (input: string, dagesh: Schema["DAGESH_CHAZAQ"], isChazaq: boolean) => {
+  if (!isChazaq) {
+    return input;
+  }
+
+  if (typeof dagesh === "boolean") {
+    return input.repeat(2);
+  }
+
+  return input + dagesh;
+};
+
 const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
   if (schema.ADDITIONAL_FEATURES?.length) {
     const seqs = schema.ADDITIONAL_FEATURES;
@@ -90,48 +102,85 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
 
   // dagesh chazaq
   const prevHasVowel = cluster.prev instanceof Cluster ? cluster.prev.hasVowel : false;
-  const isDoubled = schema.DAGESH_CHAZAQ && prevHasVowel && /\u{05BC}/u.test(clusterText);
+  const dageshChazaq = schema.DAGESH_CHAZAQ;
+  const isDageshChazq = (dageshChazaq && prevHasVowel && /\u{05BC}/u.test(clusterText)) || false;
 
   if (schema.BET_DAGESH && /ב\u{05BC}/u.test(clusterText)) {
-    return replaceWithRegex(clusterText, /ב\u{05BC}/u, schema.BET_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(
+      clusterText,
+      /ב\u{05BC}/u,
+      getDageshChazaqVal(schema.BET_DAGESH, dageshChazaq, isDageshChazq)
+    );
   }
 
   if (schema.GIMEL_DAGESH && /ג\u{05BC}/u.test(clusterText)) {
-    return replaceWithRegex(clusterText, /ג\u{05BC}/u, schema.GIMEL_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(
+      clusterText,
+      /ג\u{05BC}/u,
+      getDageshChazaqVal(schema.GIMEL_DAGESH, dageshChazaq, isDageshChazq)
+    );
   }
 
   if (schema.DALET_DAGESH && /ד\u{05BC}/u.test(clusterText)) {
-    return replaceWithRegex(clusterText, /ד\u{05BC}/u, schema.DALET_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(
+      clusterText,
+      /ד\u{05BC}/u,
+      getDageshChazaqVal(schema.DALET_DAGESH, dageshChazaq, isDageshChazq)
+    );
   }
 
   if (schema.KAF_DAGESH && /כ\u{05BC}/u.test(clusterText)) {
-    return replaceWithRegex(clusterText, /כ\u{05BC}/u, schema.KAF_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(
+      clusterText,
+      /כ\u{05BC}/u,
+      getDageshChazaqVal(schema.KAF_DAGESH, dageshChazaq, isDageshChazq)
+    );
   }
 
   if (schema.KAF_DAGESH && /ך\u{05BC}/u.test(clusterText)) {
-    return replaceWithRegex(clusterText, /ך\u{05BC}/u, schema.KAF_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(
+      clusterText,
+      /ך\u{05BC}/u,
+      getDageshChazaqVal(schema.KAF_DAGESH, dageshChazaq, isDageshChazq)
+    );
   }
 
   if (schema.PE_DAGESH && /פ\u{05BC}/u.test(clusterText)) {
-    return replaceWithRegex(clusterText, /פ\u{05BC}/u, schema.PE_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(
+      clusterText,
+      /פ\u{05BC}/u,
+      getDageshChazaqVal(schema.PE_DAGESH, dageshChazaq, isDageshChazq)
+    );
   }
 
   if (schema.TAV_DAGESH && /ת\u{05BC}/u.test(clusterText)) {
-    return replaceWithRegex(clusterText, /ת\u{05BC}/u, schema.TAV_DAGESH.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(
+      clusterText,
+      /ת\u{05BC}/u,
+      getDageshChazaqVal(schema.TAV_DAGESH, dageshChazaq, isDageshChazq)
+    );
   }
 
   if (/ש\u{05C1}/u.test(clusterText)) {
-    return replaceWithRegex(clusterText, /ש\u{05C1}/u, schema.SHIN.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(clusterText, /ש\u{05C1}/u, getDageshChazaqVal(schema.SHIN, dageshChazaq, isDageshChazq));
   }
 
   if (/ש\u{05C2}/u.test(clusterText)) {
-    return replaceWithRegex(clusterText, /ש\u{05C2}/u, schema.SIN.repeat(isDoubled ? 2 : 1));
+    return replaceWithRegex(
+      clusterText,
+      /ש\u{05C2}/u,
+      getDageshChazaqVal(schema.SIN, schema.DAGESH_CHAZAQ, isDageshChazq)
+    );
   }
 
-  if (isDoubled) {
+  if (isDageshChazq) {
     const consonant = cluster.chars[0].text;
     const consonantDagesh = new RegExp(consonant + "\u{05BC}", "u");
-    return replaceWithRegex(clusterText, consonantDagesh, `${consonant + consonant}`);
+    return replaceWithRegex(
+      clusterText,
+      consonantDagesh,
+      getDageshChazaqVal(consonant, schema.DAGESH_CHAZAQ, isDageshChazq)
+    );
   }
 
   if (cluster.isShureq) {
