@@ -383,8 +383,8 @@ An optional property determining whether to exclude the mark on certain syllable
 
 It has three options
 - `undefined`/`"never"`
-- `"final"`
 - `"single"`
+- `"final"`
 
 Examples:
 
