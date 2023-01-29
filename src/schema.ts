@@ -296,7 +296,7 @@ export class Schema implements SylOpts, SchemaVowels {
    * // 'shabbat'
    * ```
    */
-  DAGESH_CHAZAQ: boolean;
+  DAGESH_CHAZAQ: boolean | string;
   /**
    * HEBREW PUNCTUATION MAQAF (U+05BE) ־◌
    * @example
