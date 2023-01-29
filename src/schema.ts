@@ -699,7 +699,7 @@ export class Schema implements SylOpts, SchemaVowels {
      *
      * ```js
      * // undefined and "never" are the same
-     * heb.transliterate(""בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
+     * heb.transliterate("בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
      *   STRESS_MARKER: {
      *     location: "after-vowel",
      *     mark: "\u0301",
@@ -713,7 +713,7 @@ export class Schema implements SylOpts, SchemaVowels {
      *
      * ```js
      * // exclude only single syllable words
-     * heb.transliterate(""בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
+     * heb.transliterate("בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
      *   STRESS_MARKER: {
      *     location: "after-vowel",
      *     mark: "\u0301",
@@ -729,7 +729,7 @@ export class Schema implements SylOpts, SchemaVowels {
      * ```js
      * // exclude when accent is on the final syllable
      * // implicitly excludes single syllable words
-     * heb.transliterate(""בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
+     * heb.transliterate("בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
      *   STRESS_MARKER: {
      *     location: "after-vowel",
      *     mark: "\u0301",

@@ -341,12 +341,24 @@ heb.transliterate("בְּרֵאשִׁ֖ית וַיַּבְדֵּל", {
 
 ###### Stress Marker
 
-The `STRESS_MARKER` property is an optional mark to indicate stress in transliteration.
+The `STRESS_MARKER` property is an optional property to indicate stress in transliteration.
 
+It's properties are:
+- location
+- mark
+- exclude (optional)
+
+**Example**
 ```javascript
 heb.transliterate("מֶ֣לֶךְ", { STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } });
 // mélek
 ```
+
+_mark_
+
+The string used to mark stress (e.g. [a combining acute accent (U+0301)](https://www.compart.com/en/unicode/U+0301) )
+
+_location_
 
 The `location` has four options:
 
@@ -363,6 +375,52 @@ heb.transliterate("בֵּ֣ית", {
   STRESS_MARKER: { location: "after-vowel", mark: "\u0301" }
 });
 // beít
+```
+
+_exclude_
+
+An optional property determining whether to exclude the mark on certain syllables.
+
+It has three options
+- `undefined`/`"never"`
+- `"final"`
+- `"single"`
+
+Examples:
+
+```js
+// undefined and "never" are the same
+heb.transliterate("בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
+  STRESS_MARKER: {
+    location: "after-vowel",
+    mark: "\u0301",
+  }
+});
+
+// bṓqer yốm ʾeḥā́d
+
+// exclude only single syllable words
+heb.transliterate("בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
+  STRESS_MARKER: {
+    location: "after-vowel",
+    mark: "\u0301",
+    exclude: "single"
+  }
+});
+
+// bṓqer yôm ʾeḥā́d
+
+// exclude when accent is on the final syllable
+// implicitly excludes single syllable words
+heb.transliterate("בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
+  STRESS_MARKER: {
+    location: "after-vowel",
+    mark: "\u0301",
+    exclude: "single"
+  }
+});
+
+// bṓqer yôm ʾeḥād
 ```
 
 ## Live
