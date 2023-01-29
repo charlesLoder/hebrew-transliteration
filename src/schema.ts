@@ -671,13 +671,76 @@ export class Schema implements SylOpts, SchemaVowels {
    * 'ˈ' or '\u0341'
    * @example
    * ```js
-   * transliterate('מֶ֣לֶךְ', { STRESS_MARKER: { location: 'after-vowel', mark: '\u0301' } });
+   * transliterate('מֶ֣לֶךְ', {
+   *   STRESS_MARKER: {
+   *     location: 'after-vowel',
+   *     mark: '\u0301'
+   *    }
+   * });
    * // 'mélek'
    * ```
    */
   STRESS_MARKER?: {
+    /**
+     * the location of the mark
+     */
     location: "before-syllable" | "after-syllable" | "before-vowel" | "after-vowel";
+    /**
+     * a string to use as the marker
+     */
     mark: string;
+    /**
+     * Whether to exclude the mark on certain syllables
+     *
+     * @default
+     * "never"
+     *
+     * @example
+     *
+     * ```js
+     * // undefined and "never" are the same
+     * heb.transliterate(""בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
+     *   STRESS_MARKER: {
+     *     location: "after-vowel",
+     *     mark: "\u0301",
+     *   }
+     * });
+     *
+     * // bṓqer yốm ʾeḥā́d
+     * ```
+     *
+     * @example
+     *
+     * ```js
+     * // exclude only single syllable words
+     * heb.transliterate(""בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
+     *   STRESS_MARKER: {
+     *     location: "after-vowel",
+     *     mark: "\u0301",
+     *     exclude: "single"
+     *   }
+     * });
+     *
+     * // bṓqer yôm ʾeḥā́d
+     * ```
+     *
+     * @example
+     *
+     * ```js
+     * // exclude when accent is on the final syllable
+     * // implicitly excludes single syllable words
+     * heb.transliterate(""בֹּ֖קֶר י֥וֹם אֶחָֽד׃ ", {
+     *   STRESS_MARKER: {
+     *     location: "after-vowel",
+     *     mark: "\u0301",
+     *     exclude: "single"
+     *   }
+     * });
+     *
+     * // bṓqer yôm ʾeḥād
+     * ```
+     */
+    exclude?: "never" | "final" | "single";
   };
   allowNoNiqqud: SylOpts["allowNoNiqqud"];
   article: SylOpts["article"];

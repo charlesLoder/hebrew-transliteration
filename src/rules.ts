@@ -198,12 +198,22 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
   return materText;
 };
 
-const joinChars = (isAccented: boolean, sylChars: string[], schema: Schema): string => {
-  if (!isAccented) {
+const joinChars = (syl: Syllable, sylChars: string[], schema: Schema): string => {
+  if (!syl.isAccented) {
     return sylChars.map((char) => mapChars(char, schema)).join("");
   }
 
   if (schema.STRESS_MARKER) {
+    const exclude = schema.STRESS_MARKER?.exclude ?? "never";
+
+    if (exclude === "single" && !syl.prev && !syl.next) {
+      return sylChars.map((char) => mapChars(char, schema)).join("");
+    }
+
+    if (exclude === "final" && !syl.next) {
+      return sylChars.map((char) => mapChars(char, schema)).join("");
+    }
+
     const location = schema.STRESS_MARKER.location;
     const mark = schema.STRESS_MARKER.mark;
     if (location === "before-syllable") {
@@ -270,7 +280,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   const mSSuffix = /\u{05B8}\u{05D9}\u{05D5}/u;
   if (syl.isFinal && mSSuffix.test(sylTxt)) {
     const sufxSyl = replaceWithRegex(sylTxt, mSSuffix, schema.MS_SUFX);
-    return joinChars(syl.isAccented, [...sufxSyl], schema);
+    return joinChars(syl, [...sufxSyl], schema);
   }
 
   // syllable has a mater
@@ -279,7 +289,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   const hasMater = syl.clusters.map((c) => c.isMater).includes(true);
   if (hasMater) {
     const materSyl = materFeatures(syl, schema);
-    return joinChars(syl.isAccented, [...materSyl], schema);
+    return joinChars(syl, [...materSyl], schema);
   }
 
   // regular syllables
@@ -288,7 +298,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
     return consonantFeatures(clusterText, syl, cluster, schema);
   });
 
-  return joinChars(syl.isAccented, returnTxt, schema);
+  return joinChars(syl, returnTxt, schema);
 };
 
 /**
