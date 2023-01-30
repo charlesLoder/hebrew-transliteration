@@ -256,7 +256,7 @@ There are other orthographic features:
 - `DIVINE_NAME` — the full form of the divine name - יהוה
 - `DIVINE_NAME_ELOHIM` — optionally, the form of the divine name pointed as ʾelōhîm (e.g. יֱהֹוִה)
 - `SYLLABLE_SEPARATOR` — a syllable separator, usually an empty string
-- `DAGESH_CHAZAQ` — if true, repeats the consonant with the _dagesh_
+- `DAGESH_CHAZAQ` — if true, repeats the consonant with the _dagesh_, or can take a string
 
 ```javascript
 heb.transliterate("שַׁבָּת", { DAGESH_CHAZAQ: true });
@@ -264,6 +264,9 @@ heb.transliterate("שַׁבָּת", { DAGESH_CHAZAQ: true });
 
 heb.transliterate("שַׁבָּת", { DAGESH_CHAZAQ: false });
 // šabāt
+
+heb.transliterate("שַׁבָּת", { DAGESH_CHAZAQ: "\u0301" });
+// šab́āt
 
 heb.transliterate("הָאָֽרֶץ", { SYLLABLE_SEPARATOR: "-" });
 // hā-ʾā-reṣ
