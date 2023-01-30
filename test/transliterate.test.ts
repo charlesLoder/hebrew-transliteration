@@ -217,11 +217,13 @@ describe("extending SBL schema for optional arguments", () => {
 
     describe("dagesh chazaq", () => {
       test.each`
-        description                                 | hebrew           | transliteration | options
-        ${"dagesh chazaq - false"}                  | ${"שַׁבָּת֔וֹן"} | ${"šabātôn"}    | ${{ DAGESH_CHAZAQ: false }}
-        ${"dagesh chazaq - false, different chars"} | ${"שַׁבָּת֔וֹן"} | ${"šavātôn"}    | ${{ DAGESH_CHAZAQ: false, BET: "v" }}
-        ${"dagesh chazaq - false, different chars"} | ${"שַׁבָּת֔וֹן"} | ${"šabātôn"}    | ${{ DAGESH_CHAZAQ: false, BET: "v", BET_DAGESH: "b" }}
-        ${"dagesh chazaq - true, different chars"}  | ${"שַׁבָּת֔וֹן"} | ${"šabbātôn"}   | ${{ DAGESH_CHAZAQ: true, BET: "v", BET_DAGESH: "b" }}
+        description                              | hebrew            | transliteration | options
+        ${"false, results in no doubling"}       | ${"שַׁבָּת֔וֹן"}  | ${"šabātôn"}    | ${{ DAGESH_CHAZAQ: false }}
+        ${"false, change character"}             | ${"שַׁבָּת֔וֹן"}  | ${"šavātôn"}    | ${{ DAGESH_CHAZAQ: false, BET: "v" }}
+        ${"false, with a BET_DAGESH"}            | ${"שַׁבָּת֔וֹן"}  | ${"šabātôn"}    | ${{ DAGESH_CHAZAQ: false, BET: "v", BET_DAGESH: "b" }}
+        ${"true, with a BET_DAGESH"}             | ${"שַׁבָּת֔וֹן"}  | ${"šabbātôn"}   | ${{ DAGESH_CHAZAQ: true, BET: "v", BET_DAGESH: "b" }}
+        ${"string, where it is a dagesh chazaq"} | ${"שַׁבָּת֔וֹן"}  | ${"šab́ātôn"}    | ${{ DAGESH_CHAZAQ: "\u0301" }}
+        ${"string, where it is a dagesh qal "}   | ${"בְּרֵאשִׁ֖ית"} | ${"bǝrēʾšît"}   | ${{ DAGESH_CHAZAQ: "\u0301" }}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration, options } = inputs;
         expect(transliterate(hebrew, options)).toBe(transliteration);
