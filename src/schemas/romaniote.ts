@@ -28,7 +28,7 @@ export const romaniote: Schema = {
   PE_DAGESH: "π",
   FINAL_PE: "φ",
   TSADI: "τσ",
-  FINAL_TSADI: "τσ",
+  FINAL_TSADI: "τς",
   QOF: "κ",
   RESH: "ρ",
   SIN: "σ",
@@ -69,6 +69,17 @@ export const romaniote: Schema = {
       FEATURE: "cluster",
       HEBREW: "זּ",
       TRANSLITERATION: "τζ"
+    },
+    {
+      FEATURE: "cluster",
+      // final shin or samekh
+      HEBREW: /(\u{05E9}\u{05C2}|\u{05E9}|\u{05E1})$/u,
+      TRANSLITERATION: "ς"
+    },
+    {
+      FEATURE: "cluster",
+      HEBREW: /(\u{05E9}\u{05C1})$/u,
+      TRANSLITERATION: "σς"
     }
   ],
   longVowels: true,
