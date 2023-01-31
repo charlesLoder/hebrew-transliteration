@@ -67,3 +67,16 @@ describe.each`
     expect(transliteratedHeb).toEqual(transliteration);
   });
 });
+
+describe.each`
+  description           | hebrew         | transliteration
+  ${"vocal sheva"}      | ${"סְלִק"}     | ${"σελικ"}
+  ${"silent sheva"}     | ${"סַלְכָה"}   | ${"σαλχα"}
+  ${"final sheva"}      | ${"כָּךְ"}     | ${"καχ"}
+  ${"two final shevas"} | ${"קָטַלְתְּ"} | ${"καταλτ"}
+`("Shevas:", ({ description, hebrew, transliteration }) => {
+  const transliteratedHeb = transliterate(hebrew, romaniote);
+  test(`${description} to equal: ${transliteration}`, () => {
+    expect(transliteratedHeb).toEqual(transliteration);
+  });
+});
