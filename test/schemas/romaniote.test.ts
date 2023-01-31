@@ -27,7 +27,7 @@ describe.each`
 describe.each`
   description                  | hebrew      | transliteration
   ${"shin char plus shin dot"} | ${"שֶׁלֶם"}  | ${"σσελεμ"}
-  ${"shin char plus sin dot"}  | ${"אָרַשׂ"}  | ${"αρασ"}
+  ${"shin char plus sin dot"}  | ${"אָרַשׂ"}  | ${"αρας"}
   ${"final sigmas"}            | ${"לָבֵשׁ"} | ${"λαβεσς"}
 `("Sibiliants:", ({ hebrew, transliteration }) => {
   const transliteratedHeb = transliterate(hebrew, romaniote);
@@ -46,10 +46,24 @@ describe.each`
   ${"furtive patach, he"}     | ${"גָבֹהַּ"}                       | ${"γαβωα"}
   ${"3ms suffix"}             | ${"דְּבָרָ֖יו"}                    | ${"ντεβαράβ"}
   ${"mixed with latin chars"} | ${"רוּחַ, אֲבֹותֵינוּ (לְעֹולָם)"} | ${"ρουαχ, αβωθενου (λεωλαμ)"}
-  ${"qamets qatan"}           | ${"כָּל הָעוֹלָם כָּל־הָעֵ֛ץ"}     | ${"κολ αωλαμ κολ-αέτς"}
+  ${"qamets qatan"}           | ${"כָּל הָעוֹלָם כָּל־הָעֵ֛ץ"}     | ${"κολ αωλαμ κολ-αέτς"}
 `("General Rules:", ({ hebrew, transliteration }) => {
   const transliteratedHeb = transliterate(hebrew, romaniote);
   test(`${hebrew} to equal: ${transliteration}`, () => {
+    expect(transliteratedHeb).toEqual(transliteration);
+  });
+});
+
+describe.each`
+  description                   | hebrew           | transliteration
+  ${"1 syl, no accent"}         | ${"לָ֔ךְ"}       | ${"λαχ"}
+  ${"2 syls, accent on first"}  | ${"לֶ֬חֶם"}      | ${"λέχεμ"}
+  ${"2 syls, accent on last"}   | ${"דָּבָ֑ר"}     | ${"νταβάρ"}
+  ${"3 syls, accent on last"}   | ${"אֲרַנֵּ֥ן"}   | ${"αρανέν"}
+  ${"3 syls, accent on second"} | ${"הִגַּ֣דְתָּ"} | ${"ιγκάδτα"}
+`("Accents:", ({ description, hebrew, transliteration }) => {
+  const transliteratedHeb = transliterate(hebrew, romaniote);
+  test(`${description} to equal: ${transliteration}`, () => {
     expect(transliteratedHeb).toEqual(transliteration);
   });
 });
