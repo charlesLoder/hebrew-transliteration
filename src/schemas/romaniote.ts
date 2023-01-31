@@ -47,6 +47,7 @@ export const romaniote: Schema = {
   TSERE: "ε",
   HIRIQ: "ι",
   HOLAM: "ω",
+  HOLAM_HASER: "ω",
   QUBUTS: "ου",
   QAMATS_HE: "α",
   SEGOL_HE: "ε",
@@ -55,8 +56,8 @@ export const romaniote: Schema = {
   HIRIQ_YOD: "η",
   TSERE_YOD: "ε",
   FURTIVE_PATAH: "a",
-  QAMATS_QATAN: "o",
-  HOLAM_VAV: "o",
+  QAMATS_QATAN: "ο",
+  HOLAM_VAV: "ω",
   SHUREQ: "ου",
   MS_SUFX: "άβ",
   PASEQ: "",
@@ -76,5 +77,6 @@ export const romaniote: Schema = {
   wawShureq: true,
   article: true,
   allowNoNiqqud: true,
-  strict: false
+  strict: false,
+  holemHaser: "remove"
 };
