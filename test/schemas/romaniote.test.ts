@@ -80,3 +80,18 @@ describe.each`
     expect(transliteratedHeb).toEqual(transliteration);
   });
 });
+
+describe.each`
+  description                              | hebrew       | transliteration
+  ${"consonantal vav"}                     | ${"וָו"}     | ${"βαβ"}
+  ${"vav haser (holem precedes vav)"}      | ${"שָׁלֹום"}  | ${"σσαλωμ"}
+  ${"final holem vav"}                     | ${"כְּמוֹ"}  | ${"κεμω"}
+  ${"shureq"}                              | ${"קוּם"}    | ${"κουμ"}
+  ${"initial shureq"}                      | ${"וּלֶחֶם"} | ${"ουλεχεμ"}
+  ${"Consonantal vav with holem as vowel"} | ${"עָוֹן"}   | ${"αβων"}
+`("Vavs:", ({ description, hebrew, transliteration }) => {
+  const transliteratedHeb = transliterate(hebrew, romaniote);
+  test(`${description} to equal: ${transliteration}`, () => {
+    expect(transliteratedHeb).toEqual(transliteration);
+  });
+});
