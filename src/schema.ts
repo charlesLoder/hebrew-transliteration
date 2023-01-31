@@ -289,14 +289,23 @@ export class Schema implements SylOpts, SchemaVowels {
   DAGESH: string;
   /**
    * HEBREW POINT DAGESH OR MAPIQ (U+05BC) ּ◌
-   * @description if true, repeats the consonant with the dagesh
-   * @example
+   *
+   * @description A string or boolean that if true, repeats the consonant with the dagesh.
+   *
+   * @example string
+   *
+   * ```js
+   * transliterate('שַׁבָּת', { DAGESH_CHAZAQ: "\u0301" });
+   * // 'šab́āt'
+   * ```
+   *
+   * @example boolean
    * ```js
    * transliterate('שַׁבָּת', { DAGESH_CHAZAQ: true });
-   * // 'shabbat'
+   * // 'šabbāt'
    * ```
    */
-  DAGESH_CHAZAQ: boolean;
+  DAGESH_CHAZAQ: boolean | string;
   /**
    * HEBREW PUNCTUATION MAQAF (U+05BE) ־◌
    * @example
