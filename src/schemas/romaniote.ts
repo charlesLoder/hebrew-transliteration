@@ -78,8 +78,21 @@ export const romaniote: Schema = {
     },
     {
       FEATURE: "cluster",
+      // final sin
       HEBREW: /(\u{05E9}\u{05C1})$/u,
       TRANSLITERATION: "σς"
+    },
+    {
+      FEATURE: "syllable",
+      // patach yod
+      HEBREW: /(\u{05B7}\u{05D9}[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?)$/u,
+      TRANSLITERATION: "άη"
+    },
+    {
+      FEATURE: "cluster",
+      // consonantal yod with hiriq as vowel
+      HEBREW: /(\u{05D9}\u{05B4})/u,
+      TRANSLITERATION: "γι"
     }
   ],
   STRESS_MARKER: {
