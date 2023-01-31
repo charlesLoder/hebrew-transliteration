@@ -95,3 +95,16 @@ describe.each`
     expect(transliteratedHeb).toEqual(transliteration);
   });
 });
+
+describe.each`
+  description                              | hebrew         | transliteration
+  ${"consonantal yod"}                     | ${"יָם"}       | ${"γιαμ"}
+  ${"consonantal yod with hiriq as vowel"} | ${"יַיִן"}     | ${"γιαγιν"}
+  ${"hiriq followed by consonantal yod"}   | ${"סִיֵּם"}    | ${"σιγιεμ"}
+  ${"patach yod"}                          | ${"דְּרָכַי֙"} | ${"ντεραχάη"}
+`("Consonantal Yod:", ({ description, hebrew, transliteration }) => {
+  const transliteratedHeb = transliterate(hebrew, romaniote);
+  test(`${description} to equal: ${transliteration}`, () => {
+    expect(transliteratedHeb).toEqual(transliteration);
+  });
+});
