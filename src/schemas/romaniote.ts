@@ -82,6 +82,11 @@ export const romaniote: Schema = {
       TRANSLITERATION: "σς"
     }
   ],
+  STRESS_MARKER: {
+    mark: "\u{301}",
+    location: "after-vowel",
+    exclude: "single"
+  },
   longVowels: true,
   sqnmlvy: true,
   qametsQatan: true,
