@@ -316,6 +316,32 @@ describe("extending SBL schema for optional arguments", () => {
         })
       ).toEqual("wayyabdēl");
     });
+
+    test("syllable callback with PASS_THROUGH false", () => {
+      const heb = "בְּרֵאשִׁ֖ית";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "(?<![\u{05B1}-\u{05BB}\u{05C7}].*)\u{05B0}",
+              FEATURE: "syllable",
+              PASS_THROUGH: false,
+              TRANSLITERATION: function (syllable, _hebrew, schema) {
+                const next = syllable.next as Syllable;
+                const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName;
+
+                if (next && nextVowel) {
+                  const vowel = schema[nextVowel] || "";
+                  return syllable.text.replace(/\u{05B0}/u, vowel);
+                }
+
+                return syllable.text;
+              }
+            }
+          ]
+        })
+      ).toEqual("בּērēʾšît");
+    });
   });
 
   describe("additional feature with callback for a word", () => {
