@@ -69,8 +69,11 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
       const heb = new RegExp(seq.HEBREW, "u");
       if (seq.FEATURE === "cluster" && heb.test(clusterText)) {
         const transliteration = seq.TRANSLITERATION;
+        const passThrough = seq.PASS_THROUGH ?? true;
         return typeof transliteration === "string"
           ? replaceAndTransliterate(clusterText, heb, transliteration, schema)
+          : passThrough
+          ? mapChars(transliteration(cluster, seq.HEBREW, schema), schema)
           : transliteration(cluster, seq.HEBREW, schema);
       }
     }
@@ -318,8 +321,11 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
       const heb = new RegExp(seq.HEBREW, "u");
       if (seq.FEATURE === "syllable" && heb.test(sylTxt)) {
         const transliteration = seq.TRANSLITERATION;
+        const passThrough = seq.PASS_THROUGH ?? true;
         return typeof transliteration === "string"
           ? replaceAndTransliterate(sylTxt, heb, transliteration, schema)
+          : passThrough
+          ? mapChars(transliteration(syl, seq.HEBREW, schema), schema)
           : transliteration(syl, seq.HEBREW, schema);
       }
     }
@@ -377,8 +383,11 @@ export const wordRules = (word: Word, schema: Schema): string | Word => {
       const text = word.text.replace(taamim, "");
       if (seq.FEATURE === "word" && heb.test(text)) {
         const transliteration = seq.TRANSLITERATION;
+        const passThrough = seq.PASS_THROUGH ?? true;
         return typeof transliteration === "string"
           ? replaceAndTransliterate(text, heb, transliteration, schema)
+          : passThrough
+          ? mapChars(transliteration(word, seq.HEBREW, schema), schema)
           : transliteration(word, seq.HEBREW, schema);
       }
     }
