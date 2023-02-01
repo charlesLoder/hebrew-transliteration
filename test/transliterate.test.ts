@@ -1,7 +1,6 @@
 import { Cluster } from "havarotjs/cluster";
 import { Syllable } from "havarotjs/syllable";
 import { transliterate, Schema } from "../src/index";
-import { replaceAndTransliterate } from "../src/rules";
 
 interface Inputs {
   hebrew: string;
@@ -256,7 +255,7 @@ describe("extending SBL schema for optional arguments", () => {
                 const tsere = /\u{05B5}/u;
                 const next = cluster.next as Cluster;
                 if (next && tsere.test(next.text)) {
-                  return replaceAndTransliterate(cluster.text, new RegExp(hebrew, "u"), schema["TSERE"], schema);
+                  return cluster.text.replace(new RegExp(hebrew, "u"), schema["TSERE"]);
                 }
                 return cluster.text;
               }
@@ -282,7 +281,7 @@ describe("extending SBL schema for optional arguments", () => {
 
                 if (next && nextVowel) {
                   const vowel = schema[nextVowel] || "";
-                  return replaceAndTransliterate(syllable.text, /\u{05B0}/u, vowel, schema);
+                  return syllable.text.replace(/\u{05B0}/u, vowel);
                 }
 
                 return syllable.text;
@@ -307,7 +306,7 @@ describe("extending SBL schema for optional arguments", () => {
 
                 if (next && nextVowel) {
                   const vowel = schema[nextVowel] || "";
-                  return replaceAndTransliterate(syllable.text, /\u{05B0}/u, vowel, schema);
+                  return syllable.text.replace(/\u{05B0}/u, vowel);
                 }
 
                 return syllable.text;
