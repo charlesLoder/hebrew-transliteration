@@ -14,6 +14,71 @@ interface HebrewFeature {
   HEBREW: string | RegExp;
 }
 
+interface PassThrough {
+  /**
+   * if `true` passes the characters of the result of the `TRANSLITERATION` callback to the be mapped to the schema.
+   * If `TRANSLITERATION` is a string, this does nothing.
+   *
+   * @default
+   * true
+   *
+   * @description
+   * This is generally most useful when the callback does not transliterate the entire `FEATURE`
+   *
+   * @example
+   *
+   * ```js
+   * // with PASS_THROUGH true (or undefined), the rest of the characters are passed through
+   * // to regular mapping on the schema
+   * heb.transliterate("בְּרֵאשִׁ֖ית", {
+   *   ADDITIONAL_FEATURES: [{
+   *     HEBREW: "(?<![\u{05B1}-\u{05BB}\u{05C7}].*)\u{05B0}",
+   *     FEATURE: "syllable",
+   *     PASS_THROUGH: true,
+   *     TRANSLITERATION: function (syllable, _hebrew, schema) {
+   *       const next = syllable.next;
+   *       const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName
+   *
+   *       if (next && nextVowel) {
+   *         const vowel = schema[nextVowel] || "";
+   *         return syllable.text.replace(new RegExp("\u{05B0}", "u"), vowel);
+   *       }
+   *
+   *       return syllable.text;
+   *     }
+   *   }]
+   * });
+   * ```
+   *
+   * @example
+   *
+   * ```js
+   * // with PASS_THROUGH false, a custom mapping needs to be implemented,
+   * // or Hebrew characters are returned for the rest of the `FEATURE`
+   * heb.transliterate("בְּרֵאשִׁ֖ית", {
+   *   ADDITIONAL_FEATURES: [{
+   *     HEBREW: "(?<![\u{05B1}-\u{05BB}\u{05C7}].*)\u{05B0}",
+   *     FEATURE: "syllable",
+   *     PASS_THROUGH: false,
+   *     TRANSLITERATION: function (syllable, _hebrew, schema) {
+   *       const next = syllable.next;
+   *       const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName
+   *
+   *       if (next && nextVowel) {
+   *         const vowel = schema[nextVowel] || "";
+   *         return syllable.text.replace(new RegExp("\u{05B0}", "u"), vowel);
+   *       }
+   *
+   *       return syllable.text;
+   *     }
+   *   }]
+   * });
+   * // בּērēʾšît
+   * ```
+   */
+  PASS_THROUGH?: boolean;
+}
+
 /**
  * @param word the `Word` object that matches the `HEBREW` property
  * @param hebrew the `HEBREW` property
@@ -21,7 +86,7 @@ interface HebrewFeature {
  */
 type WordCallback = (word: Word, hebrew: string | RegExp, schema: Schema) => string;
 
-interface WordFeature extends HebrewFeature {
+interface WordFeature extends HebrewFeature, PassThrough {
   /**
    * additional orthographic feature
    *
@@ -82,7 +147,7 @@ interface WordFeature extends HebrewFeature {
  */
 type SyllableCallback = (syllable: Syllable, hebrew: string | RegExp, schema: Schema) => string;
 
-interface SyllableFeature extends HebrewFeature {
+interface SyllableFeature extends HebrewFeature, PassThrough {
   /**
    * additional orthographic feature
    *
@@ -92,9 +157,6 @@ interface SyllableFeature extends HebrewFeature {
    */
   FEATURE: "syllable";
   /**
-   *
-   * DONT COMMIT W/O UPDATING EXAMPLES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-   *
    * a string or callback
    *
    * Using a string
@@ -146,7 +208,7 @@ interface SyllableFeature extends HebrewFeature {
  */
 type ClusterCallback = (cluster: Cluster, hebrew: string | RegExp, schema: Schema) => string;
 
-interface ClusterFeature extends HebrewFeature {
+interface ClusterFeature extends HebrewFeature, PassThrough {
   /**
    * additional orthographic feature
    *

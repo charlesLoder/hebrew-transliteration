@@ -1,7 +1,6 @@
 import { Cluster } from "havarotjs/cluster";
 import { Syllable } from "havarotjs/syllable";
 import { transliterate, Schema } from "../src/index";
-import { replaceAndTransliterate } from "../src/rules";
 
 interface Inputs {
   hebrew: string;
@@ -256,7 +255,7 @@ describe("extending SBL schema for optional arguments", () => {
                 const tsere = /\u{05B5}/u;
                 const next = cluster.next as Cluster;
                 if (next && tsere.test(next.text)) {
-                  return replaceAndTransliterate(cluster.text, new RegExp(hebrew, "u"), schema["TSERE"], schema);
+                  return cluster.text.replace(new RegExp(hebrew, "u"), schema["TSERE"]);
                 }
                 return cluster.text;
               }
@@ -282,7 +281,7 @@ describe("extending SBL schema for optional arguments", () => {
 
                 if (next && nextVowel) {
                   const vowel = schema[nextVowel] || "";
-                  return replaceAndTransliterate(syllable.text, /\u{05B0}/u, vowel, schema);
+                  return syllable.text.replace(/\u{05B0}/u, vowel);
                 }
 
                 return syllable.text;
@@ -307,7 +306,7 @@ describe("extending SBL schema for optional arguments", () => {
 
                 if (next && nextVowel) {
                   const vowel = schema[nextVowel] || "";
-                  return replaceAndTransliterate(syllable.text, /\u{05B0}/u, vowel, schema);
+                  return syllable.text.replace(/\u{05B0}/u, vowel);
                 }
 
                 return syllable.text;
@@ -316,6 +315,32 @@ describe("extending SBL schema for optional arguments", () => {
           ]
         })
       ).toEqual("wayyabdēl");
+    });
+
+    test("syllable callback with PASS_THROUGH false", () => {
+      const heb = "בְּרֵאשִׁ֖ית";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "(?<![\u{05B1}-\u{05BB}\u{05C7}].*)\u{05B0}",
+              FEATURE: "syllable",
+              PASS_THROUGH: false,
+              TRANSLITERATION: function (syllable, _hebrew, schema) {
+                const next = syllable.next as Syllable;
+                const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName;
+
+                if (next && nextVowel) {
+                  const vowel = schema[nextVowel] || "";
+                  return syllable.text.replace(/\u{05B0}/u, vowel);
+                }
+
+                return syllable.text;
+              }
+            }
+          ]
+        })
+      ).toEqual("בּērēʾšît");
     });
   });
 
@@ -328,6 +353,31 @@ describe("extending SBL schema for optional arguments", () => {
             {
               HEBREW: "שְׁתַּיִם",
               FEATURE: "word",
+              TRANSLITERATION: function (_word, _hebrew, schema) {
+                return (
+                  schema["SHIN"] +
+                  (schema["TAV_DAGESH"] ?? schema["TAV"]) +
+                  schema["PATAH"] +
+                  schema["YOD"] +
+                  schema["HIRIQ"] +
+                  schema["FINAL_MEM"]
+                );
+              }
+            }
+          ]
+        })
+      ).toEqual("štayim");
+    });
+
+    test("word callback with PASS_THROUGH false (no effect)", () => {
+      const heb = "שְׁתַּיִם";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "שְׁתַּיִם",
+              FEATURE: "word",
+              PASS_THROUGH: false,
               TRANSLITERATION: function (_word, _hebrew, schema) {
                 return (
                   schema["SHIN"] +
