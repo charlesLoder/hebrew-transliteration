@@ -141,6 +141,14 @@ export const romaniote: Schema = {
         }
         return syllable.text.replace(vowels, "ε");
       }
+    },
+    {
+      FEATURE: "syllable",
+      // masculine plural marker
+      HEBREW: /\u{05B4}\u{05D9}[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05DD}/u,
+      TRANSLITERATION: (syllable, hebrew) => {
+        return syllable.text.replace(hebrew, "είμ");
+      }
     }
   ],
   STRESS_MARKER: {
