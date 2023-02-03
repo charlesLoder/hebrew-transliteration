@@ -110,6 +110,19 @@ describe.each`
 });
 
 describe.each`
+  description                       | hebrew             | transliteration
+  ${"hiriq yod: medial"}            | ${"סִיר"}          | ${"σιρ"}
+  ${"hiriq yod: final"}             | ${"אֲנִי"}         | ${"ανη"}
+  ${"hiriq yod: plural marker"}     | ${"דְּבָרִים"}     | ${"ντεβαρείμ"}
+  ${"hiriq yod: final with maqqef"} | ${"וַֽיְהִי־כֵֽן"} | ${"βαγιεη-χεν"}
+`("Hiriq Yod:", ({ description, hebrew, transliteration }) => {
+  const transliteratedHeb = transliterate(hebrew, romaniote);
+  test(`${description} to equal: ${transliteration}`, () => {
+    expect(transliteratedHeb).toEqual(transliteration);
+  });
+});
+
+describe.each`
   description           | hebrew       | transliteration
   ${"medial tsere-yod"} | ${"אֵין"}    | ${"εν"}
   ${"final tsere-yod"}  | ${"רִגְעֵי"} | ${"ριγαί"}
