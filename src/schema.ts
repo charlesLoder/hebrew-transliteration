@@ -16,10 +16,14 @@ interface HebrewFeature {
 
 interface PassThrough {
   /**
-   * if `true` passes the characters of the result of the `TRANSLITERATION` callback to the be mapped to the schema
+   * if `true` passes the characters of the result of the `TRANSLITERATION` callback to the be mapped to the schema.
+   * If `TRANSLITERATION` is a string, this does nothing.
    *
    * @default
    * true
+   *
+   * @description
+   * This is generally most useful when the callback does not transliterate the entire `FEATURE`
    *
    * @example
    *
