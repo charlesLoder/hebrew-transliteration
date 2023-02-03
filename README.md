@@ -295,7 +295,7 @@ heb.transliterate("הַזֹּאת", {
 - In the Romaniote reading tradition, however, the `ZAYIN` is usually transliterated with `'z'` (really `'ζ'`),
 - but a `ZAYIN` followed by a _dagesh_ is transliterated as `'tz'` (really `'τζ'`)
 
-Each additional feature consists of 3 parts:
+Each additional feature consists of 4 properties:
 
 1. `FEATURE` — has three options:
   - `"cluster"` — a `cluster` is any combination of a single character and optionally a *dagesh* and vowel.
@@ -303,6 +303,7 @@ Each additional feature consists of 3 parts:
   - `"word"` — covers everything else
 2. `HEBREW` — the Hebrew text to be transliterated
 3. `TRANSLITERATION` — the text used to transliterate the Hebrew text, or a callback function
+4. `PASS_THROUGH` — if `true` passes the characters of the result of the `TRANSLITERATION` callback to the be mapped to the schema. If `TRANSLITERATION` is a string, this does nothing. Default `true`.
 
 **Using a callback**
 
@@ -326,8 +327,7 @@ heb.transliterate("בְּרֵאשִׁ֖ית וַיַּבְדֵּל", {
 
         if (next && nextVowel) {
           const vowel = schema[nextVowel] || "";
-          // replaceAndTransliterate is an internal helper function
-          return rules.replaceAndTransliterate(syllable.text, new RegExp("\u{05B0}", "u"), vowel, schema);
+          return syllable.text.replace(new RegExp("\u{05B0}", "u"), vowel);
         }
 
         return syllable.text;
