@@ -53,7 +53,7 @@ export const romaniote: Schema = {
   SEGOL_HE: "ε",
   TSERE_HE: "ε",
   SEGOL_YOD: "ε",
-  HIRIQ_YOD: "η",
+  HIRIQ_YOD: "ι",
   TSERE_YOD: "ε",
   FURTIVE_PATAH: "a",
   QAMATS_QATAN: "ο",
@@ -93,6 +93,17 @@ export const romaniote: Schema = {
       // consonantal yod with hiriq as vowel
       HEBREW: /(\u{05D9}\u{05B4})/u,
       TRANSLITERATION: "γι"
+    },
+    {
+      FEATURE: "syllable",
+      // tsere yod
+      HEBREW: /(\u{05B5}\u{05D9}[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?)$/u,
+      TRANSLITERATION: (syllable, hebrew) => {
+        if (syllable.isFinal) {
+          return "αί";
+        }
+        return syllable.text.replace(hebrew, "ε");
+      }
     }
   ],
   STRESS_MARKER: {

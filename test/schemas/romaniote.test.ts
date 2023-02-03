@@ -108,3 +108,14 @@ describe.each`
     expect(transliteratedHeb).toEqual(transliteration);
   });
 });
+
+describe.each`
+  description           | hebrew       | transliteration
+  ${"medial tsere-yod"} | ${"אֵין"}    | ${"εν"}
+  ${"final tsere-yod"}  | ${"רִגְעֵי"} | ${"ριγαί"}
+`("Tsere Yod:", ({ description, hebrew, transliteration }) => {
+  const transliteratedHeb = transliterate(hebrew, romaniote);
+  test(`${description} to equal: ${transliteration}`, () => {
+    expect(transliteratedHeb).toEqual(transliteration);
+  });
+});
