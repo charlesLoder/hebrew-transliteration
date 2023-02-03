@@ -15,8 +15,9 @@ const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
  * @returns transliteration of characters
  *
  */
-export const mapChars = (input: string, schema: Schema) =>
-  [...input].map((char: string) => (char in map ? schema[map[char]] : char)).join("");
+export const mapChars = (schema: Schema) => (input: string) => {
+  return [...input].map((char: string) => (char in map ? schema[map[char]] : char)).join("");
+};
 
 /**
  * a wrapper around String.replace() to constrain to a RegExp
@@ -47,7 +48,7 @@ const replaceWithRegex = (input: string, regex: RegExp, replaceValue: string) =>
  */
 export const replaceAndTransliterate = (input: string, regex: RegExp, replaceValue: string, schema: Schema) => {
   const sylSeq = replaceWithRegex(input, regex, replaceValue);
-  return [...sylSeq].map((char) => mapChars(char, schema)).join("");
+  return [...sylSeq].map(mapChars(schema)).join("");
 };
 
 const getDageshChazaqVal = (input: string, dagesh: Schema["DAGESH_CHAZAQ"], isChazaq: boolean) => {
@@ -137,28 +138,28 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
 
 const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): string => {
   if (!syl.isAccented) {
-    return sylChars.map((char) => mapChars(char, schema)).join("");
+    return sylChars.map(mapChars(schema)).join("");
   }
 
   if (schema.STRESS_MARKER) {
     const exclude = schema.STRESS_MARKER?.exclude ?? "never";
 
     if (exclude === "single" && !syl.prev && !syl.next) {
-      return sylChars.map((char) => mapChars(char, schema)).join("");
+      return sylChars.map(mapChars(schema)).join("");
     }
 
     if (exclude === "final" && !syl.next) {
-      return sylChars.map((char) => mapChars(char, schema)).join("");
+      return sylChars.map(mapChars(schema)).join("");
     }
 
     const location = schema.STRESS_MARKER.location;
     const mark = schema.STRESS_MARKER.mark;
     if (location === "before-syllable") {
-      return `${mark}${sylChars.map((char) => mapChars(char, schema)).join("")}`;
+      return `${mark}${sylChars.map(mapChars(schema)).join("")}`;
     }
 
     if (location === "after-syllable") {
-      return `${sylChars.map((char) => mapChars(char, schema)).join("")}${mark}`;
+      return `${sylChars.map(mapChars(schema)).join("")}${mark}`;
     }
 
     const vowels = [
@@ -183,7 +184,7 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
       schema.SHUREQ
     ].sort((a, b) => b.length - a.length);
     const vowelRgx = new RegExp(`${vowels.join("|")}`);
-    const str = sylChars.map((char) => mapChars(char, schema)).join("");
+    const str = sylChars.map(mapChars(schema)).join("");
     const match = str.match(vowelRgx);
 
     if (location === "before-vowel") {
@@ -194,7 +195,7 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
     return match?.length ? str.replace(match[0], `${match[0]}${mark}`) : str;
   }
 
-  return sylChars.map((char) => mapChars(char, schema)).join("");
+  return sylChars.map(mapChars(schema)).join("");
 };
 
 const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
