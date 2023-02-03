@@ -35,6 +35,9 @@
   "scripts": {
     "build": "tsc",
     "test": "clear && jest",
+    "test:transliterate": "clear && jest test/transliterate.test.ts",
+    "test:remove": "clear && jest test/remove.test.ts",
+    "test:sequence": "clear && jest test/sequence.test.ts",
     "format": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
     "lint": "eslint . --ext .ts",
     "prepare": "npm run build",
