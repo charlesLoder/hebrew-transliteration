@@ -70,11 +70,13 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
       if (seq.FEATURE === "cluster" && heb.test(clusterText)) {
         const transliteration = seq.TRANSLITERATION;
         const passThrough = seq.PASS_THROUGH ?? true;
-        return typeof transliteration === "string"
-          ? replaceAndTransliterate(clusterText, heb, transliteration, schema)
-          : passThrough
-          ? mapChars(transliteration(cluster, seq.HEBREW, schema), schema)
-          : transliteration(cluster, seq.HEBREW, schema);
+        if (typeof transliteration === "string") {
+          return replaceAndTransliterate(clusterText, heb, transliteration, schema);
+        }
+        if (!passThrough) {
+          return transliteration(cluster, seq.HEBREW, schema);
+        }
+        clusterText = transliteration(cluster, seq.HEBREW, schema);
       }
     }
   }
@@ -322,11 +324,18 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
       if (seq.FEATURE === "syllable" && heb.test(sylTxt)) {
         const transliteration = seq.TRANSLITERATION;
         const passThrough = seq.PASS_THROUGH ?? true;
-        return typeof transliteration === "string"
-          ? replaceAndTransliterate(sylTxt, heb, transliteration, schema)
-          : passThrough
-          ? mapChars(transliteration(syl, seq.HEBREW, schema), schema)
-          : transliteration(syl, seq.HEBREW, schema);
+        if (typeof transliteration === "string") {
+          return replaceAndTransliterate(sylTxt, heb, transliteration, schema);
+        }
+        if (!passThrough) {
+          return transliteration(syl, seq.HEBREW, schema);
+        }
+        // this is the only way to make the "// regular syllables" block work
+        syl = new Syllable([new Cluster(transliteration(syl, seq.HEBREW, schema))], {
+          isClosed: syl.isClosed,
+          isAccented: syl.isAccented,
+          isFinal: syl.isFinal
+        });
       }
     }
   }
@@ -339,8 +348,6 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   }
 
   // syllable has a mater
-  // unsure why eslint throwing error here, but not other places...
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
   const hasMater = syl.clusters.map((c) => c.isMater).includes(true);
   if (hasMater) {
     const materSyl = materFeatures(syl, schema);
@@ -384,11 +391,13 @@ export const wordRules = (word: Word, schema: Schema): string | Word => {
       if (seq.FEATURE === "word" && heb.test(text)) {
         const transliteration = seq.TRANSLITERATION;
         const passThrough = seq.PASS_THROUGH ?? true;
-        return typeof transliteration === "string"
-          ? replaceAndTransliterate(text, heb, transliteration, schema)
-          : passThrough
-          ? mapChars(transliteration(word, seq.HEBREW, schema), schema)
-          : transliteration(word, seq.HEBREW, schema);
+        if (typeof transliteration === "string") {
+          return replaceAndTransliterate(text, heb, transliteration, schema);
+        }
+        if (!passThrough) {
+          return transliteration(word, seq.HEBREW, schema);
+        }
+        return new Word(transliteration(word, seq.HEBREW, schema), schema);
       }
     }
     return word;
