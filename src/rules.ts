@@ -5,6 +5,8 @@ import { hebChars } from "havarotjs/dist/utils/regularExpressions";
 import { Schema } from "./schema";
 import { transliterateMap as map } from "./hebCharsTrans";
 
+const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
+
 /**
  * maps Hebrew characters to schema
  *
@@ -15,8 +17,6 @@ import { transliterateMap as map } from "./hebCharsTrans";
  */
 export const mapChars = (input: string, schema: Schema) =>
   [...input].map((char: string) => (char in map ? schema[map[char]] : char)).join("");
-
-const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
 
 /**
  * a wrapper around String.replace() to constrain to a RegExp
@@ -60,6 +60,141 @@ const getDageshChazaqVal = (input: string, dagesh: Schema["DAGESH_CHAZAQ"], isCh
   }
 
   return input + dagesh;
+};
+
+/**
+ * formats the Divine Name with any Latin chars
+ *
+ * @param str word text
+ * @param schema
+ * @returns the Divine Name with any pre or proceding Latin chars
+ */
+const getDivineName = (str: string, schema: Schema): string => {
+  const begn = str[0];
+  const end = str[str.length - 1];
+  // if DN is pointed with a hiriq, then it is read as 'elohim
+  const divineName =
+    schema.DIVINE_NAME_ELOHIM && /\u{05B4}/u.test(str) ? schema.DIVINE_NAME_ELOHIM : schema.DIVINE_NAME;
+  return `${hebChars.test(begn) ? "" : begn}${divineName}${hebChars.test(end) ? "" : end}`;
+};
+
+const materFeatures = (syl: Syllable, schema: Schema) => {
+  const mater = syl.clusters.filter((c) => c.isMater)[0];
+  const prev = mater.prev instanceof Cluster ? mater.prev : null;
+  const materText = mater.text;
+  const prevText = (prev?.text || "").replace(taamim, "");
+  // string comprised of all non-mater clusters in a syl with a mater
+  let noMaterText = syl.clusters
+    .filter((c) => !c.isMater)
+    .map((c) => consonantFeatures(c.text.replace(taamim, ""), syl, c, schema))
+    .join("");
+
+  // workaround for maqaf
+  const hasMaqaf = mater.text.includes("־");
+  noMaterText = hasMaqaf ? noMaterText.concat("־") : noMaterText;
+
+  if (/י/.test(materText)) {
+    // hiriq
+    if (/\u{05B4}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B4}/u, schema.HIRIQ_YOD);
+    }
+    // tsere
+    if (/\u{05B5}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B5}/u, schema.TSERE_YOD);
+    }
+    // segol
+    if (/\u{05B6}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B6}/u, schema.SEGOL_YOD);
+    }
+  }
+
+  if (/ו/u.test(materText)) {
+    // holam
+    if (/\u{05B9}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B9}/u, schema.HOLAM_VAV);
+    }
+  }
+
+  if (/ה/.test(materText)) {
+    // qamets
+    if (/\u{05B8}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B8}/u, schema.QAMATS_HE);
+    }
+
+    // seghol
+    if (/\u{05B6}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B6}/u, schema.SEGOL_HE);
+    }
+
+    // tsere
+    if (/\u{05B5}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B5}/u, schema.SEGOL_HE);
+    }
+  }
+
+  return materText;
+};
+
+const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): string => {
+  if (!syl.isAccented) {
+    return sylChars.map((char) => mapChars(char, schema)).join("");
+  }
+
+  if (schema.STRESS_MARKER) {
+    const exclude = schema.STRESS_MARKER?.exclude ?? "never";
+
+    if (exclude === "single" && !syl.prev && !syl.next) {
+      return sylChars.map((char) => mapChars(char, schema)).join("");
+    }
+
+    if (exclude === "final" && !syl.next) {
+      return sylChars.map((char) => mapChars(char, schema)).join("");
+    }
+
+    const location = schema.STRESS_MARKER.location;
+    const mark = schema.STRESS_MARKER.mark;
+    if (location === "before-syllable") {
+      return `${mark}${sylChars.map((char) => mapChars(char, schema)).join("")}`;
+    }
+
+    if (location === "after-syllable") {
+      return `${sylChars.map((char) => mapChars(char, schema)).join("")}${mark}`;
+    }
+
+    const vowels = [
+      schema.PATAH,
+      schema.HATAF_PATAH,
+      schema.QAMATS,
+      schema.HATAF_QAMATS,
+      schema.SEGOL,
+      schema.HATAF_SEGOL,
+      schema.TSERE,
+      schema.HIRIQ,
+      schema.HOLAM,
+      schema.QAMATS_QATAN,
+      schema.QUBUTS,
+      schema.QAMATS_HE,
+      schema.SEGOL_HE,
+      schema.TSERE_HE,
+      schema.HIRIQ_YOD,
+      schema.TSERE_YOD,
+      schema.SEGOL_YOD,
+      schema.HOLAM_VAV,
+      schema.SHUREQ
+    ].sort((a, b) => b.length - a.length);
+    const vowelRgx = new RegExp(`${vowels.join("|")}`);
+    const str = sylChars.map((char) => mapChars(char, schema)).join("");
+    const match = str.match(vowelRgx);
+
+    if (location === "before-vowel") {
+      return match?.length ? str.replace(match[0], `${mark}${match[0]}`) : str;
+    }
+
+    // after-vowel
+    return match?.length ? str.replace(match[0], `${match[0]}${mark}`) : str;
+  }
+
+  return sylChars.map((char) => mapChars(char, schema)).join("");
 };
 
 const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
@@ -195,125 +330,6 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   return clusterText;
 };
 
-const materFeatures = (syl: Syllable, schema: Schema) => {
-  const mater = syl.clusters.filter((c) => c.isMater)[0];
-  const prev = mater.prev instanceof Cluster ? mater.prev : null;
-  const materText = mater.text;
-  const prevText = (prev?.text || "").replace(taamim, "");
-  // string comprised of all non-mater clusters in a syl with a mater
-  let noMaterText = syl.clusters
-    .filter((c) => !c.isMater)
-    .map((c) => consonantFeatures(c.text.replace(taamim, ""), syl, c, schema))
-    .join("");
-
-  // workaround for maqaf
-  const hasMaqaf = mater.text.includes("־");
-  noMaterText = hasMaqaf ? noMaterText.concat("־") : noMaterText;
-
-  if (/י/.test(materText)) {
-    // hiriq
-    if (/\u{05B4}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B4}/u, schema.HIRIQ_YOD);
-    }
-    // tsere
-    if (/\u{05B5}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B5}/u, schema.TSERE_YOD);
-    }
-    // segol
-    if (/\u{05B6}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B6}/u, schema.SEGOL_YOD);
-    }
-  }
-
-  if (/ו/u.test(materText)) {
-    // holam
-    if (/\u{05B9}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B9}/u, schema.HOLAM_VAV);
-    }
-  }
-
-  if (/ה/.test(materText)) {
-    // qamets
-    if (/\u{05B8}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B8}/u, schema.QAMATS_HE);
-    }
-
-    // seghol
-    if (/\u{05B6}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B6}/u, schema.SEGOL_HE);
-    }
-
-    // tsere
-    if (/\u{05B5}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B5}/u, schema.SEGOL_HE);
-    }
-  }
-
-  return materText;
-};
-
-const joinChars = (syl: Syllable, sylChars: string[], schema: Schema): string => {
-  if (!syl.isAccented) {
-    return sylChars.map((char) => mapChars(char, schema)).join("");
-  }
-
-  if (schema.STRESS_MARKER) {
-    const exclude = schema.STRESS_MARKER?.exclude ?? "never";
-
-    if (exclude === "single" && !syl.prev && !syl.next) {
-      return sylChars.map((char) => mapChars(char, schema)).join("");
-    }
-
-    if (exclude === "final" && !syl.next) {
-      return sylChars.map((char) => mapChars(char, schema)).join("");
-    }
-
-    const location = schema.STRESS_MARKER.location;
-    const mark = schema.STRESS_MARKER.mark;
-    if (location === "before-syllable") {
-      return `${mark}${sylChars.map((char) => mapChars(char, schema)).join("")}`;
-    }
-
-    if (location === "after-syllable") {
-      return `${sylChars.map((char) => mapChars(char, schema)).join("")}${mark}`;
-    }
-
-    const vowels = [
-      schema.PATAH,
-      schema.HATAF_PATAH,
-      schema.QAMATS,
-      schema.HATAF_QAMATS,
-      schema.SEGOL,
-      schema.HATAF_SEGOL,
-      schema.TSERE,
-      schema.HIRIQ,
-      schema.HOLAM,
-      schema.QAMATS_QATAN,
-      schema.QUBUTS,
-      schema.QAMATS_HE,
-      schema.SEGOL_HE,
-      schema.TSERE_HE,
-      schema.HIRIQ_YOD,
-      schema.TSERE_YOD,
-      schema.SEGOL_YOD,
-      schema.HOLAM_VAV,
-      schema.SHUREQ
-    ].sort((a, b) => b.length - a.length);
-    const vowelRgx = new RegExp(`${vowels.join("|")}`);
-    const str = sylChars.map((char) => mapChars(char, schema)).join("");
-    const match = str.match(vowelRgx);
-
-    if (location === "before-vowel") {
-      return match?.length ? str.replace(match[0], `${mark}${match[0]}`) : str;
-    }
-
-    // after-vowel
-    return match?.length ? str.replace(match[0], `${match[0]}${mark}`) : str;
-  }
-
-  return sylChars.map((char) => mapChars(char, schema)).join("");
-};
-
 export const sylRules = (syl: Syllable, schema: Schema): string => {
   const sylTxt = syl.text.replace(taamim, "");
 
@@ -344,14 +360,14 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   const mSSuffix = /\u{05B8}\u{05D9}\u{05D5}/u;
   if (syl.isFinal && mSSuffix.test(sylTxt)) {
     const sufxSyl = replaceWithRegex(sylTxt, mSSuffix, schema.MS_SUFX);
-    return joinChars(syl, [...sufxSyl], schema);
+    return joinSyllableChars(syl, [...sufxSyl], schema);
   }
 
   // syllable has a mater
   const hasMater = syl.clusters.map((c) => c.isMater).includes(true);
   if (hasMater) {
     const materSyl = materFeatures(syl, schema);
-    return joinChars(syl, [...materSyl], schema);
+    return joinSyllableChars(syl, [...materSyl], schema);
   }
 
   // regular syllables
@@ -360,23 +376,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
     return consonantFeatures(clusterText, syl, cluster, schema);
   });
 
-  return joinChars(syl, returnTxt, schema);
-};
-
-/**
- * formats the Divine Name with any Latin chars
- *
- * @param str word text
- * @param schema
- * @returns the Divine Name with any pre or proceding Latin chars
- */
-const getDivineName = (str: string, schema: Schema): string => {
-  const begn = str[0];
-  const end = str[str.length - 1];
-  // if DN is pointed with a hiriq, then it is read as 'elohim
-  const divineName =
-    schema.DIVINE_NAME_ELOHIM && /\u{05B4}/u.test(str) ? schema.DIVINE_NAME_ELOHIM : schema.DIVINE_NAME;
-  return `${hebChars.test(begn) ? "" : begn}${divineName}${hebChars.test(end) ? "" : end}`;
+  return joinSyllableChars(syl, returnTxt, schema);
 };
 
 export const wordRules = (word: Word, schema: Schema): string | Word => {
