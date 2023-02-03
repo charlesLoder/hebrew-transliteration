@@ -368,6 +368,31 @@ describe("extending SBL schema for optional arguments", () => {
         })
       ).toEqual("štayim");
     });
+
+    test("word callback with PASS_THROUGH false (no effect)", () => {
+      const heb = "שְׁתַּיִם";
+      expect(
+        transliterate(heb, {
+          ADDITIONAL_FEATURES: [
+            {
+              HEBREW: "שְׁתַּיִם",
+              FEATURE: "word",
+              PASS_THROUGH: false,
+              TRANSLITERATION: function (_word, _hebrew, schema) {
+                return (
+                  schema["SHIN"] +
+                  (schema["TAV_DAGESH"] ?? schema["TAV"]) +
+                  schema["PATAH"] +
+                  schema["YOD"] +
+                  schema["HIRIQ"] +
+                  schema["FINAL_MEM"]
+                );
+              }
+            }
+          ]
+        })
+      ).toEqual("štayim");
+    });
   });
 
   describe("stress marks", () => {
