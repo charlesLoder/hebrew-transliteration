@@ -85,8 +85,18 @@ export const romaniote: Schema = {
     {
       FEATURE: "syllable",
       // patach yod
-      HEBREW: /(\u{05B7}\u{05D9}[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?)$/u,
-      TRANSLITERATION: "άη"
+      HEBREW: /(?<vowels>\u{05B7}\u{05D9})(?<punc>[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?)$/u,
+      TRANSLITERATION: (syllable, hebrew) => {
+        const match = syllable.text.match(hebrew);
+
+        const groups = match?.groups;
+        if (!groups) {
+          return syllable.text;
+        }
+        const { vowels } = groups;
+
+        return syllable.text.replace(vowels, "άη");
+      }
     },
     {
       FEATURE: "cluster",
@@ -97,12 +107,39 @@ export const romaniote: Schema = {
     {
       FEATURE: "syllable",
       // tsere yod
-      HEBREW: /(\u{05B5}\u{05D9}[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?)$/u,
+      HEBREW: /(?<vowels>\u{05B5}\u{05D9})(?<punc>[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?)$/u,
       TRANSLITERATION: (syllable, hebrew) => {
-        if (syllable.isFinal) {
-          return "αί";
+        const match = syllable.text.match(hebrew);
+
+        const groups = match?.groups;
+        if (!groups) {
+          return syllable.text;
         }
-        return syllable.text.replace(hebrew, "ε");
+        const { vowels } = groups;
+
+        if (vowels && syllable.isFinal) {
+          return syllable.text.replace(vowels, "αί");
+        }
+        return syllable.text.replace(vowels, "ε");
+      }
+    },
+    {
+      FEATURE: "syllable",
+      // hiriq yod
+      HEBREW: /(?<vowels>\u{05B4}\u{05D9})(?<punc>[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?)$/u,
+      TRANSLITERATION: (syllable, hebrew) => {
+        const match = syllable.text.match(hebrew);
+
+        const groups = match?.groups;
+        if (!groups) {
+          return syllable.text;
+        }
+        const { vowels } = groups;
+
+        if (vowels && syllable.isFinal) {
+          return syllable.text.replace(vowels, "η");
+        }
+        return syllable.text.replace(vowels, "ε");
       }
     }
   ],
