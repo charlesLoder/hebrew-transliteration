@@ -79,7 +79,7 @@ export const romaniote: Schema = {
     {
       FEATURE: "syllable",
       // final sin
-      HEBREW: /(\u{05E9}\u{05C1})$/u,
+      HEBREW: /\u{05E9}\u{05C1}$/u,
       TRANSLITERATION: (syllable, hebrew) => {
         if (syllable.isFinal) {
           return syllable.text.replace(hebrew, "σς");
