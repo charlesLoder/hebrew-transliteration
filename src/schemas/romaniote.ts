@@ -90,7 +90,8 @@ export const romaniote: Schema = {
     {
       FEATURE: "syllable",
       // patach or qamats yod
-      HEBREW: /(?<patachYod>[\u{05B7}\u{05B8}][\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05D9})(?<maqqaf>\u{05BE}?)/u,
+      HEBREW:
+        /(?<patachYod>[\u{05B7}\u{05B8}][\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?\u{05D9}[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?)(?<maqqaf>\u{05BE}?)/u,
       TRANSLITERATION: (syllable, hebrew) => {
         const match = syllable.text.match(hebrew);
 
@@ -112,7 +113,8 @@ export const romaniote: Schema = {
     {
       FEATURE: "syllable",
       // tsere yod
-      HEBREW: /(?<tsereYod>\u{05B5}[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05D9})(?<maqqaf>\u{05BE}?)$/u,
+      HEBREW:
+        /(?<tsereYod>\u{05B5}[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?\u{05D9}[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?)(?<maqqaf>\u{05BE}?)$/u,
       TRANSLITERATION: (syllable, hebrew) => {
         const match = syllable.text.match(hebrew);
 
@@ -131,7 +133,8 @@ export const romaniote: Schema = {
     {
       FEATURE: "syllable",
       // hiriq yod
-      HEBREW: /(?<hiriqYod>\u{05B4}[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05D9})(?<maqqaf>\u{05BE}?)$/u,
+      HEBREW:
+        /(?<hiriqYod>\u{05B4}[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?\u{05D9}[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?)(?<maqqaf>\u{05BE}?)$/u,
       TRANSLITERATION: (syllable, hebrew) => {
         const match = syllable.text.match(hebrew);
 
@@ -151,7 +154,7 @@ export const romaniote: Schema = {
     {
       FEATURE: "syllable",
       // masculine plural marker
-      HEBREW: /(\u{05B4}[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05D9}\u{05DD})/u,
+      HEBREW: /(\u{05B4}[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?\u{05D9}\u{05DD})/u,
       TRANSLITERATION: (syllable, hebrew) => {
         return syllable.text.replace(hebrew, "είμ");
       }
