@@ -89,8 +89,8 @@ export const romaniote: Schema = {
     },
     {
       FEATURE: "syllable",
-      // patach yod
-      HEBREW: /(?<patachYod>\u{05B7}[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05D9})(?<maqqaf>\u{05BE}?)/u,
+      // patach or qamats yod
+      HEBREW: /(?<patachYod>[\u{05B7}\u{05B8}][\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05D9})(?<maqqaf>\u{05BE}?)/u,
       TRANSLITERATION: (syllable, hebrew) => {
         const match = syllable.text.match(hebrew);
 
