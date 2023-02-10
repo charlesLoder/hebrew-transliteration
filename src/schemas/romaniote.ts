@@ -148,7 +148,7 @@ export const romaniote: Schema = {
           const finalHiriqYod = syllable.isAccented ? "ή" : "η";
           return syllable.text.replace(hiriqYod, finalHiriqYod);
         }
-        return syllable.text.replace(hiriqYod, "ε");
+        return syllable.isAccented ? syllable.text.replace(hiriqYod, "ί") : syllable.text.replace(hiriqYod, "ι");
       }
     },
     {

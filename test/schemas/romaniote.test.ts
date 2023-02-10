@@ -111,7 +111,7 @@ describe.each`
 
 describe.each`
   description                       | hebrew             | transliteration
-  ${"hiriq yod: medial"}            | ${"סִיר"}          | ${"σιρ"}
+  ${"hiriq yod: medial"}            | ${"אִ֘ירָ֤א"}      | ${"ίρά"}
   ${"hiriq yod: final"}             | ${"אֲנִי"}         | ${"ανη"}
   ${"hiriq yod: plural marker"}     | ${"דְּבָרִים"}     | ${"ντεβαρείμ"}
   ${"hiriq yod: final with maqqef"} | ${"וַֽיְהִי־כֵֽן"} | ${"βαγιεη-χεν"}
