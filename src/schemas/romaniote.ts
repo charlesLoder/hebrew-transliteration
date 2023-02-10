@@ -85,7 +85,7 @@ export const romaniote: Schema = {
     {
       FEATURE: "syllable",
       // patach yod
-      HEBREW: /(?<vowels>\u{05B7}\u{05D9})(?<punc>[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?)$/u,
+      HEBREW: /(?<patachYod>\u{05B7}[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05D9})(?<maqqaf>\u{05BE}?)/u,
       TRANSLITERATION: (syllable, hebrew) => {
         const match = syllable.text.match(hebrew);
 
@@ -93,9 +93,9 @@ export const romaniote: Schema = {
         if (!groups) {
           return syllable.text;
         }
-        const { vowels } = groups;
+        const { patachYod } = groups;
 
-        return syllable.text.replace(vowels, "άη");
+        return syllable.text.replace(patachYod, "άη");
       }
     },
     {
@@ -107,7 +107,7 @@ export const romaniote: Schema = {
     {
       FEATURE: "syllable",
       // tsere yod
-      HEBREW: /(?<vowels>\u{05B5}\u{05D9})(?<punc>[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?)$/u,
+      HEBREW: /(?<tsereYod>\u{05B5}[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05D9})(?<maqqaf>\u{05BE}?)$/u,
       TRANSLITERATION: (syllable, hebrew) => {
         const match = syllable.text.match(hebrew);
 
@@ -115,18 +115,18 @@ export const romaniote: Schema = {
         if (!groups) {
           return syllable.text;
         }
-        const { vowels } = groups;
+        const { tsereYod } = groups;
 
-        if (vowels && syllable.isFinal) {
-          return syllable.text.replace(vowels, "αί");
+        if (syllable.isFinal) {
+          return syllable.text.replace(tsereYod, "αί");
         }
-        return syllable.text.replace(vowels, "ε");
+        return syllable.text.replace(tsereYod, "ε");
       }
     },
     {
       FEATURE: "syllable",
       // hiriq yod
-      HEBREW: /(?<vowels>\u{05B4}\u{05D9})(?<punc>[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?)$/u,
+      HEBREW: /(?<hiriqYod>\u{05B4}[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05D9})(?<maqqaf>\u{05BE}?)$/u,
       TRANSLITERATION: (syllable, hebrew) => {
         const match = syllable.text.match(hebrew);
 
@@ -134,18 +134,19 @@ export const romaniote: Schema = {
         if (!groups) {
           return syllable.text;
         }
-        const { vowels } = groups;
+        const { hiriqYod } = groups;
 
-        if (vowels && syllable.isFinal) {
-          return syllable.text.replace(vowels, "η");
+        if (syllable.isFinal) {
+          const finalHiriqYod = syllable.isAccented ? "ή" : "η";
+          return syllable.text.replace(hiriqYod, finalHiriqYod);
         }
-        return syllable.text.replace(vowels, "ε");
+        return syllable.text.replace(hiriqYod, "ε");
       }
     },
     {
       FEATURE: "syllable",
       // masculine plural marker
-      HEBREW: /\u{05B4}\u{05D9}[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05DD}/u,
+      HEBREW: /(\u{05B4}[\u{0590}-\u{05AF}\u{05BD}-\u{05BF}]?\u{05D9}\u{05DD})/u,
       TRANSLITERATION: (syllable, hebrew) => {
         return syllable.text.replace(hebrew, "είμ");
       }
