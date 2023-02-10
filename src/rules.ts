@@ -5,7 +5,7 @@ import { hebChars } from "havarotjs/dist/utils/regularExpressions";
 import { Schema } from "./schema";
 import { transliterateMap as map } from "./hebCharsTrans";
 
-const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/u;
+const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/gu;
 
 /**
  * maps Hebrew characters to schema
