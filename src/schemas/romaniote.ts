@@ -77,10 +77,15 @@ export const romaniote: Schema = {
       TRANSLITERATION: "ς"
     },
     {
-      FEATURE: "cluster",
+      FEATURE: "syllable",
       // final sin
       HEBREW: /(\u{05E9}\u{05C1})$/u,
-      TRANSLITERATION: "σς"
+      TRANSLITERATION: (syllable, hebrew) => {
+        if (syllable.isFinal) {
+          return syllable.text.replace(hebrew, "σς");
+        }
+        return syllable.text;
+      }
     },
     {
       FEATURE: "syllable",
