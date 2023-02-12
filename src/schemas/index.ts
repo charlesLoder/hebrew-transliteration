@@ -5,5 +5,15 @@ import { sblSimple } from "./sblSimple";
 import { michiganClaremont } from "./michiganClaremont";
 import { romaniote } from "./romaniote";
 import { jss } from "./jss";
+import { tiberian } from "./tiberian";
 
-export { brillAcademic, brillSimple, sblAcademicSpirantization, sblSimple, michiganClaremont, romaniote, jss };
+export {
+  brillAcademic,
+  brillSimple,
+  sblAcademicSpirantization,
+  sblSimple,
+  michiganClaremont,
+  romaniote,
+  jss,
+  tiberian
+};
