@@ -397,17 +397,18 @@ describe("extending SBL schema for optional arguments", () => {
 
   describe("stress marks", () => {
     test.each`
-      description                   | hebrew                     | transliteration      | options
-      ${"before-syllable"}          | ${"דָּבָ֑ר"}               | ${"dāˈbār"}          | ${{ STRESS_MARKER: { location: "before-syllable", mark: "ˈ" } }}
-      ${"after-syllable"}           | ${"דָּבָ֑ר"}               | ${"dābārˈ"}          | ${{ STRESS_MARKER: { location: "after-syllable", mark: "ˈ" } }}
-      ${"before-vowel"}             | ${"מֶ֣לֶךְ"}               | ${"ḿelek"}           | ${{ STRESS_MARKER: { location: "before-vowel", mark: "\u0301" } }}
-      ${"after-vowel"}              | ${"מֶ֣לֶךְ"}               | ${"mélek"}           | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } }}
-      ${"after-vowel with mater"}   | ${"אֱלֹהִ֔ים"}             | ${"ʾĕlōhî́m"}         | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } }}
-      ${"after-vowel with digraph"} | ${"בֵּ֣ית"}                | ${"beít"}            | ${{ TSERE_YOD: "ei", STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } }}
-      ${"exclude undefined"}        | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yốm ʾeḥā́d"} | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } }}
-      ${"exclude never"}            | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yốm ʾeḥā́d"} | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "never" } }}
-      ${"exclude single"}           | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yôm ʾeḥā́d"} | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "single" } }}
-      ${"exclude final"}            | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yôm ʾeḥād"} | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "final" } }}
+      description                   | hebrew                     | transliteration        | options
+      ${"before-syllable"}          | ${"דָּבָ֑ר"}               | ${"dāˈbār"}            | ${{ STRESS_MARKER: { location: "before-syllable", mark: "ˈ" } }}
+      ${"after-syllable"}           | ${"דָּבָ֑ר"}               | ${"dābārˈ"}            | ${{ STRESS_MARKER: { location: "after-syllable", mark: "ˈ" } }}
+      ${"before-vowel"}             | ${"מֶ֣לֶךְ"}               | ${"ḿelek"}             | ${{ STRESS_MARKER: { location: "before-vowel", mark: "\u0301" } }}
+      ${"after-vowel"}              | ${"מֶ֣לֶךְ"}               | ${"mélek"}             | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } }}
+      ${"after-vowel with mater"}   | ${"אֱלֹהִ֔ים"}             | ${"ʾĕlōhî́m"}           | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } }}
+      ${"after-vowel with digraph"} | ${"בֵּ֣ית"}                | ${"beít"}              | ${{ TSERE_YOD: "ei", STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } }}
+      ${"exclude undefined"}        | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yốm ʾeḥā́d"}   | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301" } }}
+      ${"exclude never"}            | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yốm ʾeḥā́d"}   | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "never" } }}
+      ${"exclude single"}           | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yôm ʾeḥā́d"}   | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "single" } }}
+      ${"exclude final"}            | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yôm ʾeḥād"}   | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "final" } }}
+      ${"ignore paseq"}             | ${"לְפָנַ֨י ׀ שֻׁלְחָ֗ן"}  | ${"lǝpāˈnay  šūlˈḥān"} | ${{ STRESS_MARKER: { location: "before-syllable", mark: "ˈ" } }}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration, options } = inputs;
       expect(transliterate(hebrew, options)).toBe(transliteration);
