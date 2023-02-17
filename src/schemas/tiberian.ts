@@ -1,7 +1,7 @@
 import { Schema } from "../schema";
 
 export const tiberian: Schema = {
-  VOCAL_SHEVA: "ǝ",
+  VOCAL_SHEVA: "a",
   HATAF_SEGOL: "ɛ",
   HATAF_PATAH: "a",
   HATAF_QAMATS: "o",
