@@ -65,6 +65,15 @@ export const tiberian: Schema = {
   TAV_DAGESH: "tʰ",
   DIVINE_NAME: "yhwh",
   STRESS_MARKER: { location: "before-syllable", mark: "ˈ" },
+  ADDITIONAL_FEATURES: [
+    {
+      FEATURE: "cluster",
+      HEBREW: "\u{05D9}\u{05BC}",
+      TRANSLITERATION(cluster, hebrew, _schema) {
+        return cluster.text.replace(hebrew, "ɟɟ");
+      }
+    }
+  ],
   allowNoNiqqud: false,
   article: true,
   holemHaser: "remove",
