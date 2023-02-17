@@ -68,6 +68,7 @@ describe("consonant features", () => {
       ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"maˈggɔl"}
       ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maˈʃʃɔʔ"}
       ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔˈʀ̟o:n"}
+      ${"yod with dagesh"}                 | ${"וַיִּלָּפֵ֑ת"} | ${"vaɟɟillɔˈfeθ"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
