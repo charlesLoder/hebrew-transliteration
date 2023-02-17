@@ -64,10 +64,10 @@ describe("consonant features", () => {
       description                          | hebrew            | transliteration
       ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}      | ${"ˈbosɛʀ̟"}
       ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"}    | ${"masˈgeʀ̟"}
-      ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnǝˈzɔʀ̟"}
+      ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnaˈzɔʀ̟"}
       ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"maˈggɔl"}
       ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maˈʃʃɔʔ"}
-      ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lǝvisˁsˁɔˈʀ̟o:n"}
+      ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔˈʀ̟o:n"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -77,12 +77,12 @@ describe("consonant features", () => {
   describe("shewa", () => {
     test.each`
       description                              | hebrew              | transliteration
-      ${"vocal shewa"}                         | ${"סְלִ֣ק"}         | ${"sǝˈliq̟"}
+      ${"vocal shewa"}                         | ${"סְלִ֣ק"}         | ${"saˈliq̟"}
       ${"silent shewa"}                        | ${"סַלְכָ֣ה"}       | ${"salˈχɔ:"}
       ${"final shewa"}                         | ${"כָּ֣ךְ"}         | ${"ˈkʰɔχ"}
       ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔˈtˁaltʰ"}
-      ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"hajǝˈʔoʀ̟"}
-      ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰǝnazzi:"}
+      ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"hajaˈʔoʀ̟"}
+      ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazzi:"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -112,7 +112,7 @@ describe("mater features", () => {
     test.each`
       description                                                            | hebrew              | transliteration
       ${"const yod with hiriq as vowel"}                                     | ${"יַ֣יִן"}         | ${"ˈjajin"}
-      ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"}  | ${"vajǝhi:-χen"}
+      ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"}  | ${"vajahi:-χen"}
       ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}          | ${"ʀ̟ijem"}
       ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}         | ${"ʕɔˈvon"}
       ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}        | ${"ʕɔˈvo:n"}
