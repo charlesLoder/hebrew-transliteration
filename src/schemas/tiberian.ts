@@ -72,6 +72,11 @@ export const tiberian: Schema = {
       TRANSLITERATION(cluster, hebrew, _schema) {
         return cluster.text.replace(hebrew, "ɟɟ");
       }
+    },
+    {
+      FEATURE: "cluster",
+      HEBREW: "\u{05D0}(?![\u{05B1}-\u{05BB}\u{05C7}])",
+      TRANSLITERATION: ""
     }
   ],
   allowNoNiqqud: false,
