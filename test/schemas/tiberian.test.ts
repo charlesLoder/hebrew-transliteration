@@ -11,7 +11,7 @@ const schema = tiberian;
 describe("basic tests", () => {
   test.each`
     description                    | hebrew                           | transliteration
-    ${"consonants"}                | ${"אבגדהוזחטיכךלמםנןסעפףצץקרשת"} | ${"ʔvʁðhvzħtˁjχχlmmnnsʕffsˁsˁq̟ʀ̟ʃθ"}
+    ${"consonants"}                | ${"אבגדהוזחטיכךלמםנןסעפףצץקרשת"} | ${"vʁðhvzħtˁjχχlmmnnsʕffsˁsˁq̟ʀ̟ʃθ"}
     ${"no special cases"}          | ${"רַ֛עַל"}                      | ${"ˈʀ̟aʕal"}
     ${"preserve non-Hebrew chars"} | ${"v1. רַ֛עַל"}                  | ${"v1. ˈʀ̟aʕal"}
     ${"preserve line breaks"}      | ${"v1.\n רַ֛עַל"}                | ${"v1.\n ˈʀ̟aʕal"}
@@ -19,6 +19,8 @@ describe("basic tests", () => {
   `("$description", (inputs: Inputs) => {
     const { hebrew, transliteration } = inputs;
     // allowNoNiqqud must be true for the string of consonants
+    // iIn the `consonants` test, the aleph is not in the transliteration output
+    // because it matches a rule for a quiesced aleph
     expect(transliterate(hebrew, { ...schema, allowNoNiqqud: true })).toBe(transliteration);
   });
 });
@@ -66,7 +68,7 @@ describe("consonant features", () => {
       ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"}    | ${"masˈgeʀ̟"}
       ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnaˈzɔʀ̟"}
       ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"maˈggɔl"}
-      ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maˈʃʃɔʔ"}
+      ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maˈʃʃɔ"}
       ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔˈʀ̟o:n"}
       ${"yod with dagesh"}                 | ${"וַיִּלָּפֵ֑ת"} | ${"vaɟɟillɔˈfeθ"}
     `("$description", (inputs: Inputs) => {
@@ -98,7 +100,7 @@ describe("mater features", () => {
       ${"hiriq yod"}  | ${"עִ֔יר"}      | ${"ˈʕi:ʀ̟"}
       ${"tsere yod"}  | ${"אֵ֤ין"}      | ${"ˈʔe:n"}
       ${"seghol yod"} | ${"אֱלֹהֶ֑יךָ"} | ${"ʔɛloˈhɛ:χɔ"}
-      ${"holem vav"}  | ${"ס֣וֹא"}      | ${"ˈso:ʔ"}
+      ${"holem vav"}  | ${"ס֣וֹא"}      | ${"ˈso:"}
       ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʕeˈsˁɔ:"}
       ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"jiq̟ˈʀ̟ɛ:"}
       ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hɔʔaʀ̟ˈjɛ:"}
