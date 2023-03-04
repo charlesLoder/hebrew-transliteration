@@ -19,7 +19,7 @@ describe("basic tests", () => {
   `("$description", (inputs: Inputs) => {
     const { hebrew, transliteration } = inputs;
     // allowNoNiqqud must be true for the string of consonants
-    // iIn the `consonants` test, the aleph is not in the transliteration output
+    // In the `consonants` test, the aleph is not in the transliteration output
     // because it matches a rule for a quiesced aleph
     expect(transliterate(hebrew, { ...schema, allowNoNiqqud: true })).toBe(transliteration);
   });
@@ -51,10 +51,11 @@ describe("consonant features", () => {
 
   describe("furtive", () => {
     test.each`
-      description               | hebrew         | transliteration
-      ${"furtive patach, chet"} | ${"נֹ֖חַ"}     | ${"ˈnoaħ"}
-      ${"furtive patach, ayin"} | ${"רָקִ֖יעַ"}  | ${"ʀ̟ɔˈq̟i:aʕ"}
-      ${"furtive patach, he"}   | ${"גָּבֹ֗הַּ"} | ${"gɔˈvoah"}
+      description                                | hebrew         | transliteration
+      ${"furtive patach, chet"}                  | ${"נֹ֖חַ"}     | ${"ˈnoaħ"}
+      ${"furtive patach, chet preceded by vav "} | ${"ר֑וּחַ"}    | ${"ˈʀ̟u:waħ"}
+      ${"furtive patach, ayin"}                  | ${"רָקִ֖יעַ"}  | ${"ʀ̟ɔˈq̟i:aʕ"}
+      ${"furtive patach, he"}                    | ${"גָּבֹ֗הַּ"} | ${"gɔˈvoah"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);

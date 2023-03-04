@@ -78,6 +78,34 @@ export const tiberian: Schema = {
       FEATURE: "cluster",
       HEBREW: "\u{05D0}(?![\u{05B1}-\u{05BB}\u{05C7}])",
       TRANSLITERATION: ""
+    },
+    {
+      FEATURE: "syllable",
+      HEBREW: "ח\u{05B7}$",
+      TRANSLITERATION: (syllable, _hebrew, schema) => {
+        // furtive patach before het preceded by vav
+        const prevText = syllable.prev?.value?.text;
+
+        if (syllable.isFinal && prevText && /ו/.test(prevText)) {
+          return "w" + schema["PATAH"] + schema["HET"];
+        }
+
+        return syllable.text;
+      }
+    },
+    {
+      FEATURE: "syllable",
+      HEBREW: "ע\u{05B7}$",
+      TRANSLITERATION: (syllable, _hebrew, schema) => {
+        // furtive patach before ayin preceded by vav
+        const prevText = syllable.prev?.value?.text;
+
+        if (syllable.isFinal && prevText && /ו/.test(prevText)) {
+          return "w" + schema["PATAH"] + schema["AYIN"];
+        }
+
+        return syllable.text;
+      }
     }
   ],
   allowNoNiqqud: false,
