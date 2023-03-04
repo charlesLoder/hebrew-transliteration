@@ -141,7 +141,7 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
     return sylChars.map(mapChars(schema)).join("");
   }
 
-  if (schema.STRESS_MARKER && syl.vowel) {
+  if (schema.STRESS_MARKER && (syl.vowel || syl.clusters.filter((c) => c.isShureq).length)) {
     const exclude = schema.STRESS_MARKER?.exclude ?? "never";
 
     if (exclude === "single" && !syl.prev && !syl.next) {
