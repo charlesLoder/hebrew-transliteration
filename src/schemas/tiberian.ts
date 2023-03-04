@@ -84,10 +84,11 @@ export const tiberian: Schema = {
       HEBREW: "ח\u{05B7}$",
       TRANSLITERATION: (syllable, _hebrew, schema) => {
         // furtive patach before het preceded by vav
-        const prevText = syllable.prev?.value?.text;
+        const prevText = syllable.prev?.value?.text || "";
 
-        if (syllable.isFinal && prevText && /ו/.test(prevText)) {
-          return "w" + schema["PATAH"] + schema["HET"];
+        if (syllable.isFinal && prevText && /[יו]/.test(prevText)) {
+          const glide = /ו/.test(prevText) ? "w" : "j";
+          return glide + schema["PATAH"] + schema["HET"];
         }
 
         return syllable.text;
@@ -100,8 +101,9 @@ export const tiberian: Schema = {
         // furtive patach before ayin preceded by vav
         const prevText = syllable.prev?.value?.text;
 
-        if (syllable.isFinal && prevText && /ו/.test(prevText)) {
-          return "w" + schema["PATAH"] + schema["AYIN"];
+        if (syllable.isFinal && prevText && /[יו]/.test(prevText)) {
+          const glide = /ו/.test(prevText) ? "w" : "j";
+          return glide + schema["PATAH"] + schema["AYIN"];
         }
 
         return syllable.text;

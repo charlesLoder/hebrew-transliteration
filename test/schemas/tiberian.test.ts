@@ -51,11 +51,12 @@ describe("consonant features", () => {
 
   describe("furtive", () => {
     test.each`
-      description                                | hebrew         | transliteration
-      ${"furtive patach, chet"}                  | ${"נֹ֖חַ"}     | ${"ˈnoaħ"}
-      ${"furtive patach, chet preceded by vav "} | ${"ר֑וּחַ"}    | ${"ˈʀ̟u:waħ"}
-      ${"furtive patach, ayin"}                  | ${"רָקִ֖יעַ"}  | ${"ʀ̟ɔˈq̟i:aʕ"}
-      ${"furtive patach, he"}                    | ${"גָּבֹ֗הַּ"} | ${"gɔˈvoah"}
+      description                                | hebrew           | transliteration
+      ${"furtive patach, chet"}                  | ${"נֹ֖חַ"}       | ${"ˈnoaħ"}
+      ${"furtive patach, chet preceded by vav "} | ${"ר֑וּחַ"}      | ${"ˈʀ̟u:waħ"}
+      ${"furtive patach, ayin"}                  | ${"כִּשְׁמֹ֤עַ"} | ${"kʰiʃˈmoaʕ"}
+      ${"furtive patach, ayin preceded by vav"}  | ${"רָקִ֖יעַ"}    | ${"ʀ̟ɔˈq̟i:jaʕ"}
+      ${"furtive patach, he"}                    | ${"גָּבֹ֗הַּ"}   | ${"gɔˈvoah"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
