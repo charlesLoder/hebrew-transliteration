@@ -325,7 +325,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   }
 
   if (cluster.isShureq) {
-    return schema.SHUREQ;
+    return clusterText.replace("וּ", schema.SHUREQ);
   }
 
   return clusterText;
