@@ -115,15 +115,16 @@ describe("using default options", () => {
 
     describe("edge cases", () => {
       test.each`
-        description                                                            | hebrew             | transliteration
-        ${"const yod with hiriq as vowel"}                                     | ${"יַ֣יִן"}        | ${"yayin"}
-        ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"} | ${"wayǝhî-kēn"}
-        ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}         | ${"riyēm"}
-        ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}        | ${"ʿāwōn"}
-        ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}       | ${"ʿāwôn"}
-        ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"} | ${"ʿăwōnôtênû"}
-        ${"initial shureq"}                                                    | ${"וּמִן"}         | ${"ûmin"}
-        ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}      | ${"bîṭôn"}
+        description                                                            | hebrew              | transliteration
+        ${"const yod with hiriq as vowel"}                                     | ${"יַ֣יִן"}         | ${"yayin"}
+        ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"}  | ${"wayǝhî-kēn"}
+        ${"final shureq with maqaf"}                                           | ${"נַשְּׁקוּ־בַ֡ר"} | ${"naššǝqû-bar"}
+        ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}          | ${"riyēm"}
+        ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}         | ${"ʿāwōn"}
+        ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}        | ${"ʿāwôn"}
+        ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"}  | ${"ʿăwōnôtênû"}
+        ${"initial shureq"}                                                    | ${"וּמִן"}          | ${"ûmin"}
+        ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}       | ${"bîṭôn"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
