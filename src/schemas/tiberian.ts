@@ -83,7 +83,7 @@ export const tiberian: Schema = {
       FEATURE: "syllable",
       HEBREW: "ח\u{05B7}$",
       TRANSLITERATION: (syllable, _hebrew, schema) => {
-        // furtive patach before het preceded by vav
+        // furtive patach before het preceded by vav or yod
         const prevText = syllable.prev?.value?.text || "";
 
         if (syllable.isFinal && prevText && /[יו]/.test(prevText)) {
@@ -98,12 +98,27 @@ export const tiberian: Schema = {
       FEATURE: "syllable",
       HEBREW: "ע\u{05B7}$",
       TRANSLITERATION: (syllable, _hebrew, schema) => {
-        // furtive patach before ayin preceded by vav
+        // furtive patach before ayin preceded by vav or yod
         const prevText = syllable.prev?.value?.text;
 
         if (syllable.isFinal && prevText && /[יו]/.test(prevText)) {
           const glide = /ו/.test(prevText) ? "w" : "j";
           return glide + schema["PATAH"] + schema["AYIN"];
+        }
+
+        return syllable.text;
+      }
+    },
+    {
+      FEATURE: "syllable",
+      HEBREW: "ה\u{05BC}\u{05B7}$",
+      TRANSLITERATION: (syllable, _hebrew, schema) => {
+        // furtive patach before he preceded by vav or yod
+        const prevText = syllable.prev?.value?.text;
+
+        if (syllable.isFinal && prevText && /[יו]/.test(prevText)) {
+          const glide = /ו/.test(prevText) ? "w" : "j";
+          return glide + schema["PATAH"] + schema["HE"];
         }
 
         return syllable.text;
