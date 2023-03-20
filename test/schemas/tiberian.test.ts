@@ -54,8 +54,10 @@ describe("consonant features", () => {
       description                                | hebrew            | transliteration
       ${"furtive patach, chet"}                  | ${"נֹ֖חַ"}        | ${"ˈnoaħ"}
       ${"furtive patach, chet preceded by vav "} | ${"ר֑וּחַ"}       | ${"ˈʀ̟u:waħ"}
+      ${"furtive patach, chet preceded by yod "} | ${"שְׁלִ֔יחַ"}    | ${"ʃaˈli:jaħ"}
       ${"furtive patach, ayin"}                  | ${"כִּשְׁמֹ֤עַ"}  | ${"kʰiʃˈmoaʕ"}
-      ${"furtive patach, ayin preceded by vav"}  | ${"רָקִ֖יעַ"}     | ${"ʀ̟ɔˈq̟i:jaʕ"}
+      ${"furtive patach, ayin preceded by yod"}  | ${"רָקִ֖יעַ"}     | ${"ʀ̟ɔˈq̟i:jaʕ"}
+      ${"furtive patach, ayin preceded by vav"}  | ${"יֵשׁ֡וּעַ"}    | ${"jeˈʃu:waʕ"}
       ${"furtive patach, he"}                    | ${"גָּבֹ֗הַּ"}    | ${"gɔˈvoah"}
       ${"furtive patach, he  preceded by vav"}   | ${"אֱלֹ֨והַּ"}    | ${"ʔɛˈlo:wah"}
       ${"furtive patach, he  preceded by yod"}   | ${"מַגְבִּ֥יהַּ"} | ${"maʁˈbi:jah"}
