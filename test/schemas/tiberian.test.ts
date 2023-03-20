@@ -53,14 +53,14 @@ describe("consonant features", () => {
     test.each`
       description                                | hebrew            | transliteration
       ${"furtive patach, chet"}                  | ${"נֹ֖חַ"}        | ${"ˈnoaħ"}
-      ${"furtive patach, chet preceded by vav "} | ${"ר֑וּחַ"}       | ${"ˈʀ̟u:waħ"}
-      ${"furtive patach, chet preceded by yod "} | ${"שְׁלִ֔יחַ"}    | ${"ʃaˈli:jaħ"}
+      ${"furtive patach, chet preceded by vav "} | ${"ר֑וּחַ"}       | ${"ˈʀ̟uːwaħ"}
+      ${"furtive patach, chet preceded by yod "} | ${"שְׁלִ֔יחַ"}    | ${"ʃaˈliːjaħ"}
       ${"furtive patach, ayin"}                  | ${"כִּשְׁמֹ֤עַ"}  | ${"kʰiʃˈmoaʕ"}
-      ${"furtive patach, ayin preceded by yod"}  | ${"רָקִ֖יעַ"}     | ${"ʀ̟ɔˈq̟i:jaʕ"}
-      ${"furtive patach, ayin preceded by vav"}  | ${"יֵשׁ֡וּעַ"}    | ${"jeˈʃu:waʕ"}
+      ${"furtive patach, ayin preceded by yod"}  | ${"רָקִ֖יעַ"}     | ${"ʀ̟ɔˈq̟iːjaʕ"}
+      ${"furtive patach, ayin preceded by vav"}  | ${"יֵשׁ֡וּעַ"}    | ${"jeˈʃuːwaʕ"}
       ${"furtive patach, he"}                    | ${"גָּבֹ֗הַּ"}    | ${"gɔˈvoah"}
-      ${"furtive patach, he  preceded by vav"}   | ${"אֱלֹ֨והַּ"}    | ${"ʔɛˈlo:wah"}
-      ${"furtive patach, he  preceded by yod"}   | ${"מַגְבִּ֥יהַּ"} | ${"maʁˈbi:jah"}
+      ${"furtive patach, he  preceded by vav"}   | ${"אֱלֹ֨והַּ"}    | ${"ʔɛˈloːwah"}
+      ${"furtive patach, he  preceded by yod"}   | ${"מַגְבִּ֥יהַּ"} | ${"maʁˈbiːjah"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -75,7 +75,7 @@ describe("consonant features", () => {
       ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnaˈzɔʀ̟"}
       ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"maˈggɔl"}
       ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maˈʃʃɔ"}
-      ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔˈʀ̟o:n"}
+      ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔˈʀ̟oːn"}
       ${"yod with dagesh"}                 | ${"וַיִּלָּפֵ֑ת"} | ${"vaɟɟillɔˈfeθ"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
@@ -87,11 +87,11 @@ describe("consonant features", () => {
     test.each`
       description                              | hebrew              | transliteration
       ${"vocal shewa"}                         | ${"סְלִ֣ק"}         | ${"saˈliq̟"}
-      ${"silent shewa"}                        | ${"סַלְכָ֣ה"}       | ${"salˈχɔ:"}
+      ${"silent shewa"}                        | ${"סַלְכָ֣ה"}       | ${"salˈχɔː"}
       ${"final shewa"}                         | ${"כָּ֣ךְ"}         | ${"ˈkʰɔχ"}
       ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔˈtˁaltʰ"}
       ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"hajaˈʔoʀ̟"}
-      ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazzi:"}
+      ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazziː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -103,14 +103,14 @@ describe("mater features", () => {
   describe("typical", () => {
     test.each`
       description     | hebrew          | transliteration
-      ${"hiriq yod"}  | ${"עִ֔יר"}      | ${"ˈʕi:ʀ̟"}
-      ${"tsere yod"}  | ${"אֵ֤ין"}      | ${"ˈʔe:n"}
-      ${"seghol yod"} | ${"אֱלֹהֶ֑יךָ"} | ${"ʔɛloˈhɛ:χɔ"}
-      ${"holem vav"}  | ${"ס֣וֹא"}      | ${"ˈso:"}
-      ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʕeˈsˁɔ:"}
-      ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"jiq̟ˈʀ̟ɛ:"}
-      ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hɔʔaʀ̟ˈjɛ:"}
-      ${"shureq"}     | ${"קוּם"}       | ${"q̟u:m"}
+      ${"hiriq yod"}  | ${"עִ֔יר"}      | ${"ˈʕiːʀ̟"}
+      ${"tsere yod"}  | ${"אֵ֤ין"}      | ${"ˈʔeːn"}
+      ${"seghol yod"} | ${"אֱלֹהֶ֑יךָ"} | ${"ʔɛloˈhɛːχɔ"}
+      ${"holem vav"}  | ${"ס֣וֹא"}      | ${"ˈsoː"}
+      ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʕeˈsˁɔː"}
+      ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"jiq̟ˈʀ̟ɛː"}
+      ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hɔʔaʀ̟ˈjɛː"}
+      ${"shureq"}     | ${"קוּם"}       | ${"q̟uːm"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -121,13 +121,13 @@ describe("mater features", () => {
     test.each`
       description                                                            | hebrew              | transliteration
       ${"const yod with hiriq as vowel"}                                     | ${"יַ֣יִן"}         | ${"ˈjajin"}
-      ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"}  | ${"vajahi:-χen"}
+      ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"}  | ${"vajahiː-χen"}
       ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}          | ${"ʀ̟ijem"}
       ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}         | ${"ʕɔˈvon"}
-      ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}        | ${"ʕɔˈvo:n"}
-      ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵ֑ינוּ"} | ${"ʕavono:ˈθe:nu:"}
-      ${"initial shureq"}                                                    | ${"וּמִן"}          | ${"u:min"}
-      ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}       | ${"bi:tˁo:n"}
+      ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}        | ${"ʕɔˈvoːn"}
+      ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵ֑ינוּ"} | ${"ʕavonoːˈθeːnuː"}
+      ${"initial shureq"}                                                    | ${"וּמִן"}          | ${"uːmin"}
+      ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}       | ${"biːtˁoːn"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -138,10 +138,10 @@ describe("mater features", () => {
 describe("divine name", () => {
   test.each`
     description                    | hebrew           | transliteration
-    ${"by itself"}                 | ${"יְהוָ֥ה"}     | ${"ʔaðo:ˈnɔ:j"}
-    ${"with a maqqef"}             | ${"אֶת־יְהוָ֤ה"} | ${"ʔɛθ-ʔaðo:ˈnɔ:j"}
-    ${"with a preposition"}        | ${"בַּֽיהוָ֔ה"}  | ${"ba-ʔaðo:ˈnɔ:j"}
-    ${"with latin char following"} | ${"יְהוָ֥ה,"}    | ${"ʔaðo:ˈnɔ:j,"}
+    ${"by itself"}                 | ${"יְהוָ֥ה"}     | ${"ʔaðoːˈnɔːj"}
+    ${"with a maqqef"}             | ${"אֶת־יְהוָ֤ה"} | ${"ʔɛθ-ʔaðoːˈnɔːj"}
+    ${"with a preposition"}        | ${"בַּֽיהוָ֔ה"}  | ${"ba-ʔaðoːˈnɔːj"}
+    ${"with latin char following"} | ${"יְהוָ֥ה,"}    | ${"ʔaðoːˈnɔːj,"}
     ${"pointed as elohim"}         | ${"יֱהוִה֙"}     | ${"ʔɛloːˈhiːim"}
   `("$description", (inputs: Inputs) => {
     const { hebrew, transliteration } = inputs;
@@ -153,7 +153,7 @@ describe("qamets qatan", () => {
   test.each`
     description            | hebrew           | transliteration
     ${"standard"}          | ${"כָּל־הָעָ֖ם"} | ${"kʰɔl-hɔˈʕɔm"}
-    ${"with hatef qamets"} | ${"נָעֳמִי֙"}    | ${"nɔʕoˈmi:"}
+    ${"with hatef qamets"} | ${"נָעֳמִי֙"}    | ${"nɔʕoˈmiː"}
   `("$description", (inputs: Inputs) => {
     const { hebrew, transliteration } = inputs;
     expect(transliterate(hebrew, schema)).toBe(transliteration);
