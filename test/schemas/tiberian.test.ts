@@ -29,17 +29,17 @@ describe("consonant features", () => {
   describe("spirantization and ligature tests", () => {
     test.each`
       description              | hebrew       | transliteration
-      ${"unspirantized bet"}   | ${"בָּ֣ם"}   | ${"ˈbɔm"}
-      ${"spirantized bet"}     | ${"אָ֣ב"}    | ${"ˈʔɔv"}
+      ${"unspirantized bet"}   | ${"בָּ֣ם"}   | ${"ˈbɔːɔm"}
+      ${"spirantized bet"}     | ${"אָ֣ב"}    | ${"ˈʔɔːɔv"}
       ${"unspirantized gimel"} | ${"גָּדַ֣ל"} | ${"gɔˈðal"}
-      ${"spirantized gimel"}   | ${"חָ֣ג"}    | ${"ˈħɔʁ"}
-      ${"unspirantized dalet"} | ${"דָּ֣ם"}   | ${"ˈdɔm"}
+      ${"spirantized gimel"}   | ${"חָ֣ג"}    | ${"ˈħɔːɔʁ"}
+      ${"unspirantized dalet"} | ${"דָּ֣ם"}   | ${"ˈdɔːɔm"}
       ${"spirantized dalet"}   | ${"סַ֣ד"}    | ${"ˈsað"}
-      ${"unspirantized kaf"}   | ${"כָּמָ֣ר"} | ${"kʰɔˈmɔʀ̟"}
+      ${"unspirantized kaf"}   | ${"כָּמָ֣ר"} | ${"kʰɔˈmɔːɔʀ̟"}
       ${"spirantized kaf"}     | ${"לֵ֣ךְ"}   | ${"ˈleχ"}
-      ${"unspirantized peh"}   | ${"פֹּ֣ה"}   | ${"ˈpʰoh"}
+      ${"unspirantized peh"}   | ${"פֹּ֣ה"}   | ${"ˈpʰoːoh"}
       ${"spirantized peh"}     | ${"אֶ֣לֶף"}  | ${"ˈʔɛlɛf"}
-      ${"unspirantized tav"}   | ${"תָּ֣ם"}   | ${"ˈtʰɔm"}
+      ${"unspirantized tav"}   | ${"תָּ֣ם"}   | ${"ˈtʰɔːɔm"}
       ${"spirantized tav"}     | ${"מַ֣ת"}    | ${"ˈmaθ"}
       ${"shin"}                | ${"שֶׁ֣לֶם"}  | ${"ˈʃɛlɛm"}
       ${"sin"}                 | ${"אָ֣רַשׂ"}  | ${"ˈʔɔʀ̟as"}
@@ -58,7 +58,7 @@ describe("consonant features", () => {
       ${"furtive patach, ayin"}                  | ${"כִּשְׁמֹ֤עַ"}  | ${"kʰiʃˈmoaʕ"}
       ${"furtive patach, ayin preceded by yod"}  | ${"רָקִ֖יעַ"}     | ${"ʀ̟ɔˈq̟iːjaʕ"}
       ${"furtive patach, ayin preceded by vav"}  | ${"יֵשׁ֡וּעַ"}    | ${"jeˈʃuːwaʕ"}
-      ${"furtive patach, he"}                    | ${"גָּבֹ֗הַּ"}    | ${"gɔˈvoah"}
+      ${"furtive patach, he"}                    | ${"גָּבֹ֗הַּ"}    | ${"gɔˈvoːoah"}
       ${"furtive patach, he  preceded by vav"}   | ${"אֱלֹ֨והַּ"}    | ${"ʔɛˈloːwah"}
       ${"furtive patach, he  preceded by yod"}   | ${"מַגְבִּ֥יהַּ"} | ${"maʁˈbiːjah"}
     `("$description", (inputs: Inputs) => {
@@ -71,10 +71,10 @@ describe("consonant features", () => {
     test.each`
       description                          | hebrew            | transliteration
       ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}      | ${"ˈbosɛʀ̟"}
-      ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"}    | ${"masˈgeʀ̟"}
-      ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnaˈzɔʀ̟"}
-      ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"maˈggɔl"}
-      ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maˈʃʃɔ"}
+      ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"}    | ${"masˈgeːeʀ̟"}
+      ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnaˈzɔːɔʀ̟"}
+      ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"maˈgɔːɔl"}
+      ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maˈʃׁɔːɔ"}
       ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔˈʀ̟oːn"}
       ${"yod with dagesh"}                 | ${"וַיִּלָּפֵ֑ת"} | ${"vaɟɟillɔˈfeθ"}
     `("$description", (inputs: Inputs) => {
@@ -90,7 +90,7 @@ describe("consonant features", () => {
       ${"silent shewa"}                        | ${"סַלְכָ֣ה"}       | ${"salˈχɔː"}
       ${"final shewa"}                         | ${"כָּ֣ךְ"}         | ${"ˈkʰɔχ"}
       ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔˈtˁaltʰ"}
-      ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"hajaˈʔoʀ̟"}
+      ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"hajaˈʔoːoʀ̟"}
       ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazziː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
@@ -123,7 +123,7 @@ describe("mater features", () => {
       ${"const yod with hiriq as vowel"}                                     | ${"יַ֣יִן"}         | ${"ˈjajin"}
       ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"}  | ${"vajahiː-χen"}
       ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}          | ${"ʀ̟ijem"}
-      ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}         | ${"ʕɔˈvon"}
+      ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}         | ${"ʕɔˈvoːon"}
       ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}        | ${"ʕɔˈvoːn"}
       ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵ֑ינוּ"} | ${"ʕavonoːˈθeːnuː"}
       ${"initial shureq"}                                                    | ${"וּמִן"}          | ${"uːmin"}
@@ -152,7 +152,7 @@ describe("divine name", () => {
 describe("qamets qatan", () => {
   test.each`
     description            | hebrew           | transliteration
-    ${"standard"}          | ${"כָּל־הָעָ֖ם"} | ${"kʰɔl-hɔˈʕɔm"}
+    ${"standard"}          | ${"כָּל־הָעָ֖ם"} | ${"kʰɔl-hɔˈʕɔːɔm"}
     ${"with hatef qamets"} | ${"נָעֳמִי֙"}    | ${"nɔʕoˈmiː"}
   `("$description", (inputs: Inputs) => {
     const { hebrew, transliteration } = inputs;
