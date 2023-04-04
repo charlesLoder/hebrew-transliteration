@@ -123,6 +123,49 @@ export const tiberian: Schema = {
 
         return syllable.text;
       }
+    },
+    {
+      FEATURE: "syllable",
+      HEBREW: /^[^\u{05B0}]+$/,
+      TRANSLITERATION(syllable, _hebrew, _schema) {
+        // this features matches any syllable that does not have a sheva
+        const vowelName = syllable.vowelName;
+        const vowel = syllable.vowel;
+
+        if (!vowel || !vowelName) {
+          return null;
+        }
+
+        if (vowelName === "SHEVA") {
+          throw new Error(`Syllable ${syllable.text} has a sheva as vowel, should not have matched`);
+        }
+
+        const hasMaters = syllable.clusters.map((c) => c.isMater).includes(true);
+        const isClosed = syllable.isClosed;
+        const isAccented = syllable.isAccented;
+        const lengthMarker = "ː";
+
+        // TPT §1.2.4, p288
+        // When long vowels with the main stress occur in closed syllables,
+        // there is evidence that an epenthetic with the same quality as that of the long vowel
+        // occurred before the final consonant in its phonetic realization"
+        if (isAccented && isClosed) {
+          return syllable.text.replace(vowel, `${vowel + lengthMarker + vowel}`);
+        }
+
+        // TPT §1.2.2.1 p268
+        // Vowels represented by basic vowel signs are long when they are either
+        // (i) in a stressed syllable or (ii) in an unstressed open syllable.
+        if (isAccented || (!isAccented && !isClosed)) {
+          return syllable.text.replace(vowel, `${vowel + lengthMarker}`);
+        }
+
+        if (!hasMaters && !isClosed && !isAccented) {
+          return syllable.text.replace(vowel, `${vowel}`);
+        }
+
+        return null;
+      }
     }
   ],
   allowNoNiqqud: false,
