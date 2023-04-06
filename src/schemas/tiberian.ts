@@ -126,7 +126,7 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "syllable",
-      HEBREW: /^[^\u{05B0}]+$/,
+      HEBREW: /[\u{05B4}-\u{05BB}]/u,
       TRANSLITERATION(syllable, _hebrew, _schema) {
         // this features matches any syllable that does not have a sheva
         const vowelName = syllable.vowelName;
@@ -138,6 +138,12 @@ export const tiberian: Schema = {
 
         if (vowelName === "SHEVA") {
           throw new Error(`Syllable ${syllable.text} has a sheva as vowel, should not have matched`);
+        }
+
+        // half vowels do not have length; exit early
+        const hasHalfVowel = syllable.clusters.map((c) => c.hasHalfVowel).includes(true);
+        if (hasHalfVowel) {
+          throw new Error(`Syllable ${syllable.text} has a hataf as vowel, should not have matched`);
         }
 
         const hasMaters = syllable.clusters.map((c) => c.isMater).includes(true);
