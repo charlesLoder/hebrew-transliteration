@@ -82,13 +82,17 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: "ח\u{05B7}$",
+      PASS_THROUGH: true,
       TRANSLITERATION: (syllable, _hebrew, schema) => {
         // furtive patach before het preceded by vav or yod
         const prevText = syllable.prev?.value?.text || "";
 
-        if (syllable.isFinal && prevText && /[יו]/.test(prevText)) {
-          const glide = /ו/.test(prevText) ? "w" : "j";
-          return glide + schema["PATAH"] + schema["HET"];
+        if (syllable.isFinal && prevText) {
+          if (/[יו]/.test(prevText)) {
+            const glide = /ו/.test(prevText) ? "w" : "j";
+            return glide + schema["PATAH"] + schema["HET"];
+          }
+          return schema["PATAH"] + schema["HET"];
         }
 
         return syllable.text;
@@ -97,13 +101,17 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: "ע\u{05B7}$",
+      PASS_THROUGH: true,
       TRANSLITERATION: (syllable, _hebrew, schema) => {
         // furtive patach before ayin preceded by vav or yod
         const prevText = syllable.prev?.value?.text;
 
-        if (syllable.isFinal && prevText && /[יו]/.test(prevText)) {
-          const glide = /ו/.test(prevText) ? "w" : "j";
-          return glide + schema["PATAH"] + schema["AYIN"];
+        if (syllable.isFinal && prevText) {
+          if (/[יו]/.test(prevText)) {
+            const glide = /ו/.test(prevText) ? "w" : "j";
+            return glide + schema["PATAH"] + schema["AYIN"];
+          }
+          return schema["PATAH"] + schema["AYIN"];
         }
 
         return syllable.text;
@@ -112,13 +120,17 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: "ה\u{05BC}\u{05B7}$",
+      PASS_THROUGH: true,
       TRANSLITERATION: (syllable, _hebrew, schema) => {
         // furtive patach before he preceded by vav or yod
         const prevText = syllable.prev?.value?.text;
 
-        if (syllable.isFinal && prevText && /[יו]/.test(prevText)) {
-          const glide = /ו/.test(prevText) ? "w" : "j";
-          return glide + schema["PATAH"] + schema["HE"];
+        if (syllable.isFinal && prevText) {
+          if (/[יו]/.test(prevText)) {
+            const glide = /ו/.test(prevText) ? "w" : "j";
+            return glide + schema["PATAH"] + schema["HE"];
+          }
+          return schema["PATAH"] + schema["HE"];
         }
 
         return syllable.text;
