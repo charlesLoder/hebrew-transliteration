@@ -189,6 +189,34 @@ export const tiberian: Schema = {
 
         return null;
       }
+    },
+    {
+      FEATURE: "syllable",
+      HEBREW: /(?<!.*[\u{05B4}-\u{05BB}].*)\u{05B0}/u,
+      TRANSLITERATION(syllable, _hebrew, schema) {
+        // matches any syllable that contains a sheva that is not preceded by a full vowel character
+        const nextSyllable = syllable.next?.value;
+        if (!nextSyllable) return null;
+
+        const nextSylFirstCluster = nextSyllable.clusters[0].text;
+        if (!nextSylFirstCluster) return null;
+
+        const isGuttural = /[אהחע]/.test(nextSylFirstCluster);
+        if (!isGuttural) return null;
+
+        const nextVowel = nextSyllable.vowelName;
+        if (!nextVowel)
+          throw new Error(
+            `Syllable ${syllable.text} has a sheva as a vowel, but the next syllable ${nextSylFirstCluster} does not have a vowel`
+          );
+
+        if (nextVowel === "SHEVA")
+          throw new Error(
+            `Syllable ${syllable.text} has a sheva as a vowel, but the next syllable ${nextSylFirstCluster} also has a sheva as a vowel`
+          );
+
+        return syllable.text.replace(/\u{05B0}/u, schema[nextVowel]);
+      }
     }
   ],
   allowNoNiqqud: false,
