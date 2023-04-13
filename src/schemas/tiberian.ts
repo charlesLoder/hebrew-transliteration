@@ -158,6 +158,11 @@ export const tiberian: Schema = {
           throw new Error(`Syllable ${syllable.text} has a hataf as vowel, should not have matched`);
         }
 
+        const noMaterText = syllable.clusters
+          .filter((c) => !c.isMater)
+          .map((c) => c.text)
+          .join("");
+
         const hasMaters = syllable.clusters.map((c) => c.isMater).includes(true);
         const isClosed = syllable.isClosed;
         const isAccented = syllable.isAccented;
@@ -168,18 +173,18 @@ export const tiberian: Schema = {
         // there is evidence that an epenthetic with the same quality as that of the long vowel
         // occurred before the final consonant in its phonetic realization"
         if (isAccented && isClosed) {
-          return syllable.text.replace(vowel, `${vowel + lengthMarker + vowel}`);
+          return noMaterText.replace(vowel, `${vowel + lengthMarker + vowel}`);
         }
 
         // TPT §1.2.2.1 p268
         // Vowels represented by basic vowel signs are long when they are either
         // (i) in a stressed syllable or (ii) in an unstressed open syllable.
         if (isAccented || (!isAccented && !isClosed)) {
-          return syllable.text.replace(vowel, `${vowel + lengthMarker}`);
+          return noMaterText.replace(vowel, `${vowel + lengthMarker}`);
         }
 
         if (!hasMaters && !isClosed && !isAccented) {
-          return syllable.text.replace(vowel, `${vowel}`);
+          return noMaterText.replace(vowel, `${vowel}`);
         }
 
         return null;
