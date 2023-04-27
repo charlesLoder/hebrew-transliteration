@@ -53,10 +53,11 @@ describe("using default options", () => {
 
     describe("furtive", () => {
       test.each`
-        description               | hebrew         | transliteration
-        ${"furtive patach, chet"} | ${"נֹ֖חַ"}     | ${"nōaḥ"}
-        ${"furtive patach, ayin"} | ${"רָקִ֖יעַ"}  | ${"rāqîaʿ"}
-        ${"furtive patach, he"}   | ${"גָּבֹ֗הַּ"} | ${"gābōah"}
+        description                           | hebrew         | transliteration
+        ${"furtive patach, chet"}             | ${"נֹ֖חַ"}     | ${"nōaḥ"}
+        ${"furtive patach, ayin"}             | ${"רָקִ֖יעַ"}  | ${"rāqîaʿ"}
+        ${"furtive patach, he"}               | ${"גָּבֹ֗הַּ"} | ${"gābōah"}
+        ${"furtive patach, with a sof pasuq"} | ${"רֽוּחַ׃"}   | ${"rûaḥ"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
