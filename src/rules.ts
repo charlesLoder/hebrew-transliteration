@@ -342,10 +342,10 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
         const transliteration = seq.TRANSLITERATION;
         const passThrough = seq.PASS_THROUGH ?? true;
         if (typeof transliteration === "string") {
-            return replaceAndTransliterate(sylTxt, heb, transliteration, schema);
+          return replaceAndTransliterate(sylTxt, heb, transliteration, schema);
         }
         if (!passThrough) {
-            return transliteration(syl, seq.HEBREW, schema);
+          return transliteration(syl, seq.HEBREW, schema);
         }
         // Refactor this block
         const newClusters = syl.clusters.map(cluster => {
