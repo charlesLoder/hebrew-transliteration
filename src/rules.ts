@@ -342,16 +342,19 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
         const transliteration = seq.TRANSLITERATION;
         const passThrough = seq.PASS_THROUGH ?? true;
         if (typeof transliteration === "string") {
-          return replaceAndTransliterate(sylTxt, heb, transliteration, schema);
+            return replaceAndTransliterate(sylTxt, heb, transliteration, schema);
         }
         if (!passThrough) {
-          return transliteration(syl, seq.HEBREW, schema);
+            return transliteration(syl, seq.HEBREW, schema);
         }
-        // this is the only way to make the "// regular syllables" block work
-        syl = new Syllable([new Cluster(transliteration(syl, seq.HEBREW, schema))], {
-          isClosed: syl.isClosed,
-          isAccented: syl.isAccented,
-          isFinal: syl.isFinal
+        // Refactor this block
+        const newClusters = syl.clusters.map(cluster => {
+            return new Cluster(transliteration(cluster, seq.HEBREW, schema));
+        });
+        syl = new Syllable(newClusters, {
+            isClosed: syl.isClosed,
+            isAccented: syl.isAccented,
+            isFinal: syl.isFinal
         });
       }
     }
