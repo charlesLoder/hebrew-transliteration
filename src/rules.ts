@@ -347,9 +347,9 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
         if (!passThrough) {
           return transliteration(syl, seq.HEBREW, schema);
         }
-         const newText = transliteration(syl, seq.HEBREW, schema);
+          const newText = transliteration(syl, seq.HEBREW, schema);
           const clusterStrings = newText.split(clusterSlitGroup);
-          const newClusters = clusterStrings.map(clusterString => new cluster_1.Cluster(clusterString));
+          const newClusters = clusterStrings.map(clusterString => new Cluster(clusterString));
           syl = new Syllable(newClusters, {
               isClosed: syl.isClosed,
               isAccented: syl.isAccented,
