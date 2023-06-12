@@ -145,7 +145,7 @@ export const tiberian: Schema = {
         const vowel = syllable.vowel;
 
         if (!vowel || !vowelName) {
-          return null;
+          return syllable.text;
         }
 
         if (vowelName === "SHEVA") {
@@ -187,7 +187,7 @@ export const tiberian: Schema = {
           return noMaterText.replace(vowel, `${vowel}`);
         }
 
-        return null;
+        return syllable.text;
       }
     },
     {
@@ -196,13 +196,13 @@ export const tiberian: Schema = {
       TRANSLITERATION(syllable, _hebrew, schema) {
         // matches any syllable that contains a sheva that is not preceded by a full vowel character
         const nextSyllable = syllable.next?.value;
-        if (!nextSyllable) return null;
+        if (!nextSyllable) return syllable.text;
 
         const nextSylFirstCluster = nextSyllable.clusters[0].text;
-        if (!nextSylFirstCluster) return null;
+        if (!nextSylFirstCluster) return syllable.text;
 
         const isGuttural = /[אהחע]/.test(nextSylFirstCluster);
-        if (!isGuttural) return null;
+        if (!isGuttural) return syllable.text;
 
         const nextVowel = nextSyllable.vowelName;
         if (!nextVowel)
