@@ -351,21 +351,14 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
         if (!passThrough) {
           return transliteration(syl, seq.HEBREW, schema);
         }
-
-        // if transliteration is a function and passThrough is true, then transliterate and continue
         const newText = transliteration(syl, seq.HEBREW, schema);
-
-        // if the new text is different, then create a new syllable
-        // if the texts are the same, then nothing was changed and copying the syllable becomes dangerous
-        if (newText !== sylTxt) {
-          const clusterStrings = newText.split(clusterSplitGroup);
-          const newClusters = clusterStrings.map((clusterString) => new Cluster(clusterString, true));
-          syl = new Syllable(newClusters, {
-            isClosed: syl.isClosed,
-            isAccented: syl.isAccented,
-            isFinal: syl.isFinal
-          });
-        }
+        const clusterStrings = newText.split(clusterSplitGroup);
+        const newClusters = clusterStrings.map((clusterString) => new Cluster(clusterString, true));
+        syl = new Syllable(newClusters, {
+          isClosed: syl.isClosed,
+          isAccented: syl.isAccented,
+          isFinal: syl.isFinal
+        });
       }
     } // end of seqs loop
   }
