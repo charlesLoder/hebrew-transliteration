@@ -341,13 +341,22 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
       if (seq.FEATURE === "syllable" && heb.test(sylTxt)) {
         const transliteration = seq.TRANSLITERATION;
         const passThrough = seq.PASS_THROUGH ?? true;
+
+        // if transliteration is a string, then replace
         if (typeof transliteration === "string") {
           return replaceAndTransliterate(sylTxt, heb, transliteration, schema);
         }
+
+        // if transliteration is a function and passThrough is false, then transliterate and exit
         if (!passThrough) {
           return transliteration(syl, seq.HEBREW, schema);
         }
+
+        // if transliteration is a function and passThrough is true, then transliterate and continue
         const newText = transliteration(syl, seq.HEBREW, schema);
+
+        // if the new text is different, then create a new syllable
+        // if the texts are the same, then nothing was changed and copying the syllable becomes dangerous
         if (newText !== sylTxt) {
           const clusterStrings = newText.split(clusterSlitGroup);
           const newClusters = clusterStrings.map((clusterString) => new Cluster(clusterString, true));
@@ -358,7 +367,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
           });
         }
       }
-    }
+    } // end of seqs loop
   }
 
   // syllable is 3ms sufx
