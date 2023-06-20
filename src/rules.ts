@@ -1,7 +1,7 @@
 import { Cluster } from "havarotjs/cluster";
 import { Syllable } from "havarotjs/syllable";
 import { Word } from "havarotjs/word";
-import { hebChars, clusterSlitGroup } from "havarotjs/dist/utils/regularExpressions";
+import { hebChars, clusterSplitGroup } from "havarotjs/dist/utils/regularExpressions";
 import { Schema } from "./schema";
 import { transliterateMap as map } from "./hebCharsTrans";
 
@@ -217,7 +217,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     }
   }
 
-  clusterText = cluster.hasShewa && syl.isClosed ? clusterText.replace(/\u{05B0}/u, "") : clusterText;
+  clusterText = cluster.hasSheva && syl.isClosed ? clusterText.replace(/\u{05B0}/u, "") : clusterText;
 
   // mappiq he
   if (/ה\u{05BC}$/mu.test(clusterText)) {
@@ -358,7 +358,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
         // if the new text is different, then create a new syllable
         // if the texts are the same, then nothing was changed and copying the syllable becomes dangerous
         if (newText !== sylTxt) {
-          const clusterStrings = newText.split(clusterSlitGroup);
+          const clusterStrings = newText.split(clusterSplitGroup);
           const newClusters = clusterStrings.map((clusterString) => new Cluster(clusterString, true));
           syl = new Syllable(newClusters, {
             isClosed: syl.isClosed,
