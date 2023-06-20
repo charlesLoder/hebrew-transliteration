@@ -161,7 +161,10 @@ export const tiberian: Schema = {
         const noMaterText = syllable.clusters
           .filter((c) => !c.isMater)
           .map((c) => c.text)
-          .join("");
+          .join("")
+          // a holem followed by a he without a mappiq is not a mater
+          // but b/c the he is not pronounced, we need to remove the final he
+          .replace(/(\u{05B9}.{1})\u{05D4}(?!\u{05BC})/u, "$1");
 
         const hasMaters = syllable.clusters.map((c) => c.isMater).includes(true);
         const isClosed = syllable.isClosed;
