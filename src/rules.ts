@@ -15,7 +15,7 @@ const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/gu;
  * @returns transliteration of characters
  *
  */
-export const mapChars = (schema: Schema) => (input: string) => {
+const mapChars = (schema: Schema) => (input: string) => {
   return [...input].map((char: string) => (char in map ? schema[map[char]] : char)).join("");
 };
 
