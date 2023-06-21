@@ -1,0 +1,90 @@
+import { Schema } from "../schema";
+
+export const jss: Schema = {
+  VOCAL_SHEVA: "ǝ",
+  HATAF_SEGOL: "ɛ̆",
+  HATAF_PATAH: "ă",
+  HATAF_QAMATS: "å̆",
+  HIRIQ: "i",
+  TSERE: "ē",
+  SEGOL: "ɛ",
+  PATAH: "a",
+  QAMATS: "å̄",
+  HOLAM: "ō",
+  HOLAM_HASER: "ō",
+  QUBUTS: "u",
+  DAGESH: "",
+  DAGESH_CHAZAQ: true,
+  MAQAF: " ",
+  PASEQ: "",
+  SOF_PASUQ: "",
+  QAMATS_QATAN: "å",
+  FURTIVE_PATAH: "a",
+  HIRIQ_YOD: "ī",
+  TSERE_YOD: "ē",
+  SEGOL_YOD: "ɛ",
+  SHUREQ: "ū",
+  HOLAM_VAV: "ō",
+  QAMATS_HE: "å̄",
+  SEGOL_HE: "ɛ",
+  TSERE_HE: "ē",
+  MS_SUFX: "å̄yw",
+  ALEF: "ʾ",
+  BET_DAGESH: "b",
+  BET: "ḇ",
+  GIMEL: "ḡ",
+  GIMEL_DAGESH: "g",
+  DALET: "ḏ",
+  DALET_DAGESH: "d",
+  HE: "h",
+  VAV: "w",
+  ZAYIN: "z",
+  HET: "ḥ",
+  TET: "ṭ",
+  YOD: "y",
+  FINAL_KAF: "ḵ",
+  KAF: "ḵ",
+  KAF_DAGESH: "k",
+  LAMED: "l",
+  FINAL_MEM: "m",
+  MEM: "m",
+  FINAL_NUN: "n",
+  NUN: "n",
+  SAMEKH: "s",
+  AYIN: "ʿ",
+  FINAL_PE: "p̄",
+  PE: "p̄",
+  PE_DAGESH: "p",
+  FINAL_TSADI: "ṣ",
+  TSADI: "ṣ",
+  QOF: "q",
+  RESH: "r",
+  SHIN: "š",
+  SIN: "ś",
+  TAV: "ṯ",
+  TAV_DAGESH: "t",
+  DIVINE_NAME: "yhwh",
+  ADDITIONAL_FEATURES: [
+    {
+      FEATURE: "syllable",
+      // if the syllable contains a qamets qatan character
+      HEBREW: /\u{05C7}/,
+      TRANSLITERATION: (syllable) => {
+        const next = syllable?.next?.value?.text;
+        // if the next syllable includes a hateph qamets, then replace the qamets qatan with a regular qamets
+        if (next && next.includes("\u05B3")) {
+          return syllable.text.replace("\u{05C7}", "\u{05B8}");
+        }
+        return syllable.text;
+      }
+    }
+  ],
+  longVowels: true,
+  qametsQatan: true,
+  sqnmlvy: true,
+  wawShureq: true,
+  article: true,
+  allowNoNiqqud: true,
+  strict: false,
+  holemHaser: "remove"
+};
