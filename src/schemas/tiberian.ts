@@ -4,7 +4,7 @@ export const tiberian: Schema = {
   VOCAL_SHEVA: "a",
   HATAF_SEGOL: "ɛ",
   HATAF_PATAH: "a",
-  HATAF_QAMATS: "o",
+  HATAF_QAMATS: "ɔ",
   HIRIQ: "i",
   TSERE: "e",
   SEGOL: "ɛ",
