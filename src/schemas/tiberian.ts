@@ -138,6 +138,18 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "syllable",
+      HEBREW: /^וּ(?![\u{05B4}-\u{05BB}])$/u,
+      TRANSLITERATION(syllable) {
+        // finds a vav with a dagesh not followed by a vowel (i.e. a shureq)
+        // if the syllable is the first syllable, replace with wuː
+        if (!syllable.prev) {
+          return syllable.text.replace("וּ", "wu");
+        }
+        return syllable.text;
+      }
+    },
+    {
+      FEATURE: "syllable",
       HEBREW: /[\u{05B4}-\u{05BB}]/u,
       TRANSLITERATION(syllable, _hebrew, _schema) {
         // this features matches any syllable that has a full vowel character (i.e. not sheva)
