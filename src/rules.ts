@@ -331,6 +331,27 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   return clusterText;
 };
 
+const copySyllable = (newText: string, old: Syllable) => {
+  const newClusters = newText.split(clusterSplitGroup).map((clusterString) => new Cluster(clusterString, true));
+  const oldClusters = old.clusters;
+
+  // TODO: this is possibly incomplete, but it works for now
+  // set the prev and next pointers on the first and last cluster respectively
+  newClusters[0].prev = oldClusters[0].prev;
+  newClusters[newClusters.length - 1].next = oldClusters[oldClusters.length - 1].next;
+
+  const newSyl = new Syllable(newClusters, {
+    isClosed: old.isClosed,
+    isAccented: old.isAccented,
+    isFinal: old.isFinal
+  });
+
+  newSyl.prev = old.prev;
+  newSyl.next = old.next;
+
+  return newSyl;
+};
+
 export const sylRules = (syl: Syllable, schema: Schema): string => {
   const sylTxt = syl.text.replace(taamim, "");
 
@@ -352,14 +373,10 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
           return transliteration(syl, seq.HEBREW, schema);
         }
         const newText = transliteration(syl, seq.HEBREW, schema);
+
+        // if the transliteration just returns the syllable.text, then no need to copy the syllable
         if (newText !== sylTxt) {
-          const clusterStrings = newText.split(clusterSplitGroup);
-          const newClusters = clusterStrings.map((clusterString) => new Cluster(clusterString, true));
-          syl = new Syllable(newClusters, {
-            isClosed: syl.isClosed,
-            isAccented: syl.isAccented,
-            isFinal: syl.isFinal
-          });
+          syl = copySyllable(newText, syl);
         }
       }
     } // end of seqs loop
