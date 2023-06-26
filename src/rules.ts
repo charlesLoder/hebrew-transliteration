@@ -129,7 +129,7 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
 
     // tsere
     if (/\u{05B5}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B5}/u, schema.SEGOL_HE);
+      return replaceWithRegex(noMaterText, /\u{05B5}/u, schema.TSERE_HE);
     }
   }
 
