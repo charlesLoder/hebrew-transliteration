@@ -1,6 +1,6 @@
 {
   "name": "hebrew-transliteration",
-  "version": "2.4.1-canary.0",
+  "version": "2.4.1-canary.1",
   "description": "a package for transliterating Hebrew",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
