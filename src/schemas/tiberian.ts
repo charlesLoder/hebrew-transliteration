@@ -70,7 +70,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "cluster",
       HEBREW: "\u{05D9}\u{05BC}",
-      TRANSLITERATION(cluster, hebrew, _schema) {
+      TRANSLITERATION(cluster, hebrew) {
         return cluster.text.replace(hebrew, "ɟɟ");
       }
     },
@@ -151,7 +151,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: /[\u{05B4}-\u{05BB}]/u,
-      TRANSLITERATION(syllable, _hebrew, _schema) {
+      TRANSLITERATION(syllable) {
         // this features matches any syllable that has a full vowel character (i.e. not sheva)
         const vowelName = syllable.vowelName;
         const vowel = syllable.vowel;
