@@ -402,7 +402,8 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
     return consonantFeatures(clusterText, syl, cluster, schema);
   });
 
-  return joinSyllableChars(syl, returnTxt, schema);
+  // there may be taamim still in the text, so remove them
+  return joinSyllableChars(syl, returnTxt, schema).replace(taamim, "");
 };
 
 export const wordRules = (word: Word, schema: Schema): string | Word => {
