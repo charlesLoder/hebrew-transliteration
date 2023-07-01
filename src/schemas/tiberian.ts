@@ -239,7 +239,8 @@ export const tiberian: Schema = {
   holemHaser: "remove",
   longVowels: false,
   qametsQatan: false,
-  sqnmlvy: true,
+  shevaAfterMeteg: false,
+  sqnmlvy: false,
   strict: true,
   wawShureq: false
 };
