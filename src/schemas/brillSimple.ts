@@ -66,6 +66,7 @@ export const brillSimple: Schema = {
   DIVINE_NAME: "yhwh",
   longVowels: true,
   qametsQatan: true,
+  shevaAfterMeteg: true,
   sqnmlvy: true,
   wawShureq: true,
   article: true,

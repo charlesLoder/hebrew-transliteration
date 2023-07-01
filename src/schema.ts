@@ -818,6 +818,7 @@ export class Schema implements SylOpts, SchemaVowels {
   holemHaser: SylOpts["holemHaser"];
   longVowels: SylOpts["longVowels"];
   qametsQatan: SylOpts["qametsQatan"];
+  shevaAfterMeteg: SylOpts["shevaAfterMeteg"];
   sqnmlvy: SylOpts["sqnmlvy"];
   strict: SylOpts["strict"];
   wawShureq: SylOpts["wawShureq"];
@@ -892,6 +893,7 @@ export class Schema implements SylOpts, SchemaVowels {
       (this.longVowels = schema.longVowels),
       (this.qametsQatan = schema.qametsQatan),
       (this.sqnmlvy = schema.sqnmlvy),
+      (this.shevaAfterMeteg = schema.shevaAfterMeteg),
       (this.wawShureq = schema.wawShureq),
       (this.article = schema.article),
       (this.allowNoNiqqud = schema.allowNoNiqqud),
@@ -972,6 +974,7 @@ export class SBL extends Schema {
       STRESS_MARKER: schema.STRESS_MARKER ?? undefined,
       longVowels: schema.longVowels ?? true,
       qametsQatan: schema.qametsQatan ?? true,
+      shevaAfterMeteg: schema.shevaAfterMeteg ?? true,
       sqnmlvy: schema.sqnmlvy ?? true,
       wawShureq: schema.wawShureq ?? true,
       article: schema.article ?? true,

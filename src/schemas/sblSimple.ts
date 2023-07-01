@@ -74,6 +74,7 @@ export const sblSimple: Schema = {
     }
   ],
   longVowels: true,
+  shevaAfterMeteg: true,
   sqnmlvy: true,
   qametsQatan: true,
   wawShureq: true,

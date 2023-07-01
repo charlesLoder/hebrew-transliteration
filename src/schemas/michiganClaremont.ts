@@ -60,6 +60,7 @@ export const michiganClaremont: Schema = {
   DIVINE_NAME: "YHWH",
   longVowels: true,
   qametsQatan: false,
+  shevaAfterMeteg: true,
   sqnmlvy: false,
   wawShureq: true,
   article: false,

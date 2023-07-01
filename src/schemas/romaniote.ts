@@ -166,6 +166,7 @@ export const romaniote: Schema = {
     exclude: "single"
   },
   longVowels: true,
+  shevaAfterMeteg: true,
   sqnmlvy: true,
   qametsQatan: true,
   wawShureq: true,
