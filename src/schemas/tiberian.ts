@@ -199,7 +199,8 @@ export const tiberian: Schema = {
         // there is evidence that an epenthetic with the same quality as that of the long vowel
         // occurred before the final consonant in its phonetic realization"
         if (isAccented && isClosed) {
-          return noMaterText.replace(vowel, `${vowel + lengthMarker + schema["SYLLABLE_SEPARATOR"] + vowel}`);
+          const syllableSeparator = schema["SYLLABLE_SEPARATOR"] || "";
+          return noMaterText.replace(vowel, `${vowel + lengthMarker + syllableSeparator + vowel}`);
         }
 
         // TPT §1.2.2.1 p268
