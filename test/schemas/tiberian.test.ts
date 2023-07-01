@@ -73,8 +73,8 @@ describe("consonant features", () => {
       ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}      | ${"ˈboːsɛʀ̟"}
       ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"}    | ${"masˈgeːeʀ̟"}
       ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnaˈzɔːɔʀ̟"}
-      ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"maˈggɔːɔl"}
-      ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maˈʃʃɔː"}
+      ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"magˈgɔːɔl"}
+      ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maʃˈʃɔː"}
       ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔːˈʀ̟oːon"}
       ${"yod with dagesh"}                 | ${"וַיִּלָּפֵ֑ת"} | ${"vaɟɟillɔːˈfeːeθ"}
     `("$description", (inputs: Inputs) => {
