@@ -14,6 +14,7 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
   const options: SylOpts = {};
   if ("longVowels" in schema) options.longVowels = schema.longVowels;
   if ("qametsQatan" in schema) options.qametsQatan = schema.qametsQatan;
+  if ("sqnmlvy" in schema) options.shevaAfterMeteg = schema.shevaAfterMeteg;
   if ("sqnmlvy" in schema) options.sqnmlvy = schema.sqnmlvy;
   if ("wawShureq" in schema) options.wawShureq = schema.wawShureq;
   if ("article" in schema) options.article = schema.article;
