@@ -86,7 +86,8 @@ export const tiberian: Schema = {
       TRANSLITERATION: (syllable, _hebrew, schema) => {
         // furtive patach before het preceded by vav or yod
         const prevText = syllable.prev?.value?.text || "";
-
+        // see Khan 497-98 for examples involving length and the meteg
+        // make sure to adjust other rules
         if (syllable.isFinal && prevText) {
           if (/[יו]/.test(prevText)) {
             const glide = /ו/.test(prevText) ? "w" : "j";
@@ -151,7 +152,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: /[\u{05B4}-\u{05BB}]/u,
-      TRANSLITERATION(syllable) {
+      TRANSLITERATION(syllable, _, schema) {
         // this features matches any syllable that has a full vowel character (i.e. not sheva)
         const vowelName = syllable.vowelName;
         const vowel = syllable.vowel;
@@ -179,9 +180,18 @@ export const tiberian: Schema = {
           .replace(/(\u{05B9}.{1})\u{05D4}(?!\u{05BC})/u, "$1");
 
         const hasMaters = syllable.clusters.map((c) => c.isMater).includes(true);
+
+        // See TPT §1.2.10 concering meteg/gaya
+        const hasMeteg = syllable.clusters.map((c) => c.hasMeteg).includes(true);
+        if (hasMeteg) {
+          // when a meteg is present, the syllable implicitly has secondary stress
+          // and the vowel is extended
+          const firstConsonant = noMaterText[0];
+          return noMaterText.replace(firstConsonant, `ˌ${firstConsonant}`).replace(vowel, `${vowel}ˑ`);
+        }
+
         const isClosed = syllable.isClosed;
         const isAccented = syllable.isAccented;
-        const halfLengthMarker = "ˑ";
         const lengthMarker = "ː";
 
         // TPT §1.2.4, p288
@@ -189,15 +199,14 @@ export const tiberian: Schema = {
         // there is evidence that an epenthetic with the same quality as that of the long vowel
         // occurred before the final consonant in its phonetic realization"
         if (isAccented && isClosed) {
-          return noMaterText.replace(vowel, `${vowel + lengthMarker + vowel}`);
+          return noMaterText.replace(vowel, `${vowel + lengthMarker + schema["SYLLABLE_SEPARATOR"] + vowel}`);
         }
 
         // TPT §1.2.2.1 p268
         // Vowels represented by basic vowel signs are long when they are either
         // (i) in a stressed syllable or (ii) in an unstressed open syllable.
         if (isAccented || (!isAccented && !isClosed)) {
-          const hasMeteg = syllable.clusters.map((c) => c.hasMeteg).includes(true);
-          return noMaterText.replace(vowel, `${vowel + (hasMeteg ? halfLengthMarker : lengthMarker)}`);
+          return noMaterText.replace(vowel, `${vowel + lengthMarker}`);
         }
 
         if (!hasMaters && !isClosed && !isAccented) {
