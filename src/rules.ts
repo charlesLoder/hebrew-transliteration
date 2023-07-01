@@ -161,6 +161,13 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
     const location = schema.STRESS_MARKER.location;
     const mark = schema.STRESS_MARKER.mark;
     if (location === "before-syllable") {
+      const isDoubled = syl.clusters.map((c) => isDageshChazaq(c.text, c, schema)).includes(true);
+      if (isDoubled) {
+        const chars = sylChars.map(mapChars(schema)).join("");
+        const [first, ...rest] = chars;
+        return `${first}${mark}${rest.join("")}`;
+      }
+
       return `${mark}${sylChars.map(mapChars(schema)).join("")}`;
     }
 
