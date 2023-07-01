@@ -51,6 +51,12 @@ export const replaceAndTransliterate = (input: string, regex: RegExp, replaceVal
   return [...sylSeq].map(mapChars(schema)).join("");
 };
 
+const isDageshChazaq = (text: string, cluster: Cluster, schema: Schema) => {
+  const prevHasVowel = cluster.prev instanceof Cluster ? cluster.prev.hasVowel : false;
+  const dageshChazaq = schema.DAGESH_CHAZAQ;
+  return (dageshChazaq && prevHasVowel && /\u{05BC}/u.test(text)) || false;
+};
+
 const getDageshChazaqVal = (input: string, dagesh: Schema["DAGESH_CHAZAQ"], isChazaq: boolean) => {
   if (!isChazaq) {
     return input;
@@ -242,15 +248,13 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   }
 
   // dagesh chazaq
-  const prevHasVowel = cluster.prev instanceof Cluster ? cluster.prev.hasVowel : false;
-  const dageshChazaq = schema.DAGESH_CHAZAQ;
-  const isDageshChazq = (dageshChazaq && prevHasVowel && /\u{05BC}/u.test(clusterText)) || false;
+  const isDageshChazq = isDageshChazaq(clusterText, cluster, schema);
 
   if (schema.BET_DAGESH && /ב\u{05BC}/u.test(clusterText)) {
     return replaceWithRegex(
       clusterText,
       /ב\u{05BC}/u,
-      getDageshChazaqVal(schema.BET_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.BET_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -258,7 +262,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /ג\u{05BC}/u,
-      getDageshChazaqVal(schema.GIMEL_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.GIMEL_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -266,7 +270,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /ד\u{05BC}/u,
-      getDageshChazaqVal(schema.DALET_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.DALET_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -274,7 +278,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /כ\u{05BC}/u,
-      getDageshChazaqVal(schema.KAF_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.KAF_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -282,7 +286,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /ך\u{05BC}/u,
-      getDageshChazaqVal(schema.KAF_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.KAF_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -290,7 +294,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /פ\u{05BC}/u,
-      getDageshChazaqVal(schema.PE_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.PE_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -298,12 +302,16 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /ת\u{05BC}/u,
-      getDageshChazaqVal(schema.TAV_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.TAV_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
   if (/ש\u{05C1}/u.test(clusterText)) {
-    return replaceWithRegex(clusterText, /ש\u{05C1}/u, getDageshChazaqVal(schema.SHIN, dageshChazaq, isDageshChazq));
+    return replaceWithRegex(
+      clusterText,
+      /ש\u{05C1}/u,
+      getDageshChazaqVal(schema.SHIN, schema.DAGESH_CHAZAQ, isDageshChazq)
+    );
   }
 
   if (/ש\u{05C2}/u.test(clusterText)) {
