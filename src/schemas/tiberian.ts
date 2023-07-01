@@ -181,6 +181,7 @@ export const tiberian: Schema = {
         const hasMaters = syllable.clusters.map((c) => c.isMater).includes(true);
         const isClosed = syllable.isClosed;
         const isAccented = syllable.isAccented;
+        const halfLengthMarker = "ˑ";
         const lengthMarker = "ː";
 
         // TPT §1.2.4, p288
@@ -195,7 +196,8 @@ export const tiberian: Schema = {
         // Vowels represented by basic vowel signs are long when they are either
         // (i) in a stressed syllable or (ii) in an unstressed open syllable.
         if (isAccented || (!isAccented && !isClosed)) {
-          return noMaterText.replace(vowel, `${vowel + lengthMarker}`);
+          const hasMeteg = syllable.clusters.map((c) => c.hasMeteg).includes(true);
+          return noMaterText.replace(vowel, `${vowel + (hasMeteg ? halfLengthMarker : lengthMarker)}`);
         }
 
         if (!hasMaters && !isClosed && !isAccented) {
