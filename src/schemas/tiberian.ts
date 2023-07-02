@@ -180,19 +180,23 @@ export const tiberian: Schema = {
           .replace(/(\u{05B9}.{1})\u{05D4}(?!\u{05BC})/u, "$1");
 
         const hasMaters = syllable.clusters.map((c) => c.isMater).includes(true);
+        const lengthMarker = "ː";
+        const halfLengthMarker = "ˑ";
 
         // See TPT §1.2.10 concering meteg/gaya
         const hasMeteg = syllable.clusters.map((c) => c.hasMeteg).includes(true);
         if (hasMeteg) {
+          const hasLongVowel = syllable.clusters.map((c) => c.hasLongVowel).includes(true);
           // when a meteg is present, the syllable implicitly has secondary stress
-          // and the vowel is extended
+          // and the vowel is extended if it is not already long
           const firstConsonant = noMaterText[0];
-          return noMaterText.replace(firstConsonant, `ˌ${firstConsonant}`).replace(vowel, `${vowel}ˑ`);
+          return noMaterText
+            .replace(firstConsonant, `ˌ${firstConsonant}`)
+            .replace(vowel, `${vowel}${hasLongVowel ? lengthMarker : halfLengthMarker}`);
         }
 
         const isClosed = syllable.isClosed;
         const isAccented = syllable.isAccented;
-        const lengthMarker = "ː";
 
         // TPT §1.2.4, p288
         // When long vowels with the main stress occur in closed syllables,
