@@ -127,6 +127,7 @@ describe("mater features", () => {
       ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}        | ${"ʕɔːˈvoːon"}
       ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵ֑ינוּ"} | ${"ʕavoːnoːˈθeːnuː"}
       ${"initial shureq"}                                                    | ${"וּמִן"}          | ${"wumin"}
+      ${"initial shureq in closed syllable"}                                 | ${"וּלְמִקְוֵ֥ה"}   | ${"wulmiq̟ˈveː"}
       ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}       | ${"biːtˁoːn"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
