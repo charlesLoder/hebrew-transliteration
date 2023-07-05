@@ -170,13 +170,15 @@ describe("divine name", () => {
   });
 });
 
-describe("qamets qatan", () => {
-  test.each`
-    description            | hebrew           | transliteration
-    ${"standard"}          | ${"כָּל־הָעָ֖ם"} | ${"kʰɔl-hɔːˈʕɔːɔm"}
-    ${"with hatef qamets"} | ${"נָעֳמִי֙"}    | ${"nɔːʕɔˈmiː"}
-  `("$description", (inputs: Inputs) => {
-    const { hebrew, transliteration } = inputs;
-    expect(transliterate(hebrew, schema)).toBe(transliteration);
+describe("vowel features", () => {
+  describe("qamets qatan", () => {
+    test.each`
+      description            | hebrew           | transliteration
+      ${"standard"}          | ${"כָּל־הָעָ֖ם"} | ${"kʰɔl-hɔːˈʕɔːɔm"}
+      ${"with hatef qamets"} | ${"נָעֳמִי֙"}    | ${"nɔːʕɔˈmiː"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    });
   });
 });
