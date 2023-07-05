@@ -70,12 +70,12 @@ describe("consonant features", () => {
   describe("dagesh", () => {
     test.each`
       description                          | hebrew            | transliteration
-      ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}      | ${"ˈboːsɛʀ̟"}
+      ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}      | ${"ˈboːsɛrˁ"}
       ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"}    | ${"masˈgeːeʀ̟"}
       ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnaˈzɔːɔʀ̟"}
       ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"magˈgɔːɔl"}
       ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maʃˈʃɔː"}
-      ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔːˈʀ̟oːon"}
+      ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔːˈrˁoːon"}
       ${"yod with dagesh"}                 | ${"וַיִּלָּפֵ֑ת"} | ${"vaɟɟillɔːˈfeːeθ"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
@@ -92,6 +92,16 @@ describe("consonant features", () => {
       ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔːˈtˁaːaltʰ"}
       ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"haːjoˈʔoːoʀ̟"}
       ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazziː"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    });
+  });
+
+  describe("resh", () => {
+    test.each`
+      description         | hebrew           | transliteration
+      ${"pharyngealized"} | ${"בְּמִזְרֶ֖ה"} | ${"bamizˈrˁɛː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
