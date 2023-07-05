@@ -76,6 +76,41 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "cluster",
+      HEBREW: /ר/u,
+      TRANSLITERATION(cluster) {
+        const prev = cluster.prev?.value;
+        // if no previous, exit early
+        if (!prev) {
+          return cluster.text;
+        }
+
+        const alveolars = /[דזצתטסלנ]/;
+
+        // (i) Resh is in immediate contact with a preceding alveolar
+        // and
+        // (ii) Resh is in the same syllable, or at least the same foot, as a preceding alveolar
+        if (alveolars.test(prev.text)) {
+          return cluster.text.replace("ר", "rˁ");
+        }
+
+        const next = cluster.next?.value;
+        // if no next, exit early
+        if (!next) {
+          return cluster.text;
+        }
+
+        const lamedAndNun = /[לנן]/;
+        // (iii) Resh is in immediate contact with or in the same syllable, or at least in the same foot, as a following ל or ן,
+        if (lamedAndNun.test(next.text)) {
+          return cluster.text.replace("ר", "rˁ");
+        }
+
+        // default
+        return cluster.text;
+      }
+    },
+    {
+      FEATURE: "cluster",
       HEBREW: "\u{05D0}(?![\u{05B1}-\u{05BB}\u{05C7}])",
       TRANSLITERATION: ""
     },
