@@ -107,6 +107,16 @@ describe("consonant features", () => {
       expect(transliterate(hebrew, schema)).toBe(transliteration);
     });
   });
+
+  describe("tav", () => {
+    test.each`
+      description  | hebrew         | transliteration
+      ${"doubled"} | ${"מִתַּ֤חַת"} | ${"mitˈtʰaːħaθ"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    });
+  });
 });
 
 describe("mater features", () => {
