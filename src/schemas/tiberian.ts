@@ -76,6 +76,16 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "cluster",
+      HEBREW: /תּ[\u{05B4}-\u{05BB}]/u,
+      TRANSLITERATION(cluster) {
+        if (!cluster.prev) {
+          return cluster.text;
+        }
+        return cluster.text.replace("תּ", "ttʰ");
+      }
+    },
+    {
+      FEATURE: "cluster",
       HEBREW: /ר/u,
       TRANSLITERATION(cluster) {
         const prev = cluster.prev?.value;
