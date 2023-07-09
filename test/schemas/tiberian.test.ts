@@ -101,6 +101,7 @@ describe("consonant features", () => {
   describe("resh", () => {
     test.each`
       description         | hebrew           | transliteration
+      ${"basic"} | ${"דָּבָ֫ר"} | ${"dɔːˈvɔːɔʀ̟"}
       ${"pharyngealized"} | ${"בְּמִזְרֶ֖ה"} | ${"bamizˈrˁɛː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
