@@ -75,7 +75,7 @@ describe("consonant features", () => {
       ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnaˈzɔːɔrˁ"}
       ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"magˈgɔːɔl"}
       ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maʃˈʃɔː"}
-      ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔːˈrˁoːon"}
+      ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔːˈʀ̟oːon"}
       ${"yod with dagesh"}                 | ${"וַיִּלָּפֵ֑ת"} | ${"vaɟɟillɔːˈfeːeθ"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
