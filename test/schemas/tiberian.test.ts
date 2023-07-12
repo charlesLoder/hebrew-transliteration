@@ -100,9 +100,16 @@ describe("consonant features", () => {
 
   describe("resh", () => {
     test.each`
-      description         | hebrew           | transliteration
-      ${"basic"} | ${"דָּבָ֫ר"} | ${"dɔːˈvɔːɔʀ̟"}
-      ${"pharyngealized"} | ${"בְּמִזְרֶ֖ה"} | ${"bamizˈrˁɛː"}
+      description                                                                            | hebrew             | transliteration
+      ${"basic"}                                                                             | ${"דָּבָ֫ר"}       | ${"dɔːˈvɔːɔʀ̟"}
+      ${"pharyngealized, immediate contact with a preceding alveolar in different syllable"} | ${"בְּמִזְרֶ֖ה"}   | ${"bamizˈrˁɛː"}
+      ${"pharyngealized, in the same syllable, as a preceding alveolar"}                     | ${"דַּרְכּ֖וֹ"}    | ${"dɑrˁˈkʰoː"}
+      ${"regular, in a different syllable, than a preceding alveolar"}                       | ${"לָֽרָקִ֖יעַ"}   | ${"ˌlɔːʀ̟ɔːˈq̟iːjaʕ"}
+      ${"pharyngealized, in the same foot, as a preceding alveolar"}                         | ${"צְרוּפָ֔ה"}     | ${"sˁɑrˁuːˈfɔː"}
+      ${"pharyngealized, immediate contact with a following lamed or nun"}                   | ${"עַרְלֵי־לֵֽב׃"} | ${"ʕɑrˁleː-ˈleːev"}
+      ${"pharyngealized, in the same foot with following a lamed or nun"}                    | ${"רְנָנָ֣ה"}      | ${"rˁɑnɔːˈnɔː"}
+      ${"regular, in a different syllable with following a lamed or nun"}                    | ${"עֲרֵלִ֖ים"}     | ${"ʕɑʀ̟eːˈliːim"}
+      ${"pharyngealized, with a sin"}                                                        | ${"שַׂר"}          | ${"sɑrˁ"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
