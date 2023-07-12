@@ -88,31 +88,32 @@ export const tiberian: Schema = {
       FEATURE: "cluster",
       HEBREW: /ר/u,
       TRANSLITERATION(cluster) {
-        const prev = cluster.prev?.value;
-        // if no previous, exit early
-        if (!prev) {
-          return cluster.text;
+        // see TPT 229 for a summary if the pharyngealized resh
+        const alveolars = /[דזצתטסלנ]|שׂ/;
+        const prevCluster = cluster.prev?.value;
+        const currentSyllable = cluster?.syllable;
+        const [onset, _, coda] = currentSyllable ? currentSyllable.structure(true) : ["", "", ""];
+
+        if (prevCluster && alveolars.test(prevCluster.text)) {
+          if (onset.includes("ר") && !prevCluster.hasVowel) {
+            return cluster.text.replace("ר", "rˁ");
+          }
+
+          if (coda.includes("ר") && prevCluster.hasVowel) {
+            return cluster.text.replace("ר", "rˁ");
+          }
         }
 
-        const alveolars = /[דזצתטסלנ]/;
-
-        // (i) Resh is in immediate contact with a preceding alveolar
-        // and
-        // (ii) Resh is in the same syllable, or at least the same foot, as a preceding alveolar
-        if (alveolars.test(prev.text)) {
-          return cluster.text.replace("ר", "rˁ");
-        }
-
-        const next = cluster.next?.value;
-        // if no next, exit early
-        if (!next) {
-          return cluster.text;
-        }
-
+        const nextCluster = cluster.next?.value;
         const lamedAndNun = /[לנן]/;
-        // (iii) Resh is in immediate contact with or in the same syllable, or at least in the same foot, as a following ל or ן,
-        if (lamedAndNun.test(next.text)) {
-          return cluster.text.replace("ר", "rˁ");
+        if (nextCluster && lamedAndNun.test(nextCluster.text)) {
+          if (onset.includes("ר") && !cluster.hasVowel) {
+            return cluster.text.replace("ר", "rˁ");
+          }
+
+          if (coda.includes("ר") && cluster.hasSheva) {
+            return cluster.text.replace("ר", "rˁ");
+          }
         }
 
         // default
@@ -201,7 +202,9 @@ export const tiberian: Schema = {
       TRANSLITERATION(syllable, _, schema) {
         // this features matches any syllable that has a full vowel character (i.e. not sheva)
         const vowelName = syllable.vowelName;
-        const vowel = syllable.vowel;
+
+        // somewhere in here, adjust the value of a patach
+        let vowel = syllable.vowel;
 
         if (!vowel || !vowelName) {
           return syllable.text;
