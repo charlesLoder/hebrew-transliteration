@@ -350,16 +350,16 @@ const copySyllable = (newText: string, old: Syllable) => {
   const newClusters = newText.split(clusterSplitGroup).map((clusterString) => new Cluster(clusterString, true));
   const oldClusters = old.clusters;
 
-  // TODO: this is possibly incomplete, but it works for now
-  // set the prev and next pointers on the first and last cluster respectively
-  newClusters[0].prev = oldClusters[0].prev;
-  newClusters[newClusters.length - 1].next = oldClusters[oldClusters.length - 1].next;
+  // set prev and next based on old syllable
+  newClusters.forEach((c, i) => ((c.prev = oldClusters[i]?.prev ?? null), (c.next = oldClusters[i]?.next ?? null)));
 
   const newSyl = new Syllable(newClusters, {
     isClosed: old.isClosed,
     isAccented: old.isAccented,
     isFinal: old.isFinal
   });
+
+  newClusters.forEach((c) => (c.syllable = newSyl));
 
   newSyl.prev = old.prev;
   newSyl.next = old.next;
