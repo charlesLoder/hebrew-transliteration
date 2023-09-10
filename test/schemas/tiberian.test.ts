@@ -89,7 +89,7 @@ describe("consonant features", () => {
       ${"vocal shewa"}                         | ${"סְלִ֣ק"}         | ${"saˈliːiq̟"}
       ${"silent shewa"}                        | ${"סַלְכָ֣ה"}       | ${"salˈχɔː"}
       ${"final shewa"}                         | ${"כָּ֣ךְ"}         | ${"ˈkʰɔːɔχ"}
-      ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔːˈtˁaːaltʰ"}
+      ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔːˈtˁɑːɑltʰ"}
       ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"haːjoˈʔoːoʀ̟"}
       ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazziː"}
     `("$description", (inputs: Inputs) => {
@@ -108,7 +108,7 @@ describe("consonant features", () => {
       ${"pharyngealized, in the same foot, as a preceding alveolar"}                         | ${"צְרוּפָ֔ה"}     | ${"sˁɑrˁuːˈfɔː"}
       ${"pharyngealized, immediate contact with a following lamed or nun"}                   | ${"עַרְלֵי־לֵֽב׃"} | ${"ʕɑrˁleː-ˈleːev"}
       ${"pharyngealized, in the same foot with following a lamed or nun"}                    | ${"רְנָנָ֣ה"}      | ${"rˁɑnɔːˈnɔː"}
-      ${"regular, in a different syllable with following a lamed or nun"}                    | ${"עֲרֵלִ֖ים"}     | ${"ʕɑʀ̟eːˈliːim"}
+      ${"regular, in a different syllable with following a lamed or nun"}                    | ${"עֲרֵלִ֖ים"}     | ${"ʕaʀ̟eːˈliːim"}
       ${"pharyngealized, with a sin"}                                                        | ${"שַׂר"}          | ${"sɑrˁ"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
