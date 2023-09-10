@@ -215,9 +215,7 @@ export const tiberian: Schema = {
       TRANSLITERATION(syllable, _, schema) {
         // this features matches any syllable that has a full vowel character (i.e. not sheva)
         const vowelName = syllable.vowelName;
-
-        // somewhere in here, adjust the value of a patach
-        let vowel = syllable.vowel;
+        const vowel = syllable.vowel;
 
         if (!vowel || !vowelName) {
           return syllable.text;
@@ -231,6 +229,37 @@ export const tiberian: Schema = {
         const hasHalfVowel = syllable.clusters.map((c) => c.hasHalfVowel).includes(true);
         if (hasHalfVowel) {
           throw new Error(`Syllable ${syllable.text} has a hataf as vowel, should not have matched`);
+        }
+
+        const [onset, _nuclues, coda] = syllable.structure(true);
+        /**
+         * Determines the realization of a patach
+         *
+         * @param vowelChar the hebrew vowel character
+         * @returns the backrounded patch realization of the vowel or the original vowel if not patach
+         */
+        function determinePatachRealization(vowelChar: string) {
+          // see comment for explanation: https://github.com/charlesLoder/hebrew-transliteration/issues/45#issuecomment-1712186201
+          // exit early if not patach
+          if (vowelName !== "PATAH" && vowelName !== "HATAF_PATAH") {
+            return vowelChar;
+          }
+
+          // by this point, the resh has already been pharyngealized in the transliteration
+          const pharyngealized = /rˁ|ט|צ|ץ/;
+          if (pharyngealized.test(onset) || pharyngealized.test(coda)) {
+            return "ɑ";
+          }
+
+          const nextSyllable = syllable.next?.value;
+          if (!nextSyllable) return vowelChar;
+
+          const nextOnset = nextSyllable.onset;
+          if (pharyngealized.test(nextOnset)) {
+            return "ɑ";
+          }
+
+          return vowelChar;
         }
 
         const noMaterText = syllable.clusters
@@ -254,7 +283,7 @@ export const tiberian: Schema = {
           const firstConsonant = noMaterText[0];
           return noMaterText
             .replace(firstConsonant, `ˌ${firstConsonant}`)
-            .replace(vowel, `${vowel}${hasLongVowel ? lengthMarker : halfLengthMarker}`);
+            .replace(vowel, `${determinePatachRealization(vowel)}${hasLongVowel ? lengthMarker : halfLengthMarker}`);
         }
 
         const isClosed = syllable.isClosed;
@@ -266,21 +295,25 @@ export const tiberian: Schema = {
         // occurred before the final consonant in its phonetic realization"
         if (isAccented && isClosed) {
           const syllableSeparator = schema["SYLLABLE_SEPARATOR"] || "";
-          return noMaterText.replace(vowel, `${vowel + lengthMarker + syllableSeparator + vowel}`);
+          const vowelRealization = determinePatachRealization(vowel);
+          return noMaterText.replace(
+            vowel,
+            `${vowelRealization + lengthMarker + syllableSeparator + vowelRealization}`
+          );
         }
 
         // TPT §1.2.2.1 p268
         // Vowels represented by basic vowel signs are long when they are either
         // (i) in a stressed syllable or (ii) in an unstressed open syllable.
         if (isAccented || (!isAccented && !isClosed)) {
-          return noMaterText.replace(vowel, `${vowel + lengthMarker}`);
+          return noMaterText.replace(vowel, `${determinePatachRealization(vowel) + lengthMarker}`);
         }
 
         if (!hasMaters && !isClosed && !isAccented) {
-          return noMaterText.replace(vowel, `${vowel}`);
+          return noMaterText.replace(vowel, `${determinePatachRealization(vowel)}`);
         }
 
-        return syllable.text;
+        return syllable.text.replace(vowel, `${determinePatachRealization(vowel)}`);
       }
     },
     {
