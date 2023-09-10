@@ -318,17 +318,43 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "syllable",
-      HEBREW: /(?<!.*[\u{05B4}-\u{05BB}].*)\u{05B0}/u,
+      HEBREW: /(?<!.*([\u{05B4}-\u{05BB}]|\u{05D5}\u{05BC}).*)\u{05B0}/u,
       TRANSLITERATION(syllable, _hebrew, schema) {
-        // matches any syllable that contains a sheva that is not preceded by a full vowel character
+        // matches any syllable that contains a sheva that is not preceded by a full vowel character [\u{05B4}-\u{05BB}]
+        // or shureq \u{5D5}\u{5BC}
         const nextSyllable = syllable.next?.value;
         if (!nextSyllable) return syllable.text;
 
         const nextSylFirstCluster = nextSyllable.clusters[0].text;
         if (!nextSylFirstCluster) return syllable.text;
 
+        const [onset, _, coda] = syllable.structure(true);
+
+        function isBackRounded() {
+          // see comment for explanation: https://github.com/charlesLoder/hebrew-transliteration/issues/45#issuecomment-1712186201
+          // by this point, the resh has already been pharyngealized in the transliteration
+          const pharyngealized = /rˁ|ט|צ|ץ/;
+          if (pharyngealized.test(onset) || pharyngealized.test(coda)) {
+            return true;
+          }
+
+          const nextSyllable = syllable.next?.value;
+          if (!nextSyllable) {
+            return false;
+          }
+
+          const nextOnset = nextSyllable.onset;
+          if (pharyngealized.test(nextOnset)) {
+            return true;
+          }
+
+          return false;
+        }
+
         const isGuttural = /[אהחע]/.test(nextSylFirstCluster);
-        if (!isGuttural) return syllable.text;
+        if (!isGuttural) {
+          return syllable.text.replace(/\u{05B0}/u, isBackRounded() ? "ɑ" : schema["PATAH"]);
+        }
 
         const nextVowel = nextSyllable.vowelName;
         if (!nextVowel)
