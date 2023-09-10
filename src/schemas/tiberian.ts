@@ -85,22 +85,25 @@ export const tiberian: Schema = {
       }
     },
     {
-      FEATURE: "cluster",
+      FEATURE: "syllable",
       HEBREW: /ר/u,
-      TRANSLITERATION(cluster) {
+      TRANSLITERATION(syllable) {
         // see TPT 229 for a summary if the pharyngealized resh
         const alveolars = /[דזצתטסלנ]|שׂ/;
+
+        // find cluster containing resh
+        const cluster = syllable.clusters.filter((c) => c.text.includes("ר"))[0];
         const prevCluster = cluster.prev?.value;
         const currentSyllable = cluster?.syllable;
         const [onset, _, coda] = currentSyllable ? currentSyllable.structure(true) : ["", "", ""];
 
         if (prevCluster && alveolars.test(prevCluster.text)) {
           if (onset.includes("ר") && !prevCluster.hasVowel) {
-            return cluster.text.replace("ר", "rˁ");
+            return syllable.text.replace("ר", "rˁ");
           }
 
           if (coda.includes("ר") && prevCluster.hasVowel) {
-            return cluster.text.replace("ר", "rˁ");
+            return syllable.text.replace("ר", "rˁ");
           }
         }
 
@@ -108,16 +111,16 @@ export const tiberian: Schema = {
         const lamedAndNun = /[לנן]/;
         if (nextCluster && lamedAndNun.test(nextCluster.text)) {
           if (onset.includes("ר") && !cluster.hasVowel) {
-            return cluster.text.replace("ר", "rˁ");
+            return syllable.text.replace("ר", "rˁ");
           }
 
           if (coda.includes("ר") && cluster.hasSheva) {
-            return cluster.text.replace("ר", "rˁ");
+            return syllable.text.replace("ר", "rˁ");
           }
         }
 
         // default
-        return cluster.text;
+        return syllable.text;
       }
     },
     {
