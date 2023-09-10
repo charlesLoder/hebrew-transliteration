@@ -85,6 +85,16 @@ export const tiberian: Schema = {
       }
     },
     {
+      FEATURE: "cluster",
+      HEBREW: /פּּ[\u{05B4}-\u{05BB}]/u,
+      TRANSLITERATION(cluster) {
+        if (!cluster.prev) {
+          return cluster.text;
+        }
+        return cluster.text.replace("פּ", "ppʰ");
+      }
+    },
+    {
       FEATURE: "syllable",
       HEBREW: /ר/u,
       TRANSLITERATION(syllable) {
