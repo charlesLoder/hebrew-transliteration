@@ -95,6 +95,11 @@ export const tiberian: Schema = {
       }
     },
     {
+      FEATURE: "cluster",
+      HEBREW: "\u{05D0}(?![\u{05B1}-\u{05BB}\u{05C7}])",
+      TRANSLITERATION: ""
+    },
+    {
       FEATURE: "syllable",
       HEBREW: /ר/u,
       TRANSLITERATION(syllable) {
@@ -132,11 +137,6 @@ export const tiberian: Schema = {
         // default
         return syllable.text;
       }
-    },
-    {
-      FEATURE: "cluster",
-      HEBREW: "\u{05D0}(?![\u{05B1}-\u{05BB}\u{05C7}])",
-      TRANSLITERATION: ""
     },
     {
       FEATURE: "syllable",
