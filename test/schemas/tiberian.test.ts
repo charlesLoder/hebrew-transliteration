@@ -118,8 +118,13 @@ describe("consonant features", () => {
 
   describe("doubled", () => {
     test.each`
-      description | hebrew         | transliteration
-      ${"tav"}    | ${"מִתַּ֤חַת"} | ${"mitˈtʰaːħaθ"}
+      description | hebrew            | transliteration
+      ${"bet"}    | ${"לְאַבֵּ֔ד"}    | ${"laʔabˈbeːeð"}
+      ${"gimel"}  | ${"מְנַגֵּ֩חַ֩"}  | ${"managˈgeːaħ"}
+      ${"dalet"}  | ${"אַדִּ֖יר"}     | ${"ʔadˈdiːiʀ̟"}
+      ${"kaf"}    | ${"מְבַכּ֖וֹת"}   | ${"mavakˈkʰoːoθ"}
+      ${"peh"}    | ${"קִפַּ֨דְתִּי"} | ${"q̟ipˈpʰaːaðttʰiː"}
+      ${"tav"}    | ${"מִתַּ֤חַת"}    | ${"mitˈtʰaːħaθ"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
