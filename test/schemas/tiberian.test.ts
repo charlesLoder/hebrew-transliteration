@@ -186,7 +186,7 @@ describe("divine name", () => {
     description                    | hebrew           | transliteration
     ${"by itself"}                 | ${"יְהוָ֥ה"}     | ${"ʔaðoːˈnɔːj"}
     ${"with a maqqef"}             | ${"אֶת־יְהוָ֤ה"} | ${"ʔɛθ-ʔaðoːˈnɔːj"}
-    ${"with a preposition"}        | ${"בַּֽיהוָ֔ה"}  | ${"baː-ʔaðoːˈnɔːj"}
+    ${"with a preposition"}        | ${"בַּֽיהוָ֔ה"}  | ${"ˌbaˑ-ʔaðoːˈnɔːj"}
     ${"with latin char following"} | ${"יְהוָ֥ה,"}    | ${"ʔaðoːˈnɔːj,"}
     ${"pointed as elohim"}         | ${"יֱהוִה֙"}     | ${"ʔɛloːˈhiːim"}
   `("$description", (inputs: Inputs) => {
