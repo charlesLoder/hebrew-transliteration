@@ -116,15 +116,27 @@ describe("consonant features", () => {
     });
   });
 
-  describe("doubled", () => {
+  describe("begadkephat", () => {
     test.each`
-      description | hebrew            | transliteration
-      ${"bet"}    | ${"לְאַבֵּ֔ד"}    | ${"laʔabˈbeːeð"}
-      ${"gimel"}  | ${"מְנַגֵּ֩חַ֩"}  | ${"managˈgeːaħ"}
-      ${"dalet"}  | ${"אַדִּ֖יר"}     | ${"ʔadˈdiːiʀ̟"}
-      ${"kaf"}    | ${"מְבַכּ֖וֹת"}   | ${"mavakˈkʰoːoθ"}
-      ${"peh"}    | ${"קִפַּ֨דְתִּי"} | ${"q̟ipˈpʰaːaðttʰiː"}
-      ${"tav"}    | ${"מִתַּ֤חַת"}    | ${"mitˈtʰaːħaθ"}
+      description                   | hebrew           | transliteration
+      ${"bet dagesh chazaq"}        | ${"לְאַבֵּ֔ד"}   | ${"laʔabˈbeːeð"}
+      ${"bet dagesh qal initial"}   | ${"בָּח֥וּר"}    | ${"bɔːˈħuːʀ̟"}
+      ${"bet dagesh qal medial"}    | ${"מִדְבַּ֥ר"}   | ${"miðˈbaːaʀ̟"}
+      ${"gimel dagesh chazaq"}      | ${"מְנַגֵּ֩חַ֩"} | ${"managˈgeːaħ"}
+      ${"gimel dagesh qal initial"} | ${"גֵּ֖ר"}       | ${"ˈgeːeʀ̟"}
+      ${"gimel dagesh qal medial"}  | ${"הִרְגִּ֖יז"}  | ${"hiʀ̟ˈgiːiz"}
+      ${"dalet dagesh chazaq"}      | ${"אַדִּ֖יר"}    | ${"ʔadˈdiːiʀ̟"}
+      ${"dalet dagesh qal initial"} | ${"מַסְגֵּ֑ר"}   | ${"masˈgeːeʀ̟"}
+      ${"dalet dagesh qal medial"}  | ${"תִּפְדֶּ֔ה"}  | ${"tʰifˈdɛː"}
+      ${"kaf dagesh chazaq"}        | ${"מְבַכּ֖וֹת"}  | ${"mavakˈkʰoːoθ"}
+      ${"kaf dagesh qal initial"}   | ${"כְּלִ֣י"}     | ${"kʰaˈliː"}
+      ${"kaf dagesh qal medial"}    | ${"נִמְכַּ֨ר"}   | ${"nimˈkʰaːaʀ̟"}
+      ${"pe dagesh chazaq"}         | ${"סַפִּ֖יר"}    | ${"sapˈpʰiːiʀ̟"}
+      ${"pe dagesh qal initial"}    | ${"פֶּ֛ה"}       | ${"ˈpʰɛː"}
+      ${"pe dagesh qal medial"}     | ${"מִסְפַּ֤ר"}   | ${"misˈpʰaːaʀ̟"}
+      ${"tav dagesh chazaq"}        | ${"מִתַּ֤חַת"}   | ${"mitˈtʰaːħaθ"}
+      ${"tav dagesh qal initial"}   | ${"תִּפְדֶּ֔ה"}  | ${"tʰifˈdɛː"}
+      ${"tav dagesh qal medial"}    | ${"יִכְתֹּ֤ב"}   | ${"jiχˈtʰoːov"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
