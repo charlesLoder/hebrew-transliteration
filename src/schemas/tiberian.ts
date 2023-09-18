@@ -77,21 +77,61 @@ export const tiberian: Schema = {
     {
       FEATURE: "cluster",
       HEBREW: /תּ[\u{05B4}-\u{05BB}]/u,
-      TRANSLITERATION(cluster) {
+      TRANSLITERATION(cluster, _, schema) {
+        // if there is a dagesh, but it is the beginning of the word
+        // we can return the text, as the character w/ the dagesh will not be doubled
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
-        return cluster.text.replace("תּ", "ttʰ");
+
+        // if there is a dagesh, it may be that it is a dagesh qal (i.e. lene)
+        // if it is a dagesh lene, then like the beginning of the word,
+        // the character w/ the dagesh will not be doubled
+        const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
+        if (!prevCoda?.includes("ת")) {
+          return cluster.text;
+        }
+
+        // because the *_DAGESH value is a digraph, we need to replace the first character
+        // or it will be doubled in rules.ts as "tʰtʰ"
+        const noAspiration = schema["TAV_DAGESH"]?.replace("ʰ", "") ?? "";
+        return cluster.text.replace("תּ", `${noAspiration + schema["TAV_DAGESH"]}`);
       }
     },
     {
       FEATURE: "cluster",
-      HEBREW: /פּּ[\u{05B4}-\u{05BB}]/u,
-      TRANSLITERATION(cluster) {
-        if (!cluster.prev) {
+      HEBREW: /פּ[\u{05B4}-\u{05BB}]/u,
+      TRANSLITERATION(cluster, _, schema) {
+        //  /תּ[\u{05B4}-\u{05BB}]/u rule for explanation
+        if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
-        return cluster.text.replace("פּ", "ppʰ");
+
+        const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
+        if (!prevCoda?.includes("פ")) {
+          return cluster.text;
+        }
+
+        const noAspiration = schema["PE_DAGESH"]?.replace("ʰ", "") ?? "";
+        return cluster.text.replace("פּ", `${noAspiration + schema["PE_DAGESH"]}`);
+      }
+    },
+    {
+      FEATURE: "cluster",
+      HEBREW: /(כּ|ךּ)[\u{05B4}-\u{05BB}]/u,
+      TRANSLITERATION(cluster, _, schema) {
+        // /תּ[\u{05B4}-\u{05BB}]/u rule for explanation
+        if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
+          return cluster.text;
+        }
+
+        const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
+        if (!prevCoda?.includes("כ") && !prevCoda?.includes("ך")) {
+          return cluster.text;
+        }
+
+        const noAspiration = schema["KAF_DAGESH"]?.replace("ʰ", "") ?? "";
+        return cluster.text.replace(/כּ|ךּ/u, `${noAspiration + schema["KAF_DAGESH"]}`);
       }
     },
     {
