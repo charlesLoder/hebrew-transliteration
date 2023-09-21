@@ -361,6 +361,67 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "syllable",
+      HEBREW: /[\u{05B1}-\u{05B3}]/u,
+      TRANSLITERATION(syllable) {
+        // this features matches any syllable that has a full vowel character (i.e. not sheva)
+        const vowelName = syllable.vowelName;
+        const vowel = syllable.vowel;
+
+        if (!vowel || !vowelName) {
+          return syllable.text;
+        }
+
+        if (vowelName === "SHEVA") {
+          throw new Error(`Syllable ${syllable.text} has a sheva as vowel, should not have matched`);
+        }
+
+        const hasNonHalfVowels = syllable.clusters.map((c) => c.hasShortVowel || c.hasLongVowel).includes(true);
+        if (hasNonHalfVowels) {
+          throw new Error(`Syllable ${syllable.text} does not have a hataf vowel, should not have matched`);
+        }
+
+        const [onset, _nuclues, coda] = syllable.structure(true);
+        /**
+         * Determines the realization of a patach
+         *
+         * @param vowelChar the hebrew vowel character
+         * @returns the backrounded patch realization of the vowel or the original vowel if not patach
+         */
+        function determinePatachRealization(vowelChar: string) {
+          // exit early if not hataf patach
+          if (vowelName !== "HATAF_PATAH") {
+            return vowelChar;
+          }
+
+          // by this point, the resh has already been pharyngealized in the transliteration
+          // but only for the current syllable
+          const pharyngealized = /rˁ|ט|צ|ץ/;
+          if (pharyngealized.test(onset) || pharyngealized.test(coda)) {
+            return "ɑ";
+          }
+
+          // the resh of the next syllable has not been transliterated yet
+          // check if the next syllable has a resh in the onset
+          // and if the current syllable's coda is an alveolar
+          const nextSyllable = syllable.next?.value;
+          const nextOnset = nextSyllable?.onset;
+          const alveolars = /[דזצתטסלנ]|שׂ/;
+          if (nextOnset === "ר" && alveolars.test(coda)) {
+            return "ɑ";
+          }
+
+          if (nextOnset && alveolars.test(nextOnset)) {
+            return "ɑ";
+          }
+
+          return vowelChar;
+        }
+
+        return syllable.text.replace(vowel, `${determinePatachRealization(vowel)}`);
+      }
+    },
+    {
+      FEATURE: "syllable",
       HEBREW: /(?<!.*([\u{05B4}-\u{05BB}]|\u{05D5}\u{05BC}).*)\u{05B0}/u,
       TRANSLITERATION(syllable, _hebrew, schema) {
         // matches any syllable that contains a sheva that is not preceded by a full vowel character [\u{05B4}-\u{05BB}]
