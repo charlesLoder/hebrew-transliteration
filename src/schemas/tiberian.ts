@@ -412,7 +412,7 @@ export const tiberian: Schema = {
     }
   ],
   allowNoNiqqud: false,
-  article: true,
+  article: false,
   holemHaser: "remove",
   longVowels: false,
   qametsQatan: false,
