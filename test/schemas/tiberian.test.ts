@@ -206,4 +206,39 @@ describe("vowel features", () => {
       expect(transliterate(hebrew, schema)).toBe(transliteration);
     });
   });
+
+  describe("back rounded ɑ", () => {
+    describe("tet", () =>
+      test.each`
+        description                    | hebrew        | transliteration
+        ${"onset of current syllable"} | ${"טַ֫עַם"}   | ${"ˈtˁɑːʕam"}
+        ${"coda of current syllable"}  | ${"הַמְעַט֙"} | ${"hamˈʕɑːɑtˁ"}
+        ${"onset of next syllable"}    | ${"חֲטָאָ֣ה"}  | ${"ħɑtˁɔːˈʔɔː"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      }));
+    describe("tsade", () => {
+      test.each`
+        description                    | hebrew          | transliteration
+        ${"onset of current syllable"} | ${"צַ֖יִד"}     | ${"ˈsˁɑːjið"}
+        ${"coda of current syllable"}  | ${"רָחַ֤ץ"}     | ${"ʀ̟ɔːħɑːɑsˁ"}
+        ${"onset of next syllable"}    | ${"מַזְרִ֣יעַ"} | ${"mɑzˈrˁiːjaʕ"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
+    });
+    describe("pharyngealized resh", () => {
+      test.each`
+        description                    | hebrew          | transliteration
+        ${"onset of current syllable"} | ${"מַזְרִ֣יעַ"} | ${"mɑzˈrˁiːjaʕ"}
+        ${"coda of current syllable"}  | ${"זַרְע֫וֹ"}   | ${"zɑrˁˈʕoː"}
+        ${"onset of next syllable"}    | ${"מַזְרִ֣יעַ"} | ${"mɑzˈrˁiːjaʕ"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
+    });
+  });
 });
