@@ -296,10 +296,9 @@ export const tiberian: Schema = {
           // check if the next syllable has a resh in the onset
           // and if the current syllable's coda is an alveolar
           const nextSyllable = syllable.next?.value;
-          if (!nextSyllable) return vowelChar;
-
-          const nextOnset = nextSyllable.onset;
-          if (pharyngealized.test(nextOnset)) {
+          const nextOnset = nextSyllable?.onset;
+          const alveolars = /[דזצתטסלנ]|שׂ/;
+          if (nextOnset === "ר" && alveolars.test(coda)) {
             return "ɑ";
           }
 
