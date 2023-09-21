@@ -90,7 +90,7 @@ describe("consonant features", () => {
       ${"silent shewa"}                        | ${"סַלְכָ֣ה"}       | ${"salˈχɔː"}
       ${"final shewa"}                         | ${"כָּ֣ךְ"}         | ${"ˈkʰɔːɔχ"}
       ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔːˈtˁɑːɑltʰ"}
-      ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"haːjoˈʔoːoʀ̟"}
+      ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"hajˈʔoːoʀ̟"}
       ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazziː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
