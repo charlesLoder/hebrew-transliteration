@@ -285,12 +285,16 @@ export const tiberian: Schema = {
             return vowelChar;
           }
 
-          // by this point, the resh has already been pharyngealized in the transliteration
+          // by this point, the resh has already been pharyngealized in the
+          // but only for the current syllable
           const pharyngealized = /rˁ|ט|צ|ץ/;
           if (pharyngealized.test(onset) || pharyngealized.test(coda)) {
             return "ɑ";
           }
 
+          // the resh of the next syllable has not been transliterated yet
+          // check if the next syllable has a resh in the onset
+          // and if the current syllable's coda is an alveolar
           const nextSyllable = syllable.next?.value;
           if (!nextSyllable) return vowelChar;
 
