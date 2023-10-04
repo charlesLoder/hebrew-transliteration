@@ -68,6 +68,11 @@ export const tiberian: Schema = {
   STRESS_MARKER: { location: "before-syllable", mark: "ˈ" },
   ADDITIONAL_FEATURES: [
     {
+      FEATURE: "word",
+      HEBREW: /\u{5D4}\u{5B8}\u{5BD}?\u{5D9}\u{5B0}\u{5EA}\u{5B8}\u{5D4}/u,
+      TRANSLITERATION: "hɔːɔjˈθɔː"
+    },
+    {
       FEATURE: "cluster",
       HEBREW: "\u{05D9}\u{05BC}",
       TRANSLITERATION(cluster, hebrew) {
