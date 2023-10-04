@@ -242,3 +242,9 @@ describe("vowel features", () => {
     });
   });
 });
+
+describe("word features", () => {
+  test("3fs of hayah", () => {
+    expect(transliterate("הָיְתָה", schema)).toBe("hɔːɔjˈθɔː");
+  });
+});
