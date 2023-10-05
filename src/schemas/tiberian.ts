@@ -68,11 +68,6 @@ export const tiberian: Schema = {
   STRESS_MARKER: { location: "before-syllable", mark: "ˈ" },
   ADDITIONAL_FEATURES: [
     {
-      FEATURE: "word",
-      HEBREW: /\u{5D4}\u{5B8}\u{5BD}?\u{5D9}\u{5B0}\u{5EA}\u{5B8}\u{5D4}/u,
-      TRANSLITERATION: "hɔːɔjˈθɔː"
-    },
-    {
       FEATURE: "cluster",
       HEBREW: "\u{05D9}\u{05BC}",
       TRANSLITERATION(cluster, hebrew) {
@@ -342,6 +337,17 @@ export const tiberian: Schema = {
         // there is evidence that an epenthetic with the same quality as that of the long vowel
         // occurred before the final consonant in its phonetic realization"
         if (isAccented && isClosed) {
+          const syllableSeparator = schema["SYLLABLE_SEPARATOR"] || "";
+          const vowelRealization = determinePatachRealization(vowel);
+          return noMaterText.replace(
+            vowel,
+            `${vowelRealization + lengthMarker + syllableSeparator + vowelRealization}`
+          );
+        }
+
+        // https://github.com/charlesLoder/hebrew-transliteration/issues/45#issuecomment-1747967050
+        const longerVowels = ["HOLAM", "TSERE", "QAMATS"];
+        if (!isAccented && isClosed && !syllable.isFinal && longerVowels.includes(vowelName)) {
           const syllableSeparator = schema["SYLLABLE_SEPARATOR"] || "";
           const vowelRealization = determinePatachRealization(vowel);
           return noMaterText.replace(
