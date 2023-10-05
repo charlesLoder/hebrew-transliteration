@@ -245,6 +245,6 @@ describe("vowel features", () => {
 
 describe("word features", () => {
   test("3fs of hayah", () => {
-    expect(transliterate("הָיְתָה", schema)).toBe("hɔːɔjˈθɔː");
+    expect(transliterate("הָיְתָ֥ה", schema)).toBe("hɔːɔjˈθɔː");
   });
 });
