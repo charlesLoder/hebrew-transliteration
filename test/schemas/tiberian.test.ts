@@ -241,10 +241,19 @@ describe("vowel features", () => {
       });
     });
   });
-});
 
-describe("word features", () => {
-  test("3fs of hayah", () => {
-    expect(transliterate("הָיְתָ֥ה", schema)).toBe("hɔːɔjˈθɔː");
+  describe("long vowel preceding shewa", () => {
+    test.each`
+      description                      | hebrew         | transliteration
+      ${"From hayah"}                  | ${"הָיְתָ֥ה"}  | ${"hɔːɔjˈθɔː"}
+      ${"From yashav"}                 | ${"יֵשְׁבוּ֙"} | ${"jeːeʃˈvuː"}
+      ${"From yad"}                    | ${"יָדְךָ֖"}   | ${"jɔːɔðˈχɔː"}
+      ${"From shamar"}                 | ${"שָׁמְר֥וּ"} | ${"ʃɔːɔmˈʀ̟uː"}
+      ${"From shamar, participle"}     | ${"שֹׁמְרֵ֥י"} | ${"ʃoːomˈʀ̟eː"}
+      ${"Qamets qatan, no epenthesis"} | ${"קָדְשֵׁ֧י"} | ${"q̟ɔðˈʃeː"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    });
   });
 });
