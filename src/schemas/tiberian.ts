@@ -251,7 +251,7 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "syllable",
-      HEBREW: /[\u{05B4}-\u{05BB}]/u,
+      HEBREW: /[\u{05B4}-\u{05BB}\u{05C7}]/u,
       TRANSLITERATION(syllable, _, schema) {
         // this features matches any syllable that has a full vowel character (i.e. not sheva)
         const vowelName = syllable.vowelName;
@@ -433,9 +433,9 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "syllable",
-      HEBREW: /(?<!.*([\u{05B4}-\u{05BB}]|\u{05D5}\u{05BC}).*)\u{05B0}/u,
+      HEBREW: /(?<!.*([\u{05B4}-\u{05BB}\u{05C7}]|\u{05D5}\u{05BC}).*)\u{05B0}/u,
       TRANSLITERATION(syllable, _hebrew, schema) {
-        // matches any syllable that contains a sheva that is not preceded by a full vowel character [\u{05B4}-\u{05BB}]
+        // matches any syllable that contains a sheva that is not preceded by a full vowel character [\u{05B4}-\u{05BB}\u{05C7}]
         // or shureq \u{5D5}\u{5BC}
         const nextSyllable = syllable.next?.value;
         if (!nextSyllable) return syllable.text;
@@ -490,7 +490,7 @@ export const tiberian: Schema = {
   article: false,
   holemHaser: "remove",
   longVowels: false,
-  qametsQatan: false,
+  qametsQatan: true,
   shevaAfterMeteg: false,
   sqnmlvy: false,
   strict: true,
