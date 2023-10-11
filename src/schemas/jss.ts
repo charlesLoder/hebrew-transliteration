@@ -87,5 +87,5 @@ export const jss: Schema = {
   allowNoNiqqud: true,
   strict: false,
   holemHaser: "remove",
-  shevaAfterMeteg: true,
+  shevaAfterMeteg: true
 };
