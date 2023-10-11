@@ -208,7 +208,7 @@ describe("vowel features", () => {
   });
 
   describe("back rounded ɑ", () => {
-    describe("tet", () =>
+    describe("tet", () => {
       test.each`
         description                    | hebrew        | transliteration
         ${"onset of current syllable"} | ${"טַ֫עַם"}   | ${"ˈtˁɑːʕam"}
@@ -217,7 +217,8 @@ describe("vowel features", () => {
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
-      }));
+      });
+    });
     describe("tsade", () => {
       test.each`
         description                    | hebrew          | transliteration
