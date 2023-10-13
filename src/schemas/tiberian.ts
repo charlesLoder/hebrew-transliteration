@@ -77,7 +77,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "cluster",
       HEBREW: /תּ[\u{05B4}-\u{05BB}]/u,
-      TRANSLITERATION(cluster, _, schema) {
+      TRANSLITERATION: (cluster, _, schema) => {
         // if there is a dagesh, but it is the beginning of the word
         // we can return the text, as the character w/ the dagesh will not be doubled
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
@@ -101,7 +101,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "cluster",
       HEBREW: /פּ[\u{05B4}-\u{05BB}]/u,
-      TRANSLITERATION(cluster, _, schema) {
+      TRANSLITERATION: (cluster, _, schema) => {
         //  /תּ[\u{05B4}-\u{05BB}]/u rule for explanation
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
@@ -119,7 +119,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "cluster",
       HEBREW: /(כּ|ךּ)[\u{05B4}-\u{05BB}]/u,
-      TRANSLITERATION(cluster, _, schema) {
+      TRANSLITERATION: (cluster, _, schema) => {
         // /תּ[\u{05B4}-\u{05BB}]/u rule for explanation
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
@@ -142,7 +142,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: /ר/u,
-      TRANSLITERATION(syllable) {
+      TRANSLITERATION: (syllable) => {
         // see TPT 229 for a summary if the pharyngealized resh
         const alveolars = /[דזצתטסלנ]|שׂ/;
 
@@ -239,7 +239,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: /^וּ/u,
-      TRANSLITERATION(syllable) {
+      TRANSLITERATION: (syllable) => {
         // finds a vav with a dagesh at the start of a work (i.e. a shureq)
         // if the syllable is the first syllable, replace with wuː
         // syllable.clusters[0].isShureq is not totally necessary, but it's a good check
@@ -252,7 +252,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: /[\u{05B4}-\u{05BB}\u{05C7}]/u,
-      TRANSLITERATION(syllable, _, schema) {
+      TRANSLITERATION: (syllable, _, schema) => {
         // this features matches any syllable that has a full vowel character (i.e. not sheva)
         const vowelName = syllable.vowelName;
         const vowel = syllable.vowel;
@@ -373,7 +373,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: /[\u{05B1}-\u{05B3}]/u,
-      TRANSLITERATION(syllable) {
+      TRANSLITERATION: (syllable) => {
         // this features matches any syllable that has a hataf vowel character
         const vowelName = syllable.vowelName;
         const vowel = syllable.vowel;
@@ -434,7 +434,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: /(?<!.*([\u{05B4}-\u{05BB}\u{05C7}]|\u{05D5}\u{05BC}).*)\u{05B0}/u,
-      TRANSLITERATION(syllable, _hebrew, schema) {
+      TRANSLITERATION: (syllable, _hebrew, schema) => {
         // matches any syllable that contains a sheva that is not preceded by a full vowel character [\u{05B4}-\u{05BB}\u{05C7}]
         // or shureq \u{5D5}\u{5BC}
         const nextSyllable = syllable.next?.value;
