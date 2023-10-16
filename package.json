@@ -1,6 +1,6 @@
 {
   "name": "hebrew-transliteration",
-  "version": "2.5.1-tiberian.1",
+  "version": "2.5.1-tiberian.2",
   "description": "a package for transliterating Hebrew",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
