@@ -70,7 +70,7 @@ export const tiberian: Schema = {
     {
       FEATURE: "cluster",
       HEBREW: "\u{05D9}\u{05BC}",
-      TRANSLITERATION(cluster, hebrew) {
+      TRANSLITERATION: (cluster, hebrew) => {
         return cluster.text.replace(hebrew, "ɟɟ");
       }
     },
