@@ -472,15 +472,17 @@ export const tiberian: Schema = {
         }
 
         const nextVowel = nextSyllable.vowelName;
-        if (!nextVowel)
+        if (!nextVowel) {
           throw new Error(
             `Syllable ${syllable.text} has a sheva as a vowel, but the next syllable ${nextSylFirstCluster} does not have a vowel`
           );
+        }
 
-        if (nextVowel === "SHEVA")
+        if (nextVowel === "SHEVA") {
           throw new Error(
             `Syllable ${syllable.text} has a sheva as a vowel, but the next syllable ${nextSylFirstCluster} also has a sheva as a vowel`
           );
+        }
 
         return syllable.text.replace(/\u{05B0}/u, schema[nextVowel]);
       }
