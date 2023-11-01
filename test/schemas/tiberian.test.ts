@@ -223,7 +223,7 @@ describe("vowel features", () => {
       test.each`
         description                    | hebrew          | transliteration
         ${"onset of current syllable"} | ${"צַ֖יִד"}     | ${"ˈsˁɑːjið"}
-        ${"coda of current syllable"}  | ${"רָחַ֤ץ"}     | ${"ʀ̟ɔːħɑːɑsˁ"}
+        ${"coda of current syllable"}  | ${"רָחַ֤ץ"}     | ${"ʀ̟ɔːˈħɑːɑsˁ"}
         ${"onset of next syllable"}    | ${"מַזְרִ֣יעַ"} | ${"mɑzˈrˁiːjaʕ"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
