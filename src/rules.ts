@@ -147,7 +147,13 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
     return sylChars.map(mapChars(schema)).join("");
   }
 
-  if (schema.STRESS_MARKER && (syl.vowel || syl.clusters.filter((c) => c.isShureq).length)) {
+  // if syllable is only punctuation (e.g. a paseq), it should not receive a stress marker
+  const isOnlyPunctuation = syl.clusters.map((c) => c.isPunctuation).every((c) => c);
+  if (isOnlyPunctuation) {
+    return sylChars.map(mapChars(schema)).join("");
+  }
+
+  if (schema.STRESS_MARKER) {
     const exclude = schema.STRESS_MARKER?.exclude ?? "never";
 
     if (exclude === "single" && !syl.prev && !syl.next) {
