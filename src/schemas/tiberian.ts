@@ -484,7 +484,7 @@ export const tiberian: Schema = {
           );
         }
 
-        return syllable.text.replace(/\u{05B0}/u, schema[nextVowel]);
+        return syllable.text.replace(/\u{05B0}/u, schema[nextVowel].replace("ː", ""));
       }
     }
   ],
