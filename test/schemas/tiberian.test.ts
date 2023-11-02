@@ -85,13 +85,15 @@ describe("consonant features", () => {
 
   describe("shewa", () => {
     test.each`
-      description                              | hebrew              | transliteration
-      ${"vocal shewa"}                         | ${"סְלִ֣ק"}         | ${"saˈliːiq̟"}
-      ${"silent shewa"}                        | ${"סַלְכָ֣ה"}       | ${"salˈχɔː"}
-      ${"final shewa"}                         | ${"כָּ֣ךְ"}         | ${"ˈkʰɔːɔχ"}
-      ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔːˈtˁɑːɑltʰ"}
-      ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"hajˈʔoːoʀ̟"}
-      ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazziː"}
+      description                                     | hebrew              | transliteration
+      ${"vocal shewa"}                                | ${"סְלִ֣ק"}         | ${"saˈliːiq̟"}
+      ${"silent shewa"}                               | ${"סַלְכָ֣ה"}       | ${"salˈχɔː"}
+      ${"final shewa"}                                | ${"כָּ֣ךְ"}         | ${"ˈkʰɔːɔχ"}
+      ${"two final shewas"}                           | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔːˈtˁɑːɑltʰ"}
+      ${"omitted dagesh chazaq after article"}        | ${"הַיְאֹ֗ר"}       | ${"hajˈʔoːoʀ̟"}
+      ${"silent shewa and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazziː"}
+      ${"vocal shewa preceding guttural"}             | ${"בְּאֵ֥ר"}        | ${"beˈʔeːeʀ̟"}
+      ${"vocal shewa preceding guttural with shureq"} | ${"שִׁלְּח֗וּךָ"}   | ${"ʃilluˈħuːχɔː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
