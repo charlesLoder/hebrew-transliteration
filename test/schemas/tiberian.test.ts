@@ -127,6 +127,18 @@ describe("consonant features", () => {
       expect(transliterate(hebrew, schema)).toBe(transliteration);
     });
   });
+
+  describe("aleph", () => {
+    test.each`
+      description            | hebrew             | transliteration
+      ${"regular aleph"}     | ${"לְאַבֵּ֔ד"}     | ${"laʔabˈbeːeð"}
+      ${"quiesced aleph"}    | ${"בְּרֵאשִׁ֖ית"}  | ${"baʀ̟eːˈʃiːiθ"}
+      ${"aleph with shureq"} | ${"הִשִּׁיא֛וּךָ"} | ${"hiʃʃiːˈʔuːχɔː"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    });
+  });
 });
 
 describe("mater features", () => {
