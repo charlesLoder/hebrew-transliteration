@@ -101,7 +101,7 @@ export const romaniote: Schema = {
         }
         const { patachYod } = groups;
 
-        return syllable.text.replace(patachYod, "άη");
+        return syllable.text.replace(patachYod, "αη");
       }
     },
     {
