@@ -408,6 +408,7 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
         if (!passThrough) {
           return transliteration(syl, seq.HEBREW, schema);
         }
+
         const newText = transliteration(syl, seq.HEBREW, schema);
 
         // if the transliteration just returns the syllable.text, then no need to copy the syllable
