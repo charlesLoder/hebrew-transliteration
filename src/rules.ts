@@ -51,10 +51,29 @@ export const replaceAndTransliterate = (input: string, regex: RegExp, replaceVal
   return [...sylSeq].map(mapChars(schema)).join("");
 };
 
-const isDageshChazaq = (text: string, cluster: Cluster, schema: Schema) => {
-  const prevHasVowel = cluster.prev instanceof Cluster ? cluster.prev.hasVowel : false;
-  const dageshChazaq = schema.DAGESH_CHAZAQ;
-  return (dageshChazaq && prevHasVowel && /\u{05BC}/u.test(text)) || false;
+const isDageshChazaq = (cluster: Cluster, schema: Schema) => {
+  // if there is no dagesh chazaq in the schema, then return false
+  if (!schema.DAGESH_CHAZAQ) {
+    return false;
+  }
+
+  // if there is no dagesh in the text, then return false
+  if (!/\u{05BC}/u.test(cluster.text)) {
+    return false;
+  }
+
+  // this could be a code smell, b/c the copySyllable function results are not the most predictable
+  const prevSyllable = cluster.syllable?.prev;
+  if (!prevSyllable) {
+    return false;
+  }
+
+  const prevCoda = prevSyllable.value?.codaWithGemination;
+  if (!prevCoda) {
+    return false;
+  }
+
+  return prevCoda === cluster.syllable?.onset;
 };
 
 const getDageshChazaqVal = (input: string, dagesh: Schema["DAGESH_CHAZAQ"], isChazaq: boolean) => {
@@ -167,7 +186,7 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
     const location = schema.STRESS_MARKER.location;
     const mark = schema.STRESS_MARKER.mark;
     if (location === "before-syllable") {
-      const isDoubled = syl.clusters.map((c) => isDageshChazaq(c.text, c, schema)).includes(true);
+      const isDoubled = syl.clusters.map((c) => isDageshChazaq(c, schema)).includes(true);
       if (isDoubled) {
         const chars = sylChars.map(mapChars(schema)).join("");
         const [first, ...rest] = chars;
@@ -261,7 +280,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   }
 
   // dagesh chazaq
-  const isDageshChazq = isDageshChazaq(clusterText, cluster, schema);
+  const isDageshChazq = isDageshChazaq(cluster, schema);
 
   if (schema.BET_DAGESH && /ב\u{05BC}/u.test(clusterText)) {
     return replaceWithRegex(
