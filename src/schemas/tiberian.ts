@@ -283,7 +283,7 @@ export const tiberian: Schema = {
          * Determines the realization of a patach
          *
          * @param vowelChar the hebrew vowel character
-         * @returns the backrounded patch realization of the vowel or the original vowel if not patach
+         * @returns the back unrounded patach realization of the vowel or the original vowel if not patach
          */
         function determinePatachRealization(vowelChar: string) {
           // see comment for explanation: https://github.com/charlesLoder/hebrew-transliteration/issues/45#issuecomment-1712186201
@@ -292,7 +292,7 @@ export const tiberian: Schema = {
             return vowelChar;
           }
 
-          // by this point, the resh has already been pharyngealized in the
+          // by this point, the resh has already been pharyngealized
           // but only for the current syllable
           const pharyngealized = /rˁ|ט|צ|ץ/;
           if (pharyngealized.test(onset) || pharyngealized.test(coda)) {
@@ -403,7 +403,7 @@ export const tiberian: Schema = {
          * Determines the realization of a patach
          *
          * @param vowelChar the hebrew vowel character
-         * @returns the backrounded patch realization of the vowel or the original vowel if not patach
+         * @returns the back unrounded patach realization of the vowel or the original vowel if not patach
          */
         function determinePatachRealization(vowelChar: string) {
           // exit early if not hataf patach
