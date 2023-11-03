@@ -376,7 +376,6 @@ const copySyllable = (newText: string, old: Syllable) => {
   const oldClusters = old.clusters;
 
   // set prev and next based on old syllable
-  // newClusters.forEach((c, i) => ((c.prev = oldClusters[i]?.prev ?? null), (c.next = oldClusters[i]?.next ?? null)));
   if (newClusters.length === oldClusters.length) {
     newClusters.forEach((c, i) => ((c.prev = oldClusters[i]?.prev ?? null), (c.next = oldClusters[i]?.next ?? null)));
   } else {
