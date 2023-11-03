@@ -428,7 +428,9 @@ export const tiberian: Schema = {
             return "ɑ";
           }
 
-          if (nextOnset && alveolars.test(nextOnset)) {
+          // check for the "environment of pharyngealized consonants"
+          // https://www.tiberianhebrew.com/patah
+          if (nextOnset && /[צץט]/.test(nextOnset)) {
             return "ɑ";
           }
 
