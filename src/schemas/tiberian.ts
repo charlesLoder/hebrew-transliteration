@@ -452,7 +452,7 @@ export const tiberian: Schema = {
 
         const [onset, _, coda] = syllable.structure(true);
 
-        function isBackRounded() {
+        function isBackUnrounded() {
           // see comment for explanation: https://github.com/charlesLoder/hebrew-transliteration/issues/45#issuecomment-1712186201
           // by this point, the resh has already been pharyngealized in the transliteration
           const pharyngealized = /rˁ|ט|צ|ץ/;
@@ -475,7 +475,7 @@ export const tiberian: Schema = {
 
         const isGuttural = /[אהחע]/.test(nextSylFirstCluster);
         if (!isGuttural) {
-          return syllable.text.replace(/\u{05B0}/u, isBackRounded() ? "ɑ" : schema["PATAH"]);
+          return syllable.text.replace(/\u{05B0}/u, isBackUnrounded() ? "ɑ" : schema["PATAH"]);
         }
 
         const nextVowel = nextSyllable.vowelName;
