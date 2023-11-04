@@ -105,7 +105,7 @@ describe("consonant features", () => {
     test.each`
       description                   | hebrew           | transliteration
       ${"bet dagesh chazaq"}        | ${"לְאַבֵּ֔ד"}   | ${"laʔabˈbeːeð"}
-      ${"bet dagesh qal initial"}   | ${"בָּח֥וּר"}    | ${"bɔːˈħuːʀ̟"}
+      ${"bet dagesh qal initial"}   | ${"בָּח֥וּר"}    | ${"bɔːˈħuːuʀ̟"}
       ${"bet dagesh qal medial"}    | ${"מִדְבַּ֥ר"}   | ${"miðˈbaːaʀ̟"}
       ${"gimel dagesh chazaq"}      | ${"מְנַגֵּ֩חַ֩"} | ${"managˈgeːaħ"}
       ${"gimel dagesh qal initial"} | ${"גֵּ֖ר"}       | ${"ˈgeːeʀ̟"}
