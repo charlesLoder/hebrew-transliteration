@@ -245,14 +245,20 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "syllable",
-      HEBREW: /^וּ/u,
-      TRANSLITERATION: (syllable) => {
-        // finds a vav with a dagesh at the start of a work (i.e. a shureq)
+      HEBREW: /וּ(?![\u{05B4}-\u{05BB}])/u,
+      TRANSLITERATION: (syllable, _, schema) => {
+        // finds a vav with a dagesh not followed by a vowel character
         // if the syllable is the first syllable, replace with wuː
         // syllable.clusters[0].isShureq is not totally necessary, but it's a good check
         if (!syllable.prev && syllable.clusters[0].isShureq) {
           return syllable.text.replace("וּ", "wu");
         }
+
+        if (syllable.isAccented && syllable.isClosed) {
+          const noLength = schema["SHUREQ"].replace("ː", "");
+          return syllable.text.replace("וּ", schema["SHUREQ"] + noLength);
+        }
+
         return syllable.text;
       }
     },
