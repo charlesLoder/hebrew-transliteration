@@ -151,6 +151,17 @@ describe("consonant features", () => {
       expect(transliterate(hebrew, schema)).toBe(transliteration);
     });
   });
+
+  describe("kaf", () => {
+    test.each`
+      description      | hebrew          | transliteration
+      ${"spriantized"} | ${"יָדְךָ֖"}    | ${"jɔːɔðˈχɔː"}
+      ${"aspirated"}   | ${"כֹּאֲבִ֗ים"} | ${"kʰoːʔaˈviːim"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    });
+  });
 });
 
 describe("mater features", () => {
