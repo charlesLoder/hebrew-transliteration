@@ -145,6 +145,7 @@ describe("consonant features", () => {
       description      | hebrew           | transliteration
       ${"spriantized"} | ${"תֹאכְל֣וּ"}   | ${"θoːoχˈluː"}
       ${"aspirated"}   | ${"תֹּאכְל֖וּן"} | ${"tʰoːoχˈluːun"}
+      ${"doubled"}     | ${"וַתֵּ֨שֶׁב"}  | ${"vatˈtʰeːʃɛv"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
