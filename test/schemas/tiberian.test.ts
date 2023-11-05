@@ -140,26 +140,43 @@ describe("consonant features", () => {
     });
   });
 
-  describe("tav", () => {
-    test.each`
-      description      | hebrew           | transliteration
-      ${"spriantized"} | ${"תֹאכְל֣וּ"}   | ${"θoːoχˈluː"}
-      ${"aspirated"}   | ${"תֹּאכְל֖וּן"} | ${"tʰoːoχˈluːun"}
-      ${"doubled"}     | ${"וַתֵּ֨שֶׁב"}  | ${"vatˈtʰeːʃɛv"}
-    `("$description", (inputs: Inputs) => {
-      const { hebrew, transliteration } = inputs;
-      expect(transliterate(hebrew, schema)).toBe(transliteration);
+  describe("dagesh form has digraph", () => {
+    describe("tav", () => {
+      test.each`
+        description      | hebrew           | transliteration
+        ${"spriantized"} | ${"תֹאכְל֣וּ"}   | ${"θoːoχˈluː"}
+        ${"aspirated"}   | ${"תֹּאכְל֖וּן"} | ${"tʰoːoχˈluːun"}
+        ${"doubled"}     | ${"וַתֵּ֨שֶׁב"}  | ${"vatˈtʰeːʃɛv"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
     });
-  });
 
-  describe("kaf", () => {
-    test.each`
-      description      | hebrew          | transliteration
-      ${"spriantized"} | ${"יָדְךָ֖"}    | ${"jɔːɔðˈχɔː"}
-      ${"aspirated"}   | ${"כֹּאֲבִ֗ים"} | ${"kʰoːʔaˈviːim"}
-    `("$description", (inputs: Inputs) => {
-      const { hebrew, transliteration } = inputs;
-      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    describe("kaf", () => {
+      test.each`
+        description              | hebrew          | transliteration
+        ${"spriantized"}         | ${"יָדְךָ֖"}    | ${"jɔːɔðˈχɔː"}
+        ${"aspirated"}           | ${"כֹּאֲבִ֗ים"} | ${"kʰoːʔaˈviːim"}
+        ${"doubled"}             | ${"וְחִכֵּ֕ךְ"} | ${"viħikˈkʰeːeχ"}
+        ${"doubled with shureq"} | ${"וַיֻּכּ֗וּ"} | ${"vaɟɟukˈkʰuː"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
+    });
+
+    describe("peh", () => {
+      test.each`
+        description              | hebrew            | transliteration
+        ${"spriantized"}         | ${"רִשְׁפֵ֔י"}    | ${"ʀ̟iʃˈfeː"}
+        ${"aspirated"}           | ${"תִּסְפְּר֖וּ"} | ${"tʰispʰaˈʀ̟uː"}
+        ${"doubled"}             | ${"הַפֶּ֔ה"}      | ${"hapˈpʰɛː"}
+        ${"doubled with shureq"} | ${"הַפּ֔וּר"}     | ${"hapˈpʰuːuʀ̟"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
     });
   });
 });
