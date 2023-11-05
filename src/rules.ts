@@ -57,6 +57,11 @@ const isDageshChazaq = (cluster: Cluster, schema: Schema) => {
     return false;
   }
 
+  // a shureq could potentially match because of dagesh
+  if (cluster.isShureq) {
+    return false;
+  }
+
   // if there is no dagesh in the text, then return false
   if (!/\u{05BC}/u.test(cluster.text)) {
     return false;
@@ -307,6 +312,8 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   }
 
   if (schema.KAF_DAGESH && /כ\u{05BC}/u.test(clusterText)) {
+    console.log("test");
+
     return replaceWithRegex(
       clusterText,
       /כ\u{05BC}/u,
