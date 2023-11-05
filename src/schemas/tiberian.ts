@@ -76,7 +76,7 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "cluster",
-      HEBREW: /תּ[\u{05B4}-\u{05BB}]/u,
+      HEBREW: /תּ(?!\u{05B0})/u,
       TRANSLITERATION: (cluster, _, schema) => {
         // if there is a dagesh, but it is the beginning of the word
         // we can return the text, as the character w/ the dagesh will not be doubled
@@ -100,9 +100,9 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "cluster",
-      HEBREW: /פּ[\u{05B4}-\u{05BB}]/u,
+      HEBREW: /פ(?!\u{05b0})/u,
       TRANSLITERATION: (cluster, _, schema) => {
-        //  /תּ[\u{05B4}-\u{05BB}]/u rule for explanation
+        //  /ת(?!\u{05b0})/u rule for explanation
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
@@ -118,7 +118,7 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "cluster",
-      HEBREW: /(כּ|ךּ)[\u{05B4}-\u{05BB}]/u,
+      HEBREW: /(כּ|ךּ)(?!\u{05b0})/u,
       TRANSLITERATION: (cluster, _, schema) => {
         // /תּ[\u{05B4}-\u{05BB}]/u rule for explanation
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {

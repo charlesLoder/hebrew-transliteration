@@ -312,8 +312,6 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   }
 
   if (schema.KAF_DAGESH && /כ\u{05BC}/u.test(clusterText)) {
-    console.log("test");
-
     return replaceWithRegex(
       clusterText,
       /כ\u{05BC}/u,
