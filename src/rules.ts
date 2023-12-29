@@ -190,6 +190,12 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
 
     const location = schema.STRESS_MARKER.location;
     const mark = schema.STRESS_MARKER.mark;
+
+    // if the stress marker is already present, no need to add it again
+    if (syl.text.includes(mark)) {
+      return sylChars.map(mapChars(schema)).join("");
+    }
+
     if (location === "before-syllable") {
       const isDoubled = syl.clusters.map((c) => isDageshChazaq(c, schema)).includes(true);
       if (isDoubled) {
