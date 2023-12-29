@@ -113,7 +113,7 @@ describe.each`
   description                       | hebrew             | transliteration
   ${"hiriq yod: medial"}            | ${"אִ֘ירָ֤א"}      | ${"ίρά"}
   ${"hiriq yod: final"}             | ${"אֲנִי"}         | ${"ανή"}
-  ${"hiriq yod: plural marker"}     | ${"דְּבָרִים"}     | ${"ντεβαρείμ"}
+  ${"hiriq yod: plural marker"}     | ${"דְּבָרִים"}     | ${"ντεβαρείμ"}
   ${"hiriq yod: final with maqqef"} | ${"וַֽיְהִי־כֵֽן"} | ${"βαγιεή-χεν"}
 `("Hiriq Yod:", ({ description, hebrew, transliteration }) => {
   const transliteratedHeb = transliterate(hebrew, romaniote);
@@ -125,7 +125,7 @@ describe.each`
 describe.each`
   description           | hebrew       | transliteration
   ${"medial tsere-yod"} | ${"אֵין"}    | ${"εν"}
-  ${"final tsere-yod"}  | ${"רִגְעֵי"} | ${"ριγαί"}
+  ${"final tsere-yod"}  | ${"רִגְעֵי"} | ${"ριγαί"}
 `("Tsere Yod:", ({ description, hebrew, transliteration }) => {
   const transliteratedHeb = transliterate(hebrew, romaniote);
   test(`${description} to equal: ${transliteration}`, () => {

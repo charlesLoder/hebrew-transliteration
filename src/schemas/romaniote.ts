@@ -125,7 +125,7 @@ export const romaniote: Schema = {
         const { tsereYod } = groups;
 
         if (syllable.isFinal) {
-          return syllable.text.replace(tsereYod, "αί");
+          return syllable.text.replace(tsereYod, "αι\u{301}");
         }
         return syllable.text.replace(tsereYod, "ε");
       }
@@ -156,7 +156,7 @@ export const romaniote: Schema = {
       // masculine plural marker
       HEBREW: /(\u{05B4}[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]?\u{05D9}\u{05DD})/u,
       TRANSLITERATION: (syllable, hebrew) => {
-        return syllable.text.replace(hebrew, "είμ");
+        return syllable.text.replace(hebrew, "ει\u{301}μ");
       }
     }
   ],
