@@ -83,6 +83,6 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "havarotjs": "^0.20.0"
+    "havarotjs": "^0.20.1"
   }
 }
