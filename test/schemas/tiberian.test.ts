@@ -9,13 +9,19 @@ interface Inputs {
 const schema = tiberian;
 
 describe("basic tests", () => {
+  test("consontants", () => {
+    const consonants = "אבגדהוזחטיכךלמםנןסעפףצץקרשת";
+    expect(transliterate(consonants, { ...schema, allowNoNiqqud: true, STRESS_MARKER: undefined })).toBe(
+      "vʁðhvzħtˁjχχlmmnnsʕffsˁsˁq̟ʀ̟ʃθ"
+    );
+  });
+
   test.each`
-    description                    | hebrew                           | transliteration
-    ${"consonants"}                | ${"אבגדהוזחטיכךלמםנןסעפףצץקרשת"} | ${"vʁðhvzħtˁjχχlmmnnsʕffsˁsˁq̟ʀ̟ʃθ"}
-    ${"no special cases"}          | ${"רַ֛עַל"}                      | ${"ˈʀ̟aːʕal"}
-    ${"preserve non-Hebrew chars"} | ${"v1. רַ֛עַל"}                  | ${"v1. ˈʀ̟aːʕal"}
-    ${"preserve line breaks"}      | ${"v1.\n רַ֛עַל"}                | ${"v1.\n ˈʀ̟aːʕal"}
-    ${"multiple words and passeq"} | ${"רַ֛עַל ׀ רַ֛עַל"}             | ${"ˈʀ̟aːʕal  ˈʀ̟aːʕal"}
+    description                    | hebrew               | transliteration
+    ${"no special cases"}          | ${"רַ֛עַל"}          | ${"ˈʀ̟aːʕal"}
+    ${"preserve non-Hebrew chars"} | ${"v1. רַ֛עַל"}      | ${"v1. ˈʀ̟aːʕal"}
+    ${"preserve line breaks"}      | ${"v1.\n רַ֛עַל"}    | ${"v1.\n ˈʀ̟aːʕal"}
+    ${"multiple words and passeq"} | ${"רַ֛עַל ׀ רַ֛עַל"} | ${"ˈʀ̟aːʕal  ˈʀ̟aːʕal"}
   `("$description", (inputs: Inputs) => {
     const { hebrew, transliteration } = inputs;
     // allowNoNiqqud must be true for the string of consonants
