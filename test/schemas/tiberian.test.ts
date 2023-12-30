@@ -198,7 +198,7 @@ describe("mater features", () => {
       ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʕeːˈsˁɔː"}
       ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"jiq̟ˈʀ̟ɛː"}
       ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hɔːʔaʀ̟ˈjeː"}
-      ${"shureq"}     | ${"קוּם"}       | ${"q̟uːm"}
+      ${"shureq"}     | ${"לָק֣וּם"}    | ${"lɔːˈq̟uːum"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -210,13 +210,13 @@ describe("mater features", () => {
       description                                                            | hebrew              | transliteration
       ${"const yod with hiriq as vowel"}                                     | ${"יַ֣יִן"}         | ${"ˈjaːjin"}
       ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן׃"} | ${"ˌvaˑjhiː-ˈχeːen"}
-      ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}          | ${"ʀ̟iːjem"}
+      ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}          | ${"ʀ̟iːˈjeːem"}
       ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}         | ${"ʕɔːˈvoːon"}
       ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}        | ${"ʕɔːˈvoːon"}
       ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵ֑ינוּ"} | ${"ʕavoːnoːˈθeːnuː"}
-      ${"initial shureq"}                                                    | ${"וּמִן"}          | ${"wumin"}
+      ${"initial shureq"}                                                    | ${"וּלְכֹ֖ל"}       | ${"wulˈχoːol"}
       ${"initial shureq in closed syllable"}                                 | ${"וּלְמִקְוֵ֥ה"}   | ${"wulmiq̟ˈveː"}
-      ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}       | ${"biːtˁoːn"}
+      ${"bgdkpt letter with mater"}                                          | ${"בִּ֣י"}          | ${"ˈbiː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -247,7 +247,7 @@ describe("vowel features", () => {
       ${"final shewa"}                                | ${"כָּ֣ךְ"}         | ${"ˈkʰɔːɔχ"}
       ${"two final shewas"}                           | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔːˈtˁɑːɑltʰ"}
       ${"omitted dagesh chazaq after article"}        | ${"הַיְאֹ֗ר"}       | ${"hajˈʔoːoʀ̟"}
-      ${"silent shewa and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazziː"}
+      ${"silent shewa and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazˈziː"}
       ${"vocal shewa preceding guttural"}             | ${"בְּאֵ֥ר"}        | ${"beˈʔeːeʀ̟"}
       ${"vocal shewa preceding guttural with shureq"} | ${"שִׁלְּח֗וּךָ"}   | ${"ʃilluˈħuːχɔː"}
     `("$description", (inputs: Inputs) => {
