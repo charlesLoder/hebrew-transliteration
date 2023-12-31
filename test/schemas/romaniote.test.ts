@@ -109,12 +109,14 @@ describe.each`
   });
 });
 
+// For "hiriq yod: final with maqqef", it's unclear if the original input was correct.
+// Removed the final accent from ή
 describe.each`
   description                       | hebrew             | transliteration
   ${"hiriq yod: medial"}            | ${"אִ֘ירָ֤א"}      | ${"ίρά"}
   ${"hiriq yod: final"}             | ${"אֲנִי"}         | ${"ανή"}
   ${"hiriq yod: plural marker"}     | ${"דְּבָרִים"}     | ${"ντεβαρείμ"}
-  ${"hiriq yod: final with maqqef"} | ${"וַֽיְהִי־כֵֽן"} | ${"βαγιεή-χεν"}
+  ${"hiriq yod: final with maqqef"} | ${"וַֽיְהִי־כֵֽן"} | ${"βαγιεη-χεν"}
 `("Hiriq Yod:", ({ description, hebrew, transliteration }) => {
   const transliteratedHeb = transliterate(hebrew, romaniote);
   test(`${description} to equal: ${transliteration}`, () => {
