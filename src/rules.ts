@@ -167,6 +167,12 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
 };
 
 const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): string => {
+  let isInConstruct = syl.word?.isInConstruct;
+
+  if (isInConstruct) {
+    return sylChars.map(mapChars(schema)).join("");
+  }
+
   if (!syl.isAccented) {
     return sylChars.map(mapChars(schema)).join("");
   }
@@ -413,6 +419,7 @@ const copySyllable = (newText: string, old: Syllable) => {
 
   newSyl.prev = old.prev;
   newSyl.next = old.next;
+  newSyl.word = old.word;
 
   return newSyl;
 };
