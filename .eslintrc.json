@@ -9,5 +9,14 @@
   "extends": ["plugin:@typescript-eslint/recommended", "plugin:jest/recommended", "prettier"],
   "parserOptions": {
     "project": "./tsconfig.eslintrc.json"
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ]
   }
 }
