@@ -147,6 +147,14 @@ export const tiberian: Schema = {
       }
     },
     {
+      FEATURE: "cluster",
+      HEBREW: "\u{05D0}\u{05BC}",
+      TRANSLITERATION: (cluster) => {
+        // remove the dagesh
+        return cluster.text.replace("\u{05BC}", "");
+      }
+    },
+    {
       FEATURE: "syllable",
       HEBREW: /ר/u,
       TRANSLITERATION: (syllable) => {
