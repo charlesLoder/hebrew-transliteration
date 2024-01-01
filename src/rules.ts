@@ -167,7 +167,7 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
 };
 
 const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): string => {
-  let isInConstruct = syl.word?.isInConstruct;
+  const isInConstruct = syl.word?.isInConstruct;
 
   if (isInConstruct) {
     return sylChars.map(mapChars(schema)).join("");
