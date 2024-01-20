@@ -75,15 +75,16 @@ describe("consonant features", () => {
 
   describe("dagesh", () => {
     test.each`
-      description                          | hebrew            | transliteration
-      ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}      | ${"ˈboːsɛrˁ"}
-      ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"}    | ${"masˈgeːeʀ̟"}
-      ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnaˈzɔːɔrˁ"}
-      ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"magˈgɔːɔl"}
-      ${"doubled shin"}                    | ${"מַשָּׁ֥א"}     | ${"maʃˈʃɔː"}
-      ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lavisˁsˁɔːˈʀ̟oːon"}
-      ${"yod with dagesh"}                 | ${"וַיִּלָּפֵ֑ת"} | ${"vaɟɟillɔːˈfeːeθ"}
-      ${"aleph with dagesh(no doubling)"}  | ${"תָּבִ֣יאּוּ"}  | ${"tʰɔːˈviːiʔuː"}
+      description                                 | hebrew                 | transliteration
+      ${"dagesh qal beginning of word"}           | ${"בֹּ֔סֶר"}           | ${"ˈboːsɛrˁ"}
+      ${"dagesh qal middle of word"}              | ${"מַסְגֵּ֖ר"}         | ${"masˈgeːeʀ̟"}
+      ${"dagesh chazaq - not BeGaDKePhaT"}        | ${"מִנְּזָר֜"}         | ${"minnaˈzɔːɔrˁ"}
+      ${"dagesh chazaq - BeGaDKePhaT"}            | ${"מַגָּ֖ל"}           | ${"magˈgɔːɔl"}
+      ${"doubled shin"}                           | ${"מַשָּׁ֥א"}          | ${"maʃˈʃɔː"}
+      ${"doubled tsadi"}                          | ${"לְבִצָּר֔וֹן"}      | ${"lavisˁsˁɔːˈʀ̟oːon"}
+      ${"yod with dagesh"}                        | ${"וַיִּלָּפֵ֑ת"}      | ${"vaɟɟillɔːˈfeːeθ"}
+      ${"aleph with dagesh (no doubling)"}        | ${"תָּבִ֣יאּוּ"}       | ${"tʰɔːˈviːiʔuː"}
+      ${"dagesh chazaq - prev word in construct"} | ${"בְחַגְוֵי־סֶּ֖לַע"} | ${"vaħaʁveː-sˈsɛːlaʕ"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
