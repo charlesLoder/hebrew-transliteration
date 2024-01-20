@@ -67,6 +67,11 @@ const isDageshChazaq = (cluster: Cluster, schema: Schema) => {
     return false;
   }
 
+  const prevWord = cluster.syllable?.word?.prev?.value;
+  if (prevWord && prevWord?.isInConstruct && !prevWord.syllables[prevWord.syllables.length - 1].isClosed) {
+    return true;
+  }
+
   // this could be a code smell, b/c the copySyllable function results are not the most predictable
   const prevSyllable = cluster.syllable?.prev;
   if (!prevSyllable) {
