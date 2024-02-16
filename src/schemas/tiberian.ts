@@ -63,7 +63,7 @@ export const tiberian: Schema = {
   SIN: "s",
   TAV: "θ",
   TAV_DAGESH: "tʰ",
-  DIVINE_NAME: "ʔaðoːˈnɔːj",
+  DIVINE_NAME: "ʔaðoːˈnɔːɔj",
   DIVINE_NAME_ELOHIM: "ʔɛloːˈhiːim",
   STRESS_MARKER: { location: "before-syllable", mark: "ˈ" },
   ADDITIONAL_FEATURES: [
