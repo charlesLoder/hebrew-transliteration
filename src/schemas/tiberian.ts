@@ -517,6 +517,7 @@ export const tiberian: Schema = {
   longVowels: false,
   qametsQatan: true,
   shevaAfterMeteg: false,
+  shevaWithMeteg: true,
   sqnmlvy: false,
   strict: true,
   wawShureq: false
