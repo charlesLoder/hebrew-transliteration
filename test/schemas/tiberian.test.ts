@@ -232,10 +232,10 @@ describe("mater features", () => {
 describe("divine name", () => {
   test.each`
     description                    | hebrew           | transliteration
-    ${"by itself"}                 | ${"יְהוָ֥ה"}     | ${"ʔaðoːˈnɔːj"}
-    ${"with a maqqef"}             | ${"אֶת־יְהוָ֤ה"} | ${"ʔɛθ-ʔaðoːˈnɔːj"}
-    ${"with a preposition"}        | ${"בַּֽיהוָ֔ה"}  | ${"ˌbaˑ-ʔaðoːˈnɔːj"}
-    ${"with latin char following"} | ${"יְהוָ֥ה,"}    | ${"ʔaðoːˈnɔːj,"}
+    ${"by itself"}                 | ${"יְהוָ֥ה"}     | ${"ʔaðoːˈnɔːɔj"}
+    ${"with a maqqef"}             | ${"אֶת־יְהוָ֤ה"} | ${"ʔɛθ-ʔaðoːˈnɔːɔj"}
+    ${"with a preposition"}        | ${"בַּֽיהוָ֔ה"}  | ${"ˌbaˑ-ʔaðoːˈnɔːɔj"}
+    ${"with latin char following"} | ${"יְהוָ֥ה,"}    | ${"ʔaðoːˈnɔːɔj,"}
     ${"pointed as elohim"}         | ${"יֱהוִה֙"}     | ${"ʔɛloːˈhiːim"}
   `("$description", (inputs: Inputs) => {
     const { hebrew, transliteration } = inputs;
