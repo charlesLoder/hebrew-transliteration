@@ -1,7 +1,7 @@
 import { Cluster } from "havarotjs/cluster";
 import { Syllable } from "havarotjs/syllable";
 import { Word } from "havarotjs/word";
-import { hebChars, clusterSplitGroup } from "havarotjs/dist/utils/regularExpressions";
+import { hebChars, clusterSplitGroup } from "havarotjs/utils/regularExpressions";
 import { Schema } from "./schema";
 import { transliterateMap as map } from "./hebCharsTrans";
 

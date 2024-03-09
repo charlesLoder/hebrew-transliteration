@@ -1,8 +1,8 @@
 import { Cluster } from "havarotjs/cluster";
-import { SylOpts } from "havarotjs/dist/text";
+import { SylOpts } from "havarotjs/text";
 import { Syllable } from "havarotjs/syllable";
 import { Word } from "havarotjs/word";
-import { NameToCharMap } from "havarotjs/dist/utils/vowelMap";
+import { NameToCharMap } from "havarotjs/utils/vowelMap";
 
 interface HebrewFeature {
   /**
