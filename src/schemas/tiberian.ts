@@ -195,7 +195,7 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "syllable",
-      HEBREW: "ח\u{05B7}$",
+      HEBREW: "ח\u{05B7}\u{05C3}?$",
       PASS_THROUGH: true,
       TRANSLITERATION: (syllable, _hebrew, schema) => {
         // furtive patach before het preceded by vav or yod
@@ -215,7 +215,7 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "syllable",
-      HEBREW: "ע\u{05B7}$",
+      HEBREW: "ע\u{05B7}\u{05C3}?$",
       PASS_THROUGH: true,
       TRANSLITERATION: (syllable, _hebrew, schema) => {
         // furtive patach before ayin preceded by vav or yod
@@ -234,7 +234,7 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "syllable",
-      HEBREW: "ה\u{05BC}\u{05B7}$",
+      HEBREW: "ה\u{05BC}\u{05B7}\u{05C3}?$",
       PASS_THROUGH: true,
       TRANSLITERATION: (syllable, _hebrew, schema) => {
         // furtive patach before he preceded by vav or yod
