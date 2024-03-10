@@ -118,6 +118,42 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "cluster",
+      HEBREW: /ט(?!\u{05b0})/u,
+      TRANSLITERATION: (cluster, _, schema) => {
+        //  /ת(?!\u{05b0})/u rule for explanation
+        if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
+          return cluster.text;
+        }
+
+        const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
+        if (!prevCoda?.includes("ט")) {
+          return cluster.text;
+        }
+
+        const noPharyngealization = schema["TET"]?.replace("ˁ", "") ?? "";
+        return cluster.text.replace("ט", `${noPharyngealization + schema["TET"]}`);
+      }
+    },
+    {
+      FEATURE: "cluster",
+      HEBREW: /ט(?!\u{05b0})/u,
+      TRANSLITERATION: (cluster, _, schema) => {
+        //  /ת(?!\u{05b0})/u rule for explanation
+        if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
+          return cluster.text;
+        }
+
+        const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
+        if (!prevCoda?.includes("ט")) {
+          return cluster.text;
+        }
+
+        const noPharyngealization = schema["TET"]?.replace("ˁ", "") ?? "";
+        return cluster.text.replace("ט", `${noPharyngealization + schema["TET"]}`);
+      }
+    },
+    {
+      FEATURE: "cluster",
       HEBREW: /(כּ|ךּ)(?!\u{05b0})/u,
       TRANSLITERATION: (cluster, _, schema) => {
         // /תּ[\u{05B4}-\u{05BB}]/u rule for explanation
