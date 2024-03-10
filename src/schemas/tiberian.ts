@@ -136,7 +136,7 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "cluster",
-      HEBREW: /ט(?!\u{05b0})/u,
+      HEBREW: /צּ(?!\u{05b0})/u,
       TRANSLITERATION: (cluster, _, schema) => {
         //  /ת(?!\u{05b0})/u rule for explanation
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
@@ -144,12 +144,12 @@ export const tiberian: Schema = {
         }
 
         const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
-        if (!prevCoda?.includes("ט")) {
+        if (!prevCoda?.includes("צ")) {
           return cluster.text;
         }
 
-        const noPharyngealization = schema["TET"]?.replace("ˁ", "") ?? "";
-        return cluster.text.replace("ט", `${noPharyngealization + schema["TET"]}`);
+        const noPharyngealization = schema["TSADI"]?.replace("ˁ", "") ?? "";
+        return cluster.text.replace("צ", `${noPharyngealization + schema["TSADI"]}`);
       }
     },
     {
