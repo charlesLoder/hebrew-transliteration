@@ -113,7 +113,7 @@ describe.each`
 // Removed the final accent from ή
 describe.each`
   description                       | hebrew             | transliteration
-  ${"hiriq yod: medial"}            | ${"אִ֘ירָ֤א"}      | ${"ίρά"}
+  ${"hiriq yod: medial"}            | ${"אִירָ֑א"}       | ${"ιρά"}
   ${"hiriq yod: final"}             | ${"אֲנִי"}         | ${"ανή"}
   ${"hiriq yod: plural marker"}     | ${"דְּבָרִים"}     | ${"ντεβαρείμ"}
   ${"hiriq yod: final with maqqef"} | ${"וַֽיְהִי־כֵֽן"} | ${"βαγιεη-χεν"}
