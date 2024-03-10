@@ -118,7 +118,7 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "cluster",
-      HEBREW: /ט(?!\u{05b0})/u,
+      HEBREW: /טּ(?!\u{05b0})/u,
       TRANSLITERATION: (cluster, _, schema) => {
         //  /ת(?!\u{05b0})/u rule for explanation
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
