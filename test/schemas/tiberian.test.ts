@@ -151,6 +151,20 @@ describe("consonant features", () => {
     });
   });
 
+  describe("has digraph", () => {
+    describe("tet", () => {
+      // tet
+      test.each`
+        description        | hebrew          | transliteration
+        ${"pharygealized"} | ${"טַ֫עַם"}     | ${"ˈtˁɑːʕam"}
+        ${"doubled"}       | ${"חַ֭טָּאִים"} | ${"ħɑttˁɔːˈʔiːim"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
+    });
+  });
+
   describe("dagesh form has digraph", () => {
     describe("tav", () => {
       test.each`
