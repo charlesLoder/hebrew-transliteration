@@ -81,7 +81,6 @@ describe("consonant features", () => {
       ${"dagesh chazaq - not BeGaDKePhaT"}        | ${"מִנְּזָר֜"}         | ${"minnaˈzɔːɔrˁ"}
       ${"dagesh chazaq - BeGaDKePhaT"}            | ${"מַגָּ֖ל"}           | ${"magˈgɔːɔl"}
       ${"doubled shin"}                           | ${"מַשָּׁ֥א"}          | ${"maʃˈʃɔː"}
-      ${"doubled tsadi"}                          | ${"לְבִצָּר֔וֹן"}      | ${"lavisˁsˁɔːˈʀ̟oːon"}
       ${"yod with dagesh"}                        | ${"וַיִּלָּפֵ֑ת"}      | ${"vaɟɟillɔːˈfeːeθ"}
       ${"aleph with dagesh (no doubling)"}        | ${"תָּבִ֣יאּוּ"}       | ${"tʰɔːˈviːiʔuː"}
       ${"dagesh chazaq - prev word in construct"} | ${"בְחַגְוֵי־סֶּ֖לַע"} | ${"vaħaʁveː-sˈsɛːlaʕ"}
@@ -158,6 +157,18 @@ describe("consonant features", () => {
         description        | hebrew          | transliteration
         ${"pharygealized"} | ${"טַ֫עַם"}     | ${"ˈtˁɑːʕam"}
         ${"doubled"}       | ${"חַ֭טָּאִים"} | ${"ħɑttˁɔːˈʔiːim"}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration } = inputs;
+        expect(transliterate(hebrew, schema)).toBe(transliteration);
+      });
+    });
+
+    describe("tsadi", () => {
+      // tet
+      test.each`
+        description        | hebrew            | transliteration
+        ${"pharygealized"} | ${"צֹ֣הַר"}       | ${"ˈsˁoːhaʀ̟"}
+        ${"doubled"}       | ${"מִצְּעִירָ֑ה"} | ${"missˁiʕiːˈʀ̟ɔː"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
