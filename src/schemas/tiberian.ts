@@ -295,7 +295,11 @@ export const tiberian: Schema = {
         // if the syllable is the first syllable, replace with wuː
         // syllable.clusters[0].isShureq is not totally necessary, but it's a good check
         if (!syllable.prev && syllable.clusters[0].isShureq) {
-          return syllable.text.replace("וּ", "wu");
+          const text = syllable.text;
+          const hasMeteg = syllable.clusters.map((c) => c.hasMeteg).includes(true); // also called gaya marking half long vowel length (§1.2.8.2.2)
+          const secondaryAccent = hasMeteg ? "ˌ" : "";
+          const halfLengthMarker = hasMeteg ? "ˑ" : "";
+          return text.replace("וּ", `${secondaryAccent}wu${halfLengthMarker}`);
         }
 
         if (syllable.isAccented && syllable.isClosed) {
