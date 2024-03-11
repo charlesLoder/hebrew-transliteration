@@ -279,17 +279,17 @@ describe("divine name", () => {
 });
 
 describe("vowel features", () => {
-  describe("shewa", () => {
+  describe("sheva", () => {
     test.each`
       description                                     | hebrew              | transliteration
-      ${"vocal shewa"}                                | ${"סְלִ֣ק"}         | ${"saˈliːiq̟"}
-      ${"silent shewa"}                               | ${"סַלְכָ֣ה"}       | ${"salˈχɔː"}
-      ${"final shewa"}                                | ${"כָּ֣ךְ"}         | ${"ˈkʰɔːɔχ"}
-      ${"two final shewas"}                           | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔːˈtˁɑːɑltʰ"}
+      ${"vocal sheva"}                                | ${"סְלִ֣ק"}         | ${"saˈliːiq̟"}
+      ${"silent sheva"}                               | ${"סַלְכָ֣ה"}       | ${"salˈχɔː"}
+      ${"final sheva"}                                | ${"כָּ֣ךְ"}         | ${"ˈkʰɔːɔχ"}
+      ${"two final shevas"}                           | ${"קָטַ֣לְתְּ"}     | ${"q̟ɔːˈtˁɑːɑltʰ"}
       ${"omitted dagesh chazaq after article"}        | ${"הַיְאֹ֗ר"}       | ${"hajˈʔoːoʀ̟"}
-      ${"silent shewa and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazˈziː"}
-      ${"vocal shewa preceding guttural"}             | ${"בְּאֵ֥ר"}        | ${"beˈʔeːeʀ̟"}
-      ${"vocal shewa preceding guttural with shureq"} | ${"שִׁלְּח֗וּךָ"}   | ${"ʃilluˈħuːχɔː"}
+      ${"silent sheva and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazˈziː"}
+      ${"vocal sheva preceding guttural"}             | ${"בְּאֵ֥ר"}        | ${"beˈʔeːeʀ̟"}
+      ${"vocal sheva preceding guttural with shureq"} | ${"שִׁלְּח֗וּךָ"}   | ${"ʃilluˈħuːχɔː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -343,7 +343,7 @@ describe("vowel features", () => {
     });
   });
 
-  describe("long vowel preceding shewa", () => {
+  describe("long vowel preceding sheva", () => {
     test.each`
       description                      | hebrew         | transliteration
       ${"From hayah"}                  | ${"הָיְתָ֥ה"}  | ${"hɔːɔjˈθɔː"}
