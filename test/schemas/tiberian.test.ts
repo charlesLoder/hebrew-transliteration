@@ -228,7 +228,19 @@ describe("mater features", () => {
       ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʕeːˈsˁɔː"}
       ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"jiq̟ˈʀ̟ɛː"}
       ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hɔːʔaʀ̟ˈjeː"}
-      ${"shureq"}     | ${"לָק֣וּם"}    | ${"lɔːˈq̟uːum"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew, schema)).toBe(transliteration);
+    });
+  });
+
+  describe("shureq", () => {
+    test.each`
+      description                                      | hebrew              | transliteration
+      ${"shureq"}                                      | ${"לָק֣וּם"}        | ${"lɔːˈq̟uːum"}
+      ${"initial shureq"}                              | ${"וּלְכֹ֖ל"}       | ${"wulˈχoːol"}
+      ${"initial shureq in closed syllable"}           | ${"וּלְמִקְוֵ֥ה"}   | ${"wulmiq̟ˈveː"}
+      ${"initial shureq with a gaya, closed syllable"} | ${"וּֽבְתוֹרָת֥וֹ"} | ${"ˌwuˑvθoːʀ̟ɔːˈθoː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -244,8 +256,6 @@ describe("mater features", () => {
       ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}         | ${"ʕɔːˈvoːon"}
       ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}        | ${"ʕɔːˈvoːon"}
       ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵ֑ינוּ"} | ${"ʕavoːnoːˈθeːnuː"}
-      ${"initial shureq"}                                                    | ${"וּלְכֹ֖ל"}       | ${"wulˈχoːol"}
-      ${"initial shureq in closed syllable"}                                 | ${"וּלְמִקְוֵ֥ה"}   | ${"wulmiq̟ˈveː"}
       ${"bgdkpt letter with mater"}                                          | ${"בִּ֣י"}          | ${"ˈbiː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
