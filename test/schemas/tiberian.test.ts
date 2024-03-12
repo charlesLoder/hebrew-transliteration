@@ -290,6 +290,7 @@ describe("vowel features", () => {
       ${"silent sheva and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazˈziː"}
       ${"vocal sheva preceding guttural"}             | ${"בְּאֵ֥ר"}        | ${"beˈʔeːeʀ̟"}
       ${"vocal sheva preceding guttural with shureq"} | ${"שִׁלְּח֗וּךָ"}   | ${"ʃilluˈħuːχɔː"}
+      ${"vocal sheva with minor gaya"}                | ${"וְֽהָיָ֗ה"}      | ${"ˌvɔˑhɔːˈjɔː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
