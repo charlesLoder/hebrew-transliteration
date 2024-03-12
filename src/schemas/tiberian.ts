@@ -547,7 +547,12 @@ export const tiberian: Schema = {
           );
         }
 
-        return syllable.text.replace(/\u{05B0}/u, schema[nextVowel].replace("ː", ""));
+        const text = syllable.text;
+        const hasMeteg = syllable.clusters.map((c) => c.hasMeteg).includes(true);
+        const secondaryAccent = hasMeteg ? "ˌ" : "";
+        const halfLengthMarker = hasMeteg ? "ˑ" : "";
+        const newVowel = schema[nextVowel].replace("ː", "") + halfLengthMarker;
+        return secondaryAccent + text.replace(/\u{05B0}/u, newVowel);
       }
     }
   ],
