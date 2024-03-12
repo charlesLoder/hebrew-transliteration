@@ -529,9 +529,18 @@ export const tiberian: Schema = {
           return false;
         }
 
+        function transliterateShevaAsVowel(vowel: string) {
+          const hasMeteg = syllable.clusters.map((c) => c.hasMeteg).includes(true);
+          const secondaryAccent = hasMeteg ? "ˌ" : "";
+          const halfLengthMarker = hasMeteg ? "ˑ" : "";
+          const newVowel = vowel.replace("ː", "") + halfLengthMarker;
+
+          return secondaryAccent + syllable.text.replace(/\u{05B0}/u, newVowel);
+        }
+
         const isGuttural = /[אהחע]/.test(nextSylFirstCluster);
         if (!isGuttural) {
-          return syllable.text.replace(/\u{05B0}/u, isBackUnrounded() ? "ɑ" : schema["PATAH"]);
+          return transliterateShevaAsVowel(isBackUnrounded() ? "ɑ" : schema["PATAH"]);
         }
 
         const nextVowel = nextSyllable.vowelName;
@@ -547,12 +556,7 @@ export const tiberian: Schema = {
           );
         }
 
-        const text = syllable.text;
-        const hasMeteg = syllable.clusters.map((c) => c.hasMeteg).includes(true);
-        const secondaryAccent = hasMeteg ? "ˌ" : "";
-        const halfLengthMarker = hasMeteg ? "ˑ" : "";
-        const newVowel = schema[nextVowel].replace("ː", "") + halfLengthMarker;
-        return secondaryAccent + text.replace(/\u{05B0}/u, newVowel);
+        return transliterateShevaAsVowel(schema[nextVowel]);
       }
     }
   ],
