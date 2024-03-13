@@ -68,6 +68,7 @@ export const brillAcademic: Schema = {
   longVowels: true,
   qametsQatan: true,
   sqnmlvy: true,
+  shevaAfterMeteg: true,
   wawShureq: true,
   article: true,
   allowNoNiqqud: true,

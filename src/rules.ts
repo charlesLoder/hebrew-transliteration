@@ -1,7 +1,7 @@
 import { Cluster } from "havarotjs/cluster";
 import { Syllable } from "havarotjs/syllable";
 import { Word } from "havarotjs/word";
-import { hebChars, clusterSplitGroup } from "havarotjs/dist/utils/regularExpressions";
+import { hebChars, clusterSplitGroup } from "havarotjs/utils/regularExpressions";
 import { Schema } from "./schema";
 import { transliterateMap as map } from "./hebCharsTrans";
 
@@ -49,6 +49,41 @@ const replaceWithRegex = (input: string, regex: RegExp, replaceValue: string) =>
 export const replaceAndTransliterate = (input: string, regex: RegExp, replaceValue: string, schema: Schema) => {
   const sylSeq = replaceWithRegex(input, regex, replaceValue);
   return [...sylSeq].map(mapChars(schema)).join("");
+};
+
+const isDageshChazaq = (cluster: Cluster, schema: Schema) => {
+  // if there is no dagesh chazaq in the schema, then return false
+  if (!schema.DAGESH_CHAZAQ) {
+    return false;
+  }
+
+  // a shureq could potentially match because of dagesh
+  if (cluster.isShureq) {
+    return false;
+  }
+
+  // if there is no dagesh in the text, then return false
+  if (!/\u{05BC}/u.test(cluster.text)) {
+    return false;
+  }
+
+  const prevWord = cluster.syllable?.word?.prev?.value;
+  if (prevWord && prevWord?.isInConstruct && !prevWord.syllables[prevWord.syllables.length - 1].isClosed) {
+    return true;
+  }
+
+  // this could be a code smell, b/c the copySyllable function results are not the most predictable
+  const prevSyllable = cluster.syllable?.prev;
+  if (!prevSyllable) {
+    return false;
+  }
+
+  const prevCoda = prevSyllable.value?.codaWithGemination;
+  if (!prevCoda) {
+    return false;
+  }
+
+  return prevCoda === cluster.syllable?.onset;
 };
 
 const getDageshChazaqVal = (input: string, dagesh: Schema["DAGESH_CHAZAQ"], isChazaq: boolean) => {
@@ -137,11 +172,23 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
 };
 
 const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): string => {
+  const isInConstruct = syl.word?.isInConstruct;
+
+  if (isInConstruct) {
+    return sylChars.map(mapChars(schema)).join("");
+  }
+
   if (!syl.isAccented) {
     return sylChars.map(mapChars(schema)).join("");
   }
 
-  if (schema.STRESS_MARKER && syl.vowel) {
+  // if syllable is only punctuation (e.g. a paseq), it should not receive a stress marker
+  const isOnlyPunctuation = syl.clusters.map((c) => c.isPunctuation).every((c) => c);
+  if (isOnlyPunctuation) {
+    return sylChars.map(mapChars(schema)).join("");
+  }
+
+  if (schema.STRESS_MARKER) {
     const exclude = schema.STRESS_MARKER?.exclude ?? "never";
 
     if (exclude === "single" && !syl.prev && !syl.next) {
@@ -154,7 +201,20 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
 
     const location = schema.STRESS_MARKER.location;
     const mark = schema.STRESS_MARKER.mark;
+
+    // if the stress marker is already present, no need to add it again
+    if (syl.text.includes(mark)) {
+      return sylChars.map(mapChars(schema)).join("");
+    }
+
     if (location === "before-syllable") {
+      const isDoubled = syl.clusters.map((c) => isDageshChazaq(c, schema)).includes(true);
+      if (isDoubled) {
+        const chars = sylChars.map(mapChars(schema)).join("");
+        const [first, ...rest] = chars;
+        return `${first}${mark}${rest.join("")}`;
+      }
+
       return `${mark}${sylChars.map(mapChars(schema)).join("")}`;
     }
 
@@ -242,15 +302,13 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   }
 
   // dagesh chazaq
-  const prevHasVowel = cluster.prev instanceof Cluster ? cluster.prev.hasVowel : false;
-  const dageshChazaq = schema.DAGESH_CHAZAQ;
-  const isDageshChazq = (dageshChazaq && prevHasVowel && /\u{05BC}/u.test(clusterText)) || false;
+  const isDageshChazq = isDageshChazaq(cluster, schema);
 
   if (schema.BET_DAGESH && /ב\u{05BC}/u.test(clusterText)) {
     return replaceWithRegex(
       clusterText,
       /ב\u{05BC}/u,
-      getDageshChazaqVal(schema.BET_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.BET_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -258,7 +316,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /ג\u{05BC}/u,
-      getDageshChazaqVal(schema.GIMEL_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.GIMEL_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -266,7 +324,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /ד\u{05BC}/u,
-      getDageshChazaqVal(schema.DALET_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.DALET_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -274,7 +332,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /כ\u{05BC}/u,
-      getDageshChazaqVal(schema.KAF_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.KAF_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -282,7 +340,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /ך\u{05BC}/u,
-      getDageshChazaqVal(schema.KAF_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.KAF_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -290,7 +348,7 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /פ\u{05BC}/u,
-      getDageshChazaqVal(schema.PE_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.PE_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
@@ -298,12 +356,16 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     return replaceWithRegex(
       clusterText,
       /ת\u{05BC}/u,
-      getDageshChazaqVal(schema.TAV_DAGESH, dageshChazaq, isDageshChazq)
+      getDageshChazaqVal(schema.TAV_DAGESH, schema.DAGESH_CHAZAQ, isDageshChazq)
     );
   }
 
   if (/ש\u{05C1}/u.test(clusterText)) {
-    return replaceWithRegex(clusterText, /ש\u{05C1}/u, getDageshChazaqVal(schema.SHIN, dageshChazaq, isDageshChazq));
+    return replaceWithRegex(
+      clusterText,
+      /ש\u{05C1}/u,
+      getDageshChazaqVal(schema.SHIN, schema.DAGESH_CHAZAQ, isDageshChazq)
+    );
   }
 
   if (/ש\u{05C2}/u.test(clusterText)) {
@@ -331,6 +393,42 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   return clusterText;
 };
 
+const copySyllable = (newText: string, old: Syllable) => {
+  const newClusters = newText.split(clusterSplitGroup).map((clusterString) => new Cluster(clusterString, true));
+  const oldClusters = old.clusters;
+
+  // set prev and next based on old syllable
+  if (newClusters.length === oldClusters.length) {
+    newClusters.forEach((c, i) => ((c.prev = oldClusters[i]?.prev ?? null), (c.next = oldClusters[i]?.next ?? null)));
+  } else {
+    for (let i = 0; i < newClusters.length; i++) {
+      const c = newClusters[i];
+      if (oldClusters[i]?.text[0] === c?.text[0]) {
+        c.prev = oldClusters[i]?.prev ?? null;
+        c.next = oldClusters[i]?.next ?? null;
+      } else {
+        c.prev = oldClusters[i]?.prev ?? null;
+        c.next = oldClusters[i + 1]?.next ?? null;
+        i++;
+      }
+    }
+  }
+
+  const newSyl = new Syllable(newClusters, {
+    isClosed: old.isClosed,
+    isAccented: old.isAccented,
+    isFinal: old.isFinal
+  });
+
+  newClusters.forEach((c) => (c.syllable = newSyl));
+
+  newSyl.prev = old.prev;
+  newSyl.next = old.next;
+  newSyl.word = old.word;
+
+  return newSyl;
+};
+
 export const sylRules = (syl: Syllable, schema: Schema): string => {
   const sylTxt = syl.text.replace(taamim, "");
 
@@ -352,19 +450,11 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
           return transliteration(syl, seq.HEBREW, schema);
         }
 
-        // if transliteration is a function and passThrough is true, then transliterate and continue
         const newText = transliteration(syl, seq.HEBREW, schema);
 
-        // if the new text is different, then create a new syllable
-        // if the texts are the same, then nothing was changed and copying the syllable becomes dangerous
+        // if the transliteration just returns the syllable.text, then no need to copy the syllable
         if (newText !== sylTxt) {
-          const clusterStrings = newText.split(clusterSplitGroup);
-          const newClusters = clusterStrings.map((clusterString) => new Cluster(clusterString, true));
-          syl = new Syllable(newClusters, {
-            isClosed: syl.isClosed,
-            isAccented: syl.isAccented,
-            isFinal: syl.isFinal
-          });
+          syl = copySyllable(newText, syl);
         }
       }
     } // end of seqs loop
@@ -390,7 +480,8 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
     return consonantFeatures(clusterText, syl, cluster, schema);
   });
 
-  return joinSyllableChars(syl, returnTxt, schema);
+  // there may be taamim still in the text, so remove them
+  return joinSyllableChars(syl, returnTxt, schema).replace(taamim, "");
 };
 
 export const wordRules = (word: Word, schema: Schema): string | Word => {
