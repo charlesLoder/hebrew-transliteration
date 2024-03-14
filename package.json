@@ -34,7 +34,8 @@
     }
   },
   "scripts": {
-    "build": "tsc --project ./.config/tsconfig.json",
+    "build": "tsc --project ./.config/tsconfig.esm.json && tsc-alias --project ./.config/tsconfig.esm.json",
+    "postbuild": "esm2cjs --in dist/esm --out dist/cjs -l error",
     "test": "clear && jest --config ./.config/jest.config.js",
     "test:transliterate": "clear && jest --config ./.config/jest.config.js test/transliterate.test.ts",
     "test:remove": "clear && jest --config ./.config/jest.config.js test/remove.test.ts",
@@ -68,6 +69,7 @@
   "author": "Charles Loder",
   "license": "MIT",
   "devDependencies": {
+    "@alcalzone/esm2cjs": "^1.1.2",
     "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "esbuild": "^0.20.0",
@@ -81,6 +83,7 @@
     "npm-dts": "^1.3.12",
     "prettier": "^3.2.5",
     "ts-jest": "^29.1.2",
+    "tsc-alias": "^1.8.8",
     "typescript": "^5.3.3"
   },
   "dependencies": {
