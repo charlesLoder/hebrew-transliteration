@@ -2,33 +2,34 @@
   "name": "hebrew-transliteration",
   "version": "2.6.0",
   "description": "a package for transliterating Hebrew",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.js"
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.js"
     },
     "./package.json": "./package.json",
     "./schemas": {
-      "types": "./dist/schemas/index.d.ts",
-      "require": "./dist/schemas/index.js",
-      "import": "./dist/schemas/index.js"
+      "types": "./dist/schemas/types/index.d.ts",
+      "require": "./dist/cjs/schemas/index.js",
+      "import": "./dist/esm/schemas/index.js"
     },
     "./removeOptions": {
-      "types": "./dist/remove.d.ts",
-      "require": "./dist/remove.js",
-      "import": "./dist/remove.js"
+      "types": "./dist/types/remove.d.ts",
+      "require": "./dist/cjs/remove.js",
+      "import": "./dist/esm/remove.js"
     }
   },
   "typesVersions": {
     "*": {
       "schemas": [
-        "./dist/schemas/index.d.ts"
+        "./dist/types/schemas/index.d.ts"
       ],
       "removeOptions": [
-        "./dist/remove.d.ts"
+        "./dist/types/remove.d.ts"
       ]
     }
   },
