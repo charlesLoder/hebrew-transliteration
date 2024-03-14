@@ -34,7 +34,7 @@
   },
   "scripts": {
     "build": "tsc --project ./.config/tsconfig.json",
-    "test": "clear && jest",
+    "test": "clear && jest --config ./.config/jest.config.js",
     "test:transliterate": "clear && jest test/transliterate.test.ts",
     "test:remove": "clear && jest test/remove.test.ts",
     "test:sequence": "clear && jest test/sequence.test.ts",
