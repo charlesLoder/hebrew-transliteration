@@ -39,7 +39,7 @@
     "test:remove": "clear && jest test/remove.test.ts",
     "test:sequence": "clear && jest test/sequence.test.ts",
     "format": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint -c ./.config/.eslintrc.json --ignore-path ./.config/.eslintignore . --ext .ts",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
