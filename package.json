@@ -35,9 +35,9 @@
   "scripts": {
     "build": "tsc --project ./.config/tsconfig.json",
     "test": "clear && jest --config ./.config/jest.config.js",
-    "test:transliterate": "clear && jest test/transliterate.test.ts",
-    "test:remove": "clear && jest test/remove.test.ts",
-    "test:sequence": "clear && jest test/sequence.test.ts",
+    "test:transliterate": "clear && jest --config ./.config/jest.config.js test/transliterate.test.ts",
+    "test:remove": "clear && jest --config ./.config/jest.config.js test/remove.test.ts",
+    "test:sequence": "clear && jest --config ./.config/jest.config.js test/sequence.test.ts",
     "format": "prettier --config ./.config/.prettierrc.json --write 'src/**/*.ts' 'test/**/*.ts'",
     "lint": "eslint -c ./.config/.eslintrc.json --ignore-path ./.config/.eslintignore . --ext .ts",
     "prepare": "npm run build",
