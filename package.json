@@ -44,7 +44,7 @@
     "lint": "eslint -c ./.config/.eslintrc.json --ignore-path ./.config/.eslintignore . --ext .ts",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
-    "preversion": "npm run lint",
+    "preversion": "./changelog.sh && npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
     "updates": "ncu"
