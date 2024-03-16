@@ -2,6 +2,26 @@
 
 ## Version 2
 
+- v2.6.1
+  - Update build output to cjs and esm (PR #78)
+
+- v2.6.0
+  - Add tiberian schema (PR #77)
+
+- v2.5.0
+  - Fix issue with vocal shew (PR #71)  
+  - Add Journal of Semitic Studies schema (PR #74)
+
+- v2.4.0
+  - Add callback to `ADDITIONAL_FEATURES` (PR #48)
+  - Add schema input for Divine Name pointed as 'elohiym (PR #49)
+  - Add new prop to stress marker (PR #51)
+  - Add string as option to  `DAGESH_CHAZAQ` (PR #52)
+  - Add `PASS_THROUGH` option to `ADDITIONAL_FEATURES` (PR #54)
+  - Add romaniote schema (PR #56)
+  - Fix maqqef before shureq bug (PR #65)
+  - Fix furtive patach before sof pasuq (PR #69)
+
 - v2.3.1
   - update packages
   - Fixes Issue [#39](https://github.com/charlesLoder/hebrew-transliteration/issues/39)
