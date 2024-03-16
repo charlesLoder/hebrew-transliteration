@@ -3,71 +3,89 @@
 ## Version 2
 
 - v2.6.1
+
   - Update build output to cjs and esm (PR #78)
 
 - v2.6.0
+
   - Add tiberian schema (PR #77)
 
 - v2.5.0
-  - Fix issue with vocal shew (PR #71)  
+
+  - Fix issue with vocal shew (PR #71)
   - Add Journal of Semitic Studies schema (PR #74)
 
 - v2.4.0
+
   - Add callback to `ADDITIONAL_FEATURES` (PR #48)
   - Add schema input for Divine Name pointed as 'elohiym (PR #49)
   - Add new prop to stress marker (PR #51)
-  - Add string as option to  `DAGESH_CHAZAQ` (PR #52)
+  - Add string as option to `DAGESH_CHAZAQ` (PR #52)
   - Add `PASS_THROUGH` option to `ADDITIONAL_FEATURES` (PR #54)
   - Add romaniote schema (PR #56)
   - Fix maqqef before shureq bug (PR #65)
   - Fix furtive patach before sof pasuq (PR #69)
 
 - v2.3.1
+
   - update packages
   - Fixes Issue [#39](https://github.com/charlesLoder/hebrew-transliteration/issues/39)
 
 - v2.3.0
+
   - rewrite the `remove` function to allow for greater control of which character are removed
 
 - v2.2.4
+
   - update packages for improved `strict` handling
 
 - v2.2.3
+
   - update packages
   - update imports from havarotjs
 
 - v2.2.2
+
   - fix export of package.json
 
 - v2.2.1
+
   - fix broken exports and type
 
 - v2.2.0
+
   - fix DN with Latin chars (Issue #26)
   - remove build scripts so no longer bundled as one file
   - add premade schemas (Issue #25)
 
 - v2.1.2
+
   - update havarotjs and other packages
 
 - v2.1.1
+
   - update havarotjs and other packages
 
 - v2.1.0:
+
   - update havarotjs and other packages
   - new update improves how text w/o niqqud is handled
   - Schema now gets a new syllabification option
 
 - v2.0.8:
+
   - update havarotjs and other packages
 
 - v2.0.7:
+
   - still transliterates if word has taamim, but not niqqud (i.e. vowels)
 
 - v2.0.6:
+
   - add check if word is not Hebrew
 
 - v2.0.5:
+
   - update havarotjs and other packages
   - add check if word is not Hebrew
 
