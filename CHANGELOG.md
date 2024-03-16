@@ -2,9 +2,10 @@
 
 ## Version 2
 
-- v2.6.1
+- v2.6.2
 
   - Update build output to cjs and esm (PR #78)
+  - ⚠️ screwed up versioning and skipped 2.6.1
 
 - v2.6.0
 
