@@ -8,7 +8,7 @@
   "plugins": ["eslint-plugin-jsdoc", "eslint-plugin-prefer-arrow", "@typescript-eslint", "jest"],
   "extends": ["plugin:@typescript-eslint/recommended", "plugin:jest/recommended", "prettier"],
   "parserOptions": {
-    "project": "./tsconfig.eslintrc.json"
+    "project": "./.config/tsconfig.eslintrc.json"
   },
   "rules": {
     "@typescript-eslint/no-unused-vars": [
