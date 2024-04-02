@@ -485,9 +485,18 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
 };
 
 export const wordRules = (word: Word, schema: Schema): string | Word => {
-  if (word.isDivineName) return getDivineName(word.text, schema);
-  if (word.hasDivineName) return `${sylRules(word.syllables[0], schema)}-${getDivineName(word.text, schema)}`;
-  if (word.isNotHebrew) return word.text;
+  if (word.isDivineName) {
+    return getDivineName(word.text, schema);
+  }
+
+  if (word.hasDivineName) {
+    return `${sylRules(word.syllables[0], schema)}-${getDivineName(word.text, schema)}`;
+  }
+
+  if (word.isNotHebrew) {
+    return word.text;
+  }
+
   if (schema.ADDITIONAL_FEATURES?.length) {
     const seqs = schema.ADDITIONAL_FEATURES;
     for (const seq of seqs) {
