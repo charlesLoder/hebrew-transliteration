@@ -2,6 +2,10 @@
 
 ## Version 2
 
+- v2.6.3
+
+  - Fix tiberian outpur for Jerusalem (PR #80) and Issachar (PR #82)
+
 - v2.6.2
 
   - Update build output to cjs and esm (PR #78)
