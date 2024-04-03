@@ -497,11 +497,11 @@ export const wordRules = (word: Word, schema: Schema): string | Word => {
     return word.text;
   }
 
+  const text = word.text.replace(taamim, "");
   if (schema.ADDITIONAL_FEATURES?.length) {
     const seqs = schema.ADDITIONAL_FEATURES;
     for (const seq of seqs) {
       const heb = new RegExp(seq.HEBREW, "u");
-      const text = word.text.replace(taamim, "");
       if (seq.FEATURE === "word" && heb.test(text)) {
         const transliteration = seq.TRANSLITERATION;
         const passThrough = seq.PASS_THROUGH ?? true;
