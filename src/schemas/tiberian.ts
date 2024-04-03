@@ -562,8 +562,8 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: /\u{5B4}ם/u,
-      // a hiriq preceding a final mem only occurs in Jerusalem
       TRANSLITERATION: (syl, heb) => {
+        // a hiriq preceding a final mem only occurs in Jerusalem
         return syl.text.replace(heb, "jim");
       }
     }
