@@ -289,6 +289,17 @@ describe("jerusalem", () => {
   });
 });
 
+describe("issachar", () => {
+  test.each`
+    description   | hebrew             | transliteration
+    ${"no vav"}   | ${"יִשָּׂשכָ֖ר"}   | ${"jissɔːˈχɔːɔʀ̟"}
+    ${"with vav"} | ${"וְיִשָּׂשכָ֖ר"} | ${"vajissɔːˈχɔːɔʀ̟"}
+  `("$description", (inputs: Inputs) => {
+    const { hebrew, transliteration } = inputs;
+    expect(transliterate(hebrew, schema)).toBe(transliteration);
+  });
+});
+
 describe("vowel features", () => {
   describe("sheva", () => {
     test.each`

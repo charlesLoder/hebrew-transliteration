@@ -562,9 +562,23 @@ export const tiberian: Schema = {
     {
       FEATURE: "syllable",
       HEBREW: /\u{5B4}ם/u,
-      // a hiriq preceding a final mem only occurs in Jerusalem
       TRANSLITERATION: (syl, heb) => {
+        // a hiriq preceding a final mem only occurs in Jerusalem
         return syl.text.replace(heb, "jim");
+      }
+    },
+    {
+      FEATURE: "word",
+      HEBREW: /(וְ)?יִשָּׂשכָר/,
+      PASS_THROUGH: true,
+      TRANSLITERATION: (word, heb) => {
+        // matches the name Issachar
+        const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/gu;
+        const text = word.text.replace(taamim, "");
+        const match = text.match(heb);
+        const vav = match && match[1] ? match[1] : "";
+        const issachar = "jissɔːˈχɔːɔʀ̟";
+        return `${vav}${issachar}`;
       }
     }
   ],
