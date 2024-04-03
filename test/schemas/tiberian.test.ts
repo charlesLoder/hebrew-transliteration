@@ -278,6 +278,17 @@ describe("divine name", () => {
   });
 });
 
+describe("jerusalem", () => {
+  test.each`
+    description      | hebrew                | transliteration
+    ${"with patach"} | ${"יְרוּשָׁלִַ֗ם"}    | ${"jaʀ̟uːʃɔːˈlaːjim"}
+    ${"with qamets"} | ${"בִּירוּשָׁלִָֽם׃"} | ${"biːʀ̟uːʃɔːˈlɔːjim"}
+  `("$description", (inputs: Inputs) => {
+    const { hebrew, transliteration } = inputs;
+    expect(transliterate(hebrew, schema)).toBe(transliteration);
+  });
+});
+
 describe("vowel features", () => {
   describe("sheva", () => {
     test.each`
