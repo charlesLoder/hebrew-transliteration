@@ -558,6 +558,14 @@ export const tiberian: Schema = {
 
         return transliterateShevaAsVowel(schema[nextVowel]);
       }
+    },
+    {
+      FEATURE: "syllable",
+      HEBREW: /\u{5B4}ם/u,
+      // a hiriq preceding a final mem only occurs in Jerusalem
+      TRANSLITERATION: (syl, heb) => {
+        return syl.text.replace(heb, "jim");
+      }
     }
   ],
   allowNoNiqqud: false,
