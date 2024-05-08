@@ -2,9 +2,13 @@
 
 ## Version 2
 
+- v2.6.4
+
+- Incorporate updates from havarotjs which prevents errors
+
 - v2.6.3
 
-  - Fix tiberian outpur for Jerusalem (PR #80) and Issachar (PR #82)
+  - Fix tiberian output for Jerusalem (PR #80) and Issachar (PR #82)
 
 - v2.6.2
 
