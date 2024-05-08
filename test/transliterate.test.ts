@@ -279,7 +279,7 @@ describe("extending SBL schema for optional arguments", () => {
               FEATURE: "syllable",
               TRANSLITERATION: function (syllable, _hebrew, schema) {
                 const next = syllable.next as Syllable;
-                const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName;
+                const nextVowel = next.vowelNames[0] === "SHEVA" ? "VOCAL_SHEVA" : next.vowelNames[0];
 
                 if (next && nextVowel) {
                   const vowel = schema[nextVowel] || "";
@@ -304,7 +304,7 @@ describe("extending SBL schema for optional arguments", () => {
               FEATURE: "syllable",
               TRANSLITERATION: function (syllable, _hebrew, schema) {
                 const next = syllable.next as Syllable;
-                const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName;
+                const nextVowel = next.vowelNames[0] === "SHEVA" ? "VOCAL_SHEVA" : next.vowelNames[0];
 
                 if (next && nextVowel) {
                   const vowel = schema[nextVowel] || "";
@@ -330,7 +330,7 @@ describe("extending SBL schema for optional arguments", () => {
               PASS_THROUGH: false,
               TRANSLITERATION: function (syllable, _hebrew, schema) {
                 const next = syllable.next as Syllable;
-                const nextVowel = next.vowelName === "SHEVA" ? "VOCAL_SHEVA" : next.vowelName;
+                const nextVowel = next.vowelNames[0] === "SHEVA" ? "VOCAL_SHEVA" : next.vowelNames[0];
 
                 if (next && nextVowel) {
                   const vowel = schema[nextVowel] || "";
