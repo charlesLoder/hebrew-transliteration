@@ -315,8 +315,8 @@ export const tiberian: Schema = {
       HEBREW: /[\u{05B4}-\u{05BB}\u{05C7}]/u,
       TRANSLITERATION: (syllable, _, schema) => {
         // this features matches any syllable that has a full vowel character (i.e. not sheva)
-        const vowelName = syllable.vowelName;
-        const vowel = syllable.vowel;
+        const vowelName = syllable.vowelNames[0];
+        const vowel = syllable.vowels[0];
 
         if (!vowel || !vowelName) {
           return syllable.text;
@@ -436,8 +436,8 @@ export const tiberian: Schema = {
       HEBREW: /[\u{05B1}-\u{05B3}]/u,
       TRANSLITERATION: (syllable) => {
         // this features matches any syllable that has a hataf vowel character
-        const vowelName = syllable.vowelName;
-        const vowel = syllable.vowel;
+        const vowelName = syllable.vowelNames[0];
+        const vowel = syllable.vowels[0];
 
         if (!vowel || !vowelName) {
           return syllable.text;
@@ -543,7 +543,7 @@ export const tiberian: Schema = {
           return transliterateShevaAsVowel(isBackUnrounded() ? "ɑ" : schema["PATAH"]);
         }
 
-        const nextVowel = nextSyllable.vowelName;
+        const nextVowel = nextSyllable.vowelNames[0];
         if (!nextVowel) {
           throw new Error(
             `Syllable ${syllable.text} has a sheva as a vowel, but the next syllable ${nextSylFirstCluster} does not have a vowel`
