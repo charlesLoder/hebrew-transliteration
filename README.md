@@ -10,7 +10,7 @@ A JavaScript package for transliterating Hebrew
 npm install hebrew-transliteration
 ```
 
-### local
+### from source
 
 You will need to have [node installed](https://nodejs.org/en/download/).
 
@@ -22,7 +22,17 @@ npm install
 npm run build
 ```
 
-## example
+## quickstart
+
+You can ESM:
+
+```javascript
+import { transliterate } from "hebrew-transliteration";
+transliterate("אֱלֹהִים");
+// ʾĕlōhîm
+```
+
+Or CommonJS: 
 
 ```javascript
 const heb = require("hebrew-transliteration");
@@ -93,7 +103,6 @@ heb.transliterate("אָ֣ב", schema)
 // 'AB
 ```
 
----
 
 #### `remove()`
 
@@ -125,7 +134,6 @@ heb.remove("שָׂרַ֣י אִשְׁתְּךָ֔", opts.all);
 // שרי אשתך, וימצאו
 ```
 
----
 
 #### `sequence()`
 
