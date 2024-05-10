@@ -24,7 +24,7 @@ npm run build
 
 ## quickstart
 
-You can ESM:
+You can use ESM:
 
 ```javascript
 import { transliterate } from "hebrew-transliteration";
