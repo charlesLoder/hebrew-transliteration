@@ -194,6 +194,9 @@ interface RemoveOptions {
   // punctuation //
   /**
    * ־◌
+   *
+   * @description
+   * Unlike other characters, this is replaced with a space instead of being removed.
    */
   MAQAF?: boolean;
   /**
@@ -449,7 +452,9 @@ export const remove = (text: string, options: RemoveOptions = { ...accents, METE
   return keys.reduce((a, c) => {
     const key = removeMap[c as OptionKey] ?? null;
     if (key) {
-      return a.replace(new RegExp(key, "gu"), "");
+      // if it is a MAQAF, replace it with a space
+      const replacement = key === "\u{05BE}" ? " " : "";
+      return a.replace(new RegExp(key, "gu"), replacement);
     }
     return a;
   }, sequenced);

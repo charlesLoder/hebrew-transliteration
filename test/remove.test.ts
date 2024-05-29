@@ -31,3 +31,9 @@ test("remove custom", () => {
   const result = sequence("שָרַ֣י אִשְתְּךָ֔");
   expect(remove(test, { SHIN_DOT: true, SIN_DOT: true })).toBe(result);
 });
+
+test("remove maqqef", () => {
+  const test = "עַֽל־פַּלְגֵ֫י־מָ֥יִם";
+  const result = sequence("עַֽל פַּלְגֵ֫י מָ֥יִם");
+  expect(remove(test, { MAQAF: true })).toBe(result);
+});
