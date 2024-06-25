@@ -26,7 +26,7 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
 /**
  * transliterates Hebrew text
  *
- * @param text - a string or {@link https://charlesloder.github.io/havarot/classes/text.Text.html | Text} of Hebrew characters
+ * @param text - a string or {@link https://charlesloder.github.io/havarotjs/classes/text.Text.html | Text} of Hebrew characters
  * @param schema - a {@link Schema} for transliterating the text
  * @returns a transliterated text
  *
