@@ -47,7 +47,9 @@
     "preversion": "./changelog.sh && npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "updates": "ncu"
+    "updates": "ncu",
+    "docs:output": "typedoc --json ./docs/data.json src/index.ts",
+    "docs:dev": "astro dev --config ./docs/astro.config.mjs"
   },
   "files": [
     "dist/**/*"
@@ -70,8 +72,10 @@
   "license": "MIT",
   "devDependencies": {
     "@alcalzone/esm2cjs": "^1.1.2",
+    "@astrojs/starlight": "^0.24.5",
     "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "astro": "^4.11.3",
     "esbuild": "^0.20.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -82,8 +86,12 @@
     "npm-check-updates": "^16.14.20",
     "npm-dts": "^1.3.12",
     "prettier": "^3.2.5",
+    "prettier-plugin-astro": "^0.14.0",
+    "starlight-typedoc": "^0.13.1",
     "ts-jest": "^29.1.2",
     "tsc-alias": "^1.8.8",
+    "typedoc": "^0.26.2",
+    "typedoc-plugin-markdown": "^4.2.1",
     "typescript": "^5.4.5"
   },
   "dependencies": {
