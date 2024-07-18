@@ -195,7 +195,7 @@ interface RemoveOptions {
   /**
    * ־◌
    *
-   * @description
+   * @remarks
    * Unlike other characters, this is replaced with a space instead of being removed.
    */
   MAQAF?: boolean;
@@ -413,14 +413,13 @@ export const all: RemoveOptions = {
 };
 
 /**
- * removes niqqud from Hebrew text
+ * Removes niqqud from Hebrew text
  *
  * @param text - a string of Hebrew characters
  * @param options
  * @returns Hebrew characters with accents and niqqud optionally removed
  *
  * @example Default
- *
  * ```ts
  * // by default removes all accents and metheg and rafe
  * remove("שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ");
@@ -428,7 +427,6 @@ export const all: RemoveOptions = {
  * ```
  *
  * @example Remove accents and vowels, but not shin/sin dots
- *
  * ```ts
  * import { accents, vowelsl } from "hebrew-transliteration/removeOptions";
  *
@@ -437,7 +435,6 @@ export const all: RemoveOptions = {
  * ```
  *
  * @example Remove all
- *
  * ```ts
  * import { all } from "hebrew-transliteration/removeOptions";
  *

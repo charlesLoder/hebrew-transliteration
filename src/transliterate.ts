@@ -5,12 +5,16 @@ import { Word } from "havarotjs/word";
 import { SylOpts } from "havarotjs/text";
 
 /**
+ *  Gets the syllable options from a partial schema
  *
+ * @private
  * @param schema
  * @returns syllable options passed into havarotjs
- * @description sanitizes the SylOpts of the schema so as to not pass in undefined
+ *
+ * @remarks
+ * Sanitizes the SylOpts of the schema so as to not pass in undefined
  */
-const getSylOpts = (schema: Partial<SylOpts>) => {
+const getSylOpts = (schema: Partial<Schema>) => {
   const options: SylOpts = {};
   if ("longVowels" in schema) options.longVowels = schema.longVowels;
   if ("qametsQatan" in schema) options.qametsQatan = schema.qametsQatan;
@@ -24,7 +28,7 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
 };
 
 /**
- * transliterates Hebrew text
+ * Transliterates Hebrew text according to a given schema
  *
  * @param text - a string or {@link https://charlesloder.github.io/havarotjs/classes/text.Text.html | Text} of Hebrew characters
  * @param schema - a {@link Schema} for transliterating the text
@@ -38,23 +42,15 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
  * // "ʾĕlōhîm";
  * ```
  *
- * ---
- *
- * @remarks
- *
- * If no {@link Schema} is passed, then the package defaults to SBL's academic style
- *
- * You can pass in a partial schema that will modify SBL's academic style:
- *
+ * @example Using `Partial<Schema>`
  * ```ts
+ * import { transliterate } from "hebrew-transliteration";
+ *
  * transliterate("שָׁלוֹם", { SHIN: "sh" })
  * // shālôm
  * ```
  *
- * ---
- *
- * If you need a fully custom schema, it is best to use the {@link Schema} constructor:
- *
+ * @example Using a custom `Schema`
  * ```ts
  * import { transliterate, Schema } from "hebrew-transliteration";
  *
@@ -63,6 +59,10 @@ const getSylOpts = (schema: Partial<SylOpts>) => {
  * transliterate("אָ֣ב", schema)
  * // 'AB
  * ```
+ *
+ * @remarks
+ * If no {@link Schema} is passed, then the package defaults to SBL's academic style. You can pass in a partial schema that will modify SBL's academic style.
+ * If you need a fully custom schema, it is best to use the {@link Schema} constructor.
  *
  */
 export const transliterate = (text: string | Text, schema?: Partial<Schema> | Schema) => {
