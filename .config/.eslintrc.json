@@ -1,12 +1,11 @@
 {
   "env": {
     "node": true,
-    "browser": true,
-    "jest/globals": true
+    "browser": true
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["eslint-plugin-jsdoc", "eslint-plugin-prefer-arrow", "@typescript-eslint", "jest"],
-  "extends": ["plugin:@typescript-eslint/recommended", "plugin:jest/recommended", "prettier"],
+  "plugins": ["eslint-plugin-jsdoc", "eslint-plugin-prefer-arrow", "@typescript-eslint"],
+  "extends": ["plugin:@typescript-eslint/recommended", "prettier"],
   "parserOptions": {
     "project": "./.config/tsconfig.eslintrc.json"
   },
