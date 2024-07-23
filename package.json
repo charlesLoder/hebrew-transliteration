@@ -48,7 +48,7 @@
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
     "updates": "ncu",
-    "docs:output": "typedoc --json ./docs/data.json src/index.ts",
+    "docs:output": "typedoc --tsconfig ./.config/tsconfig.json --json ./docs/data.json src/index.ts",
     "docs:dev": "astro dev --config ./docs/astro.config.mjs"
   },
   "files": [
@@ -85,7 +85,7 @@
     "prettier-plugin-astro": "^0.14.0",
     "starlight-typedoc": "^0.13.1",
     "tsc-alias": "^1.8.8",
-    "typedoc": "^0.26.2",
+    "typedoc": "^0.26.5",
     "typedoc-plugin-markdown": "^4.2.2",
     "typescript": "^5.5.3",
     "vitest": "^2.0.3"
