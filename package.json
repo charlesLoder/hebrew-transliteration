@@ -86,7 +86,7 @@
     "starlight-typedoc": "^0.13.1",
     "tsc-alias": "^1.8.8",
     "typedoc": "^0.26.5",
-    "typedoc-plugin-markdown": "^4.2.2",
+    "typedoc-plugin-markdown": "^4.2.3",
     "typescript": "^5.5.3",
     "vitest": "^2.0.3"
   },
