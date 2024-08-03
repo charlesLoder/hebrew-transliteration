@@ -1,0 +1,62 @@
+---
+title: Quickstart
+---
+
+import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+
+Create customized Hebrew transliterations.
+
+## Installation
+
+<Tabs syncKey="runtime">
+  <TabItem label="node" icon="node">
+    <Code code={"npm i hebrew-transliteration"} lang="bash" frame="code" />
+  </TabItem>
+  <TabItem label="deno" icon="deno">
+    <Code code={`import { transliterate } from "npm:hebrew-transliteration";`} lang="ts" frame="code" />
+  </TabItem>
+  <TabItem label="browser" icon="laptop">
+    <Code code={`import { transliterate } from "https://esm.sh/hebrew-transliteration";`} lang="js" frame="code" />
+  </TabItem>
+</Tabs>
+
+## Usage
+
+<Tabs syncKey="runtime">
+  <TabItem label="ESM" icon="seti:javascript">
+    <Code
+      code={`import { transliterate } from "hebrew-transliteration";\nconst str = "בְּרֵאשִׁ֖ית";\nconsole.log(transliterate(str));\n// bǝrēʾšît;`}
+      lang="js"
+      frame="code"
+    />
+  </TabItem>
+  <TabItem label="CommonJS" icon="node">
+    <Code
+      code={`const heb = require("hebrew-transliteration");\nconst str = "בְּרֵאשִׁ֖ית";\nconsole.log(heb.transliterate(str));\n// bǝrēʾšît;`}
+      lang="js"
+      frame="code"
+    />
+  </TabItem>
+  <TabItem label="deno" icon="deno">
+    <Code
+      code={`import { transliterate } from "npm:hebrew-transliteration";\nconst str = "בְּרֵאשִׁ֖ית";\nconsole.log(transliterate(str));\n// bǝrēʾšît;`}
+      lang="ts"
+      frame="code"
+    />
+  </TabItem>
+  <TabItem label="browser" icon="laptop">
+    <Code
+      code={`import { transliterate } from "https://esm.sh/hebrew-transliteration";\nconst str = "בְּרֵאשִׁ֖ית";\nconsole.log(transliterate(str));\n// bǝrēʾšît;`}
+      lang="ts"
+      frame="code"
+    />
+  </TabItem>
+</Tabs>
+
+## Key features
+
+This package contains 3 functions for:
+
+- transliteration — [`transliterate()`](/api/functions/transliterate)
+- removing niqqud — [`remove()`](/api/functions/remove)
+- sequencings text — [`sequence()`](/api/functions/sequence)
