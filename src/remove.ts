@@ -1,235 +1,368 @@
 import { sequence } from "./sequence";
 
-interface RemoveOptions {
-  // accents //
+/**
+ * @categoryDescription Taamim
+ * Also called "accent" characters
+ *
+ * @categoryDescription Vowels
+ * Hebrew vowel characters
+ *
+ * @categoryDescription Punctuation
+ * Characters not bound to other characters (e.g. paseq)
+ */
+
+/**
+ * Options for removing characters from Hebrew text, divided into categories
+ */
+export interface RemoveOptions {
   /**
+   * HEBREW ACCENT ETNAHTA (U+0591)
    * ◌֑
+   * @category Taamim
    */
   ETNAHTA?: boolean;
   /**
+   * HEBREW ACCENT SEGOL (U+0592)
    * ◌֒
+   * @category Taamim
    */
   SEGOLTA?: boolean;
   /**
+   * HEBREW ACCENT SHALSHELET (U+0593)
    * ◌֓
+   * @category Taamim
    */
   SHALSHELET?: boolean;
   /**
+   * HEBREW ACCENT ZAQEF QATAN (U+0594)
    * ◌֔
+   * @category Taamim
    */
   ZAQEF_QATAN?: boolean;
   /**
+   * HEBREW ACCENT ZAQEF GADOL (U+0595)
    * ◌֕
+   * @category Taamim
    */
   ZAQEF_GADOL?: boolean;
   /**
+   * HEBREW ACCENT TIPEHA (U+0596)
    * ◌֖
+   * @category Taamim
    */
   TIPEHA?: boolean;
   /**
+   * HEBREW ACCENT REVIA (U+0597)
    * ◌֗
+   * @category Taamim
    */
   REVIA?: boolean;
   /**
+   * HEBREW ACCENT ZARQA (U+0598)
    * ◌֘
+   * @category Taamim
    */
   ZARQA?: boolean;
   /**
+   * HEBREW ACCENT PASHTA (U+0599)
    * ◌֙
+   * @category Taamim
    */
   PASHTA?: boolean;
   /**
+   * HEBREW ACCENT YETIV (U+059A)
    * ◌֚
+   * @category Taamim
    */
   YETIV?: boolean;
   /**
+   * HEBREW ACCENT TEVIR (U+059B)
    * ◌֛
+   * @category Taamim
    */
   TEVIR?: boolean;
   /**
+   * HEBREW ACCENT GERESH (U+059C)
    * ◌֜
+   * @category Taamim
    */
   GERESH?: boolean;
   /**
+   * HEBREW ACCENT GERESH MUQDAM (U+059D)
    * ◌֝
+   * @category Taamim
    */
   GERESH_MUQDAM?: boolean;
   /**
+   * HEBREW ACCENT GERSHAYIM (U+059E)
    * ◌֞
+   * @category Taamim
    */
   GERSHAYIM?: boolean;
   /**
+   * HEBREW ACCENT QARNEY PARA (U+059F)
    * ◌֟
+   * @category Taamim
    */
   QARNEY_PARA?: boolean;
   /**
+   * HEBREW ACCENT TELISHA GEDOLA (U+05A0)
    * ◌֠
+   * @category Taamim
    */
   TELISHA_GEDOLA?: boolean;
   /**
+   * HEBREW ACCENT PAZER (U+05A1)
    * ◌֡
+   * @category Taamim
    */
   PAZER?: boolean;
   /**
+   * HEBREW ACCENT ATNAH HAFUKH (U+05A2)
    * ◌֢
+   * @category Taamim
    */
   ATNAH_HAFUKH?: boolean;
   /**
+   * HEBREW ACCENT MUNAH (U+05A3)
    * ◌֣
+   * @category Taamim
    */
   MUNAH?: boolean;
   /**
+   * HEBREW ACCENT MAHAPAKH (U+05A4)
    * ◌֤
+   * @category Taamim
    */
   MAHAPAKH?: boolean;
   /**
+   * HEBREW ACCENT MERKHA (U+05A5)
    * ◌֥
+   * @category Taamim
    */
   MERKHA?: boolean;
   /**
+   * HEBREW ACCENT MERKHA KEFULA (U+05A6)
    * ◌֦
+   * @category Taamim
    */
   MERKHA_KEFULA?: boolean;
   /**
+   * HEBREW ACCENT DARGA (U+05A7)
    * ◌֧
+   * @category Taamim
    */
   DARGA?: boolean;
   /**
+   * HEBREW ACCENT QADMA (U+05A8)
    * ◌֨
+   * @category Taamim
    */
   QADMA?: boolean;
   /**
+   * HEBREW ACCENT TELISHA QETANA (U+05A9)
    * ◌֩
+   * @category Taamim
    */
   TELISHA_QETANA?: boolean;
   /**
+   * HEBREW ACCENT YERAH BEN YOMO (U+05AA)
    * ◌֪
+   * @category Taamim
    */
   YERAH_BEN_YOMO?: boolean;
   /**
+   * HEBREW ACCENT OLE (U+05AB)
    * ◌֫
+   * @category Taamim
    */
   OLE?: boolean;
   /**
+   * HEBREW ACCENT ILUY (U+05AC)
    * ◌֬
+   * @category Taamim
    */
   ILUY?: boolean;
   /**
+   * HEBREW ACCENT DEHI (U+05AD)
    * ◌֭
+   * @category Taamim
    */
   DEHI?: boolean;
   /**
+   * HEBREW ACCENT ZINOR (U+05AE)
    * ◌֮
+   * @category Taamim
    */
   ZINOR?: boolean;
-  // points //
   /**
+   * HEBREW POINT SHEVA (U+05B0)
    * ◌ְ
+   * @category Vowels
    */
   SHEVA?: boolean;
   /**
+   * HEBREW POINT HATAF SEGOL (U+05B1)
    * ◌ֱ
+   * @category Vowels
    */
   HATAF_SEGOL?: boolean;
   /**
+   * HEBREW POINT HATAF PATAH (U+05B2)
    * ◌ֲ
+   * @category Vowels
    */
   HATAF_PATAH?: boolean;
   /**
+   * HEBREW POINT HATAF QAMATS (U+05B3)
    * ◌ֳ
+   * @category Vowels
    */
   HATAF_QAMATS?: boolean;
   /**
+   * HEBREW POINT HIRIQ (U+05B4)
    * ◌ִ
+   * @category Vowels
    */
   HIRIQ?: boolean;
   /**
+   * HEBREW POINT TSERE (U+05B5)
    * ◌ֵ
+   * @category Vowels
    */
   TSERE?: boolean;
   /**
+   * HEBREW POINT SEGOL (U+05B6)
    * ◌ֶ
+   * @category Vowels
    */
   SEGOL?: boolean;
   /**
+   * HEBREW POINT PATAH (U+05B7)
    * ◌ַ
+   * @category Vowels
    */
   PATAH?: boolean;
   /**
+   * HEBREW POINT QAMATS (U+05B8)
    * ◌ָ
+   * @category Vowels
    */
   QAMATS?: boolean;
   /**
+   * HEBREW POINT HOLAM (U+05B9)
    * ◌ֹ
+   * @category Vowels
    */
   HOLAM?: boolean;
   /**
+   * HEBREW POINT QUBUTS (U+05BB)
    * ◌ֻ
+   * @category Vowels
    */
   QUBUTS?: boolean;
   /**
+   * HEBREW POINT DAGESH OR MAPIQ (U+05BC)
    * ◌ּ
+   * @category Vowels
    */
   DAGESH?: boolean;
   /**
+   * HEBREW POINT METEG (U+05BD)
    * ◌ֽ
+   * @category Vowels
    */
   METEG?: boolean;
   /**
+   * HEBREW POINT RAFE (U+05BF)
    * ◌ֿ
+   * @category Vowels
    */
   RAFE?: boolean;
   /**
+   * HEBREW POINT SHIN DOT (U+05C1)
    * ◌ׁ
+   * @category Vowels
    */
   SHIN_DOT?: boolean;
   /**
+   * HEBREW POINT SIN DOT (U+05C2)
    * ◌ׂ
+   * @category Vowels
    */
   SIN_DOT?: boolean;
   /**
+   * HEBREW POINT QAMATS QATAN (U+05C7)
    * ◌ׇ
+   * @category Vowels
    */
   QAMATS_QATAN?: boolean;
-  // punctuation //
   /**
+   * HEBREW PUNCTUATION MAQAF (U+05BE)
    * ־◌
+   * @category Punctuation
    *
    * @remarks
    * Unlike other characters, this is replaced with a space instead of being removed.
    */
   MAQAF?: boolean;
   /**
+   * HEBREW PUNCTUATION PASEQ (U+05C0)
    * ׀ ◌
+   * @category Punctuation
    */
   PASEQ?: boolean;
   /**
+   * HEBREW PUNCTUATION SOF PASUQ (U+05C3)
    * ׃◌
+   * @category Punctuation
    */
   SOF_PASUQ?: boolean;
   /**
+   * HEBREW PUNCTUATION NUN HAFUKHA (U+05C6)
    * ׆
+   * @category Punctuation
    */
   NUN_HAFUKHA?: boolean;
   /**
-   * ׳
+   * HEBREW PUNCTUATION GERESH (U+05F3)
+   * ׳◌
+   * @category Punctuation
+   * @category Taamim
+   *
+   * @remarks
+   * Distinguished from {@link RemoveOptions.GERESH | GERESH (U+059C)}. This character is mostly used in Modern Hebrew, but could be used in place of the other.
    */
   PUNC_GERESH?: boolean;
   /**
-   * ״
+   * HEBREW PUNCTUATION GERSHAYIM (U+05F4)
+   * ״◌
+   * @category Punctuation
+   * @category Taamim
+   *
+   * @remarks
+   * Distinguished from {@link RemoveOptions.GERSHAYIM | GERSHAYIM (U+059E)}. This character is mostly used in Modern Hebrew, but could be used in place of the other.
    */
   PUNC_GERSHAYIM?: boolean;
-  // marks //
   /**
+   * HEBREW MARK MASORA CIRCLE (U+05AF)
    * ◌֯
+   * @category Punctuation
+   * @category Taamim
    */
   MASORA_CIRCLE?: boolean;
   /**
+   * HEBREW MARK UPPER DOT (U+05C4)
    * ◌ׄ
+   * @category Punctuation
+   * @category Taamim
    */
   UPPER_DOT?: boolean;
   /**
+   * HEBREW MARK LOWER DOT (U+05C5)
    * ◌ׅ
+   * @category Punctuation
+   * @category Taamim
    */
   LOWER_DOT?: boolean;
 }
@@ -239,7 +372,6 @@ type OptionKey = keyof RemoveOptions;
 type map = { [k in keyof RemoveOptions]: string };
 
 const removeMap: map = {
-  // accents //
   ETNAHTA: "\u{0591}", // U+0591 HEBREW ACCENT ETNAHTA
   SEGOLTA: "\u{0592}", // U+0592 HEBREW ACCENT SEGOL
   SHALSHELET: "\u{0593}", // U+0593 HEBREW ACCENT SHALSHELET
@@ -270,7 +402,6 @@ const removeMap: map = {
   ILUY: "\u{05AC}", // U+05AC HEBREW ACCENT ILUY
   DEHI: "\u{05AD}", // U+05AD HEBREW ACCENT DEHI
   ZINOR: "\u{05AE}", // U+05AE HEBREW ACCENT ZINOR
-  // points //
   SHEVA: "\u{05B0}", // HEBREW POINT SHEVA
   HATAF_SEGOL: "\u{05B1}", // HEBREW POINT HATAF SEGOL
   HATAF_PATAH: "\u{05B2}", // HEBREW POINT HATAF PATAH
@@ -294,7 +425,6 @@ const removeMap: map = {
   PASEQ: "\u{05C0}", // HEBREW PUNCTUATION PASEQ
   SOF_PASUQ: "\u{05C3}", // HEBREW PUNCTUATION SOF_PASUQ
   NUN_HAFUKHA: "\u{05C6}", // HEBREW PUNCTUATION NUN_HAFUKHA
-  // the punctuation geresh/gereshayim is different then the accent ones
   PUNC_GERESH: "\u{05F3}", // HEBREW PUNCTUATION GERESH
   PUNC_GERSHAYIM: "\u{05F4}", // HEBREW PUNCTUATION GERSHAYIM
   MASORA_CIRCLE: "\u{05AF}", // U+MASORA CIRCLE HEBREW MARK 05AF,
@@ -419,22 +549,25 @@ export const all: RemoveOptions = {
  * @param options
  * @returns Hebrew characters with accents and niqqud optionally removed
  *
- * @example Default
+ * @example
+ * Default
  * ```ts
  * // by default removes all accents and metheg and rafe
  * remove("שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ");
  * // שָׂרַי אִשְׁתְּךָ, וַיִּמְצְאוּ
  * ```
  *
- * @example Remove accents and vowels, but not shin/sin dots
+ * @example
+ * Remove accents and vowels, but not shin/sin dots
  * ```ts
- * import { accents, vowelsl } from "hebrew-transliteration/removeOptions";
+ * import { accents, vowels } from "hebrew-transliteration/removeOptions";
  *
  * remove("שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ", { ...accents, ...vowels, METEG: true });
  * // שׂרי אשׁתך, וימצאו
  * ```
  *
- * @example Remove all
+ * @example
+ * Remove all
  * ```ts
  * import { all } from "hebrew-transliteration/removeOptions";
  *

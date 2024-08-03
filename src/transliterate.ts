@@ -1,8 +1,8 @@
+import { Text } from "havarotjs";
+import { SylOpts } from "havarotjs/text";
+import { Word } from "havarotjs/word";
 import { sylRules, wordRules } from "./rules";
 import { SBL, Schema } from "./schema";
-import { Text } from "havarotjs";
-import { Word } from "havarotjs/word";
-import { SylOpts } from "havarotjs/text";
 
 /**
  *  Gets the syllable options from a partial schema
@@ -34,7 +34,8 @@ const getSylOpts = (schema: Partial<Schema>) => {
  * @param schema - a {@link Schema} for transliterating the text
  * @returns a transliterated text
  *
- * @example Default
+ * @example
+ * Default
  * ```ts
  * import { transliterate } from "hebrew-transliteration";
  *
@@ -42,7 +43,8 @@ const getSylOpts = (schema: Partial<Schema>) => {
  * // "ʾĕlōhîm";
  * ```
  *
- * @example Using `Partial<Schema>`
+ * @example
+ * Using `Partial<Schema>`
  * ```ts
  * import { transliterate } from "hebrew-transliteration";
  *
@@ -50,7 +52,8 @@ const getSylOpts = (schema: Partial<Schema>) => {
  * // shālôm
  * ```
  *
- * @example Using a custom `Schema`
+ * @example
+ * Using a custom `Schema`
  * ```ts
  * import { transliterate, Schema } from "hebrew-transliteration";
  *
