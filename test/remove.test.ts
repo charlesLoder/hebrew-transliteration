@@ -1,6 +1,7 @@
 import { remove } from "../src/index";
 import { accents, all, vowels } from "../src/remove";
 import { sequence } from "../src/index";
+import { expect, test } from "vitest";
 
 test("default", () => {
   const test = "שָׂרַ֣י אִשְׁתְּךָ֔, וַֽיִּמְצְא֗וּ";

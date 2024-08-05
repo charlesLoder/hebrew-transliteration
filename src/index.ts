@@ -1,12 +1,31 @@
 import { Text } from "havarotjs";
-import { transliterate } from "./transliterate";
+import { remove, RemoveOptions } from "./remove";
+import {
+  ClusterCallback,
+  ClusterFeature,
+  HebrewFeature,
+  PassThrough,
+  SBL,
+  Schema,
+  SyllableCallback,
+  SyllableFeature,
+  SylOpts,
+  WordCallback,
+  WordFeature
+} from "./schema";
 import { sequence } from "./sequence";
-import { remove } from "./remove";
-import { Schema } from "./schema";
+import { transliterate } from "./transliterate";
 
-/**
- * I accidentally published a canary version without a tag, making it "latest".
- * Just adding this comment and creating a new version to make it latest
- */
-
-export { remove, Schema, sequence, Text, transliterate };
+export { remove, SBL, Schema, sequence, Text, transliterate };
+export type {
+  ClusterCallback,
+  ClusterFeature,
+  HebrewFeature,
+  PassThrough,
+  RemoveOptions,
+  SyllableCallback,
+  SyllableFeature,
+  SylOpts,
+  WordCallback,
+  WordFeature
+};

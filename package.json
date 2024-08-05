@@ -36,7 +36,7 @@
   "scripts": {
     "build": "tsc --project ./.config/tsconfig.esm.json && tsc-alias --project ./.config/tsconfig.esm.json",
     "postbuild": "esm2cjs --in dist/esm --out dist/cjs -l error",
-    "test": "clear && jest --config ./.config/jest.config.js",
+    "test": "clear && vitest",
     "test:transliterate": "clear && jest --config ./.config/jest.config.js test/transliterate.test.ts",
     "test:remove": "clear && jest --config ./.config/jest.config.js test/remove.test.ts",
     "test:sequence": "clear && jest --config ./.config/jest.config.js test/sequence.test.ts",
@@ -47,7 +47,9 @@
     "preversion": "./changelog.sh && npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "updates": "ncu"
+    "updates": "ncu",
+    "docs:output": "typedoc --tsconfig ./.config/tsconfig.json --json ./docs/data.json src/index.ts",
+    "docs:dev": "astro dev --config ./docs/astro.config.mjs"
   },
   "files": [
     "dist/**/*"
@@ -70,21 +72,23 @@
   "license": "MIT",
   "devDependencies": {
     "@alcalzone/esm2cjs": "^1.1.2",
-    "@types/jest": "^29.5.12",
+    "@astrojs/starlight": "^0.24.5",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "astro": "^4.11.3",
     "esbuild": "^0.20.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-jest": "^27.8.0",
     "eslint-plugin-jsdoc": "^48.1.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
-    "jest": "^29.7.0",
     "npm-check-updates": "^16.14.20",
-    "npm-dts": "^1.3.12",
     "prettier": "^3.2.5",
-    "ts-jest": "^29.1.2",
+    "prettier-plugin-astro": "^0.14.0",
+    "starlight-typedoc": "^0.13.1",
     "tsc-alias": "^1.8.8",
-    "typescript": "^5.4.5"
+    "typedoc": "^0.26.5",
+    "typedoc-plugin-markdown": "^4.2.3",
+    "typescript": "^5.5.3",
+    "vitest": "^2.0.3"
   },
   "dependencies": {
     "havarotjs": "0.23.2"

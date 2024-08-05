@@ -68,7 +68,7 @@ export const jss: Schema = {
     {
       FEATURE: "syllable",
       // if the syllable contains a qamets qatan character
-      HEBREW: /\u{05C7}/,
+      HEBREW: /\u{05C7}/u,
       TRANSLITERATION: (syllable) => {
         const next = syllable?.next?.value?.text;
         // if the next syllable includes a hateph qamets, then replace the qamets qatan with a regular qamets

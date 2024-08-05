@@ -1,4 +1,5 @@
 import { sequence } from "../src/index";
+import { expect, test } from "vitest";
 // Normalize Heb characters acc. to SBL Hebrew guidelines
 
 test("just consonants, no vowels", () => {

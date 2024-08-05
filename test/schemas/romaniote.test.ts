@@ -1,5 +1,6 @@
 import { transliterate } from "../../src/index";
 import { romaniote } from "../../src/schemas/romaniote";
+import { describe, expect, test } from "vitest";
 
 describe.each`
   description              | hebrew       | transliteration

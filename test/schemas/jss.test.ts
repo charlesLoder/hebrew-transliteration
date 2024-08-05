@@ -1,5 +1,6 @@
 import { transliterate } from "../../src/index";
 import { jss } from "../../src/schemas/index";
+import { describe, expect, test } from "vitest";
 
 interface Inputs {
   hebrew: string;
