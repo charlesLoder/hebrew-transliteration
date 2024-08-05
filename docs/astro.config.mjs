@@ -6,6 +6,7 @@ import starlightTypeDoc, { typeDocSidebarGroup } from "starlight-typedoc";
 export default defineConfig({
   srcDir: "./docs/src",
   site: "https://charlesLoder.github.io",
+  outDir: "docs-dist",
   base: process.env.NODE_ENV === "production" ? "/hebrew-transliteration/" : "",
   redirects: {
     "/": {
