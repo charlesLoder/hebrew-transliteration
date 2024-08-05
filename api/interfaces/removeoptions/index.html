@@ -1,0 +1,596 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-has-toc data-has-sidebar data-theme="dark" class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>RemoveOptions | hebrew-transliteration v2.6.5</title><link rel="canonical" href="https://charlesloder.github.io/hebrew-transliteration/api/interfaces/removeoptions/"/><link rel="sitemap" href="/hebrew-transliteration/sitemap-index.xml"/><link rel="shortcut icon" href="/hebrew-transliteration/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v4.11.5"/><meta name="generator" content="Starlight v0.24.5"/><meta property="og:title" content="RemoveOptions"/><meta property="og:type" content="article"/><meta property="og:url" content="https://charlesloder.github.io/hebrew-transliteration/api/interfaces/removeoptions/"/><meta property="og:locale" content="en"/><meta property="og:description"/><meta property="og:site_name" content="hebrew-transliteration v2.6.5"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="RemoveOptions"/><meta name="twitter:description"/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg> <svg aria-hidden="true" class="dark astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg> <svg aria-hidden="true" class="auto astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> </template><link rel="stylesheet" href="/hebrew-transliteration/_astro/index.BN1Zq1wz.css">
+<style>:root{--sl-badge-default-border: var(--sl-color-accent);--sl-badge-default-bg: var(--sl-color-accent-low);--sl-badge-default-text: #fff;--sl-badge-note-border: var(--sl-color-blue);--sl-badge-note-bg: var(--sl-color-blue-low);--sl-badge-note-text: #fff;--sl-badge-danger-border: var(--sl-color-red);--sl-badge-danger-bg: var(--sl-color-red-low);--sl-badge-danger-text: #fff;--sl-badge-success-border: var(--sl-color-green);--sl-badge-success-bg: var(--sl-color-green-low);--sl-badge-success-text: #fff;--sl-badge-caution-border: var(--sl-color-orange);--sl-badge-caution-bg: var(--sl-color-orange-low);--sl-badge-caution-text: #fff;--sl-badge-tip-border: var(--sl-color-purple);--sl-badge-tip-bg: var(--sl-color-purple-low);--sl-badge-tip-text: #fff}[data-theme=light]:root{--sl-badge-default-bg: var(--sl-color-accent-high);--sl-badge-note-bg: var(--sl-color-blue-high);--sl-badge-danger-bg: var(--sl-color-red-high);--sl-badge-success-bg: var(--sl-color-green-high);--sl-badge-caution-bg: var(--sl-color-orange-high);--sl-badge-tip-bg: var(--sl-color-purple-high)}.sl-badge:where(.astro-avdet4wd){display:inline-block;border:1px solid var(--sl-color-border-badge);border-radius:.25rem;font-family:var(--sl-font-system-mono);line-height:normal;color:var(--sl-color-text-badge);background-color:var(--sl-color-bg-badge);overflow-wrap:anywhere}.sidebar-content .sl-badge:where(.astro-avdet4wd){line-height:1;font-size:var(--sl-text-xs);padding:.125rem .375rem}.sidebar-content a[aria-current=page]>.sl-badge:where(.astro-avdet4wd){--sl-color-bg-badge: transparent;--sl-color-border-badge: currentColor;color:inherit}.default:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-default-bg);--sl-color-border-badge: var(--sl-badge-default-border);--sl-color-text-badge: var(--sl-badge-default-text)}.note:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-note-bg);--sl-color-border-badge: var(--sl-badge-note-border);--sl-color-text-badge: var(--sl-badge-note-text)}.danger:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-danger-bg);--sl-color-border-badge: var(--sl-badge-danger-border);--sl-color-text-badge: var(--sl-badge-danger-text)}.success:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-success-bg);--sl-color-border-badge: var(--sl-badge-success-border);--sl-color-text-badge: var(--sl-badge-success-text)}.tip:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-tip-bg);--sl-color-border-badge: var(--sl-badge-tip-border);--sl-color-text-badge: var(--sl-badge-tip-text)}.caution:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-caution-bg);--sl-color-border-badge: var(--sl-badge-caution-border);--sl-color-text-badge: var(--sl-badge-caution-text)}.small:where(.astro-avdet4wd){font-size:var(--sl-text-xs);padding:.125rem .25rem}.medium:where(.astro-avdet4wd){font-size:var(--sl-text-sm);padding:.175rem .35rem}.large:where(.astro-avdet4wd){font-size:var(--sl-text-base);padding:.225rem .45rem}.sl-markdown-content :is(h1,h2,h3,h4,h5,h6) .sl-badge:where(.astro-avdet4wd){vertical-align:middle}
+svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-size, 1em);width:1em;height:1em}
+starlight-tabs:where(.astro-esqgolmp){display:block}.tablist-wrapper:where(.astro-esqgolmp){overflow-x:auto}:where(.astro-esqgolmp)[role=tablist]{display:flex;list-style:none;border-bottom:2px solid var(--sl-color-gray-5);padding:0}.tab:where(.astro-esqgolmp){margin-bottom:-2px}.tab:where(.astro-esqgolmp)>:where(.astro-esqgolmp)[role=tab]{display:flex;align-items:center;gap:.5rem;padding:0 1.25rem;text-decoration:none;border-bottom:2px solid var(--sl-color-gray-5);color:var(--sl-color-gray-3);outline-offset:var(--sl-outline-offset-inside);overflow-wrap:initial}.tab:where(.astro-esqgolmp) :where(.astro-esqgolmp)[role=tab][aria-selected=true]{color:var(--sl-color-white);border-color:var(--sl-color-text-accent);font-weight:600}.tablist-wrapper:where(.astro-esqgolmp)~[role=tabpanel]{margin-top:1rem}
+.sl-steps{--bullet-size: calc(var(--sl-line-height) * 1rem);--bullet-margin: .375rem;list-style:none;counter-reset:steps-counter var(--sl-steps-start, 0);padding-inline-start:0}.sl-steps>li{counter-increment:steps-counter;position:relative;padding-inline-start:calc(var(--bullet-size) + 1rem);padding-bottom:1px;min-height:calc(var(--bullet-size) + var(--bullet-margin))}.sl-steps>li+li{margin-top:0}.sl-steps>li:before{content:counter(steps-counter);position:absolute;top:0;inset-inline-start:0;width:var(--bullet-size);height:var(--bullet-size);line-height:var(--bullet-size);font-size:var(--sl-text-xs);font-weight:600;text-align:center;color:var(--sl-color-white);background-color:var(--sl-color-gray-6);border-radius:99rem;box-shadow:inset 0 0 0 1px var(--sl-color-gray-5)}.sl-steps>li:not(:last-of-type):after{--guide-width: 1px;content:"";position:absolute;top:calc(var(--bullet-size) + var(--bullet-margin));bottom:var(--bullet-margin);inset-inline-start:calc((var(--bullet-size) - var(--guide-width)) / 2);width:var(--guide-width);background-color:var(--sl-color-hairline-light)}.sl-steps>li>:first-child{--lh: calc(1em * var(--sl-line-height));--shift-y: calc(.5 * (var(--bullet-size) - var(--lh)));transform:translateY(var(--shift-y));margin-bottom:var(--shift-y)}.sl-steps>li>:first-child:where(h1,h2,h3,h4,h5,h6){--lh: calc(1em * var(--sl-line-height-headings))}@supports (--prop: 1lh){.sl-steps>li>:first-child{--lh: 1lh}}
+</style><script type="module" src="/hebrew-transliteration/_astro/hoisted.CjLsWz-_.js"></script>
+<script type="module" src="/hebrew-transliteration/_astro/page.LS5KDvwX.js"></script></head> <body class="astro-bguv2lll"> <a href="#_top" class="astro-7q3lir66">Skip to content</a>  <div class="page sl-flex astro-vrdttmbt"> <header class="header astro-vrdttmbt"><div class="header sl-flex astro-kmkmnagf"> <div class="title-wrapper sl-flex astro-kmkmnagf"> <a href="/hebrew-transliteration/" class="site-title sl-flex astro-m46x6ez3">  <span class="astro-m46x6ez3"> hebrew-transliteration v2.6.5 </span> </a>  </div> <div class="sl-flex astro-kmkmnagf"> <site-search data-translations="{&#34;placeholder&#34;:&#34;Search&#34;}" class="astro-v37mnknz"> <button data-open-modal disabled class="astro-v37mnknz">  <svg aria-label="Search" class="astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg>  <span class="sl-hidden md:sl-block astro-v37mnknz" aria-hidden="true">Search</span> <svg aria-label="(Press / to Search)" class="sl-hidden md:sl-block astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5Zm3 15a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v10Z"/><path d="M15.293 6.707a1 1 0 1 1 1.414 1.414l-8.485 8.486a1 1 0 0 1-1.414-1.415l8.485-8.485Z"/></svg>  </button> <dialog style="padding:0" aria-label="Search" class="astro-v37mnknz"> <div class="dialog-frame sl-flex astro-v37mnknz">  <button data-close-modal class="sl-flex md:sl-hidden astro-v37mnknz"> Cancel </button> <div class="search-container astro-v37mnknz"> <div id="starlight__search" class="astro-v37mnknz"></div> </div> </div> </dialog> </site-search>    </div> <div class="sl-hidden md:sl-flex right-group astro-kmkmnagf"> <div class="sl-flex social-icons astro-kmkmnagf"> <a href="https://github.com/charlesLoder/hebrew-transliteration" rel="me" class="sl-flex astro-wy4te6ga"><span class="sr-only astro-wy4te6ga">GitHub</span><svg aria-hidden="true" class="astro-wy4te6ga astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg> </a> </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">Select theme</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg>  <select value="auto" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">Dark</option><option value="light" class="astro-4yphtoen">Light</option><option value="auto" selected="true" class="astro-4yphtoen">Auto</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </label>  </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div> </div> </header> <nav class="sidebar astro-vrdttmbt" aria-label="Main"> <starlight-menu-button class="astro-jif73yzw"> <button aria-expanded="false" aria-label="Menu" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-jif73yzw"> <svg aria-hidden="true" class="astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg>  </button> </starlight-menu-button>    <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt"> <div class="sidebar-content sl-flex astro-vrdttmbt"> <ul class="top-level astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Getting started</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/getting-started/quick-start/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Quickstart</span>  </a> </li> </ul>  </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">API</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Classes</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/classes/sbl/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SBL</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/classes/schema/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Schema</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/classes/text/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Text</span>  </a> </li> </ul>  </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Interfaces</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/clusterfeature/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">ClusterFeature</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/hebrewfeature/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">HebrewFeature</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/passthrough/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">PassThrough</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/removeoptions/" aria-current="page" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">RemoveOptions</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/syllablefeature/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SyllableFeature</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/sylopts/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SylOpts</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/wordfeature/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">WordFeature</span>  </a> </li> </ul>  </details> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Type Aliases</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/type-aliases/clustercallback/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">ClusterCallback</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/type-aliases/syllablecallback/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SyllableCallback</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/type-aliases/wordcallback/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">WordCallback</span>  </a> </li> </ul>  </details> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Functions</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/functions/remove/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">remove</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/functions/sequence/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">sequence</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/functions/transliterate/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">transliterate</span>  </a> </li> </ul>  </details> </li> </ul>  </details> </li> </ul>  <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="sl-flex social-icons astro-wu23bvmt"> <a href="https://github.com/charlesLoder/hebrew-transliteration" rel="me" class="sl-flex astro-wy4te6ga"><span class="sr-only astro-wy4te6ga">GitHub</span><svg aria-hidden="true" class="astro-wy4te6ga astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg> </a> </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">Select theme</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg>  <select value="auto" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">Dark</option><option value="light" class="astro-4yphtoen">Light</option><option value="auto" selected="true" class="astro-4yphtoen">Auto</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </label>  </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div>  </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><div class="toggle sl-flex astro-doynk5tl">On this page<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </div><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-g2bywc46" style="--depth: 0;"> <li class="astro-g2bywc46" style="--depth: 0;"> <a href="#_top" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#punctuation" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Punctuation</span> </a> <ul class="isMobile astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#lower_dot" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">LOWER_DOT?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#maqaf" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MAQAF?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#masora_circle" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MASORA_CIRCLE?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#nun_hafukha" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">NUN_HAFUKHA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#paseq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PASEQ?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#punc_geresh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PUNC_GERESH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#punc_gershayim" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PUNC_GERSHAYIM?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sof_pasuq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SOF_PASUQ?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#upper_dot" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">UPPER_DOT?</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#taamim" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Taamim</span> </a> <ul class="isMobile astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#atnah_hafukh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ATNAH_HAFUKH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#darga" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DARGA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dehi" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DEHI?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#etnahta" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ETNAHTA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#geresh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GERESH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#geresh_muqdam" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GERESH_MUQDAM?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#gershayim" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GERSHAYIM?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#iluy" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ILUY?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#lower_dot-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">LOWER_DOT?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#mahapakh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MAHAPAKH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#masora_circle-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MASORA_CIRCLE?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#merkha" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MERKHA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#merkha_kefula" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MERKHA_KEFULA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#munah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MUNAH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#ole" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">OLE?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#pashta" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PASHTA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#pazer" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PAZER?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#punc_geresh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PUNC_GERESH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#punc_gershayim-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PUNC_GERSHAYIM?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qadma" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QADMA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qarney_para" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QARNEY_PARA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#revia" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">REVIA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segolta" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOLTA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shalshelet" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHALSHELET?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#telisha_gedola" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TELISHA_GEDOLA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#telisha_qetana" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TELISHA_QETANA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tevir" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TEVIR?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tipeha" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TIPEHA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#upper_dot-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">UPPER_DOT?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#yerah_ben_yomo" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">YERAH_BEN_YOMO?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#yetiv" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">YETIV?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#zaqef_gadol" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ZAQEF_GADOL?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#zaqef_qatan" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ZAQEF_QATAN?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#zarqa" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ZARQA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#zinor" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ZINOR?</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#vowels" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Vowels</span> </a> <ul class="isMobile astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DAGESH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_patah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_PATAH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_qamats" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_QAMATS?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_segol" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_SEGOL?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hiriq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HIRIQ?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holam" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HOLAM?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#meteg" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">METEG?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#patah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PATAH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats_qatan" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS_QATAN?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qubuts" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QUBUTS?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#rafe" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">RAFE?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sheva" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHEVA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shin_dot" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHIN_DOT?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sin_dot" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SIN_DOT?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE?</span> </a>  </li> </ul>  </li> </ul> </div></details></nav></mobile-starlight-toc></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-g2bywc46" style="--depth: 0;"> <li class="astro-g2bywc46" style="--depth: 0;"> <a href="#_top" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#punctuation" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Punctuation</span> </a> <ul class="astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#lower_dot" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">LOWER_DOT?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#maqaf" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MAQAF?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#masora_circle" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MASORA_CIRCLE?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#nun_hafukha" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">NUN_HAFUKHA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#paseq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PASEQ?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#punc_geresh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PUNC_GERESH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#punc_gershayim" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PUNC_GERSHAYIM?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sof_pasuq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SOF_PASUQ?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#upper_dot" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">UPPER_DOT?</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#taamim" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Taamim</span> </a> <ul class="astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#atnah_hafukh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ATNAH_HAFUKH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#darga" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DARGA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dehi" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DEHI?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#etnahta" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ETNAHTA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#geresh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GERESH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#geresh_muqdam" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GERESH_MUQDAM?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#gershayim" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GERSHAYIM?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#iluy" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ILUY?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#lower_dot-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">LOWER_DOT?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#mahapakh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MAHAPAKH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#masora_circle-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MASORA_CIRCLE?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#merkha" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MERKHA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#merkha_kefula" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MERKHA_KEFULA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#munah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MUNAH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#ole" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">OLE?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#pashta" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PASHTA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#pazer" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PAZER?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#punc_geresh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PUNC_GERESH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#punc_gershayim-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PUNC_GERSHAYIM?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qadma" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QADMA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qarney_para" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QARNEY_PARA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#revia" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">REVIA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segolta" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOLTA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shalshelet" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHALSHELET?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#telisha_gedola" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TELISHA_GEDOLA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#telisha_qetana" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TELISHA_QETANA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tevir" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TEVIR?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tipeha" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TIPEHA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#upper_dot-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">UPPER_DOT?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#yerah_ben_yomo" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">YERAH_BEN_YOMO?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#yetiv" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">YETIV?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#zaqef_gadol" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ZAQEF_GADOL?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#zaqef_qatan" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ZAQEF_QATAN?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#zarqa" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ZARQA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#zinor" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ZINOR?</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#vowels" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Vowels</span> </a> <ul class="astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DAGESH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_patah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_PATAH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_qamats" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_QAMATS?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_segol" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_SEGOL?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hiriq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HIRIQ?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holam" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HOLAM?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#meteg" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">METEG?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#patah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PATAH?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats_qatan" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS_QATAN?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qubuts" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QUBUTS?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#rafe" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">RAFE?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sheva" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHEVA?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shin_dot" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHIN_DOT?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sin_dot" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SIN_DOT?</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE?</span> </a>  </li> </ul>  </li> </ul> </nav></starlight-toc></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body lang="en" dir="ltr" class="astro-bguv2lll">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">RemoveOptions</h1>  </div> </div>  <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <p>Options for removing characters from Hebrew text, divided into categories</p>
+<h2 id="punctuation">Punctuation</h2>
+<h3 id="lower_dot">LOWER_DOT?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>LOWER_DOT</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW MARK LOWER DOT (U+05C5)
+◌ׅ</p>
+<h4 id="defined-in">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L367">src/remove.ts:367</a></p>
+<hr>
+<h3 id="maqaf">MAQAF?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>MAQAF</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW PUNCTUATION MAQAF (U+05BE)
+־◌</p>
+<h4 id="remarks">Remarks</h4>
+<p>Unlike other characters, this is replaced with a space instead of being removed.</p>
+<h4 id="defined-in-1">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L308">src/remove.ts:308</a></p>
+<hr>
+<h3 id="masora_circle">MASORA_CIRCLE?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>MASORA_CIRCLE</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW MARK MASORA CIRCLE (U+05AF)
+◌֯</p>
+<h4 id="defined-in-2">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L353">src/remove.ts:353</a></p>
+<hr>
+<h3 id="nun_hafukha">NUN_HAFUKHA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>NUN_HAFUKHA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW PUNCTUATION NUN HAFUKHA (U+05C6)
+׆</p>
+<h4 id="defined-in-3">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L326">src/remove.ts:326</a></p>
+<hr>
+<h3 id="paseq">PASEQ?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>PASEQ</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW PUNCTUATION PASEQ (U+05C0)
+׀ ◌</p>
+<h4 id="defined-in-4">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L314">src/remove.ts:314</a></p>
+<hr>
+<h3 id="punc_geresh">PUNC_GERESH?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>PUNC_GERESH</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW PUNCTUATION GERESH (U+05F3)
+׳◌</p>
+<h4 id="remarks-1">Remarks</h4>
+<p>Distinguished from <a href="../../../../../../hebrew-transliteration/api/interfaces/removeoptionsmd/hebrew-transliterationgeresh">GERESH (U+059C)</a>. This character is mostly used in Modern Hebrew, but could be used in place of the other.</p>
+<h4 id="defined-in-5">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L336">src/remove.ts:336</a></p>
+<hr>
+<h3 id="punc_gershayim">PUNC_GERSHAYIM?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>PUNC_GERSHAYIM</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW PUNCTUATION GERSHAYIM (U+05F4)
+״◌</p>
+<h4 id="remarks-2">Remarks</h4>
+<p>Distinguished from <a href="../../../../../../hebrew-transliteration/api/interfaces/removeoptionsmd/hebrew-transliterationgershayim">GERSHAYIM (U+059E)</a>. This character is mostly used in Modern Hebrew, but could be used in place of the other.</p>
+<h4 id="defined-in-6">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L346">src/remove.ts:346</a></p>
+<hr>
+<h3 id="sof_pasuq">SOF_PASUQ?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>SOF_PASUQ</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW PUNCTUATION SOF PASUQ (U+05C3)
+׃◌</p>
+<h4 id="defined-in-7">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L320">src/remove.ts:320</a></p>
+<hr>
+<h3 id="upper_dot">UPPER_DOT?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>UPPER_DOT</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW MARK UPPER DOT (U+05C4)
+◌ׄ</p>
+<h4 id="defined-in-8">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L360">src/remove.ts:360</a></p>
+<h2 id="taamim">Taamim</h2>
+<h3 id="atnah_hafukh">ATNAH_HAFUKH?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>ATNAH_HAFUKH</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT ATNAH HAFUKH (U+05A2)
+◌֢</p>
+<h4 id="defined-in-9">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L125">src/remove.ts:125</a></p>
+<hr>
+<h3 id="darga">DARGA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>DARGA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT DARGA (U+05A7)
+◌֧</p>
+<h4 id="defined-in-10">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L155">src/remove.ts:155</a></p>
+<hr>
+<h3 id="dehi">DEHI?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>DEHI</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT DEHI (U+05AD)
+◌֭</p>
+<h4 id="defined-in-11">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L191">src/remove.ts:191</a></p>
+<hr>
+<h3 id="etnahta">ETNAHTA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>ETNAHTA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT ETNAHTA (U+0591)
+◌֑</p>
+<h4 id="defined-in-12">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L23">src/remove.ts:23</a></p>
+<hr>
+<h3 id="geresh">GERESH?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>GERESH</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT GERESH (U+059C)
+◌֜</p>
+<h4 id="defined-in-13">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L89">src/remove.ts:89</a></p>
+<hr>
+<h3 id="geresh_muqdam">GERESH_MUQDAM?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>GERESH_MUQDAM</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT GERESH MUQDAM (U+059D)
+◌֝</p>
+<h4 id="defined-in-14">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L95">src/remove.ts:95</a></p>
+<hr>
+<h3 id="gershayim">GERSHAYIM?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>GERSHAYIM</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT GERSHAYIM (U+059E)
+◌֞</p>
+<h4 id="defined-in-15">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L101">src/remove.ts:101</a></p>
+<hr>
+<h3 id="iluy">ILUY?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>ILUY</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT ILUY (U+05AC)
+◌֬</p>
+<h4 id="defined-in-16">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L185">src/remove.ts:185</a></p>
+<hr>
+<h3 id="lower_dot-1">LOWER_DOT?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>LOWER_DOT</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW MARK LOWER DOT (U+05C5)
+◌ׅ</p>
+<h4 id="defined-in-17">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L367">src/remove.ts:367</a></p>
+<hr>
+<h3 id="mahapakh">MAHAPAKH?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>MAHAPAKH</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT MAHAPAKH (U+05A4)
+◌֤</p>
+<h4 id="defined-in-18">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L137">src/remove.ts:137</a></p>
+<hr>
+<h3 id="masora_circle-1">MASORA_CIRCLE?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>MASORA_CIRCLE</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW MARK MASORA CIRCLE (U+05AF)
+◌֯</p>
+<h4 id="defined-in-19">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L353">src/remove.ts:353</a></p>
+<hr>
+<h3 id="merkha">MERKHA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>MERKHA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT MERKHA (U+05A5)
+◌֥</p>
+<h4 id="defined-in-20">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L143">src/remove.ts:143</a></p>
+<hr>
+<h3 id="merkha_kefula">MERKHA_KEFULA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>MERKHA_KEFULA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT MERKHA KEFULA (U+05A6)
+◌֦</p>
+<h4 id="defined-in-21">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L149">src/remove.ts:149</a></p>
+<hr>
+<h3 id="munah">MUNAH?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>MUNAH</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT MUNAH (U+05A3)
+◌֣</p>
+<h4 id="defined-in-22">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L131">src/remove.ts:131</a></p>
+<hr>
+<h3 id="ole">OLE?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>OLE</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT OLE (U+05AB)
+◌֫</p>
+<h4 id="defined-in-23">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L179">src/remove.ts:179</a></p>
+<hr>
+<h3 id="pashta">PASHTA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>PASHTA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT PASHTA (U+0599)
+◌֙</p>
+<h4 id="defined-in-24">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L71">src/remove.ts:71</a></p>
+<hr>
+<h3 id="pazer">PAZER?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>PAZER</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT PAZER (U+05A1)
+◌֡</p>
+<h4 id="defined-in-25">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L119">src/remove.ts:119</a></p>
+<hr>
+<h3 id="punc_geresh-1">PUNC_GERESH?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>PUNC_GERESH</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW PUNCTUATION GERESH (U+05F3)
+׳◌</p>
+<h4 id="remarks-3">Remarks</h4>
+<p>Distinguished from <a href="../../../../../../hebrew-transliteration/api/interfaces/removeoptionsmd/hebrew-transliterationgeresh">GERESH (U+059C)</a>. This character is mostly used in Modern Hebrew, but could be used in place of the other.</p>
+<h4 id="defined-in-26">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L336">src/remove.ts:336</a></p>
+<hr>
+<h3 id="punc_gershayim-1">PUNC_GERSHAYIM?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>PUNC_GERSHAYIM</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW PUNCTUATION GERSHAYIM (U+05F4)
+״◌</p>
+<h4 id="remarks-4">Remarks</h4>
+<p>Distinguished from <a href="../../../../../../hebrew-transliteration/api/interfaces/removeoptionsmd/hebrew-transliterationgershayim">GERSHAYIM (U+059E)</a>. This character is mostly used in Modern Hebrew, but could be used in place of the other.</p>
+<h4 id="defined-in-27">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L346">src/remove.ts:346</a></p>
+<hr>
+<h3 id="qadma">QADMA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>QADMA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT QADMA (U+05A8)
+◌֨</p>
+<h4 id="defined-in-28">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L161">src/remove.ts:161</a></p>
+<hr>
+<h3 id="qarney_para">QARNEY_PARA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>QARNEY_PARA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT QARNEY PARA (U+059F)
+◌֟</p>
+<h4 id="defined-in-29">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L107">src/remove.ts:107</a></p>
+<hr>
+<h3 id="revia">REVIA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>REVIA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT REVIA (U+0597)
+◌֗</p>
+<h4 id="defined-in-30">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L59">src/remove.ts:59</a></p>
+<hr>
+<h3 id="segolta">SEGOLTA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>SEGOLTA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT SEGOL (U+0592)
+◌֒</p>
+<h4 id="defined-in-31">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L29">src/remove.ts:29</a></p>
+<hr>
+<h3 id="shalshelet">SHALSHELET?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>SHALSHELET</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT SHALSHELET (U+0593)
+◌֓</p>
+<h4 id="defined-in-32">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L35">src/remove.ts:35</a></p>
+<hr>
+<h3 id="telisha_gedola">TELISHA_GEDOLA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>TELISHA_GEDOLA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT TELISHA GEDOLA (U+05A0)
+◌֠</p>
+<h4 id="defined-in-33">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L113">src/remove.ts:113</a></p>
+<hr>
+<h3 id="telisha_qetana">TELISHA_QETANA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>TELISHA_QETANA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT TELISHA QETANA (U+05A9)
+◌֩</p>
+<h4 id="defined-in-34">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L167">src/remove.ts:167</a></p>
+<hr>
+<h3 id="tevir">TEVIR?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>TEVIR</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT TEVIR (U+059B)
+◌֛</p>
+<h4 id="defined-in-35">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L83">src/remove.ts:83</a></p>
+<hr>
+<h3 id="tipeha">TIPEHA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>TIPEHA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT TIPEHA (U+0596)
+◌֖</p>
+<h4 id="defined-in-36">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L53">src/remove.ts:53</a></p>
+<hr>
+<h3 id="upper_dot-1">UPPER_DOT?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>UPPER_DOT</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW MARK UPPER DOT (U+05C4)
+◌ׄ</p>
+<h4 id="defined-in-37">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L360">src/remove.ts:360</a></p>
+<hr>
+<h3 id="yerah_ben_yomo">YERAH_BEN_YOMO?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>YERAH_BEN_YOMO</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT YERAH BEN YOMO (U+05AA)
+◌֪</p>
+<h4 id="defined-in-38">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L173">src/remove.ts:173</a></p>
+<hr>
+<h3 id="yetiv">YETIV?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>YETIV</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT YETIV (U+059A)
+◌֚</p>
+<h4 id="defined-in-39">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L77">src/remove.ts:77</a></p>
+<hr>
+<h3 id="zaqef_gadol">ZAQEF_GADOL?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>ZAQEF_GADOL</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT ZAQEF GADOL (U+0595)
+◌֕</p>
+<h4 id="defined-in-40">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L47">src/remove.ts:47</a></p>
+<hr>
+<h3 id="zaqef_qatan">ZAQEF_QATAN?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>ZAQEF_QATAN</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT ZAQEF QATAN (U+0594)
+◌֔</p>
+<h4 id="defined-in-41">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L41">src/remove.ts:41</a></p>
+<hr>
+<h3 id="zarqa">ZARQA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>ZARQA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT ZARQA (U+0598)
+◌֘</p>
+<h4 id="defined-in-42">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L65">src/remove.ts:65</a></p>
+<hr>
+<h3 id="zinor">ZINOR?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>ZINOR</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW ACCENT ZINOR (U+05AE)
+◌֮</p>
+<h4 id="defined-in-43">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L197">src/remove.ts:197</a></p>
+<h2 id="vowels">Vowels</h2>
+<h3 id="dagesh">DAGESH?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>DAGESH</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT DAGESH OR MAPIQ (U+05BC)
+◌ּ</p>
+<h4 id="defined-in-44">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L269">src/remove.ts:269</a></p>
+<hr>
+<h3 id="hataf_patah">HATAF_PATAH?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>HATAF_PATAH</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT HATAF PATAH (U+05B2)
+◌ֲ</p>
+<h4 id="defined-in-45">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L215">src/remove.ts:215</a></p>
+<hr>
+<h3 id="hataf_qamats">HATAF_QAMATS?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>HATAF_QAMATS</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT HATAF QAMATS (U+05B3)
+◌ֳ</p>
+<h4 id="defined-in-46">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L221">src/remove.ts:221</a></p>
+<hr>
+<h3 id="hataf_segol">HATAF_SEGOL?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>HATAF_SEGOL</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT HATAF SEGOL (U+05B1)
+◌ֱ</p>
+<h4 id="defined-in-47">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L209">src/remove.ts:209</a></p>
+<hr>
+<h3 id="hiriq">HIRIQ?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>HIRIQ</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT HIRIQ (U+05B4)
+◌ִ</p>
+<h4 id="defined-in-48">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L227">src/remove.ts:227</a></p>
+<hr>
+<h3 id="holam">HOLAM?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>HOLAM</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT HOLAM (U+05B9)
+◌ֹ</p>
+<h4 id="defined-in-49">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L257">src/remove.ts:257</a></p>
+<hr>
+<h3 id="meteg">METEG?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>METEG</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT METEG (U+05BD)
+◌ֽ</p>
+<h4 id="defined-in-50">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L275">src/remove.ts:275</a></p>
+<hr>
+<h3 id="patah">PATAH?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>PATAH</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT PATAH (U+05B7)
+◌ַ</p>
+<h4 id="defined-in-51">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L245">src/remove.ts:245</a></p>
+<hr>
+<h3 id="qamats">QAMATS?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>QAMATS</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT QAMATS (U+05B8)
+◌ָ</p>
+<h4 id="defined-in-52">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L251">src/remove.ts:251</a></p>
+<hr>
+<h3 id="qamats_qatan">QAMATS_QATAN?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>QAMATS_QATAN</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT QAMATS QATAN (U+05C7)
+◌ׇ</p>
+<h4 id="defined-in-53">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L299">src/remove.ts:299</a></p>
+<hr>
+<h3 id="qubuts">QUBUTS?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>QUBUTS</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT QUBUTS (U+05BB)
+◌ֻ</p>
+<h4 id="defined-in-54">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L263">src/remove.ts:263</a></p>
+<hr>
+<h3 id="rafe">RAFE?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>RAFE</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT RAFE (U+05BF)
+◌ֿ</p>
+<h4 id="defined-in-55">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L281">src/remove.ts:281</a></p>
+<hr>
+<h3 id="segol">SEGOL?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>SEGOL</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT SEGOL (U+05B6)
+◌ֶ</p>
+<h4 id="defined-in-56">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L239">src/remove.ts:239</a></p>
+<hr>
+<h3 id="sheva">SHEVA?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>SHEVA</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT SHEVA (U+05B0)
+◌ְ</p>
+<h4 id="defined-in-57">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L203">src/remove.ts:203</a></p>
+<hr>
+<h3 id="shin_dot">SHIN_DOT?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>SHIN_DOT</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT SHIN DOT (U+05C1)
+◌ׁ</p>
+<h4 id="defined-in-58">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L287">src/remove.ts:287</a></p>
+<hr>
+<h3 id="sin_dot">SIN_DOT?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>SIN_DOT</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT SIN DOT (U+05C2)
+◌ׂ</p>
+<h4 id="defined-in-59">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L293">src/remove.ts:293</a></p>
+<hr>
+<h3 id="tsere">TSERE?</h3>
+<blockquote>
+<p><code dir="auto">optional</code> <strong>TSERE</strong>: <code dir="auto">boolean</code></p>
+</blockquote>
+<p>HEBREW POINT TSERE (U+05B5)
+◌ֵ</p>
+<h4 id="defined-in-60">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/remove.ts#L233">src/remove.ts:233</a></p> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="pagination-links astro-u2l5gyhi" dir="ltr">   </div>   </footer>  </div> </div>   </main> </div> </div>  </div> </div>  </body></html>

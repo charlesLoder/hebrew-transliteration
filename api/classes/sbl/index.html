@@ -1,0 +1,1154 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-has-toc data-has-sidebar data-theme="dark" class="astro-bguv2lll"> <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>SBL | hebrew-transliteration v2.6.5</title><link rel="canonical" href="https://charlesloder.github.io/hebrew-transliteration/api/classes/sbl/"/><link rel="sitemap" href="/hebrew-transliteration/sitemap-index.xml"/><link rel="shortcut icon" href="/hebrew-transliteration/favicon.svg" type="image/svg+xml"/><meta name="generator" content="Astro v4.11.5"/><meta name="generator" content="Starlight v0.24.5"/><meta property="og:title" content="SBL"/><meta property="og:type" content="article"/><meta property="og:url" content="https://charlesloder.github.io/hebrew-transliteration/api/classes/sbl/"/><meta property="og:locale" content="en"/><meta property="og:description"/><meta property="og:site_name" content="hebrew-transliteration v2.6.5"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="SBL"/><meta name="twitter:description"/><script>
+	window.StarlightThemeProvider = (() => {
+		const storedTheme =
+			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+		const theme =
+			storedTheme ||
+			(window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+		document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+		return {
+			updatePickers(theme = storedTheme || 'auto') {
+				document.querySelectorAll('starlight-theme-select').forEach((picker) => {
+					const select = picker.querySelector('select');
+					if (select) select.value = theme;
+					/** @type {HTMLTemplateElement | null} */
+					const tmpl = document.querySelector(`#theme-icons`);
+					const newIcon = tmpl && tmpl.content.querySelector('.' + theme);
+					if (newIcon) {
+						const oldIcon = picker.querySelector('svg.label-icon');
+						if (oldIcon) {
+							oldIcon.replaceChildren(...newIcon.cloneNode(true).childNodes);
+						}
+					}
+				});
+			},
+		};
+	})();
+</script><template id="theme-icons"><svg aria-hidden="true" class="light astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M5 12a1 1 0 0 0-1-1H3a1 1 0 0 0 0 2h1a1 1 0 0 0 1-1Zm.64 5-.71.71a1 1 0 0 0 0 1.41 1 1 0 0 0 1.41 0l.71-.71A1 1 0 0 0 5.64 17ZM12 5a1 1 0 0 0 1-1V3a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1Zm5.66 2.34a1 1 0 0 0 .7-.29l.71-.71a1 1 0 1 0-1.41-1.41l-.66.71a1 1 0 0 0 0 1.41 1 1 0 0 0 .66.29Zm-12-.29a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.71-.71a1.004 1.004 0 1 0-1.43 1.41l.73.71ZM21 11h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2Zm-2.64 6A1 1 0 0 0 17 18.36l.71.71a1 1 0 0 0 1.41 0 1 1 0 0 0 0-1.41l-.76-.66ZM12 6.5a5.5 5.5 0 1 0 5.5 5.5A5.51 5.51 0 0 0 12 6.5Zm0 9a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm0 3.5a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1Z"/></svg> <svg aria-hidden="true" class="dark astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.64 13a1 1 0 0 0-1.05-.14 8.049 8.049 0 0 1-3.37.73 8.15 8.15 0 0 1-8.14-8.1 8.59 8.59 0 0 1 .25-2A1 1 0 0 0 8 2.36a10.14 10.14 0 1 0 14 11.69 1 1 0 0 0-.36-1.05Zm-9.5 6.69A8.14 8.14 0 0 1 7.08 5.22v.27a10.15 10.15 0 0 0 10.14 10.14 9.784 9.784 0 0 0 2.1-.22 8.11 8.11 0 0 1-7.18 4.32v-.04Z"/></svg> <svg aria-hidden="true" class="auto astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg> </template><link rel="stylesheet" href="/hebrew-transliteration/_astro/index.BN1Zq1wz.css">
+<style>:root{--sl-badge-default-border: var(--sl-color-accent);--sl-badge-default-bg: var(--sl-color-accent-low);--sl-badge-default-text: #fff;--sl-badge-note-border: var(--sl-color-blue);--sl-badge-note-bg: var(--sl-color-blue-low);--sl-badge-note-text: #fff;--sl-badge-danger-border: var(--sl-color-red);--sl-badge-danger-bg: var(--sl-color-red-low);--sl-badge-danger-text: #fff;--sl-badge-success-border: var(--sl-color-green);--sl-badge-success-bg: var(--sl-color-green-low);--sl-badge-success-text: #fff;--sl-badge-caution-border: var(--sl-color-orange);--sl-badge-caution-bg: var(--sl-color-orange-low);--sl-badge-caution-text: #fff;--sl-badge-tip-border: var(--sl-color-purple);--sl-badge-tip-bg: var(--sl-color-purple-low);--sl-badge-tip-text: #fff}[data-theme=light]:root{--sl-badge-default-bg: var(--sl-color-accent-high);--sl-badge-note-bg: var(--sl-color-blue-high);--sl-badge-danger-bg: var(--sl-color-red-high);--sl-badge-success-bg: var(--sl-color-green-high);--sl-badge-caution-bg: var(--sl-color-orange-high);--sl-badge-tip-bg: var(--sl-color-purple-high)}.sl-badge:where(.astro-avdet4wd){display:inline-block;border:1px solid var(--sl-color-border-badge);border-radius:.25rem;font-family:var(--sl-font-system-mono);line-height:normal;color:var(--sl-color-text-badge);background-color:var(--sl-color-bg-badge);overflow-wrap:anywhere}.sidebar-content .sl-badge:where(.astro-avdet4wd){line-height:1;font-size:var(--sl-text-xs);padding:.125rem .375rem}.sidebar-content a[aria-current=page]>.sl-badge:where(.astro-avdet4wd){--sl-color-bg-badge: transparent;--sl-color-border-badge: currentColor;color:inherit}.default:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-default-bg);--sl-color-border-badge: var(--sl-badge-default-border);--sl-color-text-badge: var(--sl-badge-default-text)}.note:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-note-bg);--sl-color-border-badge: var(--sl-badge-note-border);--sl-color-text-badge: var(--sl-badge-note-text)}.danger:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-danger-bg);--sl-color-border-badge: var(--sl-badge-danger-border);--sl-color-text-badge: var(--sl-badge-danger-text)}.success:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-success-bg);--sl-color-border-badge: var(--sl-badge-success-border);--sl-color-text-badge: var(--sl-badge-success-text)}.tip:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-tip-bg);--sl-color-border-badge: var(--sl-badge-tip-border);--sl-color-text-badge: var(--sl-badge-tip-text)}.caution:where(.astro-avdet4wd){--sl-color-bg-badge: var(--sl-badge-caution-bg);--sl-color-border-badge: var(--sl-badge-caution-border);--sl-color-text-badge: var(--sl-badge-caution-text)}.small:where(.astro-avdet4wd){font-size:var(--sl-text-xs);padding:.125rem .25rem}.medium:where(.astro-avdet4wd){font-size:var(--sl-text-sm);padding:.175rem .35rem}.large:where(.astro-avdet4wd){font-size:var(--sl-text-base);padding:.225rem .45rem}.sl-markdown-content :is(h1,h2,h3,h4,h5,h6) .sl-badge:where(.astro-avdet4wd){vertical-align:middle}
+svg:where(.astro-c6vsoqas){color:var(--sl-icon-color);font-size:var(--sl-icon-size, 1em);width:1em;height:1em}
+starlight-tabs:where(.astro-esqgolmp){display:block}.tablist-wrapper:where(.astro-esqgolmp){overflow-x:auto}:where(.astro-esqgolmp)[role=tablist]{display:flex;list-style:none;border-bottom:2px solid var(--sl-color-gray-5);padding:0}.tab:where(.astro-esqgolmp){margin-bottom:-2px}.tab:where(.astro-esqgolmp)>:where(.astro-esqgolmp)[role=tab]{display:flex;align-items:center;gap:.5rem;padding:0 1.25rem;text-decoration:none;border-bottom:2px solid var(--sl-color-gray-5);color:var(--sl-color-gray-3);outline-offset:var(--sl-outline-offset-inside);overflow-wrap:initial}.tab:where(.astro-esqgolmp) :where(.astro-esqgolmp)[role=tab][aria-selected=true]{color:var(--sl-color-white);border-color:var(--sl-color-text-accent);font-weight:600}.tablist-wrapper:where(.astro-esqgolmp)~[role=tabpanel]{margin-top:1rem}
+.sl-steps{--bullet-size: calc(var(--sl-line-height) * 1rem);--bullet-margin: .375rem;list-style:none;counter-reset:steps-counter var(--sl-steps-start, 0);padding-inline-start:0}.sl-steps>li{counter-increment:steps-counter;position:relative;padding-inline-start:calc(var(--bullet-size) + 1rem);padding-bottom:1px;min-height:calc(var(--bullet-size) + var(--bullet-margin))}.sl-steps>li+li{margin-top:0}.sl-steps>li:before{content:counter(steps-counter);position:absolute;top:0;inset-inline-start:0;width:var(--bullet-size);height:var(--bullet-size);line-height:var(--bullet-size);font-size:var(--sl-text-xs);font-weight:600;text-align:center;color:var(--sl-color-white);background-color:var(--sl-color-gray-6);border-radius:99rem;box-shadow:inset 0 0 0 1px var(--sl-color-gray-5)}.sl-steps>li:not(:last-of-type):after{--guide-width: 1px;content:"";position:absolute;top:calc(var(--bullet-size) + var(--bullet-margin));bottom:var(--bullet-margin);inset-inline-start:calc((var(--bullet-size) - var(--guide-width)) / 2);width:var(--guide-width);background-color:var(--sl-color-hairline-light)}.sl-steps>li>:first-child{--lh: calc(1em * var(--sl-line-height));--shift-y: calc(.5 * (var(--bullet-size) - var(--lh)));transform:translateY(var(--shift-y));margin-bottom:var(--shift-y)}.sl-steps>li>:first-child:where(h1,h2,h3,h4,h5,h6){--lh: calc(1em * var(--sl-line-height-headings))}@supports (--prop: 1lh){.sl-steps>li>:first-child{--lh: 1lh}}
+</style><script type="module" src="/hebrew-transliteration/_astro/hoisted.CjLsWz-_.js"></script>
+<script type="module" src="/hebrew-transliteration/_astro/page.LS5KDvwX.js"></script></head> <body class="astro-bguv2lll"> <a href="#_top" class="astro-7q3lir66">Skip to content</a>  <div class="page sl-flex astro-vrdttmbt"> <header class="header astro-vrdttmbt"><div class="header sl-flex astro-kmkmnagf"> <div class="title-wrapper sl-flex astro-kmkmnagf"> <a href="/hebrew-transliteration/" class="site-title sl-flex astro-m46x6ez3">  <span class="astro-m46x6ez3"> hebrew-transliteration v2.6.5 </span> </a>  </div> <div class="sl-flex astro-kmkmnagf"> <site-search data-translations="{&#34;placeholder&#34;:&#34;Search&#34;}" class="astro-v37mnknz"> <button data-open-modal disabled class="astro-v37mnknz">  <svg aria-label="Search" class="astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21.71 20.29 18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a.999.999 0 0 0 1.42 0 1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/></svg>  <span class="sl-hidden md:sl-block astro-v37mnknz" aria-hidden="true">Search</span> <svg aria-label="(Press / to Search)" class="sl-hidden md:sl-block astro-v37mnknz astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5Zm3 15a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v10Z"/><path d="M15.293 6.707a1 1 0 1 1 1.414 1.414l-8.485 8.486a1 1 0 0 1-1.414-1.415l8.485-8.485Z"/></svg>  </button> <dialog style="padding:0" aria-label="Search" class="astro-v37mnknz"> <div class="dialog-frame sl-flex astro-v37mnknz">  <button data-close-modal class="sl-flex md:sl-hidden astro-v37mnknz"> Cancel </button> <div class="search-container astro-v37mnknz"> <div id="starlight__search" class="astro-v37mnknz"></div> </div> </div> </dialog> </site-search>    </div> <div class="sl-hidden md:sl-flex right-group astro-kmkmnagf"> <div class="sl-flex social-icons astro-kmkmnagf"> <a href="https://github.com/charlesLoder/hebrew-transliteration" rel="me" class="sl-flex astro-wy4te6ga"><span class="sr-only astro-wy4te6ga">GitHub</span><svg aria-hidden="true" class="astro-wy4te6ga astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg> </a> </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">Select theme</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg>  <select value="auto" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">Dark</option><option value="light" class="astro-4yphtoen">Light</option><option value="auto" selected="true" class="astro-4yphtoen">Auto</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </label>  </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div> </div> </header> <nav class="sidebar astro-vrdttmbt" aria-label="Main"> <starlight-menu-button class="astro-jif73yzw"> <button aria-expanded="false" aria-label="Menu" aria-controls="starlight__sidebar" class="sl-flex md:sl-hidden astro-jif73yzw"> <svg aria-hidden="true" class="astro-jif73yzw astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M3 8h18a1 1 0 1 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"/></svg>  </button> </starlight-menu-button>    <div id="starlight__sidebar" class="sidebar-pane astro-vrdttmbt"> <div class="sidebar-content sl-flex astro-vrdttmbt"> <ul class="top-level astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Getting started</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/getting-started/quick-start/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Quickstart</span>  </a> </li> </ul>  </details> </li><li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">API</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <details open class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Classes</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/classes/sbl/" aria-current="page" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SBL</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/classes/schema/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Schema</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/classes/text/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">Text</span>  </a> </li> </ul>  </details> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Interfaces</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/clusterfeature/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">ClusterFeature</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/hebrewfeature/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">HebrewFeature</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/passthrough/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">PassThrough</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/removeoptions/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">RemoveOptions</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/syllablefeature/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SyllableFeature</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/sylopts/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SylOpts</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/interfaces/wordfeature/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">WordFeature</span>  </a> </li> </ul>  </details> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Type Aliases</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/type-aliases/clustercallback/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">ClusterCallback</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/type-aliases/syllablecallback/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">SyllableCallback</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/type-aliases/wordcallback/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">WordCallback</span>  </a> </li> </ul>  </details> </li><li class="astro-3ii7xxms"> <details class="astro-3ii7xxms"> <summary class="astro-3ii7xxms"> <div class="group-label astro-3ii7xxms"> <span class="large astro-3ii7xxms">Functions</span>  </div> <svg aria-hidden="true" class="caret astro-3ii7xxms astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1.25rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </summary> <ul class="astro-3ii7xxms"> <li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/functions/remove/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">remove</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/functions/sequence/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">sequence</span>  </a> </li><li class="astro-3ii7xxms"> <a href="/hebrew-transliteration/api/functions/transliterate/" class="astro-3ii7xxms"> <span class="astro-3ii7xxms">transliterate</span>  </a> </li> </ul>  </details> </li> </ul>  </details> </li> </ul>  <div class="md:sl-hidden"> <div class="mobile-preferences sl-flex astro-wu23bvmt"> <div class="sl-flex social-icons astro-wu23bvmt"> <a href="https://github.com/charlesLoder/hebrew-transliteration" rel="me" class="sl-flex astro-wy4te6ga"><span class="sr-only astro-wy4te6ga">GitHub</span><svg aria-hidden="true" class="astro-wy4te6ga astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"/></svg> </a> </div> <starlight-theme-select>  <label style="--sl-select-width: 6.25em" class="astro-4yphtoen"> <span class="sr-only astro-4yphtoen">Select theme</span> <svg aria-hidden="true" class="icon label-icon astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M21 14h-1V7a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7H3a1 1 0 0 0-1 1v2a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-2a1 1 0 0 0-1-1ZM6 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v7H6V7Zm14 10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-1h16v1Z"/></svg>  <select value="auto" class="astro-4yphtoen"> <option value="dark" class="astro-4yphtoen">Dark</option><option value="light" class="astro-4yphtoen">Light</option><option value="auto" selected="true" class="astro-4yphtoen">Auto</option> </select> <svg aria-hidden="true" class="icon caret astro-4yphtoen astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1em;"><path d="M17 9.17a1 1 0 0 0-1.41 0L12 12.71 8.46 9.17a1 1 0 1 0-1.41 1.42l4.24 4.24a1.002 1.002 0 0 0 1.42 0L17 10.59a1.002 1.002 0 0 0 0-1.42Z"/></svg>  </label>  </starlight-theme-select>  <script>
+	StarlightThemeProvider.updatePickers();
+</script>   </div>  </div> </div> </div> </nav> <div class="main-frame astro-vrdttmbt">  <div class="lg:sl-flex astro-67yu43on"> <aside class="right-sidebar-container astro-67yu43on"> <div class="right-sidebar astro-67yu43on"> <div class="lg:sl-hidden astro-pb3aqygn"><mobile-starlight-toc data-min-h="2" data-max-h="3" class="astro-doynk5tl"><nav aria-labelledby="starlight__on-this-page--mobile" class="astro-doynk5tl"><details id="starlight__mobile-toc" class="astro-doynk5tl"><summary id="starlight__on-this-page--mobile" class="sl-flex astro-doynk5tl"><div class="toggle sl-flex astro-doynk5tl">On this page<svg aria-hidden="true" class="caret astro-doynk5tl astro-c6vsoqas" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="--sl-icon-size: 1rem;"><path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z"/></svg> </div><span class="display-current astro-doynk5tl"></span></summary><div class="dropdown astro-doynk5tl"><ul class="isMobile astro-g2bywc46" style="--depth: 0;"> <li class="astro-g2bywc46" style="--depth: 0;"> <a href="#_top" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#param" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Param</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#example" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Example</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#extends" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Extends</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#consonants" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Consonants</span> </a> <ul class="isMobile astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#alef" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ALEF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#ayin" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">AYIN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#bet" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">BET</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#bet_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">BET_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dalet" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DALET</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dalet_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DALET_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#final_kaf" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FINAL_KAF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#final_mem" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FINAL_MEM</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#final_nun" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FINAL_NUN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#final_pe" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FINAL_PE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#final_tsadi" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FINAL_TSADI</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#gimel" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GIMEL</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#gimel_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GIMEL_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#he" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#het" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HET</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#kaf" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">KAF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#kaf_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">KAF_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#lamed" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">LAMED</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#mem" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MEM</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#nun" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">NUN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#pe" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#pe_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PE_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qof" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QOF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#resh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">RESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#samekh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SAMEKH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shin" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHIN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sin" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SIN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tav" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TAV</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tav_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TAV_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tet" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TET</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsadi" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSADI</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#vav" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">VAV</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#yod" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#zayin" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ZAYIN</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#marks" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Marks</span> </a> <ul class="isMobile astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dagesh_chazaq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DAGESH_CHAZAQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#maqaf" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MAQAF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#paseq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PASEQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sof_pasuq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SOF_PASUQ</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#orthographic-features" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Orthographic Features</span> </a> <ul class="isMobile astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#additional_features" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ADDITIONAL_FEATURES</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#bet_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">BET_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dagesh_chazaq-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DAGESH_CHAZAQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dalet_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DALET_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#divine_name" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DIVINE_NAME</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#divine_name_elohim" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DIVINE_NAME_ELOHIM</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#furtive_patah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FURTIVE_PATAH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#gimel_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GIMEL_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hiriq_yod" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HIRIQ_YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holam_vav" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HOLAM_VAV</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#kaf_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">KAF_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#ms_sufx" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MS_SUFX</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#pe_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PE_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats_he" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol_he" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol_yod" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL_YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shin-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHIN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shureq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHUREQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sin-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SIN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#stress_marker" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">STRESS_MARKER</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#syllable_separator" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SYLLABLE_SEPARATOR</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tav_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TAV_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere_he" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere_yod" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE_YOD</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#other" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Other</span> </a> <ul class="isMobile astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#new-sbl" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">new SBL()</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#syllabification" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Syllabification</span> </a> <ul class="isMobile astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#allownoniqqud" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">allowNoNiqqud</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#article" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">article</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holemhaser" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">holemHaser</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#longvowels" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">longVowels</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qametsqatan" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">qametsQatan</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shevaaftermeteg" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">shevaAfterMeteg</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shevawithmeteg" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">shevaWithMeteg</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sqnmlvy" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">sqnmlvy</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#strict" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">strict</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#wawshureq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">wawShureq</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#taamim" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Taamim</span> </a> <ul class="isMobile astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#maqaf-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MAQAF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sof_pasuq-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SOF_PASUQ</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#vowel" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Vowel</span> </a> <ul class="isMobile astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#ms_sufx-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MS_SUFX</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#vowels" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Vowels</span> </a> <ul class="isMobile astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#furtive_patah-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FURTIVE_PATAH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_patah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_PATAH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_qamats" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_QAMATS</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_segol" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_SEGOL</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hiriq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HIRIQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hiriq_yod-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HIRIQ_YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holam" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HOLAM</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holam_haser" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HOLAM_HASER</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holam_vav-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HOLAM_VAV</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#patah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PATAH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats_he-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats_qatan" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS_QATAN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qubuts" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QUBUTS</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol_he-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol_yod-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL_YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shureq-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHUREQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere_he-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere_yod-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE_YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#vocal_sheva" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">VOCAL_SHEVA</span> </a>  </li> </ul>  </li> </ul> </div></details></nav></mobile-starlight-toc></div><div class="right-sidebar-panel sl-hidden lg:sl-block astro-pb3aqygn"><div class="sl-container astro-pb3aqygn"><starlight-toc data-min-h="2" data-max-h="3"><nav aria-labelledby="starlight__on-this-page"><h2 id="starlight__on-this-page">On this page</h2><ul class="astro-g2bywc46" style="--depth: 0;"> <li class="astro-g2bywc46" style="--depth: 0;"> <a href="#_top" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Overview</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#param" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Param</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#example" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Example</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#extends" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Extends</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#consonants" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Consonants</span> </a> <ul class="astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#alef" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ALEF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#ayin" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">AYIN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#bet" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">BET</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#bet_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">BET_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dalet" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DALET</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dalet_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DALET_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#final_kaf" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FINAL_KAF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#final_mem" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FINAL_MEM</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#final_nun" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FINAL_NUN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#final_pe" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FINAL_PE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#final_tsadi" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FINAL_TSADI</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#gimel" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GIMEL</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#gimel_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GIMEL_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#he" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#het" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HET</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#kaf" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">KAF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#kaf_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">KAF_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#lamed" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">LAMED</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#mem" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MEM</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#nun" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">NUN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#pe" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#pe_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PE_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qof" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QOF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#resh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">RESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#samekh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SAMEKH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shin" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHIN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sin" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SIN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tav" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TAV</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tav_dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TAV_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tet" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TET</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsadi" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSADI</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#vav" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">VAV</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#yod" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#zayin" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ZAYIN</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#marks" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Marks</span> </a> <ul class="astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dagesh" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dagesh_chazaq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DAGESH_CHAZAQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#maqaf" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MAQAF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#paseq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PASEQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sof_pasuq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SOF_PASUQ</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#orthographic-features" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Orthographic Features</span> </a> <ul class="astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#additional_features" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">ADDITIONAL_FEATURES</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#bet_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">BET_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dagesh_chazaq-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DAGESH_CHAZAQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#dalet_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DALET_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#divine_name" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DIVINE_NAME</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#divine_name_elohim" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">DIVINE_NAME_ELOHIM</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#furtive_patah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FURTIVE_PATAH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#gimel_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">GIMEL_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hiriq_yod" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HIRIQ_YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holam_vav" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HOLAM_VAV</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#kaf_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">KAF_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#ms_sufx" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MS_SUFX</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#pe_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PE_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats_he" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol_he" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol_yod" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL_YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shin-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHIN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shureq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHUREQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sin-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SIN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#stress_marker" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">STRESS_MARKER</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#syllable_separator" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SYLLABLE_SEPARATOR</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tav_dagesh-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TAV_DAGESH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere_he" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere_yod" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE_YOD</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#other" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Other</span> </a> <ul class="astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#new-sbl" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">new SBL()</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#syllabification" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Syllabification</span> </a> <ul class="astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#allownoniqqud" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">allowNoNiqqud</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#article" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">article</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holemhaser" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">holemHaser</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#longvowels" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">longVowels</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qametsqatan" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">qametsQatan</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shevaaftermeteg" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">shevaAfterMeteg</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shevawithmeteg" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">shevaWithMeteg</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sqnmlvy" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">sqnmlvy</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#strict" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">strict</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#wawshureq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">wawShureq</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#taamim" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Taamim</span> </a> <ul class="astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#maqaf-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MAQAF</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#sof_pasuq-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SOF_PASUQ</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#vowel" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Vowel</span> </a> <ul class="astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#ms_sufx-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">MS_SUFX</span> </a>  </li> </ul>  </li><li class="astro-g2bywc46" style="--depth: 0;"> <a href="#vowels" class="astro-g2bywc46" style="--depth: 0;"> <span class="astro-g2bywc46" style="--depth: 0;">Vowels</span> </a> <ul class="astro-g2bywc46" style="--depth: 1;"> <li class="astro-g2bywc46" style="--depth: 1;"> <a href="#furtive_patah-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">FURTIVE_PATAH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_patah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_PATAH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_qamats" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_QAMATS</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hataf_segol" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HATAF_SEGOL</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hiriq" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HIRIQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#hiriq_yod-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HIRIQ_YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holam" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HOLAM</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holam_haser" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HOLAM_HASER</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#holam_vav-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">HOLAM_VAV</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#patah" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">PATAH</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats_he-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qamats_qatan" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QAMATS_QATAN</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#qubuts" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">QUBUTS</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol_he-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#segol_yod-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SEGOL_YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#shureq-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">SHUREQ</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere_he-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE_HE</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#tsere_yod-1" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">TSERE_YOD</span> </a>  </li><li class="astro-g2bywc46" style="--depth: 1;"> <a href="#vocal_sheva" class="astro-g2bywc46" style="--depth: 1;"> <span class="astro-g2bywc46" style="--depth: 1;">VOCAL_SHEVA</span> </a>  </li> </ul>  </li> </ul> </nav></starlight-toc></div></div> </div> </aside> <div class="main-pane astro-67yu43on">  <main data-pagefind-body lang="en" dir="ltr" class="astro-bguv2lll">    <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <h1 id="_top" class="astro-j6tvhyss">SBL</h1>  </div> </div>  <div class="content-panel astro-7nkwcw3z"> <div class="sl-container astro-7nkwcw3z"> <div class="sl-markdown-content"> <p>The default schema according to SBL’s academic style guide.</p>
+<p>Whereas a new <a href="../../../../../../hebrew-transliteration/api/classes/schema">Schema</a> must have all required properties when constructed,
+this schema is meant to be used as a default so particular properties can be overidden (see example).</p>
+<p>If the property is not set, the default value will be used. Each property is documented below with their default values.</p>
+<p>Click into each property’s “Overrides” for more information about that property.</p>
+<h2 id="param">Param</h2>
+<p>a <a href="../../../../../../hebrew-transliteration/api/classes/schema">Partial&#x3C;Schema></a></p>
+<h2 id="example">Example</h2>
+<p>Extend the default schema</p>
+<div class="expressive-code"><link rel="stylesheet" href="/hebrew-transliteration/_astro/ec.d6kn2.css"><script type="module" src="/hebrew-transliteration/_astro/ec.3zb7u.js"></script><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="js"><code><div class="ec-line"><div class="code"><span class="indent"> </span><span style="--0:#82AAFF;--1:#3C63B3">transliterate</span><span style="--0:#D6DEEB;--1:#403F53">(</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">שָׁלוֹם</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53">, { SHIN: </span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">sh</span><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#D6DEEB;--1:#403F53"> });</span></div></div><div class="ec-line"><div class="code"><span style="--0:#809191;--1:#5E6578">// shālôm</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code=" transliterate(&#x22;שָׁלוֹם&#x22;, { SHIN: &#x22;sh&#x22; });// shālôm"><div></div></button></div></figure></div>
+<h2 id="extends">Extends</h2>
+<ul>
+<li><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a></li>
+</ul>
+<h2 id="consonants">Consonants</h2>
+<h3 id="alef">ALEF</h3>
+<blockquote>
+<p><strong>ALEF</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ʾ</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ʾ&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationalef/"><code dir="auto">ALEF</code></a></p>
+<h4 id="defined-in">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1969">src/schema.ts:1969</a></p>
+<hr>
+<h3 id="ayin">AYIN</h3>
+<blockquote>
+<p><strong>AYIN</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-1">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ʿ</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ʿ&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-1">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationayin/"><code dir="auto">AYIN</code></a></p>
+<h4 id="defined-in-1">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2013">src/schema.ts:2013</a></p>
+<hr>
+<h3 id="bet">BET</h3>
+<blockquote>
+<p><strong>BET</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-2">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">b</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;b&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-2">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationbet/"><code dir="auto">BET</code></a></p>
+<h4 id="defined-in-2">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1971">src/schema.ts:1971</a></p>
+<hr>
+<h3 id="bet_dagesh">BET_DAGESH</h3>
+<blockquote>
+<p><strong>BET_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-3">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-3">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationbet_dagesh/"><code dir="auto">BET_DAGESH</code></a></p>
+<h4 id="defined-in-3">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1973">src/schema.ts:1973</a></p>
+<hr>
+<h3 id="dalet">DALET</h3>
+<blockquote>
+<p><strong>DALET</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-4">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">d</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;d&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-4">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationdalet/"><code dir="auto">DALET</code></a></p>
+<h4 id="defined-in-4">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1979">src/schema.ts:1979</a></p>
+<hr>
+<h3 id="dalet_dagesh">DALET_DAGESH</h3>
+<blockquote>
+<p><strong>DALET_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-5">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-5">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationdalet_dagesh/"><code dir="auto">DALET_DAGESH</code></a></p>
+<h4 id="defined-in-5">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1981">src/schema.ts:1981</a></p>
+<hr>
+<h3 id="final_kaf">FINAL_KAF</h3>
+<blockquote>
+<p><strong>FINAL_KAF</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-6">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">k</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;k&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-6">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationfinal_kaf/"><code dir="auto">FINAL_KAF</code></a></p>
+<h4 id="defined-in-6">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1995">src/schema.ts:1995</a></p>
+<hr>
+<h3 id="final_mem">FINAL_MEM</h3>
+<blockquote>
+<p><strong>FINAL_MEM</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-7">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">m</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;m&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-7">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationfinal_mem/"><code dir="auto">FINAL_MEM</code></a></p>
+<h4 id="defined-in-7">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2003">src/schema.ts:2003</a></p>
+<hr>
+<h3 id="final_nun">FINAL_NUN</h3>
+<blockquote>
+<p><strong>FINAL_NUN</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-8">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">n</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;n&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-8">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationfinal_nun/"><code dir="auto">FINAL_NUN</code></a></p>
+<h4 id="defined-in-8">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2007">src/schema.ts:2007</a></p>
+<hr>
+<h3 id="final_pe">FINAL_PE</h3>
+<blockquote>
+<p><strong>FINAL_PE</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-9">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">p</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;p&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-9">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationfinal_pe/"><code dir="auto">FINAL_PE</code></a></p>
+<h4 id="defined-in-9">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2015">src/schema.ts:2015</a></p>
+<hr>
+<h3 id="final_tsadi">FINAL_TSADI</h3>
+<blockquote>
+<p><strong>FINAL_TSADI</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-10">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ṣ</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ṣ&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-10">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationfinal_tsadi/"><code dir="auto">FINAL_TSADI</code></a></p>
+<h4 id="defined-in-10">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2021">src/schema.ts:2021</a></p>
+<hr>
+<h3 id="gimel">GIMEL</h3>
+<blockquote>
+<p><strong>GIMEL</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-11">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">g</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;g&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-11">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationgimel/"><code dir="auto">GIMEL</code></a></p>
+<h4 id="defined-in-11">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1975">src/schema.ts:1975</a></p>
+<hr>
+<h3 id="gimel_dagesh">GIMEL_DAGESH</h3>
+<blockquote>
+<p><strong>GIMEL_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-12">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-12">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationgimel_dagesh/"><code dir="auto">GIMEL_DAGESH</code></a></p>
+<h4 id="defined-in-12">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1977">src/schema.ts:1977</a></p>
+<hr>
+<h3 id="he">HE</h3>
+<blockquote>
+<p><strong>HE</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-13">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">h</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;h&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-13">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationhe/"><code dir="auto">HE</code></a></p>
+<h4 id="defined-in-13">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1983">src/schema.ts:1983</a></p>
+<hr>
+<h3 id="het">HET</h3>
+<blockquote>
+<p><strong>HET</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-14">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ḥ</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ḥ&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-14">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationhet/"><code dir="auto">HET</code></a></p>
+<h4 id="defined-in-14">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1989">src/schema.ts:1989</a></p>
+<hr>
+<h3 id="kaf">KAF</h3>
+<blockquote>
+<p><strong>KAF</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-15">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">k</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;k&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-15">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationkaf/"><code dir="auto">KAF</code></a></p>
+<h4 id="defined-in-15">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1997">src/schema.ts:1997</a></p>
+<hr>
+<h3 id="kaf_dagesh">KAF_DAGESH</h3>
+<blockquote>
+<p><strong>KAF_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-16">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-16">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationkaf_dagesh/"><code dir="auto">KAF_DAGESH</code></a></p>
+<h4 id="defined-in-16">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1999">src/schema.ts:1999</a></p>
+<hr>
+<h3 id="lamed">LAMED</h3>
+<blockquote>
+<p><strong>LAMED</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-17">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">l</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;l&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-17">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationlamed/"><code dir="auto">LAMED</code></a></p>
+<h4 id="defined-in-17">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2001">src/schema.ts:2001</a></p>
+<hr>
+<h3 id="mem">MEM</h3>
+<blockquote>
+<p><strong>MEM</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-18">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">m</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;m&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-18">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationmem/"><code dir="auto">MEM</code></a></p>
+<h4 id="defined-in-18">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2005">src/schema.ts:2005</a></p>
+<hr>
+<h3 id="nun">NUN</h3>
+<blockquote>
+<p><strong>NUN</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-19">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">n</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;n&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-19">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationnun/"><code dir="auto">NUN</code></a></p>
+<h4 id="defined-in-19">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2009">src/schema.ts:2009</a></p>
+<hr>
+<h3 id="pe">PE</h3>
+<blockquote>
+<p><strong>PE</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-20">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">p</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;p&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-20">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationpe/"><code dir="auto">PE</code></a></p>
+<h4 id="defined-in-20">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2017">src/schema.ts:2017</a></p>
+<hr>
+<h3 id="pe_dagesh">PE_DAGESH</h3>
+<blockquote>
+<p><strong>PE_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-21">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-21">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationpe_dagesh/"><code dir="auto">PE_DAGESH</code></a></p>
+<h4 id="defined-in-21">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2019">src/schema.ts:2019</a></p>
+<hr>
+<h3 id="qof">QOF</h3>
+<blockquote>
+<p><strong>QOF</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-22">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">q</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;q&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-22">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationqof/"><code dir="auto">QOF</code></a></p>
+<h4 id="defined-in-22">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2025">src/schema.ts:2025</a></p>
+<hr>
+<h3 id="resh">RESH</h3>
+<blockquote>
+<p><strong>RESH</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-23">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">r</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;r&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-23">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationresh/"><code dir="auto">RESH</code></a></p>
+<h4 id="defined-in-23">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2027">src/schema.ts:2027</a></p>
+<hr>
+<h3 id="samekh">SAMEKH</h3>
+<blockquote>
+<p><strong>SAMEKH</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-24">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">s</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;s&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-24">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsamekh/"><code dir="auto">SAMEKH</code></a></p>
+<h4 id="defined-in-24">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2011">src/schema.ts:2011</a></p>
+<hr>
+<h3 id="shin">SHIN</h3>
+<blockquote>
+<p><strong>SHIN</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-25">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">š</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;š&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-25">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationshin/"><code dir="auto">SHIN</code></a></p>
+<h4 id="defined-in-25">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2029">src/schema.ts:2029</a></p>
+<hr>
+<h3 id="sin">SIN</h3>
+<blockquote>
+<p><strong>SIN</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-26">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ś</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ś&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-26">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsin/"><code dir="auto">SIN</code></a></p>
+<h4 id="defined-in-26">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2031">src/schema.ts:2031</a></p>
+<hr>
+<h3 id="tav">TAV</h3>
+<blockquote>
+<p><strong>TAV</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-27">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">t</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;t&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-27">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationtav/"><code dir="auto">TAV</code></a></p>
+<h4 id="defined-in-27">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2033">src/schema.ts:2033</a></p>
+<hr>
+<h3 id="tav_dagesh">TAV_DAGESH</h3>
+<blockquote>
+<p><strong>TAV_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-28">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-28">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationtav_dagesh/"><code dir="auto">TAV_DAGESH</code></a></p>
+<h4 id="defined-in-28">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2035">src/schema.ts:2035</a></p>
+<hr>
+<h3 id="tet">TET</h3>
+<blockquote>
+<p><strong>TET</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-29">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ṭ</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ṭ&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-29">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationtet/"><code dir="auto">TET</code></a></p>
+<h4 id="defined-in-29">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1991">src/schema.ts:1991</a></p>
+<hr>
+<h3 id="tsadi">TSADI</h3>
+<blockquote>
+<p><strong>TSADI</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-30">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ṣ</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ṣ&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-30">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationtsadi/"><code dir="auto">TSADI</code></a></p>
+<h4 id="defined-in-30">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2023">src/schema.ts:2023</a></p>
+<hr>
+<h3 id="vav">VAV</h3>
+<blockquote>
+<p><strong>VAV</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-31">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">w</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;w&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-31">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationvav/"><code dir="auto">VAV</code></a></p>
+<h4 id="defined-in-31">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1985">src/schema.ts:1985</a></p>
+<hr>
+<h3 id="yod">YOD</h3>
+<blockquote>
+<p><strong>YOD</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-32">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">y</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;y&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-32">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationyod/"><code dir="auto">YOD</code></a></p>
+<h4 id="defined-in-32">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1993">src/schema.ts:1993</a></p>
+<hr>
+<h3 id="zayin">ZAYIN</h3>
+<blockquote>
+<p><strong>ZAYIN</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-33">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">z</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;z&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-33">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationzayin/"><code dir="auto">ZAYIN</code></a></p>
+<h4 id="defined-in-33">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1987">src/schema.ts:1987</a></p>
+<h2 id="marks">Marks</h2>
+<h3 id="dagesh">DAGESH</h3>
+<blockquote>
+<p><strong>DAGESH</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-34">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">""</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-34">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationdagesh/"><code dir="auto">DAGESH</code></a></p>
+<h4 id="defined-in-34">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1937">src/schema.ts:1937</a></p>
+<hr>
+<h3 id="dagesh_chazaq">DAGESH_CHAZAQ</h3>
+<blockquote>
+<p><strong>DAGESH_CHAZAQ</strong>: <code dir="auto">string</code> | <code dir="auto">boolean</code></p>
+</blockquote>
+<h4 id="default-35">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#FF5874;--1:#A54A4A">true</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="true"><div></div></button></div></figure></div>
+<h4 id="overrides-35">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationdagesh_chazaq/"><code dir="auto">DAGESH_CHAZAQ</code></a></p>
+<h4 id="defined-in-35">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1939">src/schema.ts:1939</a></p>
+<hr>
+<h3 id="maqaf">MAQAF</h3>
+<blockquote>
+<p><strong>MAQAF</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-36">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">-</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;-&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-36">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationmaqaf/"><code dir="auto">MAQAF</code></a></p>
+<h4 id="defined-in-36">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1941">src/schema.ts:1941</a></p>
+<hr>
+<h3 id="paseq">PASEQ</h3>
+<blockquote>
+<p><strong>PASEQ</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-37">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">""</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-37">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationpaseq/"><code dir="auto">PASEQ</code></a></p>
+<h4 id="defined-in-37">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1943">src/schema.ts:1943</a></p>
+<hr>
+<h3 id="sof_pasuq">SOF_PASUQ</h3>
+<blockquote>
+<p><strong>SOF_PASUQ</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-38">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">""</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-38">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsof_pasuq/"><code dir="auto">SOF_PASUQ</code></a></p>
+<h4 id="defined-in-38">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1945">src/schema.ts:1945</a></p>
+<h2 id="orthographic-features">Orthographic Features</h2>
+<h3 id="additional_features">ADDITIONAL_FEATURES</h3>
+<blockquote>
+<p><strong>ADDITIONAL_FEATURES</strong>: <code dir="auto">undefined</code> | (<a href="/hebrew-transliteration/api/interfaces/wordfeature/"><code dir="auto">WordFeature</code></a> | <a href="/hebrew-transliteration/api/interfaces/syllablefeature/"><code dir="auto">SyllableFeature</code></a> | <a href="/hebrew-transliteration/api/interfaces/clusterfeature/"><code dir="auto">ClusterFeature</code></a>)[]</p>
+</blockquote>
+<h4 id="default-39">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-39">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationadditional_features/"><code dir="auto">ADDITIONAL_FEATURES</code></a></p>
+<h4 id="defined-in-39">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2043">src/schema.ts:2043</a></p>
+<hr>
+<h3 id="bet_dagesh-1">BET_DAGESH</h3>
+<blockquote>
+<p><strong>BET_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-40">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-40">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationbet_dagesh/"><code dir="auto">BET_DAGESH</code></a></p>
+<h4 id="defined-in-40">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1973">src/schema.ts:1973</a></p>
+<hr>
+<h3 id="dagesh_chazaq-1">DAGESH_CHAZAQ</h3>
+<blockquote>
+<p><strong>DAGESH_CHAZAQ</strong>: <code dir="auto">string</code> | <code dir="auto">boolean</code></p>
+</blockquote>
+<h4 id="default-41">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#FF5874;--1:#A54A4A">true</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="true"><div></div></button></div></figure></div>
+<h4 id="overrides-41">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationdagesh_chazaq/"><code dir="auto">DAGESH_CHAZAQ</code></a></p>
+<h4 id="defined-in-41">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1939">src/schema.ts:1939</a></p>
+<hr>
+<h3 id="dalet_dagesh-1">DALET_DAGESH</h3>
+<blockquote>
+<p><strong>DALET_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-42">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-42">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationdalet_dagesh/"><code dir="auto">DALET_DAGESH</code></a></p>
+<h4 id="defined-in-42">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1981">src/schema.ts:1981</a></p>
+<hr>
+<h3 id="divine_name">DIVINE_NAME</h3>
+<blockquote>
+<p><strong>DIVINE_NAME</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-43">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">yhwh</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;yhwh&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-43">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationdivine_name/"><code dir="auto">DIVINE_NAME</code></a></p>
+<h4 id="defined-in-43">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2037">src/schema.ts:2037</a></p>
+<hr>
+<h3 id="divine_name_elohim">DIVINE_NAME_ELOHIM</h3>
+<blockquote>
+<p><strong>DIVINE_NAME_ELOHIM</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-44">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-44">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationdivine_name_elohim/"><code dir="auto">DIVINE_NAME_ELOHIM</code></a></p>
+<h4 id="defined-in-44">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2039">src/schema.ts:2039</a></p>
+<hr>
+<h3 id="furtive_patah">FURTIVE_PATAH</h3>
+<blockquote>
+<p><strong>FURTIVE_PATAH</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-45">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">a</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;a&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-45">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationfurtive_patah/"><code dir="auto">FURTIVE_PATAH</code></a></p>
+<h4 id="defined-in-45">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1949">src/schema.ts:1949</a></p>
+<hr>
+<h3 id="gimel_dagesh-1">GIMEL_DAGESH</h3>
+<blockquote>
+<p><strong>GIMEL_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-46">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-46">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationgimel_dagesh/"><code dir="auto">GIMEL_DAGESH</code></a></p>
+<h4 id="defined-in-46">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1977">src/schema.ts:1977</a></p>
+<hr>
+<h3 id="hiriq_yod">HIRIQ_YOD</h3>
+<blockquote>
+<p><strong>HIRIQ_YOD</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-47">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">î</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;î&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-47">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationhiriq_yod/"><code dir="auto">HIRIQ_YOD</code></a></p>
+<h4 id="defined-in-47">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1951">src/schema.ts:1951</a></p>
+<hr>
+<h3 id="holam_vav">HOLAM_VAV</h3>
+<blockquote>
+<p><strong>HOLAM_VAV</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-48">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ô</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ô&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-48">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationholam_vav/"><code dir="auto">HOLAM_VAV</code></a></p>
+<h4 id="defined-in-48">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1959">src/schema.ts:1959</a></p>
+<hr>
+<h3 id="kaf_dagesh-1">KAF_DAGESH</h3>
+<blockquote>
+<p><strong>KAF_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-49">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-49">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationkaf_dagesh/"><code dir="auto">KAF_DAGESH</code></a></p>
+<h4 id="defined-in-49">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1999">src/schema.ts:1999</a></p>
+<hr>
+<h3 id="ms_sufx">MS_SUFX</h3>
+<blockquote>
+<p><strong>MS_SUFX</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-50">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">āyw</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;āyw&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-50">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationms_sufx/"><code dir="auto">MS_SUFX</code></a></p>
+<h4 id="defined-in-50">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1967">src/schema.ts:1967</a></p>
+<hr>
+<h3 id="pe_dagesh-1">PE_DAGESH</h3>
+<blockquote>
+<p><strong>PE_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-51">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-51">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationpe_dagesh/"><code dir="auto">PE_DAGESH</code></a></p>
+<h4 id="defined-in-51">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2019">src/schema.ts:2019</a></p>
+<hr>
+<h3 id="qamats_he">QAMATS_HE</h3>
+<blockquote>
+<p><strong>QAMATS_HE</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-52">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">â</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;â&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-52">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationqamats_he/"><code dir="auto">QAMATS_HE</code></a></p>
+<h4 id="defined-in-52">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1961">src/schema.ts:1961</a></p>
+<hr>
+<h3 id="segol_he">SEGOL_HE</h3>
+<blockquote>
+<p><strong>SEGOL_HE</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-53">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ê</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ê&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-53">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsegol_he/"><code dir="auto">SEGOL_HE</code></a></p>
+<h4 id="defined-in-53">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1963">src/schema.ts:1963</a></p>
+<hr>
+<h3 id="segol_yod">SEGOL_YOD</h3>
+<blockquote>
+<p><strong>SEGOL_YOD</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-54">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ê</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ê&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-54">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsegol_yod/"><code dir="auto">SEGOL_YOD</code></a></p>
+<h4 id="defined-in-54">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1955">src/schema.ts:1955</a></p>
+<hr>
+<h3 id="shin-1">SHIN</h3>
+<blockquote>
+<p><strong>SHIN</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-55">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">š</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;š&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-55">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationshin/"><code dir="auto">SHIN</code></a></p>
+<h4 id="defined-in-55">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2029">src/schema.ts:2029</a></p>
+<hr>
+<h3 id="shureq">SHUREQ</h3>
+<blockquote>
+<p><strong>SHUREQ</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-56">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">û</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;û&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-56">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationshureq/"><code dir="auto">SHUREQ</code></a></p>
+<h4 id="defined-in-56">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1957">src/schema.ts:1957</a></p>
+<hr>
+<h3 id="sin-1">SIN</h3>
+<blockquote>
+<p><strong>SIN</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-57">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ś</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ś&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-57">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsin/"><code dir="auto">SIN</code></a></p>
+<h4 id="defined-in-57">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2031">src/schema.ts:2031</a></p>
+<hr>
+<h3 id="stress_marker">STRESS_MARKER</h3>
+<blockquote>
+<p><strong>STRESS_MARKER</strong>: <code dir="auto">undefined</code> | {<code dir="auto">exclude</code>: <code dir="auto">"never"</code> | <code dir="auto">"final"</code> | <code dir="auto">"single"</code>;<code dir="auto">location</code>: <code dir="auto">"before-syllable"</code> | <code dir="auto">"after-syllable"</code> | <code dir="auto">"before-vowel"</code> | <code dir="auto">"after-vowel"</code>;<code dir="auto">mark</code>: <code dir="auto">string</code>; }</p>
+</blockquote>
+<h4 id="default-58">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-58">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationstress_marker/"><code dir="auto">STRESS_MARKER</code></a></p>
+<h4 id="defined-in-58">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2045">src/schema.ts:2045</a></p>
+<hr>
+<h3 id="syllable_separator">SYLLABLE_SEPARATOR</h3>
+<blockquote>
+<p><strong>SYLLABLE_SEPARATOR</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-59">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-59">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsyllable_separator/"><code dir="auto">SYLLABLE_SEPARATOR</code></a></p>
+<h4 id="defined-in-59">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2041">src/schema.ts:2041</a></p>
+<hr>
+<h3 id="tav_dagesh-1">TAV_DAGESH</h3>
+<blockquote>
+<p><strong>TAV_DAGESH</strong>: <code dir="auto">undefined</code> | <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-60">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#82AAFF;--1:#3C63B3">undefined</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="undefined"><div></div></button></div></figure></div>
+<h4 id="overrides-60">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationtav_dagesh/"><code dir="auto">TAV_DAGESH</code></a></p>
+<h4 id="defined-in-60">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2035">src/schema.ts:2035</a></p>
+<hr>
+<h3 id="tsere_he">TSERE_HE</h3>
+<blockquote>
+<p><strong>TSERE_HE</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-61">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ê</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ê&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-61">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationtsere_he/"><code dir="auto">TSERE_HE</code></a></p>
+<h4 id="defined-in-61">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1965">src/schema.ts:1965</a></p>
+<hr>
+<h3 id="tsere_yod">TSERE_YOD</h3>
+<blockquote>
+<p><strong>TSERE_YOD</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-62">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ê</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ê&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-62">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationtsere_yod/"><code dir="auto">TSERE_YOD</code></a></p>
+<h4 id="defined-in-62">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1953">src/schema.ts:1953</a></p>
+<h2 id="other">Other</h2>
+<h3 id="new-sbl">new SBL()</h3>
+<blockquote>
+<p><strong>new SBL</strong>(<code dir="auto">schema</code>): <a href="/hebrew-transliteration/api/classes/sbl/"><code dir="auto">SBL</code></a></p>
+</blockquote>
+<h4 id="parameters">Parameters</h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Parameter</th><th>Type</th></tr></thead><tbody><tr><td><code dir="auto">schema</code></td><td><code dir="auto">Partial</code>&#x3C;<a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>></td></tr></tbody></table>
+<h4 id="returns">Returns</h4>
+<p><a href="/hebrew-transliteration/api/classes/sbl/"><code dir="auto">SBL</code></a></p>
+<h4 id="overrides-63">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationconstructors/"><code dir="auto">constructor</code></a></p>
+<h4 id="defined-in-63">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2066">src/schema.ts:2066</a></p>
+<h2 id="syllabification">Syllabification</h2>
+<h3 id="allownoniqqud">allowNoNiqqud</h3>
+<blockquote>
+<p><strong>allowNoNiqqud</strong>: <code dir="auto">undefined</code> | <code dir="auto">boolean</code></p>
+</blockquote>
+<h4 id="default-63">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#FF5874;--1:#A54A4A">true</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="true"><div></div></button></div></figure></div>
+<h4 id="overrides-64">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationallownoniqqud/"><code dir="auto">allowNoNiqqud</code></a></p>
+<h4 id="defined-in-64">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2061">src/schema.ts:2061</a></p>
+<hr>
+<h3 id="article">article</h3>
+<blockquote>
+<p><strong>article</strong>: <code dir="auto">undefined</code> | <code dir="auto">boolean</code></p>
+</blockquote>
+<h4 id="default-64">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#FF5874;--1:#A54A4A">true</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="true"><div></div></button></div></figure></div>
+<h4 id="overrides-65">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationarticle/"><code dir="auto">article</code></a></p>
+<h4 id="defined-in-65">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2059">src/schema.ts:2059</a></p>
+<hr>
+<h3 id="holemhaser">holemHaser</h3>
+<blockquote>
+<p><strong>holemHaser</strong>: <code dir="auto">undefined</code> | <code dir="auto">"update"</code> | <code dir="auto">"preserve"</code> | <code dir="auto">"remove"</code></p>
+</blockquote>
+<h4 id="default-65">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">remove</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;remove&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-66">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationholemhaser/"><code dir="auto">holemHaser</code></a></p>
+<h4 id="defined-in-66">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2065">src/schema.ts:2065</a></p>
+<hr>
+<h3 id="longvowels">longVowels</h3>
+<blockquote>
+<p><strong>longVowels</strong>: <code dir="auto">undefined</code> | <code dir="auto">boolean</code></p>
+</blockquote>
+<h4 id="default-66">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#FF5874;--1:#A54A4A">true</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="true"><div></div></button></div></figure></div>
+<h4 id="overrides-67">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationlongvowels/"><code dir="auto">longVowels</code></a></p>
+<h4 id="defined-in-67">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2047">src/schema.ts:2047</a></p>
+<hr>
+<h3 id="qametsqatan">qametsQatan</h3>
+<blockquote>
+<p><strong>qametsQatan</strong>: <code dir="auto">undefined</code> | <code dir="auto">boolean</code></p>
+</blockquote>
+<h4 id="default-67">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#FF5874;--1:#A54A4A">true</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="true"><div></div></button></div></figure></div>
+<h4 id="overrides-68">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationqametsqatan/"><code dir="auto">qametsQatan</code></a></p>
+<h4 id="defined-in-68">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2049">src/schema.ts:2049</a></p>
+<hr>
+<h3 id="shevaaftermeteg">shevaAfterMeteg</h3>
+<blockquote>
+<p><strong>shevaAfterMeteg</strong>: <code dir="auto">undefined</code> | <code dir="auto">boolean</code></p>
+</blockquote>
+<h4 id="default-68">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#FF5874;--1:#A54A4A">true</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="true"><div></div></button></div></figure></div>
+<h4 id="overrides-69">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationshevaaftermeteg/"><code dir="auto">shevaAfterMeteg</code></a></p>
+<h4 id="defined-in-69">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2051">src/schema.ts:2051</a></p>
+<hr>
+<h3 id="shevawithmeteg">shevaWithMeteg</h3>
+<blockquote>
+<p><strong>shevaWithMeteg</strong>: <code dir="auto">undefined</code> | <code dir="auto">boolean</code></p>
+</blockquote>
+<h4 id="default-69">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#FF5874;--1:#A54A4A">false</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="false"><div></div></button></div></figure></div>
+<h4 id="overrides-70">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationshevawithmeteg/"><code dir="auto">shevaWithMeteg</code></a></p>
+<h4 id="defined-in-70">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2053">src/schema.ts:2053</a></p>
+<hr>
+<h3 id="sqnmlvy">sqnmlvy</h3>
+<blockquote>
+<p><strong>sqnmlvy</strong>: <code dir="auto">undefined</code> | <code dir="auto">boolean</code></p>
+</blockquote>
+<h4 id="default-70">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#FF5874;--1:#A54A4A">true</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="true"><div></div></button></div></figure></div>
+<h4 id="overrides-71">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsqnmlvy/"><code dir="auto">sqnmlvy</code></a></p>
+<h4 id="defined-in-71">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2055">src/schema.ts:2055</a></p>
+<hr>
+<h3 id="strict">strict</h3>
+<blockquote>
+<p><strong>strict</strong>: <code dir="auto">undefined</code> | <code dir="auto">boolean</code></p>
+</blockquote>
+<h4 id="default-71">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#FF5874;--1:#A54A4A">false</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="false"><div></div></button></div></figure></div>
+<h4 id="overrides-72">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationstrict/"><code dir="auto">strict</code></a></p>
+<h4 id="defined-in-72">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2063">src/schema.ts:2063</a></p>
+<hr>
+<h3 id="wawshureq">wawShureq</h3>
+<blockquote>
+<p><strong>wawShureq</strong>: <code dir="auto">undefined</code> | <code dir="auto">boolean</code></p>
+</blockquote>
+<h4 id="default-72">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#FF5874;--1:#A54A4A">true</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="true"><div></div></button></div></figure></div>
+<h4 id="overrides-73">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationwawshureq/"><code dir="auto">wawShureq</code></a></p>
+<h4 id="defined-in-73">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L2057">src/schema.ts:2057</a></p>
+<h2 id="taamim">Taamim</h2>
+<h3 id="maqaf-1">MAQAF</h3>
+<blockquote>
+<p><strong>MAQAF</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-73">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">-</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;-&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-74">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationmaqaf/"><code dir="auto">MAQAF</code></a></p>
+<h4 id="defined-in-74">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1941">src/schema.ts:1941</a></p>
+<hr>
+<h3 id="sof_pasuq-1">SOF_PASUQ</h3>
+<blockquote>
+<p><strong>SOF_PASUQ</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-74">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">""</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-75">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsof_pasuq/"><code dir="auto">SOF_PASUQ</code></a></p>
+<h4 id="defined-in-75">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1945">src/schema.ts:1945</a></p>
+<h2 id="vowel">Vowel</h2>
+<h3 id="ms_sufx-1">MS_SUFX</h3>
+<blockquote>
+<p><strong>MS_SUFX</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-75">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">āyw</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;āyw&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-76">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationms_sufx/"><code dir="auto">MS_SUFX</code></a></p>
+<h4 id="defined-in-76">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1967">src/schema.ts:1967</a></p>
+<h2 id="vowels">Vowels</h2>
+<h3 id="furtive_patah-1">FURTIVE_PATAH</h3>
+<blockquote>
+<p><strong>FURTIVE_PATAH</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-76">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">a</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;a&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-77">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationfurtive_patah/"><code dir="auto">FURTIVE_PATAH</code></a></p>
+<h4 id="defined-in-77">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1949">src/schema.ts:1949</a></p>
+<hr>
+<h3 id="hataf_patah">HATAF_PATAH</h3>
+<blockquote>
+<p><strong>HATAF_PATAH</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-77">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ă</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ă&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-78">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationhataf_patah/"><code dir="auto">HATAF_PATAH</code></a></p>
+<h4 id="defined-in-78">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1917">src/schema.ts:1917</a></p>
+<hr>
+<h3 id="hataf_qamats">HATAF_QAMATS</h3>
+<blockquote>
+<p><strong>HATAF_QAMATS</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-78">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ŏ</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ŏ&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-79">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationhataf_qamats/"><code dir="auto">HATAF_QAMATS</code></a></p>
+<h4 id="defined-in-79">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1919">src/schema.ts:1919</a></p>
+<hr>
+<h3 id="hataf_segol">HATAF_SEGOL</h3>
+<blockquote>
+<p><strong>HATAF_SEGOL</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-79">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ĕ</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ĕ&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-80">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationhataf_segol/"><code dir="auto">HATAF_SEGOL</code></a></p>
+<h4 id="defined-in-80">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1915">src/schema.ts:1915</a></p>
+<hr>
+<h3 id="hiriq">HIRIQ</h3>
+<blockquote>
+<p><strong>HIRIQ</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-80">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">i</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;i&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-81">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationhiriq/"><code dir="auto">HIRIQ</code></a></p>
+<h4 id="defined-in-81">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1921">src/schema.ts:1921</a></p>
+<hr>
+<h3 id="hiriq_yod-1">HIRIQ_YOD</h3>
+<blockquote>
+<p><strong>HIRIQ_YOD</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-81">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">î</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;î&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-82">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationhiriq_yod/"><code dir="auto">HIRIQ_YOD</code></a></p>
+<h4 id="defined-in-82">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1951">src/schema.ts:1951</a></p>
+<hr>
+<h3 id="holam">HOLAM</h3>
+<blockquote>
+<p><strong>HOLAM</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-82">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ō</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ō&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-83">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationholam/"><code dir="auto">HOLAM</code></a></p>
+<h4 id="defined-in-83">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1931">src/schema.ts:1931</a></p>
+<hr>
+<h3 id="holam_haser">HOLAM_HASER</h3>
+<blockquote>
+<p><strong>HOLAM_HASER</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-83">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ō</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ō&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-84">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationholam_haser/"><code dir="auto">HOLAM_HASER</code></a></p>
+<h4 id="defined-in-84">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1933">src/schema.ts:1933</a></p>
+<hr>
+<h3 id="holam_vav-1">HOLAM_VAV</h3>
+<blockquote>
+<p><strong>HOLAM_VAV</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-84">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ô</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ô&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-85">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationholam_vav/"><code dir="auto">HOLAM_VAV</code></a></p>
+<h4 id="defined-in-85">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1959">src/schema.ts:1959</a></p>
+<hr>
+<h3 id="patah">PATAH</h3>
+<blockquote>
+<p><strong>PATAH</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-85">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">a</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;a&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-86">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationpatah/"><code dir="auto">PATAH</code></a></p>
+<h4 id="defined-in-86">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1927">src/schema.ts:1927</a></p>
+<hr>
+<h3 id="qamats">QAMATS</h3>
+<blockquote>
+<p><strong>QAMATS</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-86">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ā</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ā&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-87">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationqamats/"><code dir="auto">QAMATS</code></a></p>
+<h4 id="defined-in-87">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1929">src/schema.ts:1929</a></p>
+<hr>
+<h3 id="qamats_he-1">QAMATS_HE</h3>
+<blockquote>
+<p><strong>QAMATS_HE</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-87">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">â</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;â&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-88">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationqamats_he/"><code dir="auto">QAMATS_HE</code></a></p>
+<h4 id="defined-in-88">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1961">src/schema.ts:1961</a></p>
+<hr>
+<h3 id="qamats_qatan">QAMATS_QATAN</h3>
+<blockquote>
+<p><strong>QAMATS_QATAN</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-88">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">o</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;o&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-89">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationqamats_qatan/"><code dir="auto">QAMATS_QATAN</code></a></p>
+<h4 id="defined-in-89">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1947">src/schema.ts:1947</a></p>
+<hr>
+<h3 id="qubuts">QUBUTS</h3>
+<blockquote>
+<p><strong>QUBUTS</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-89">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ū</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ū&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-90">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationqubuts/"><code dir="auto">QUBUTS</code></a></p>
+<h4 id="defined-in-90">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1935">src/schema.ts:1935</a></p>
+<hr>
+<h3 id="segol">SEGOL</h3>
+<blockquote>
+<p><strong>SEGOL</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-90">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">e</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;e&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-91">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsegol/"><code dir="auto">SEGOL</code></a></p>
+<h4 id="defined-in-91">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1925">src/schema.ts:1925</a></p>
+<hr>
+<h3 id="segol_he-1">SEGOL_HE</h3>
+<blockquote>
+<p><strong>SEGOL_HE</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-91">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ê</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ê&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-92">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsegol_he/"><code dir="auto">SEGOL_HE</code></a></p>
+<h4 id="defined-in-92">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1963">src/schema.ts:1963</a></p>
+<hr>
+<h3 id="segol_yod-1">SEGOL_YOD</h3>
+<blockquote>
+<p><strong>SEGOL_YOD</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-92">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ê</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ê&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-93">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationsegol_yod/"><code dir="auto">SEGOL_YOD</code></a></p>
+<h4 id="defined-in-93">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1955">src/schema.ts:1955</a></p>
+<hr>
+<h3 id="shureq-1">SHUREQ</h3>
+<blockquote>
+<p><strong>SHUREQ</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-93">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">û</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;û&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-94">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationshureq/"><code dir="auto">SHUREQ</code></a></p>
+<h4 id="defined-in-94">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1957">src/schema.ts:1957</a></p>
+<hr>
+<h3 id="tsere">TSERE</h3>
+<blockquote>
+<p><strong>TSERE</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-94">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ē</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ē&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-95">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationtsere/"><code dir="auto">TSERE</code></a></p>
+<h4 id="defined-in-95">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1923">src/schema.ts:1923</a></p>
+<hr>
+<h3 id="tsere_he-1">TSERE_HE</h3>
+<blockquote>
+<p><strong>TSERE_HE</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-95">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ê</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ê&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-96">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationtsere_he/"><code dir="auto">TSERE_HE</code></a></p>
+<h4 id="defined-in-96">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1965">src/schema.ts:1965</a></p>
+<hr>
+<h3 id="tsere_yod-1">TSERE_YOD</h3>
+<blockquote>
+<p><strong>TSERE_YOD</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-96">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ê</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ê&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-97">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationtsere_yod/"><code dir="auto">TSERE_YOD</code></a></p>
+<h4 id="defined-in-97">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1953">src/schema.ts:1953</a></p>
+<hr>
+<h3 id="vocal_sheva">VOCAL_SHEVA</h3>
+<blockquote>
+<p><strong>VOCAL_SHEVA</strong>: <code dir="auto">string</code></p>
+</blockquote>
+<h4 id="default-97">Default</h4>
+<div class="expressive-code"><figure class="frame not-content"><figcaption class="header"></figcaption><pre data-language="ts"><code><div class="ec-line"><div class="code"><span style="--0:#D9F5DD;--1:#111111">"</span><span style="--0:#ECC48D;--1:#9B504E">ǝ</span><span style="--0:#D9F5DD;--1:#111111">"</span></div></div></code></pre><div class="copy"><button title="Copy to clipboard" data-copied="Copied!" data-code="&#x22;ǝ&#x22;"><div></div></button></div></figure></div>
+<h4 id="overrides-98">Overrides</h4>
+<p><a href="/hebrew-transliteration/api/classes/schema/"><code dir="auto">Schema</code></a>.<a href="/hebrew-transliteration/api/classes/schemamd/hebrew-transliterationvocal_sheva/"><code dir="auto">VOCAL_SHEVA</code></a></p>
+<h4 id="defined-in-98">Defined in</h4>
+<p><a href="https://github.com/charlesLoder/hebrew-transliteration/blob/4104252fb6bb5956a4902fc9fd13a0fb92c7ce6f/src/schema.ts#L1913">src/schema.ts:1913</a></p> </div> <footer class="sl-flex astro-3yyafb3n"> <div class="meta sl-flex astro-3yyafb3n">   </div> <div class="pagination-links astro-u2l5gyhi" dir="ltr">   </div>   </footer>  </div> </div>   </main> </div> </div>  </div> </div>  </body></html>
