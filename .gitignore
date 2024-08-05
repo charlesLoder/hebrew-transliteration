@@ -16,3 +16,4 @@ node_modules
 *.test.js
 /dist
 /docs/src/content/docs/api/**/*
+/docs-dist
