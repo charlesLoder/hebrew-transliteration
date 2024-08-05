@@ -7,11 +7,14 @@ export default defineConfig({
   srcDir: "./docs/src",
   site: "https://charlesLoder.github.io",
   outDir: "docs-dist",
+  build: {
+    assets: "assets"
+  },
   base: process.env.NODE_ENV === "production" ? "hebrew-transliteration" : "",
   redirects: {
     "/": {
       status: 302,
-      destination: "/getting-started/quick-start"
+      destination: `${process.env.NODE_ENV === "production" ? "hebrew-transliteration" : ""}/getting-started/quick-start`
     }
   },
   integrations: [
