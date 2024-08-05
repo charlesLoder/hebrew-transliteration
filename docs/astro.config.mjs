@@ -5,6 +5,8 @@ import starlightTypeDoc, { typeDocSidebarGroup } from "starlight-typedoc";
 // https://astro.build/config
 export default defineConfig({
   srcDir: "./docs/src",
+  site: "https://charlesLoder.github.io",
+  base: process.env.NODE_ENV === "production" ? "/hebrew-transliteration/" : "",
   redirects: {
     "/": {
       status: 302,
@@ -20,7 +22,8 @@ export default defineConfig({
           tsconfig: "./.config/tsconfig.json",
           typeDoc: {
             expandObjects: true,
-            parametersFormat: "table"
+            parametersFormat: "table",
+            anchorPrefix: "/hebrew-transliteration"
           }
         })
       ],
