@@ -1,4 +1,4 @@
-name: "Astro Deploy"
+name: "Build and deploy"
 
 on:
   # Trigger the workflow every time you push to the `main` branch
@@ -12,89 +12,21 @@ on:
 
 # Allow this job to clone the repo and create a page deployment
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
+  contents: write
 jobs:
   build-and-deploy:
+    concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout 🛎️
         uses: actions/checkout@v4
 
-      - name: Check lockfiles
-        shell: bash
-        working-directory: .
-        env:
-          INPUT_PM: ${{ inputs.package-manager || 'npm' }}
+      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
         run: |
-          len=`echo $INPUT_PM | wc -c`
-          if [ $len -gt 1 ]; then
-            PACKAGE_MANAGER=$(echo "$INPUT_PM" | grep -o '^[^@]*')
-            VERSION=$(echo "$INPUT_PM" | { grep -o '@.*' || true; } | sed 's/^@//')
-            # Set default VERSION if not provided
-            if [ -z "$VERSION" ]; then
-                VERSION="latest"
-            fi
-            echo "PACKAGE_MANAGER=$PACKAGE_MANAGER" >> $GITHUB_ENV
-          elif [ $(find "." -maxdepth 1 -name "pnpm-lock.yaml") ]; then
-              echo "PACKAGE_MANAGER=pnpm" >> $GITHUB_ENV
-              echo "LOCKFILE=pnpm-lock.yaml" >> $GITHUB_ENV
-          elif [ $(find "." -maxdepth 1 -name "yarn.lock") ]; then
-              echo "PACKAGE_MANAGER=yarn" >> $GITHUB_ENV
-              echo "LOCKFILE=yarn.lock" >> $GITHUB_ENV
-          elif [ $(find "." -maxdepth 1 -name "package-lock.json") ]; then
-              VERSION="latest"
-              echo "PACKAGE_MANAGER=npm" >> $GITHUB_ENV
-              echo "LOCKFILE=package-lock.json" >> $GITHUB_ENV
-          elif [ $(find "." -maxdepth 1 -name "bun.lockb") ]; then
-              VERSION="latest"
-              echo "PACKAGE_MANAGER=bun" >> $GITHUB_ENV
-              echo "LOCKFILE=bun.lockb" >> $GITHUB_ENV
-          else
-              echo "No lockfile found.
-          Please specify your preferred \"package-manager\" in the action configuration."
-              exit 1
-          fi
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          npm ci
+          npm run docs
 
-      - name: Setup PNPM
-        if: env.PACKAGE_MANAGER == 'pnpm'
-        uses: pnpm/action-setup@v3
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          version: ${{ env.VERSION }}
-          package_json_file: "./package.json"
-
-      - name: Setup Bun
-        if: env.PACKAGE_MANAGER == 'bun'
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: ${{ env.VERSION }}
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        if: env.PACKAGE_MANAGER != 'bun'
-        with:
-          node-version: "20"
-          cache: ${{ env.PACKAGE_MANAGER }}
-          cache-dependency-path: "./${{ env.LOCKFILE }}"
-
-      - name: Setup Node (Bun)
-        uses: actions/setup-node@v4
-        if: env.PACKAGE_MANAGER == 'bun'
-        with:
-          node-version: "20"
-
-      - name: Install
-        shell: bash
-        run: ${{ env.PACKAGE_MANAGER }} install
-
-      - name: Build
-        shell: bash
-        run: ${{ env.PACKAGE_MANAGER }} run docs
-
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "./docs-dist/"
+          folder: docs-site # The folder the action should deploy.
