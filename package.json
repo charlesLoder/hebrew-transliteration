@@ -49,7 +49,8 @@
     "postversion": "git push && git push --tags",
     "updates": "ncu",
     "docs:output": "typedoc --tsconfig ./.config/tsconfig.json --json ./docs/data.json src/index.ts",
-    "docs:dev": "astro dev --config ./docs/astro.config.mjs"
+    "docs:dev": "astro dev --config ./docs/astro.config.mjs",
+    "docs": "astro --config ./docs/astro.config.mjs"
   },
   "files": [
     "dist/**/*"
