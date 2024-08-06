@@ -26,8 +26,7 @@ export default defineConfig({
           tsconfig: "./.config/tsconfig.json",
           typeDoc: {
             expandObjects: true,
-            parametersFormat: "table",
-            anchorPrefix: "/hebrew-transliteration"
+            parametersFormat: "table"
           }
         })
       ],
