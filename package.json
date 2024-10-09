@@ -92,6 +92,6 @@
     "vitest": "^2.0.3"
   },
   "dependencies": {
-    "havarotjs": "0.23.2"
+    "havarotjs": "0.24.1"
   }
 }
