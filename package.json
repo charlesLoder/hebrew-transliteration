@@ -36,7 +36,7 @@
   "scripts": {
     "build": "tsc --project ./.config/tsconfig.esm.json && tsc-alias --project ./.config/tsconfig.esm.json",
     "postbuild": "esm2cjs --in dist/esm --out dist/cjs -l error",
-    "test": "clear && vitest",
+    "test": "clear && vitest --watch=false",
     "test:transliterate": "clear && jest --config ./.config/jest.config.js test/transliterate.test.ts",
     "test:remove": "clear && jest --config ./.config/jest.config.js test/remove.test.ts",
     "test:sequence": "clear && jest --config ./.config/jest.config.js test/sequence.test.ts",
