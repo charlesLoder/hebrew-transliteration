@@ -76,7 +76,7 @@
     "@astrojs/starlight": "^0.28.4",
     "astro": "^4.16.7",
     "esbuild": "^0.24.0",
-    "eslint": "^8.56.0",
+    "eslint": "^9.13.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "npm-check-updates": "^17.1.9",
