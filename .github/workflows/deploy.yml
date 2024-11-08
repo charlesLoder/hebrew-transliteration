@@ -21,7 +21,7 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
 
-      - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+      - name: Install and Build 🔧
         run: |
           npm ci
           npm run docs
@@ -31,3 +31,10 @@ jobs:
         with:
           branch: gh-pages # The branch the action should deploy to.
           folder: docs-dist # The folder the action should deploy.
+
+      # When running the Astro build, types and content are updated automatically
+      # This action commits the changes
+      - name: Commit changes from Astro 🚀
+        uses: stefanzweifel/git-auto-commit-action@v
+        with:
+          commit_message: Update astro files (automated)
