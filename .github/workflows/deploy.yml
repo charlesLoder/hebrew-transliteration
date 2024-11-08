@@ -35,6 +35,6 @@ jobs:
       # When running the Astro build, types and content are updated automatically
       # This action commits the changes
       - name: Commit changes from Astro 🚀
-        uses: stefanzweifel/git-auto-commit-action@v
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update astro files (automated)
