@@ -36,12 +36,12 @@
   "scripts": {
     "build": "tsc --project ./.config/tsconfig.esm.json && tsc-alias --project ./.config/tsconfig.esm.json",
     "postbuild": "esm2cjs --in dist/esm --out dist/cjs -l error",
-    "test": "clear && vitest",
+    "test": "clear && vitest --watch=false",
     "test:transliterate": "clear && jest --config ./.config/jest.config.js test/transliterate.test.ts",
     "test:remove": "clear && jest --config ./.config/jest.config.js test/remove.test.ts",
     "test:sequence": "clear && jest --config ./.config/jest.config.js test/sequence.test.ts",
     "format": "prettier --config ./.config/.prettierrc.json --write 'src/**/*.ts' 'test/**/*.ts'",
-    "lint": "eslint -c ./.config/.eslintrc.json --ignore-path ./.config/.eslintignore . --ext .ts",
+    "lint": "eslint -c ./.config/eslint.config.mjs .",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "./changelog.sh && npm run lint",
@@ -73,25 +73,21 @@
   "license": "MIT",
   "devDependencies": {
     "@alcalzone/esm2cjs": "^1.1.2",
-    "@astrojs/starlight": "^0.24.5",
-    "@typescript-eslint/eslint-plugin": "^7.0.1",
-    "astro": "^4.11.3",
-    "esbuild": "^0.20.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-jsdoc": "^48.1.0",
-    "eslint-plugin-prefer-arrow": "^1.2.3",
-    "npm-check-updates": "^16.14.20",
-    "prettier": "^3.2.5",
-    "prettier-plugin-astro": "^0.14.0",
-    "starlight-typedoc": "^0.13.1",
-    "tsc-alias": "^1.8.8",
-    "typedoc": "^0.26.5",
-    "typedoc-plugin-markdown": "^4.2.3",
-    "typescript": "^5.5.3",
-    "vitest": "^2.0.3"
+    "@astrojs/starlight": "^0.28.4",
+    "astro": "^4.16.7",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.13.0",
+    "npm-check-updates": "^17.1.9",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "starlight-typedoc": "^0.16.0",
+    "tsc-alias": "^1.8.10",
+    "typedoc": "^0.26.10",
+    "typedoc-plugin-markdown": "^4.2.9",
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
   },
   "dependencies": {
-    "havarotjs": "0.23.2"
+    "havarotjs": "0.24.1"
   }
 }

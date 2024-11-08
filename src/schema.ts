@@ -1759,6 +1759,14 @@ export class Schema implements SylOpts, SchemaVowels {
    *
    * @remarks
    * See implementation for more details
+   *
+   */
+  ketivQeres?: SylOpts["ketivQeres"];
+  /**
+   * @category Syllabification
+   *
+   * @remarks
+   * See implementation for more details
    */
   longVowels: SylOpts["longVowels"];
   /**
@@ -1882,6 +1890,7 @@ export class Schema implements SylOpts, SchemaVowels {
     this.allowNoNiqqud = schema.allowNoNiqqud;
     this.strict = schema.strict;
     this.holemHaser = schema.holemHaser;
+    this.ketivQeres = schema.ketivQeres;
   }
 }
 
@@ -2063,6 +2072,8 @@ export class SBL extends Schema {
   declare strict: Schema["strict"];
   /** @category Syllabification @default "remove" */
   declare holemHaser: Schema["holemHaser"];
+  /** @category Syllabification @default undefined */
+  declare ketivQeres: Schema["ketivQeres"];
   constructor(schema: Partial<Schema>) {
     super({
       VOCAL_SHEVA: schema.VOCAL_SHEVA ?? "ǝ",
@@ -2141,7 +2152,8 @@ export class SBL extends Schema {
       article: schema.article ?? true,
       allowNoNiqqud: schema.allowNoNiqqud ?? true,
       strict: schema.strict ?? false,
-      holemHaser: schema.holemHaser || "remove"
+      holemHaser: schema.holemHaser || "remove",
+      ketivQeres: schema.ketivQeres || undefined
     });
 
     this.VOCAL_SHEVA = schema.VOCAL_SHEVA ?? "ǝ";
@@ -2221,5 +2233,6 @@ export class SBL extends Schema {
     this.allowNoNiqqud = schema.allowNoNiqqud ?? true;
     this.strict = schema.strict ?? false;
     this.holemHaser = schema.holemHaser ?? "remove";
+    this.ketivQeres = schema.ketivQeres ?? undefined;
   }
 }

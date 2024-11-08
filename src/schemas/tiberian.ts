@@ -585,6 +585,14 @@ export const tiberian: Schema = {
   allowNoNiqqud: false,
   article: false,
   holemHaser: "remove",
+  ketivQeres: [
+    {
+      input: "הִוא",
+      output: "הִיא",
+      captureTaamim: true,
+      ignoreTaamim: true
+    }
+  ],
   longVowels: false,
   qametsQatan: true,
   shevaAfterMeteg: false,

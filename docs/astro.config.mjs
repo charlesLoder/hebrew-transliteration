@@ -6,6 +6,7 @@ import starlightTypeDoc, { typeDocSidebarGroup } from "starlight-typedoc";
 export default defineConfig({
   srcDir: "./docs/src",
   site: "https://charlesLoder.github.io",
+  root: "./docs",
   outDir: "docs-dist",
   build: {
     assets: "assets"
