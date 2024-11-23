@@ -2,6 +2,9 @@
 
 ## Version 2
 
+- v2.7.0
+  - Update `havarotjs` to `0.24.1` adding the `ketivQeres` to the [`Schema`](./src/schema.ts)
+
 - v2.6.5
   - Update `remove` so that maqqef is replaced with a space instead of being completely removed (PR #84)
 
