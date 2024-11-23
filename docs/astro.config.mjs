@@ -11,11 +11,11 @@ export default defineConfig({
   build: {
     assets: "assets"
   },
-  base: process.env.NODE_ENV === "production" ? "hebrew-transliteration/" : "",
+  base: process.env.NODE_ENV === "production" ? "/hebrew-transliteration" : "/",
   redirects: {
     "/": {
       status: 302,
-      destination: `${process.env.NODE_ENV === "production" ? "hebrew-transliteration" : ""}/getting-started/quick-start`
+      destination: `/getting-started/quick-start`
     }
   },
   integrations: [
