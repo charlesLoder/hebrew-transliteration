@@ -3,12 +3,11 @@
 ## Version 2
 
 - v2.6.5
-
-- Update `remove` so that maqqef is replaced with a space instead of being completely removed (PR #84)
+  - Update `remove` so that maqqef is replaced with a space instead of being completely removed (PR #84)
 
 - v2.6.4
 
-- Incorporate updates from havarotjs which prevents errors
+  - Incorporate updates from havarotjs which prevents errors
 
 - v2.6.3
 
