@@ -8,6 +8,7 @@ export default defineConfig({
   site: "https://charlesLoder.github.io",
   root: "./docs",
   outDir: "docs-dist",
+  publicDir: "./docs/public",
   build: {
     assets: "assets"
   },
