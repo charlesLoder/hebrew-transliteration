@@ -26,7 +26,7 @@ export default defineConfig({
         {
           tag: "base",
           attrs: {
-            href: process.env.NODE_ENV === "production" ? "/hebrew-transliteration" : "/"
+            href: process.env.NODE_ENV === "production" ? "/hebrew-transliteration/" : "/"
           }
         }
       ],
