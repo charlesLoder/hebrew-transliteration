@@ -22,6 +22,12 @@ export default defineConfig({
   integrations: [
     starlight({
       title: `hebrew-transliteration v${process.env.npm_package_version || ""}`,
+      head: [
+        {
+          tag: "base",
+          href: process.env.NODE_ENV === "production" ? "/hebrew-transliteration" : "/"
+        }
+      ],
       plugins: [
         starlightTypeDoc({
           entryPoints: ["./src/index.ts"],

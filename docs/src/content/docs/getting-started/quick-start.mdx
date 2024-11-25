@@ -1,8 +1,9 @@
 ---
 title: Quickstart
+next: false
 ---
 
-import { Code, TabItem, Tabs } from "@astrojs/starlight/components";
+import { Code, TabItem, Tabs, CardGrid, LinkCard } from "@astrojs/starlight/components";
 
 Create customized Hebrew transliterations.
 
@@ -59,6 +60,14 @@ Use it live at [https://hebrewtransliteration.app](https://hebrewtransliteration
 
 This package contains 3 functions for:
 
-- transliteration - [`transliterate()`](/api/functions/transliterate)
-- removing niqqud - [`remove()`](/api/functions/remove)
-- sequencing text - [`sequence()`](/api/functions/sequence)
+<LinkCard
+  title="Transliteration"
+  href="/api/functions/transliterate"
+  description="Create customized transliterations"
+/>
+<LinkCard title="Removing Niqqud" href="/api/functions/remove" description="Remove accent marks and vowel points" />
+<LinkCard
+  title="Sequencing Text"
+  href="/api/functions/sequence"
+  description="Sequence characters according to the SBL Hebrew font manual"
+/>
