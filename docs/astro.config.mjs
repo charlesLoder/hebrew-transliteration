@@ -1,6 +1,9 @@
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 import starlightTypeDoc, { typeDocSidebarGroup } from "starlight-typedoc";
+import { remarkBasePath } from "./prepend_base_path.js";
+
+const basePath = process.env.NODE_ENV === "production" ? "/hebrew-transliteration" : "/";
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,24 +15,19 @@ export default defineConfig({
   build: {
     assets: "assets"
   },
-  base: process.env.NODE_ENV === "production" ? "/hebrew-transliteration" : "/",
+  base: basePath,
+  markdown: {
+    remarkPlugins: [[remarkBasePath, { base: basePath }]]
+  },
   redirects: {
     "/": {
       status: 302,
-      destination: `/getting-started/quick-start`
+      destination: `${basePath}/getting-started/quick-start`
     }
   },
   integrations: [
     starlight({
       title: `hebrew-transliteration v${process.env.npm_package_version || ""}`,
-      head: [
-        {
-          tag: "base",
-          attrs: {
-            href: process.env.NODE_ENV === "production" ? "/hebrew-transliteration/" : "/"
-          }
-        }
-      ],
       plugins: [
         starlightTypeDoc({
           entryPoints: ["./src/index.ts"],
