@@ -561,10 +561,19 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "syllable",
-      HEBREW: /\u{5B4}ם/u,
-      TRANSLITERATION: (syl, heb) => {
-        // a hiriq preceding a final mem only occurs in Jerusalem
-        return syl.text.replace(heb, "jim");
+      HEBREW: /^\u{5B4}\u{5DD}/u,
+      TRANSLITERATION: (syl, heb, schema) => {
+        // This rule attempts to find instances of Jerusalem spelled without a yod
+
+        // this is just a sanity check that the previous syllable
+        // should be a lamed with a qamats or a patah
+        const prev = syl.prev?.value;
+        if (prev && !prev.isClosed && !prev.hasVowelName("QAMATS") && !prev.hasVowelName("PATAH") && prev.onset !== "ל") {
+          return syl.text;
+        }
+        
+        // update this syllable to match the later spelling of Jerusalem
+        return syl.text.replace(heb, `${schema["YOD"]}${schema["HIRIQ"]}${schema["FINAL_MEM"]}`);
       }
     },
     {
