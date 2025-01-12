@@ -1,6 +1,6 @@
+import { describe, expect, test } from "vitest";
 import { transliterate } from "../../src/index";
 import { jss } from "../../src/schemas/index";
-import { describe, expect, test } from "vitest";
 
 interface Inputs {
   hebrew: string;
@@ -64,10 +64,10 @@ describe("consonant features", () => {
       description                          | hebrew            | transliteration
       ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}      | ${"bōsɛr"}
       ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"}    | ${"masgēr"}
-      ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnǝzå̄r"}
+      ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"}    | ${"minnəzå̄r"}
       ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}      | ${"maggå̄l"}
       ${"doubled shin"}                    | ${"מַשָּׁא"}       | ${"maššå̄ʾ"}
-      ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"lǝḇiṣṣå̄rōn"}
+      ${"doubled tsadi"}                   | ${"לְבִצָּר֔וֹן"} | ${"ləḇiṣṣå̄rōn"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -77,12 +77,12 @@ describe("consonant features", () => {
   describe("shewa", () => {
     test.each`
       description                              | hebrew              | transliteration
-      ${"vocal shewa"}                         | ${"סְלִ֣ק"}         | ${"sǝliq"}
+      ${"vocal shewa"}                         | ${"סְלִ֣ק"}         | ${"səliq"}
       ${"silent shewa"}                        | ${"סַלְכָ֣ה"}       | ${"salḵå̄"}
       ${"final shewa"}                         | ${"כָּ֣ךְ"}         | ${"kå̄ḵ"}
       ${"two final shewas"}                    | ${"קָטַ֣לְתְּ"}     | ${"qå̄ṭalt"}
-      ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"hayǝʾōr"}
-      ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ʾaškǝnazzī"}
+      ${"omitted dagesh chazaq after article"} | ${"הַיְאֹ֗ר"}       | ${"hayəʾōr"}
+      ${"silent shewa and ligature consonant"} | ${"אַשְׁכְּנַזִּי"} | ${"ʾaškənazzī"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -112,7 +112,7 @@ describe("mater features", () => {
     test.each`
       description                                                            | hebrew             | transliteration
       ${"const yod with hiriq as vowel"}                                     | ${"יַ֣יִן"}        | ${"yayin"}
-      ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"} | ${"wayǝhī ḵēn"}
+      ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"} | ${"wayəhī ḵēn"}
       ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}         | ${"riyēm"}
       ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}        | ${"ʿå̄wōn"}
       ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}       | ${"ʿå̄wōn"}

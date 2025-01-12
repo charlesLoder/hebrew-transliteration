@@ -1,7 +1,7 @@
 import { Cluster } from "havarotjs/cluster";
 import { Syllable } from "havarotjs/syllable";
-import { transliterate, Schema } from "../src/index";
 import { describe, expect, test } from "vitest";
+import { Schema, transliterate } from "../src/index";
 
 interface Inputs {
   hebrew: string;
@@ -70,9 +70,9 @@ describe("using default options", () => {
         description                          | hebrew         | transliteration
         ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}   | ${"bōser"}
         ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"} | ${"masgēr"}
-        ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"} | ${"minnǝzār"}
+        ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"} | ${"minnəzār"}
         ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}   | ${"maggāl"}
-        ${"mappiq he"}                       | ${"וְלַ֨הּ"}   | ${"wǝlah"}
+        ${"mappiq he"}                       | ${"וְלַ֨הּ"}   | ${"wəlah"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
@@ -82,14 +82,14 @@ describe("using default options", () => {
     describe("shewa", () => {
       test.each`
         description                                     | hebrew              | transliteration
-        ${"vocal shewa"}                                | ${"סְלִ֣ק"}         | ${"sǝliq"}
+        ${"vocal shewa"}                                | ${"סְלִ֣ק"}         | ${"səliq"}
         ${"silent shewa"}                               | ${"סַלְכָ֣ה"}       | ${"salkâ"}
         ${"final shewa"}                                | ${"כָּ֣ךְ"}         | ${"kāk"}
         ${"two final shewas"}                           | ${"קָטַ֣לְתְּ"}     | ${"qāṭalt"}
-        ${"omitted dagesh chazaq after article, yod"}   | ${"הַיְאֹ֗ר"}       | ${"hayǝʾōr"}
-        ${"omitted dagesh chazaq after article, mem"}   | ${"הַמְיַלֶּ֗דֶת"}  | ${"hamǝyalledet"}
-        ${"omitted dagesh chazaq after article, lamed"} | ${"הַלְוִיִּ֔ם"}    | ${"halǝwiyyim"}
-        ${"silent shewa and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʾaškǝnazzî"}
+        ${"omitted dagesh chazaq after article, yod"}   | ${"הַיְאֹ֗ר"}       | ${"hayəʾōr"}
+        ${"omitted dagesh chazaq after article, mem"}   | ${"הַמְיַלֶּ֗דֶת"}  | ${"haməyalledet"}
+        ${"omitted dagesh chazaq after article, lamed"} | ${"הַלְוִיִּ֔ם"}    | ${"haləwiyyim"}
+        ${"silent shewa and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʾaškənazzî"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
@@ -119,8 +119,8 @@ describe("using default options", () => {
       test.each`
         description                                                            | hebrew              | transliteration
         ${"const yod with hiriq as vowel"}                                     | ${"יַ֣יִן"}         | ${"yayin"}
-        ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"}  | ${"wayǝhî-kēn"}
-        ${"final shureq with maqaf"}                                           | ${"נַשְּׁקוּ־בַ֡ר"} | ${"naššǝqû-bar"}
+        ${"final hiriq yod with maqaf"}                                        | ${"וַֽיְהִי־כֵֽן"}  | ${"wayəhî-kēn"}
+        ${"final shureq with maqaf"}                                           | ${"נַשְּׁקוּ־בַ֡ר"} | ${"naššəqû-bar"}
         ${"hiriq followed by const yod (fake word)"}                           | ${"רִיֵם"}          | ${"riyēm"}
         ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}         | ${"ʿāwōn"}
         ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}        | ${"ʿāwôn"}
@@ -225,7 +225,7 @@ describe("extending SBL schema for optional arguments", () => {
         ${"false, with a BET_DAGESH"}            | ${"שַׁבָּת֔וֹן"}  | ${"šabātôn"}    | ${{ DAGESH_CHAZAQ: false, BET: "v", BET_DAGESH: "b" }}
         ${"true, with a BET_DAGESH"}             | ${"שַׁבָּת֔וֹן"}  | ${"šabbātôn"}   | ${{ DAGESH_CHAZAQ: true, BET: "v", BET_DAGESH: "b" }}
         ${"string, where it is a dagesh chazaq"} | ${"שַׁבָּת֔וֹן"}  | ${"šab́ātôn"}    | ${{ DAGESH_CHAZAQ: "\u0301" }}
-        ${"string, where it is a dagesh qal "}   | ${"בְּרֵאשִׁ֖ית"} | ${"bǝrēʾšît"}   | ${{ DAGESH_CHAZAQ: "\u0301" }}
+        ${"string, where it is a dagesh qal "}   | ${"בְּרֵאשִׁ֖ית"} | ${"bərēʾšît"}   | ${{ DAGESH_CHAZAQ: "\u0301" }}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration, options } = inputs;
         expect(transliterate(hebrew, options)).toBe(transliteration);
@@ -237,8 +237,8 @@ describe("extending SBL schema for optional arguments", () => {
     test.each`
       description           | hebrew                    | transliteration      | options
       ${"cluster feature"}  | ${"הַזֹּאת"}              | ${"hatzōʾt"}         | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "cluster", HEBREW: "זּ", TRANSLITERATION: "tz" }] }}
-      ${"syllable feature"} | ${"בְּרֵאשִׁ֖ית בָּרָ֣א"} | ${"bǝRAYšît bārāʾ"}  | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "syllable", HEBREW: "רֵא", TRANSLITERATION: "RAY" }] }}
-      ${"word feature"}     | ${"וְאֵ֥ת הָאָֽרֶץ"}      | ${"wǝʾēt The Earth"} | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "word", HEBREW: "הָאָרֶץ", TRANSLITERATION: "The Earth" }] }}
+      ${"syllable feature"} | ${"בְּרֵאשִׁ֖ית בָּרָ֣א"} | ${"bəRAYšît bārāʾ"}  | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "syllable", HEBREW: "רֵא", TRANSLITERATION: "RAY" }] }}
+      ${"word feature"}     | ${"וְאֵ֥ת הָאָֽרֶץ"}      | ${"wəʾēt The Earth"} | ${{ ADDITIONAL_FEATURES: [{ FEATURE: "word", HEBREW: "הָאָרֶץ", TRANSLITERATION: "The Earth" }] }}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration, options } = inputs;
       expect(transliterate(hebrew, options)).toBe(transliteration);
@@ -411,7 +411,7 @@ describe("extending SBL schema for optional arguments", () => {
       ${"exclude never"}            | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yốm ʾeḥā́d"}   | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "never" } }}
       ${"exclude single"}           | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yôm ʾeḥā́d"}   | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "single" } }}
       ${"exclude final"}            | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yôm ʾeḥād"}   | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "final" } }}
-      ${"ignore paseq"}             | ${"לְפָנַ֨י ׀ שֻׁלְחָ֗ן"}  | ${"lǝpāˈnay  šūlˈḥān"} | ${{ STRESS_MARKER: { location: "before-syllable", mark: "ˈ" } }}
+      ${"ignore paseq"}             | ${"לְפָנַ֨י ׀ שֻׁלְחָ֗ן"}  | ${"ləpāˈnay  šūlˈḥān"} | ${{ STRESS_MARKER: { location: "before-syllable", mark: "ˈ" } }}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration, options } = inputs;
       expect(transliterate(hebrew, options)).toBe(transliteration);
