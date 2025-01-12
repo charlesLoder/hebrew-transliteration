@@ -568,10 +568,16 @@ export const tiberian: Schema = {
         // this is just a sanity check that the previous syllable
         // should be a lamed with a qamats or a patah
         const prev = syl.prev?.value;
-        if (prev && !prev.isClosed && !prev.hasVowelName("QAMATS") && !prev.hasVowelName("PATAH") && prev.onset !== "ל") {
+        if (
+          prev &&
+          !prev.isClosed &&
+          !prev.hasVowelName("QAMATS") &&
+          !prev.hasVowelName("PATAH") &&
+          prev.onset !== "ל"
+        ) {
           return syl.text;
         }
-        
+
         // update this syllable to match the later spelling of Jerusalem
         return syl.text.replace(heb, `${schema["YOD"]}${schema["HIRIQ"]}${schema["FINAL_MEM"]}`);
       }
