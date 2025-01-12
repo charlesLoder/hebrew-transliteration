@@ -1,7 +1,7 @@
 import { Schema } from "../schema";
 
 export const sblAcademicSpirantization: Schema = {
-  VOCAL_SHEVA: "ǝ",
+  VOCAL_SHEVA: "ə",
   HATAF_SEGOL: "ĕ",
   HATAF_PATAH: "ă",
   HATAF_QAMATS: "ŏ",

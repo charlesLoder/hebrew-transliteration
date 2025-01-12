@@ -112,7 +112,7 @@ export interface WordFeature extends HebrewFeature, PassThrough {
    *  }]
    * });
    *
-   * // wǝʾēt The Earth
+   * // wəʾēt The Earth
    * ```
    *
    * Using a callback
@@ -172,7 +172,7 @@ export interface SyllableFeature extends HebrewFeature, PassThrough {
    *  }]
    * });
    *
-   * mǝḥiYyāʾēl
+   * məḥiYyāʾēl
    * ```
    *
    * @example
@@ -309,10 +309,10 @@ export class Schema implements SylOpts, SchemaVowels {
    * ```js
    * const schema = new Schema({
    *   // truncated for brevity
-   *   VOCAL_SHEVA: "ǝ",
+   *   VOCAL_SHEVA: "ə",
    * });
    * transliterate("סְלִ֣ק", schema);
-   * // sǝliq
+   * // səliq
    * ```
    */
   VOCAL_SHEVA: string;
@@ -586,7 +586,7 @@ export class Schema implements SylOpts, SchemaVowels {
    *   PASEQ: "",
    })
    * transliterate("כְּשֶׁ֣בֶת ׀ הַמֶּ֣לֶךְ", schema);
-   * // kǝšebet  hammelek
+   * // kəšebet  hammelek
    * ```
    *
    * @remarks
@@ -827,7 +827,7 @@ export class Schema implements SylOpts, SchemaVowels {
    *   BET: "b",
    * });
    * transliterate("בְּבֵית", schema);
-   * // bǝbêt
+   * // bəbêt
    * ```
    */
   BET: string;
@@ -845,7 +845,7 @@ export class Schema implements SylOpts, SchemaVowels {
    *   BET: "b",
    * });
    * transliterate("בְּבֵית", schema);
-   * // bǝbêt
+   * // bəbêt
    *```
    *
    * @example
@@ -857,7 +857,7 @@ export class Schema implements SylOpts, SchemaVowels {
    *   BET_DAGESH: "b",
    * });
    * transliterate("בְּבֵית", schema);
-   * // bǝvêt
+   * // bəvêt
    * ```
    *
    * @remarks
@@ -1478,7 +1478,7 @@ export class Schema implements SylOpts, SchemaVowels {
    *   }]
    })
    * transliterate("וְאֵ֥ת הָאָֽרֶץ", schema);
-   * // wǝʾēt The Earth
+   * // wəʾēt The Earth
    * ```
    *
    * @example
@@ -1516,7 +1516,7 @@ export class Schema implements SylOpts, SchemaVowels {
    *   }]
    * });
    * transliterate("מְחִיּיָאֵ֗ל", schema);
-   * // mǝḥiYyāʾēl
+   * // məḥiYyāʾēl
    * ```
    *
    * @example
@@ -1918,7 +1918,7 @@ export class Schema implements SylOpts, SchemaVowels {
  * This is not necessary for the implementation, just the docs.
  */
 export class SBL extends Schema {
-  /** @category Vowels @default "ǝ" */
+  /** @category Vowels @default "ə" */
   declare VOCAL_SHEVA: Schema["VOCAL_SHEVA"];
   /** @category Vowels @default "ĕ" */
   declare HATAF_SEGOL: Schema["HATAF_SEGOL"];
@@ -2076,7 +2076,7 @@ export class SBL extends Schema {
   declare ketivQeres: Schema["ketivQeres"];
   constructor(schema: Partial<Schema>) {
     super({
-      VOCAL_SHEVA: schema.VOCAL_SHEVA ?? "ǝ",
+      VOCAL_SHEVA: schema.VOCAL_SHEVA ?? "ə",
       HATAF_SEGOL: schema.HATAF_SEGOL ?? "ĕ",
       HATAF_PATAH: schema.HATAF_PATAH ?? "ă",
       HATAF_QAMATS: schema.HATAF_QAMATS ?? "ŏ",
@@ -2156,7 +2156,7 @@ export class SBL extends Schema {
       ketivQeres: schema.ketivQeres || undefined
     });
 
-    this.VOCAL_SHEVA = schema.VOCAL_SHEVA ?? "ǝ";
+    this.VOCAL_SHEVA = schema.VOCAL_SHEVA ?? "ə";
     this.HATAF_SEGOL = schema.HATAF_SEGOL ?? "ĕ";
     this.HATAF_PATAH = schema.HATAF_PATAH ?? "ă";
     this.HATAF_QAMATS = schema.HATAF_QAMATS ?? "ŏ";

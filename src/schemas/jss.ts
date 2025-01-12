@@ -1,7 +1,7 @@
 import { Schema } from "../schema";
 
 export const jss: Schema = {
-  VOCAL_SHEVA: "ǝ",
+  VOCAL_SHEVA: "ə",
   HATAF_SEGOL: "ɛ̆",
   HATAF_PATAH: "ă",
   HATAF_QAMATS: "å̆",
