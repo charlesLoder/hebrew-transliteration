@@ -2087,7 +2087,7 @@ export class SBL extends Schema {
       QAMATS: schema.QAMATS ?? "ā",
       HOLAM: schema.HOLAM ?? "ō",
       HOLAM_HASER: schema.HOLAM_HASER ?? "ō",
-      QUBUTS: schema.QUBUTS ?? "ū",
+      QUBUTS: schema.QUBUTS ?? "u",
       DAGESH: schema.DAGESH ?? "",
       DAGESH_CHAZAQ: schema.DAGESH_CHAZAQ ?? true,
       MAQAF: schema.MAQAF ?? "-",
@@ -2167,7 +2167,7 @@ export class SBL extends Schema {
     this.QAMATS = schema.QAMATS ?? "ā";
     this.HOLAM = schema.HOLAM ?? "ō";
     this.HOLAM_HASER = schema.HOLAM_HASER ?? "ō";
-    this.QUBUTS = schema.QUBUTS ?? "ū";
+    this.QUBUTS = schema.QUBUTS ?? "u";
     this.DAGESH = schema.DAGESH ?? "";
     this.DAGESH_CHAZAQ = schema.DAGESH_CHAZAQ ?? true;
     this.MAQAF = schema.MAQAF ?? "-";
@@ -2221,7 +2221,21 @@ export class SBL extends Schema {
     this.DIVINE_NAME = schema.DIVINE_NAME ?? "yhwh";
     this.DIVINE_NAME_ELOHIM = schema.DIVINE_NAME_ELOHIM ?? undefined;
     this.SYLLABLE_SEPARATOR = schema.SYLLABLE_SEPARATOR ?? undefined;
-    this.ADDITIONAL_FEATURES = schema.ADDITIONAL_FEATURES ?? undefined;
+    this.ADDITIONAL_FEATURES = schema.ADDITIONAL_FEATURES ?? [
+      {
+        FEATURE: "syllable",
+        HEBREW: /[\u{05B4}\u{05BB}]/u,
+        TRANSLITERATION: (syllable, heb, schema) => {
+          const hasMater = syllable.clusters.some((cluster) => cluster.isMater);
+          if (syllable.isAccented && !hasMater) {
+            const macron = "\u0304";
+            const output = syllable.hasVowelName("HIRIQ") ? schema["HIRIQ"] + macron : schema["QUBUTS"] + macron;
+            return syllable.text.replace(heb, output.normalize("NFC"));
+          }
+          return syllable.text;
+        }
+      }
+    ];
     this.STRESS_MARKER = schema.STRESS_MARKER ?? undefined;
     this.longVowels = schema.longVowels ?? true;
     this.qametsQatan = schema.qametsQatan ?? true;
