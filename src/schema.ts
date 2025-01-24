@@ -1,8 +1,8 @@
-import { Cluster } from "havarotjs/cluster";
-import { Syllable } from "havarotjs/syllable";
-import { SylOpts } from "havarotjs/text";
-import { NameToCharMap } from "havarotjs/utils/vowelMap";
-import { Word } from "havarotjs/word";
+import type { Cluster } from "havarotjs/cluster";
+import type { Syllable } from "havarotjs/syllable";
+import type { SylOpts } from "havarotjs/text";
+import type { VowelNameToCharMap } from "havarotjs/utils/charMap";
+import type { Word } from "havarotjs/word";
 
 // export for documentation
 export type { SylOpts };
@@ -271,7 +271,7 @@ export interface ClusterFeature extends HebrewFeature, PassThrough {
   TRANSLITERATION: string | ClusterCallback;
 }
 
-type SchemaVowels = Record<keyof NameToCharMap, string>;
+type SchemaVowels = Record<keyof VowelNameToCharMap, string>;
 
 /**
  * @categoryDescription Consonants
