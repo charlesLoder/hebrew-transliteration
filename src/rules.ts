@@ -1,9 +1,9 @@
 import { Cluster } from "havarotjs/cluster";
 import { Syllable } from "havarotjs/syllable";
+import { clusterSplitGroup, hebChars } from "havarotjs/utils/regularExpressions";
 import { Word } from "havarotjs/word";
-import { hebChars, clusterSplitGroup } from "havarotjs/utils/regularExpressions";
-import { Schema } from "./schema";
 import { transliterateMap as map } from "./hebCharsTrans";
+import { Schema } from "./schema";
 
 const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/gu;
 
@@ -242,7 +242,9 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
       schema.SEGOL_YOD,
       schema.HOLAM_VAV,
       schema.SHUREQ
-    ].sort((a, b) => b.length - a.length);
+    ]
+      .filter((v) => typeof v === "string")
+      .sort((a, b) => b.length - a.length);
     const vowelRgx = new RegExp(`${vowels.join("|")}`);
     const str = sylChars.map(mapChars(schema)).join("");
     const match = str.match(vowelRgx);

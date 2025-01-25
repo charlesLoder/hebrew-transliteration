@@ -764,7 +764,7 @@ export class Schema implements SylOpts, SchemaVowels {
    * // yiqrê
    * ```
    */
-  SEGOL_HE: string;
+  SEGOL_HE?: string;
   /**
    * HEBREW POINT TSERE (U+05B5) and HE (U+05D4) ה◌ֵ
    *
@@ -781,7 +781,7 @@ export class Schema implements SylOpts, SchemaVowels {
    * // hāʾaryê
    * ```
    */
-  TSERE_HE: string;
+  TSERE_HE?: string;
   /**
    * HEBREW LETTER QAMATS (U+05B8) and YOD (U+05D9) and VAV (U+05D5) יו◌ָ
    *
@@ -1968,9 +1968,9 @@ export class SBL extends Schema {
   declare HOLAM_VAV: Schema["HOLAM_VAV"];
   /** @category Vowels @category Orthographic Features @default "â" */
   declare QAMATS_HE: Schema["QAMATS_HE"];
-  /** @category Vowels @category Orthographic Features @default "ê" */
+  /** @category Vowels @category Orthographic Features @default undefined */
   declare SEGOL_HE: Schema["SEGOL_HE"];
-  /** @category Vowels @category Orthographic Features @default "ê" */
+  /** @category Vowels @category Orthographic Features @default undefined */
   declare TSERE_HE: Schema["TSERE_HE"];
   /** @category Vowel @category Orthographic Features @default "āyw" */
   declare MS_SUFX: Schema["MS_SUFX"];
@@ -2101,8 +2101,8 @@ export class SBL extends Schema {
       SHUREQ: schema.SHUREQ ?? "û",
       HOLAM_VAV: schema.HOLAM_VAV ?? "ô",
       QAMATS_HE: schema.QAMATS_HE ?? "â",
-      SEGOL_HE: schema.SEGOL_HE ?? "ê",
-      TSERE_HE: schema.TSERE_HE ?? "ê",
+      SEGOL_HE: schema.SEGOL_HE ?? undefined,
+      TSERE_HE: schema.TSERE_HE ?? undefined,
       MS_SUFX: schema.MS_SUFX ?? "āyw",
       ALEF: schema.ALEF ?? "ʾ",
       BET: schema.BET ?? "b",
@@ -2181,8 +2181,8 @@ export class SBL extends Schema {
     this.SHUREQ = schema.SHUREQ ?? "û";
     this.HOLAM_VAV = schema.HOLAM_VAV ?? "ô";
     this.QAMATS_HE = schema.QAMATS_HE ?? "â";
-    this.SEGOL_HE = schema.SEGOL_HE ?? "ê";
-    this.TSERE_HE = schema.TSERE_HE ?? "ê";
+    this.SEGOL_HE = schema.SEGOL_HE ?? undefined;
+    this.TSERE_HE = schema.TSERE_HE ?? undefined;
     this.MS_SUFX = schema.MS_SUFX ?? "āyw";
     this.ALEF = schema.ALEF ?? "ʾ";
     this.BET = schema.BET ?? "b";
