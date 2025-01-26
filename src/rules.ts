@@ -46,7 +46,7 @@ const replaceWithRegex = (input: string, regex: RegExp, replaceValue: string) =>
  * @param schema the Schema
  * @returns
  */
-export const replaceAndTransliterate = (input: string, regex: RegExp, replaceValue: string, schema: Schema) => {
+const replaceAndTransliterate = (input: string, regex: RegExp, replaceValue: string, schema: Schema) => {
   const sylSeq = replaceWithRegex(input, regex, replaceValue);
   return [...sylSeq].map(mapChars(schema)).join("");
 };
