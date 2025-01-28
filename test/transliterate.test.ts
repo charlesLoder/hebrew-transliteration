@@ -106,8 +106,8 @@ describe("using default options", () => {
         ${"seghol yod"} | ${"אֱלֹהֶ֑יךָ"} | ${"ʾĕlōhêkā"}
         ${"holem vav"}  | ${"ס֣וֹא"}      | ${"sôʾ"}
         ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʿēṣâ"}
-        ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"yiqrê"}
-        ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hāʾaryê"}
+        ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"yiqreh"}
+        ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hāʾaryēh"}
         ${"shureq"}     | ${"קוּם"}       | ${"qûm"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
