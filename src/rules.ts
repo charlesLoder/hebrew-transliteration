@@ -156,16 +156,6 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
     if (/\u{05B8}/u.test(prevText)) {
       return replaceWithRegex(noMaterText, /\u{05B8}/u, schema.QAMATS_HE);
     }
-
-    // seghol
-    if (/\u{05B6}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B6}/u, schema.SEGOL_HE);
-    }
-
-    // tsere
-    if (/\u{05B5}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B5}/u, schema.TSERE_HE);
-    }
   }
 
   return materText;
@@ -475,6 +465,25 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   if (hasMater) {
     const materSyl = materFeatures(syl, schema);
     return joinSyllableChars(syl, [...materSyl], schema);
+  }
+
+  if (schema.SEGOL_HE && /\u{05B6}\u{05D4}/u.test(sylTxt)) {
+    const returnTxt = syl.clusters.map((cluster) => {
+      const clusterText = cluster.text.replace(taamim, "");
+      return consonantFeatures(clusterText, syl, cluster, schema);
+    });
+    const joined = joinSyllableChars(syl, returnTxt, schema).replace(taamim, "");
+    return joined.replace(schema["SEGOL"] + schema["HE"], schema.SEGOL_HE);
+  }
+
+  // tsere
+  if (schema.TSERE_HE && /\u{05B5}\u{05D4}/u.test(sylTxt)) {
+    const returnTxt = syl.clusters.map((cluster) => {
+      const clusterText = cluster.text.replace(taamim, "");
+      return consonantFeatures(clusterText, syl, cluster, schema);
+    });
+    const joined = joinSyllableChars(syl, returnTxt, schema).replace(taamim, "");
+    return joined.replace(schema["TSERE"] + schema["HE"], schema.TSERE_HE);
   }
 
   // regular syllables
