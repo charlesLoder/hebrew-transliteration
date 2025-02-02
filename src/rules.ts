@@ -261,20 +261,23 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
 };
 
 const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
-  if (schema.ADDITIONAL_FEATURES?.length) {
-    const seqs = schema.ADDITIONAL_FEATURES;
-    for (const seq of seqs) {
-      const heb = new RegExp(seq.HEBREW, "u");
-      if (seq.FEATURE === "cluster" && heb.test(clusterText)) {
-        const transliteration = seq.TRANSLITERATION;
-        const passThrough = seq.PASS_THROUGH ?? true;
+  const clusterFeatures = schema.ADDITIONAL_FEATURES?.filter((seq) => seq.FEATURE === "cluster");
+  if (clusterFeatures) {
+    for (const feature of clusterFeatures) {
+      const heb = new RegExp(feature.HEBREW, "u");
+      if (feature.FEATURE === "cluster" && heb.test(clusterText)) {
+        const transliteration = feature.TRANSLITERATION;
+        const passThrough = feature.PASS_THROUGH ?? true;
+
         if (typeof transliteration === "string") {
           return replaceAndTransliterate(clusterText, heb, transliteration, schema);
         }
+
         if (!passThrough) {
-          return transliteration(cluster, seq.HEBREW, schema);
+          return transliteration(cluster, feature.HEBREW, schema);
         }
-        clusterText = transliteration(cluster, seq.HEBREW, schema);
+
+        clusterText = transliteration(cluster, feature.HEBREW, schema);
       }
     }
   }
@@ -434,32 +437,30 @@ const copySyllable = (newText: string, old: Syllable) => {
 export const sylRules = (syl: Syllable, schema: Schema): string => {
   const sylTxt = syl.text.replace(taamim, "");
 
-  if (schema.ADDITIONAL_FEATURES?.length) {
-    const seqs = schema.ADDITIONAL_FEATURES;
-    for (const seq of seqs) {
-      const heb = new RegExp(seq.HEBREW, "u");
-      if (seq.FEATURE === "syllable" && heb.test(sylTxt)) {
-        const transliteration = seq.TRANSLITERATION;
-        const passThrough = seq.PASS_THROUGH ?? true;
+  const syllableFeatures = schema.ADDITIONAL_FEATURES?.filter((seq) => seq.FEATURE === "syllable");
+  if (syllableFeatures) {
+    for (const feature of syllableFeatures) {
+      const heb = new RegExp(feature.HEBREW, "u");
+      if (feature.FEATURE === "syllable" && heb.test(sylTxt)) {
+        const transliteration = feature.TRANSLITERATION;
+        const passThrough = feature.PASS_THROUGH ?? true;
 
-        // if transliteration is a string, then replace
         if (typeof transliteration === "string") {
           return replaceAndTransliterate(sylTxt, heb, transliteration, schema);
         }
 
-        // if transliteration is a function and passThrough is false, then transliterate and exit
         if (!passThrough) {
-          return transliteration(syl, seq.HEBREW, schema);
+          return transliteration(syl, feature.HEBREW, schema);
         }
 
-        const newText = transliteration(syl, seq.HEBREW, schema);
+        const newText = transliteration(syl, feature.HEBREW, schema);
 
         // if the transliteration just returns the syllable.text, then no need to copy the syllable
         if (newText !== sylTxt) {
           syl = copySyllable(newText, syl);
         }
       }
-    } // end of seqs loop
+    }
   }
 
   // syllable is 3ms sufx
@@ -499,24 +500,28 @@ export const wordRules = (word: Word, schema: Schema): string | Word => {
     return word.text;
   }
 
-  const text = word.text.replace(taamim, "");
-  if (schema.ADDITIONAL_FEATURES?.length) {
-    const seqs = schema.ADDITIONAL_FEATURES;
-    for (const seq of seqs) {
-      const heb = new RegExp(seq.HEBREW, "u");
-      if (seq.FEATURE === "word" && heb.test(text)) {
-        const transliteration = seq.TRANSLITERATION;
-        const passThrough = seq.PASS_THROUGH ?? true;
+  const wordFeatures = schema.ADDITIONAL_FEATURES?.filter((seq) => seq.FEATURE === "word");
+  if (wordFeatures) {
+    const text = word.text.replace(taamim, "");
+    for (const feature of wordFeatures) {
+      const heb = new RegExp(feature.HEBREW, "u");
+      if (heb.test(text)) {
+        const transliteration = feature.TRANSLITERATION;
+        const passThrough = feature.PASS_THROUGH ?? true;
+
         if (typeof transliteration === "string") {
           return replaceAndTransliterate(text, heb, transliteration, schema);
         }
+
         if (!passThrough) {
-          return transliteration(word, seq.HEBREW, schema);
+          return transliteration(word, feature.HEBREW, schema);
         }
-        return new Word(transliteration(word, seq.HEBREW, schema), schema);
+
+        return new Word(transliteration(word, feature.HEBREW, schema), schema);
       }
     }
     return word;
   }
+
   return word;
 };
