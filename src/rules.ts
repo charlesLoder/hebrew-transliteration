@@ -43,48 +43,32 @@ const copySyllable = (newText: string, old: Syllable) => {
   return newSyl;
 };
 
-/**
- * Maps Hebrew characters to schema
- *
- * @param input - text to be transliterated
- * @param schema - a {@link Schema} for transliterating the input
- * @returns transliteration of characters
- *
- */
-const mapChars = (schema: Schema) => (input: string) => {
-  return [...input].map((char: string) => (char in map ? schema[map[char]] : char)).join("");
+const getDageshChazaqVal = (input: string, dagesh: Schema["DAGESH_CHAZAQ"], isChazaq: boolean) => {
+  if (!isChazaq) {
+    return input;
+  }
+
+  if (typeof dagesh === "boolean") {
+    return input.repeat(2);
+  }
+
+  return input + dagesh;
 };
 
-const removeTaamim = (input: string) => input.replace(taamim, "");
-
 /**
- * Wrapper around `String.replace()` to constrain to a RegExp
+ * Formats the Divine Name with any Latin chars
  *
- * @param input the string to be modified
- * @param regex the regex to be used as the search value
- * @param replaceValue the string to replace the regex
+ * @param str word text
+ * @param schema
+ * @returns the Divine Name with any pre or proceding Latin chars
  */
-const replaceWithRegex = (input: string, regex: RegExp, replaceValue: string) => input.replace(regex, replaceValue);
-
-/**
- * Replaces part of a string and transliterates the remaining characters according to the schema
- *
- * @example
- * ```ts
- * // replaces בָ as VA, but only when matching the regex sequence
- * const betAndQamats = /\u{05D1}\u{05B8}/u
- * replaceAndTransliterate("דָּבָר", betAndQamats, "VA", schema);
- * // dāVAr
- * ```
- *
- * @param input the text to be transliterated
- * @param regex the regex used as the search value
- * @param replaceValue the string to replace the regex
- * @param schema the Schema
- */
-const replaceAndTransliterate = (input: string, regex: RegExp, replaceValue: string, schema: Schema) => {
-  const sylSeq = replaceWithRegex(input, regex, replaceValue);
-  return [...sylSeq].map(mapChars(schema)).join("");
+const getDivineName = (str: string, schema: Schema): string => {
+  const begn = str[0];
+  const end = str[str.length - 1];
+  // if DN is pointed with a hiriq, then it is read as 'elohim
+  const divineName =
+    schema.DIVINE_NAME_ELOHIM && /\u{05B4}/u.test(str) ? schema.DIVINE_NAME_ELOHIM : schema.DIVINE_NAME;
+  return `${hebChars.test(begn) ? "" : begn}${divineName}${hebChars.test(end) ? "" : end}`;
 };
 
 const isDageshChazaq = (cluster: Cluster, schema: Schema) => {
@@ -120,81 +104,6 @@ const isDageshChazaq = (cluster: Cluster, schema: Schema) => {
   }
 
   return prevCoda === cluster.syllable?.onset;
-};
-
-const getDageshChazaqVal = (input: string, dagesh: Schema["DAGESH_CHAZAQ"], isChazaq: boolean) => {
-  if (!isChazaq) {
-    return input;
-  }
-
-  if (typeof dagesh === "boolean") {
-    return input.repeat(2);
-  }
-
-  return input + dagesh;
-};
-
-/**
- * Formats the Divine Name with any Latin chars
- *
- * @param str word text
- * @param schema
- * @returns the Divine Name with any pre or proceding Latin chars
- */
-const getDivineName = (str: string, schema: Schema): string => {
-  const begn = str[0];
-  const end = str[str.length - 1];
-  // if DN is pointed with a hiriq, then it is read as 'elohim
-  const divineName =
-    schema.DIVINE_NAME_ELOHIM && /\u{05B4}/u.test(str) ? schema.DIVINE_NAME_ELOHIM : schema.DIVINE_NAME;
-  return `${hebChars.test(begn) ? "" : begn}${divineName}${hebChars.test(end) ? "" : end}`;
-};
-
-const materFeatures = (syl: Syllable, schema: Schema) => {
-  const mater = syl.clusters.filter((c) => c.isMater)[0];
-  const prev = mater.prev instanceof Cluster ? mater.prev : null;
-  const materText = mater.text;
-  const prevText = (prev?.text || "").replace(taamim, "");
-  // string comprised of all non-mater clusters in a syl with a mater
-  let noMaterText = syl.clusters
-    .filter((c) => !c.isMater)
-    .map((c) => cluterRules(c, schema))
-    .join("");
-
-  // workaround for maqaf
-  const hasMaqaf = mater.text.includes("־");
-  noMaterText = hasMaqaf ? noMaterText.concat("־") : noMaterText;
-
-  if (/י/.test(materText)) {
-    // hiriq
-    if (/\u{05B4}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B4}/u, schema.HIRIQ_YOD);
-    }
-    // tsere
-    if (/\u{05B5}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B5}/u, schema.TSERE_YOD);
-    }
-    // segol
-    if (/\u{05B6}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B6}/u, schema.SEGOL_YOD);
-    }
-  }
-
-  if (/ו/u.test(materText)) {
-    // holam
-    if (/\u{05B9}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B9}/u, schema.HOLAM_VAV);
-    }
-  }
-
-  if (/ה/.test(materText)) {
-    // qamets
-    if (/\u{05B8}/u.test(prevText)) {
-      return replaceWithRegex(noMaterText, /\u{05B8}/u, schema.QAMATS_HE);
-    }
-  }
-
-  return materText;
 };
 
 const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): string => {
@@ -285,6 +194,97 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
 
   return sylChars.map(mapChars(schema)).join("");
 };
+
+/**
+ * Maps Hebrew characters to schema
+ *
+ * @param input - text to be transliterated
+ * @param schema - a {@link Schema} for transliterating the input
+ * @returns transliteration of characters
+ *
+ */
+const mapChars = (schema: Schema) => (input: string) => {
+  return [...input].map((char: string) => (char in map ? schema[map[char]] : char)).join("");
+};
+
+const materFeatures = (syl: Syllable, schema: Schema) => {
+  const mater = syl.clusters.filter((c) => c.isMater)[0];
+  const prev = mater.prev instanceof Cluster ? mater.prev : null;
+  const materText = mater.text;
+  const prevText = (prev?.text || "").replace(taamim, "");
+  // string comprised of all non-mater clusters in a syl with a mater
+  let noMaterText = syl.clusters
+    .filter((c) => !c.isMater)
+    .map((c) => cluterRules(c, schema))
+    .join("");
+
+  // workaround for maqaf
+  const hasMaqaf = mater.text.includes("־");
+  noMaterText = hasMaqaf ? noMaterText.concat("־") : noMaterText;
+
+  if (/י/.test(materText)) {
+    // hiriq
+    if (/\u{05B4}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B4}/u, schema.HIRIQ_YOD);
+    }
+    // tsere
+    if (/\u{05B5}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B5}/u, schema.TSERE_YOD);
+    }
+    // segol
+    if (/\u{05B6}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B6}/u, schema.SEGOL_YOD);
+    }
+  }
+
+  if (/ו/u.test(materText)) {
+    // holam
+    if (/\u{05B9}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B9}/u, schema.HOLAM_VAV);
+    }
+  }
+
+  if (/ה/.test(materText)) {
+    // qamets
+    if (/\u{05B8}/u.test(prevText)) {
+      return replaceWithRegex(noMaterText, /\u{05B8}/u, schema.QAMATS_HE);
+    }
+  }
+
+  return materText;
+};
+
+const removeTaamim = (input: string) => input.replace(taamim, "");
+
+/**
+ * Replaces part of a string and transliterates the remaining characters according to the schema
+ *
+ * @example
+ * ```ts
+ * // replaces בָ as VA, but only when matching the regex sequence
+ * const betAndQamats = /\u{05D1}\u{05B8}/u
+ * replaceAndTransliterate("דָּבָר", betAndQamats, "VA", schema);
+ * // dāVAr
+ * ```
+ *
+ * @param input the text to be transliterated
+ * @param regex the regex used as the search value
+ * @param replaceValue the string to replace the regex
+ * @param schema the Schema
+ */
+const replaceAndTransliterate = (input: string, regex: RegExp, replaceValue: string, schema: Schema) => {
+  const sylSeq = replaceWithRegex(input, regex, replaceValue);
+  return [...sylSeq].map(mapChars(schema)).join("");
+};
+
+/**
+ * Wrapper around `String.replace()` to constrain to a RegExp
+ *
+ * @param input the string to be modified
+ * @param regex the regex to be used as the search value
+ * @param replaceValue the string to replace the regex
+ */
+const replaceWithRegex = (input: string, regex: RegExp, replaceValue: string) => input.replace(regex, replaceValue);
 
 // MAIN RULES
 
