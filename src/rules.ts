@@ -7,8 +7,44 @@ import { Schema } from "./schema";
 
 const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/gu;
 
+const copySyllable = (newText: string, old: Syllable) => {
+  const newClusters = newText.split(clusterSplitGroup).map((clusterString) => new Cluster(clusterString, true));
+  const oldClusters = old.clusters;
+
+  // set prev and next based on old syllable
+  if (newClusters.length === oldClusters.length) {
+    newClusters.forEach((c, i) => ((c.prev = oldClusters[i]?.prev ?? null), (c.next = oldClusters[i]?.next ?? null)));
+  } else {
+    for (let i = 0; i < newClusters.length; i++) {
+      const c = newClusters[i];
+      if (oldClusters[i]?.text[0] === c?.text[0]) {
+        c.prev = oldClusters[i]?.prev ?? null;
+        c.next = oldClusters[i]?.next ?? null;
+      } else {
+        c.prev = oldClusters[i]?.prev ?? null;
+        c.next = oldClusters[i + 1]?.next ?? null;
+        i++;
+      }
+    }
+  }
+
+  const newSyl = new Syllable(newClusters, {
+    isClosed: old.isClosed,
+    isAccented: old.isAccented,
+    isFinal: old.isFinal
+  });
+
+  newClusters.forEach((c) => (c.syllable = newSyl));
+
+  newSyl.prev = old.prev;
+  newSyl.next = old.next;
+  newSyl.word = old.word;
+
+  return newSyl;
+};
+
 /**
- * maps Hebrew characters to schema
+ * Maps Hebrew characters to schema
  *
  * @param input - text to be transliterated
  * @param schema - a {@link Schema} for transliterating the input
@@ -19,18 +55,19 @@ const mapChars = (schema: Schema) => (input: string) => {
   return [...input].map((char: string) => (char in map ? schema[map[char]] : char)).join("");
 };
 
+const removeTaamim = (input: string) => input.replace(taamim, "");
+
 /**
- * a wrapper around String.replace() to constrain to a RegExp
+ * Wrapper around `String.replace()` to constrain to a RegExp
  *
  * @param input the string to be modified
  * @param regex the regex to be used as the search value
  * @param replaceValue the string to replace the regex
- * @returns
  */
 const replaceWithRegex = (input: string, regex: RegExp, replaceValue: string) => input.replace(regex, replaceValue);
 
 /**
- * replaces part of a string and transliterates the remaining characters according to the schema
+ * Replaces part of a string and transliterates the remaining characters according to the schema
  *
  * @example
  * ```ts
@@ -44,7 +81,6 @@ const replaceWithRegex = (input: string, regex: RegExp, replaceValue: string) =>
  * @param regex the regex used as the search value
  * @param replaceValue the string to replace the regex
  * @param schema the Schema
- * @returns
  */
 const replaceAndTransliterate = (input: string, regex: RegExp, replaceValue: string, schema: Schema) => {
   const sylSeq = replaceWithRegex(input, regex, replaceValue);
@@ -99,7 +135,7 @@ const getDageshChazaqVal = (input: string, dagesh: Schema["DAGESH_CHAZAQ"], isCh
 };
 
 /**
- * formats the Divine Name with any Latin chars
+ * Formats the Divine Name with any Latin chars
  *
  * @param str word text
  * @param schema
@@ -122,7 +158,7 @@ const materFeatures = (syl: Syllable, schema: Schema) => {
   // string comprised of all non-mater clusters in a syl with a mater
   let noMaterText = syl.clusters
     .filter((c) => !c.isMater)
-    .map((c) => consonantFeatures(c.text.replace(taamim, ""), syl, c, schema))
+    .map((c) => cluterRules(c, schema))
     .join("");
 
   // workaround for maqaf
@@ -250,7 +286,10 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
   return sylChars.map(mapChars(schema)).join("");
 };
 
-const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster, schema: Schema) => {
+// MAIN RULES
+
+const cluterRules = (cluster: Cluster, schema: Schema) => {
+  let clusterText = removeTaamim(cluster.text);
   const clusterFeatures = schema.ADDITIONAL_FEATURES?.filter((seq) => seq.FEATURE === "cluster");
   if (clusterFeatures) {
     for (const feature of clusterFeatures) {
@@ -272,14 +311,15 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
     }
   }
 
-  clusterText = cluster.hasSheva && syl.isClosed ? clusterText.replace(/\u{05B0}/u, "") : clusterText;
+  const syl = cluster.syllable;
+  clusterText = cluster.hasSheva && syl?.isClosed ? clusterText.replace(/\u{05B0}/u, "") : clusterText;
 
   // mappiq he
   if (/ה\u{05BC}$/mu.test(clusterText)) {
     return replaceWithRegex(clusterText, /ה\u{05BC}/u, schema.HE);
   }
 
-  if (syl.isFinal && !syl.isClosed) {
+  if (syl?.isFinal && !syl?.isClosed) {
     const furtiveChet = /\u{05D7}\u{05B7}$/mu;
     if (furtiveChet.test(clusterText)) {
       return replaceWithRegex(clusterText, furtiveChet, "\u{05B7}\u{05D7}");
@@ -388,42 +428,6 @@ const consonantFeatures = (clusterText: string, syl: Syllable, cluster: Cluster,
   return clusterText;
 };
 
-const copySyllable = (newText: string, old: Syllable) => {
-  const newClusters = newText.split(clusterSplitGroup).map((clusterString) => new Cluster(clusterString, true));
-  const oldClusters = old.clusters;
-
-  // set prev and next based on old syllable
-  if (newClusters.length === oldClusters.length) {
-    newClusters.forEach((c, i) => ((c.prev = oldClusters[i]?.prev ?? null), (c.next = oldClusters[i]?.next ?? null)));
-  } else {
-    for (let i = 0; i < newClusters.length; i++) {
-      const c = newClusters[i];
-      if (oldClusters[i]?.text[0] === c?.text[0]) {
-        c.prev = oldClusters[i]?.prev ?? null;
-        c.next = oldClusters[i]?.next ?? null;
-      } else {
-        c.prev = oldClusters[i]?.prev ?? null;
-        c.next = oldClusters[i + 1]?.next ?? null;
-        i++;
-      }
-    }
-  }
-
-  const newSyl = new Syllable(newClusters, {
-    isClosed: old.isClosed,
-    isAccented: old.isAccented,
-    isFinal: old.isFinal
-  });
-
-  newClusters.forEach((c) => (c.syllable = newSyl));
-
-  newSyl.prev = old.prev;
-  newSyl.next = old.next;
-  newSyl.word = old.word;
-
-  return newSyl;
-};
-
 export const sylRules = (syl: Syllable, schema: Schema): string => {
   const sylTxt = syl.text.replace(taamim, "");
 
@@ -468,29 +472,20 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
   }
 
   if (schema.SEGOL_HE && /\u{05B6}\u{05D4}/u.test(sylTxt)) {
-    const returnTxt = syl.clusters.map((cluster) => {
-      const clusterText = cluster.text.replace(taamim, "");
-      return consonantFeatures(clusterText, syl, cluster, schema);
-    });
+    const returnTxt = syl.clusters.map((cluster) => cluterRules(cluster, schema));
     const joined = joinSyllableChars(syl, returnTxt, schema).replace(taamim, "");
     return joined.replace(schema["SEGOL"] + schema["HE"], schema.SEGOL_HE);
   }
 
   // tsere
   if (schema.TSERE_HE && /\u{05B5}\u{05D4}/u.test(sylTxt)) {
-    const returnTxt = syl.clusters.map((cluster) => {
-      const clusterText = cluster.text.replace(taamim, "");
-      return consonantFeatures(clusterText, syl, cluster, schema);
-    });
+    const returnTxt = syl.clusters.map((cluster) => cluterRules(cluster, schema));
     const joined = joinSyllableChars(syl, returnTxt, schema).replace(taamim, "");
     return joined.replace(schema["TSERE"] + schema["HE"], schema.TSERE_HE);
   }
 
   // regular syllables
-  const returnTxt = syl.clusters.map((cluster) => {
-    const clusterText = cluster.text.replace(taamim, "");
-    return consonantFeatures(clusterText, syl, cluster, schema);
-  });
+  const returnTxt = syl.clusters.map((cluster) => cluterRules(cluster, schema));
 
   // there may be taamim still in the text, so remove them
   return joinSyllableChars(syl, returnTxt, schema).replace(taamim, "");
