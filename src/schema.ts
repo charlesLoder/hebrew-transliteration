@@ -2048,7 +2048,27 @@ export class SBL extends Schema {
   declare DIVINE_NAME_ELOHIM: Schema["DIVINE_NAME_ELOHIM"];
   /** @category Orthographic Features @default undefined */
   declare SYLLABLE_SEPARATOR: Schema["SYLLABLE_SEPARATOR"];
-  /** @category Orthographic Features @default undefined  */
+  /**
+   * @category Orthographic Features
+   * @default
+   * ```js
+   * [
+   *  {
+   *    FEATURE: "syllable",
+   *    HEBREW: /[\u{05B4}\u{05BB}]/u,
+   *    TRANSLITERATION: (syllable, heb, schema) => {
+   *      const hasMater = syllable.clusters.some((cluster) => cluster.isMater);
+   *      if (syllable.isAccented && !hasMater) {
+   *        const macron = "\u0304";
+   *        const output = syllable.hasVowelName("HIRIQ") ? schema["HIRIQ"] + macron : schema["QUBUTS"] + macron;
+   *        return syllable.text.replace(heb, output.normalize("NFC"));
+   *      }
+   *      return syllable.text;
+   *    }
+   *  }
+   * ]
+   * ```
+   */
   declare ADDITIONAL_FEATURES: Schema["ADDITIONAL_FEATURES"];
   /** @category Orthographic Features @default undefined */
   declare STRESS_MARKER: Schema["STRESS_MARKER"];
