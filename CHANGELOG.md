@@ -2,10 +2,19 @@
 
 ## Version 2
 
+- v2.8.0
+
+  - Fix Jerusalem rule in the Tiberian schema (PR #105)
+  - Update schwa character (PR #107)
+  - Update to `havarotjs` to `0.25.1` with refactors for changes in it and make segol he and tsere he optional (PR #110)
+  - Add new rule to SBL for long/short hiriq and qubuts (PR #111)
+
 - v2.7.0
+
   - Update `havarotjs` to `0.24.1` adding the `ketivQeres` to the [`Schema`](./src/schema.ts)
 
 - v2.6.5
+
   - Update `remove` so that maqqef is replaced with a space instead of being completely removed (PR #84)
 
 - v2.6.4
