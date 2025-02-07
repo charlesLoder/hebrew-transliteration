@@ -82,13 +82,13 @@ describe("using default options", () => {
     describe("shewa", () => {
       test.each`
         description                                     | hebrew              | transliteration
-        ${"vocal shewa"}                                | ${"סְלִ֣ק"}         | ${"səliq"}
+        ${"vocal shewa"}                                | ${"שְׁמֹֽר"}        | ${"šəmōr"}
         ${"silent shewa"}                               | ${"סַלְכָ֣ה"}       | ${"salkâ"}
         ${"final shewa"}                                | ${"כָּ֣ךְ"}         | ${"kāk"}
         ${"two final shewas"}                           | ${"קָטַ֣לְתְּ"}     | ${"qāṭalt"}
         ${"omitted dagesh chazaq after article, yod"}   | ${"הַיְאֹ֗ר"}       | ${"hayəʾōr"}
         ${"omitted dagesh chazaq after article, mem"}   | ${"הַמְיַלֶּ֗דֶת"}  | ${"haməyalledet"}
-        ${"omitted dagesh chazaq after article, lamed"} | ${"הַלְוִיִּ֔ם"}    | ${"haləwiyyim"}
+        ${"omitted dagesh chazaq after article, lamed"} | ${"הַלְוִיִּ֔ם"}    | ${"haləwiyyīm"}
         ${"silent shewa and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʾaškənazzî"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
@@ -125,7 +125,7 @@ describe("using default options", () => {
         ${"consonantal vav with holem as vowel"}                               | ${"עָוֺ֖ן"}         | ${"ʿāwōn"}
         ${"consonantal vav with holem vav as vowel"}                           | ${"עָו֑וֹן"}        | ${"ʿāwôn"}
         ${"consonantal vav with holem, holem vav, and shureq (post biblical)"} | ${"עֲוֹנוֹתֵינוּ"}  | ${"ʿăwōnôtênû"}
-        ${"initial shureq"}                                                    | ${"וּמִן"}          | ${"ûmin"}
+        ${"initial shureq"}                                                    | ${"וּמִן"}          | ${"ûmīn"}
         ${"bgdkpt letter with mater"}                                          | ${"בִּיטוֹן"}       | ${"bîṭôn"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
@@ -411,7 +411,7 @@ describe("extending SBL schema for optional arguments", () => {
       ${"exclude never"}            | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yốm ʾeḥā́d"}   | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "never" } }}
       ${"exclude single"}           | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yôm ʾeḥā́d"}   | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "single" } }}
       ${"exclude final"}            | ${"בֹּ֖קֶר י֥וֹם אֶחָֽד׃"} | ${"bṓqer yôm ʾeḥād"}   | ${{ STRESS_MARKER: { location: "after-vowel", mark: "\u0301", exclude: "final" } }}
-      ${"ignore paseq"}             | ${"לְפָנַ֨י ׀ שֻׁלְחָ֗ן"}  | ${"ləpāˈnay  šūlˈḥān"} | ${{ STRESS_MARKER: { location: "before-syllable", mark: "ˈ" } }}
+      ${"ignore paseq"}             | ${"לְפָנַ֨י ׀ שֻׁלְחָ֗ן"}  | ${"ləpāˈnay  šulˈḥān"} | ${{ STRESS_MARKER: { location: "before-syllable", mark: "ˈ" } }}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration, options } = inputs;
       expect(transliterate(hebrew, options)).toBe(transliteration);
