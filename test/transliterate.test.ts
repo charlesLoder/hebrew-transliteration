@@ -97,6 +97,19 @@ describe("using default options", () => {
     });
   });
 
+  describe("vowel features", () => {
+    test.each`
+      description       | hebrew             | transliteration
+      ${"short hiriq"}  | ${"מִנְחָה"}       | ${"minḥâ"}
+      ${"long hiriq"}   | ${"דָּוִ֑ד"}       | ${"dāwīd"}
+      ${"short qubuts"} | ${"וַיֻּגַּ֖ד"}    | ${"wayyuggad"}
+      ${"long qubuts"}  | ${"וַיֹּצִאֻ֥הוּ"} | ${"wayyōṣiʾūhû"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew)).toBe(transliteration);
+    });
+  });
+
   describe("mater features", () => {
     describe("typical", () => {
       test.each`
