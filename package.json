@@ -75,7 +75,7 @@
     "@alcalzone/esm2cjs": "^1.1.2",
     "@astrojs/starlight": "^0.28.4",
     "astro": "^4.16.7",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.25.0",
     "eslint": "^9.13.0",
     "npm-check-updates": "^17.1.9",
     "prettier": "^3.3.3",
