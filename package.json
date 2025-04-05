@@ -47,7 +47,7 @@
     "preversion": "./changelog.sh && npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "updates": "ncu",
+    "update": "npm-check-updates -u",
     "docs:output": "typedoc --tsconfig ./.config/tsconfig.json --json ./docs/data.json src/index.ts",
     "docs:dev": "astro dev --config ./docs/astro.config.mjs",
     "docs": "NODE_ENV=production astro build --config ./docs/astro.config.mjs"
@@ -88,6 +88,6 @@
     "vitest": "^2.1.4"
   },
   "dependencies": {
-    "havarotjs": "0.25.1"
+    "havarotjs": "0.25.2"
   }
 }
