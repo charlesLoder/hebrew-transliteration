@@ -2,6 +2,10 @@
 
 ## Version 2
 
+- v2.8.1
+
+  - Update havarotjs with upstream fix
+
 - v2.8.0
 
   - Fix Jerusalem rule in the Tiberian schema (PR #105)
