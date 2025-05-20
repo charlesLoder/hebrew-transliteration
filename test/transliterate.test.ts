@@ -190,10 +190,11 @@ describe("using default options", () => {
  * even if it is not part of the SBL schema
  */
 describe("extending SBL schema for optional arguments", () => {
-  describe("basic tests", () => {
+  describe("syllable separator", () => {
     test.each`
-      description             | hebrew      | transliteration
-      ${"syllable separator"} | ${"רַ֛עַל"} | ${"ra-ʿal"}
+      description                | hebrew          | transliteration
+      ${"basic"}                 | ${"רַ֛עַל"}     | ${"ra-ʿal"}
+      ${"between dagesh chazaq"} | ${"הַקִּטֵּ֗ר"} | ${"haq-qiṭ-ṭēr"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, { SYLLABLE_SEPARATOR: "-" })).toBe(transliteration);
