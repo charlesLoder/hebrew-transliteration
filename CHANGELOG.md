@@ -2,6 +2,10 @@
 
 ## Version 2
 
+- v2.8.3
+
+  - Fix syllable separator bug not adding white space between words
+
 - v2.8.2
 
   - Fix syllable separator not occuring between _dagesh chazaq_ (PR #122)
