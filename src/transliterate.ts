@@ -73,13 +73,29 @@ export const transliterate = (text: string | Text, schema?: Partial<Schema> | Sc
   const newText = text instanceof Text ? text : new Text(text, getSylOpts(transSchema ?? {}));
   return newText.words
     .map((word) => {
-      let transliteration = wordRules(word, transSchema);
-      if (transliteration instanceof Word) {
-        transliteration = transliteration.syllables
-          .map((s) => sylRules(s, transSchema))
-          .join(transSchema.SYLLABLE_SEPARATOR ?? "");
+      const transliteration = wordRules(word, transSchema);
+
+      if (!(transliteration instanceof Word)) {
+        return `${transliteration}${word.whiteSpaceAfter ?? ""}`;
       }
-      return `${transliteration}${word.whiteSpaceAfter ?? ""}`;
+
+      return transliteration.syllables
+        .map((s) => sylRules(s, transSchema))
+        .reduce((acc, curr, i) => {
+          // skip the first syllable
+          if (i === 0) {
+            return `${acc}${curr}`;
+          }
+
+          // if the first two letters are the same, add a separator between them
+          const [first, second, ...rest] = curr;
+          if (first === second) {
+            return `${acc}${first}${schema?.SYLLABLE_SEPARATOR ?? ""}${second}${rest.join("")}`;
+          }
+
+          // else, just add the syllable
+          return `${acc}${schema?.SYLLABLE_SEPARATOR ?? ""}${curr}`;
+        }, "");
     })
     .join("");
 };
