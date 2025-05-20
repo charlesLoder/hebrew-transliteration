@@ -2,6 +2,10 @@
 
 ## Version 2
 
+- v2.8.2
+
+  - Fix syllable separator not occuring between _dagesh chazaq_ (PR #122)
+
 - v2.8.1
 
   - Update havarotjs with upstream fix
