@@ -201,6 +201,12 @@ describe("extending SBL schema for optional arguments", () => {
     });
   });
 
+  test("syllable separator when two vowles are next to each other", () => {
+    const hebrew = "יָאֵר";
+    const transliteration = "yā.eer";
+    expect(transliterate(hebrew, { SYLLABLE_SEPARATOR: ".", ALEF: "", TSERE: "ee" })).toBe(transliteration);
+  });
+
   describe("consonant features", () => {
     describe("spirantization and ligature tests", () => {
       test.each`

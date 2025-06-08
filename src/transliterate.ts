@@ -79,25 +79,25 @@ export const transliterate = (text: string | Text, schema?: Partial<Schema> | Sc
         return `${transliteration}${word.whiteSpaceAfter ?? ""}`;
       }
 
-      return (
-        transliteration.syllables
-          .map((s) => sylRules(s, transSchema))
-          .reduce((acc, curr, i) => {
-            // skip the first syllable
-            if (i === 0) {
-              return `${acc}${curr}`;
-            }
+      const syllableTransliteration = transliteration.syllables
+        .map((s) => sylRules(s, transSchema))
+        .reduce((a, c, i) => {
+          if (!i) {
+            return a + c;
+          }
 
-            // if the first two letters are the same, add a separator between them
-            const [first, second, ...rest] = curr;
-            if (first === second) {
-              return `${acc}${first}${schema?.SYLLABLE_SEPARATOR ?? ""}${second}${rest.join("")}`;
-            }
+          if (!transSchema.SYLLABLE_SEPARATOR) {
+            return a + c;
+          }
 
-            // else, just add the syllable
-            return `${acc}${schema?.SYLLABLE_SEPARATOR ?? ""}${curr}`;
-          }, "") + (word.whiteSpaceAfter ?? "")
-      );
+          if (c.includes(transSchema.SYLLABLE_SEPARATOR)) {
+            return a + c;
+          }
+
+          return a + transSchema.SYLLABLE_SEPARATOR + c;
+        }, "");
+
+      return `${syllableTransliteration}${word.whiteSpaceAfter ?? ""}`;
     })
     .join("");
 };
