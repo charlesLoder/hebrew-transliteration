@@ -2,6 +2,10 @@
 
 ## Version 2
 
+- v2.8.4
+
+  - Fix incorrect syllable separator with doubled vowels (PR #125)
+
 - v2.8.3
 
   - Fix syllable separator bug not adding white space between words
