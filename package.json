@@ -78,6 +78,9 @@
   "devDependencies": {
     "@alcalzone/esm2cjs": "^1.1.2",
     "@astrojs/starlight": "^0.28.4",
+    "@eslint/js": "^9.33.0",
+    "@typescript-eslint/eslint-plugin": "^8.40.0",
+    "@typescript-eslint/parser": "^8.40.0",
     "astro": "^4.16.7",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^9.2.0",
@@ -91,6 +94,7 @@
     "typedoc": "^0.26.10",
     "typedoc-plugin-markdown": "^4.2.9",
     "typescript": "^5.6.3",
+    "typescript-eslint": "^8.40.0",
     "vitest": "^2.1.4"
   },
   "dependencies": {
