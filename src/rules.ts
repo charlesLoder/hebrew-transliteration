@@ -5,7 +5,89 @@ import { Word } from "havarotjs/word";
 import { transliterateMap as map } from "./hebCharsTrans";
 import { Schema } from "./schema";
 
-const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/gu;
+const taamim = /[\u{0591}-\u{05AF}\u{05BD}\u{05BF}]/gu;
+
+/**
+ * Adds a stress marker to a syllable according to the schema settings
+ *
+ * @param text the transliterated text
+ * @param syl the current syllable
+ * @param schema the schema
+ */
+const addStressMarker = (text: string, syl: Syllable, schema: Schema) => {
+  if (!schema.STRESS_MARKER || !text) {
+    return text;
+  }
+
+  if (!syl.isAccented) {
+    return text;
+  }
+
+  const exclude = schema.STRESS_MARKER?.exclude ?? "never";
+
+  if (exclude === "single" && !syl.prev && !syl.next) {
+    return text;
+  }
+
+  if (exclude === "final" && !syl.next) {
+    return text;
+  }
+
+  const location = schema.STRESS_MARKER.location;
+  const mark = schema.STRESS_MARKER.mark;
+
+  // if the stress marker is already present, no need to add it again
+  if (text.includes(mark)) {
+    return text;
+  }
+
+  if (location === "before-syllable") {
+    const isDoubled = syl.clusters.map((c) => isDageshChazaq(c, schema)).includes(true);
+    if (isDoubled) {
+      const [first, ...rest] = text.split("");
+      return `${first}${mark}${rest.join("")}`;
+    }
+
+    return `${mark}${text}`;
+  }
+
+  if (location === "after-syllable") {
+    return `${text}${mark}`;
+  }
+
+  const vowels = [
+    schema.PATAH,
+    schema.HATAF_PATAH,
+    schema.QAMATS,
+    schema.HATAF_QAMATS,
+    schema.SEGOL,
+    schema.HATAF_SEGOL,
+    schema.TSERE,
+    schema.HIRIQ,
+    schema.HOLAM,
+    schema.QAMATS_QATAN,
+    schema.QUBUTS,
+    schema.QAMATS_HE,
+    schema.SEGOL_HE,
+    schema.TSERE_HE,
+    schema.HIRIQ_YOD,
+    schema.TSERE_YOD,
+    schema.SEGOL_YOD,
+    schema.HOLAM_VAV,
+    schema.SHUREQ
+  ]
+    .filter((v) => typeof v === "string")
+    .sort((a, b) => b.length - a.length);
+  const vowelRgx = new RegExp(`${vowels.join("|")}`);
+  const match = text.match(vowelRgx);
+
+  if (location === "before-vowel") {
+    return match?.length ? text.replace(match[0], `${mark}${match[0]}`) : text;
+  }
+
+  // after-vowel
+  return match?.length ? text.replace(match[0], `${match[0]}${mark}`) : text;
+};
 
 const copySyllable = (newText: string, old: Syllable) => {
   const newClusters = newText.split(clusterSplitGroup).map((clusterString) => new Cluster(clusterString, true));
@@ -124,75 +206,6 @@ const joinSyllableChars = (syl: Syllable, sylChars: string[], schema: Schema): s
   const isOnlyPunctuation = syl.clusters.map((c) => c.isPunctuation).every((c) => c);
   if (isOnlyPunctuation) {
     return sylChars.map(mapChars(schema)).join("");
-  }
-
-  if (schema.STRESS_MARKER) {
-    const exclude = schema.STRESS_MARKER?.exclude ?? "never";
-
-    if (exclude === "single" && !syl.prev && !syl.next) {
-      return sylChars.map(mapChars(schema)).join("");
-    }
-
-    if (exclude === "final" && !syl.next) {
-      return sylChars.map(mapChars(schema)).join("");
-    }
-
-    const location = schema.STRESS_MARKER.location;
-    const mark = schema.STRESS_MARKER.mark;
-
-    // if the stress marker is already present, no need to add it again
-    if (syl.text.includes(mark)) {
-      return sylChars.map(mapChars(schema)).join("");
-    }
-
-    if (location === "before-syllable") {
-      const isDoubled = syl.clusters.map((c) => isDageshChazaq(c, schema)).includes(true);
-      if (isDoubled) {
-        const chars = sylChars.map(mapChars(schema)).join("");
-        const [first, ...rest] = chars;
-        return `${first}${mark}${rest.join("")}`;
-      }
-
-      return `${mark}${sylChars.map(mapChars(schema)).join("")}`;
-    }
-
-    if (location === "after-syllable") {
-      return `${sylChars.map(mapChars(schema)).join("")}${mark}`;
-    }
-
-    const vowels = [
-      schema.PATAH,
-      schema.HATAF_PATAH,
-      schema.QAMATS,
-      schema.HATAF_QAMATS,
-      schema.SEGOL,
-      schema.HATAF_SEGOL,
-      schema.TSERE,
-      schema.HIRIQ,
-      schema.HOLAM,
-      schema.QAMATS_QATAN,
-      schema.QUBUTS,
-      schema.QAMATS_HE,
-      schema.SEGOL_HE,
-      schema.TSERE_HE,
-      schema.HIRIQ_YOD,
-      schema.TSERE_YOD,
-      schema.SEGOL_YOD,
-      schema.HOLAM_VAV,
-      schema.SHUREQ
-    ]
-      .filter((v) => typeof v === "string")
-      .sort((a, b) => b.length - a.length);
-    const vowelRgx = new RegExp(`${vowels.join("|")}`);
-    const str = sylChars.map(mapChars(schema)).join("");
-    const match = str.match(vowelRgx);
-
-    if (location === "before-vowel") {
-      return match?.length ? str.replace(match[0], `${mark}${match[0]}`) : str;
-    }
-
-    // after-vowel
-    return match?.length ? str.replace(match[0], `${match[0]}${mark}`) : str;
   }
 
   return sylChars.map(mapChars(schema)).join("");
@@ -392,18 +405,19 @@ const cluterRules = (cluster: Cluster, schema: Schema) => {
 };
 
 export const sylRules = (syl: Syllable, schema: Schema): string => {
-  const sylTxt = syl.text.replace(taamim, "");
+  /** The syllable's original text with taamim removed */
+  const baseSyllableText = syl.text.replace(taamim, "");
 
   const syllableFeatures = schema.ADDITIONAL_FEATURES?.filter((seq) => seq.FEATURE === "syllable");
   if (syllableFeatures) {
     for (const feature of syllableFeatures) {
       const heb = new RegExp(feature.HEBREW, "u");
-      if (feature.FEATURE === "syllable" && heb.test(sylTxt)) {
+      if (feature.FEATURE === "syllable" && heb.test(baseSyllableText)) {
         const transliteration = feature.TRANSLITERATION;
         const passThrough = feature.PASS_THROUGH ?? true;
 
         if (typeof transliteration === "string") {
-          return replaceAndTransliterate(sylTxt, heb, transliteration, schema);
+          return replaceAndTransliterate(baseSyllableText, heb, transliteration, schema);
         }
 
         if (!passThrough) {
@@ -413,45 +427,43 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
         const newText = transliteration(syl, feature.HEBREW, schema);
 
         // if the transliteration just returns the syllable.text, then no need to copy the syllable
-        if (newText !== sylTxt) {
+        if (newText !== baseSyllableText) {
           syl = copySyllable(newText, syl);
         }
       }
     }
   }
 
-  // syllable is 3ms sufx
-  const mSSuffix = /\u{05B8}\u{05D9}\u{05D5}/u;
-  if (syl.isFinal && mSSuffix.test(sylTxt)) {
-    const sufxSyl = replaceWithRegex(sylTxt, mSSuffix, schema.MS_SUFX);
-    return joinSyllableChars(syl, [...sufxSyl], schema);
-  }
-
-  // syllable has a mater
   const hasMater = syl.clusters.map((c) => c.isMater).includes(true);
   if (hasMater) {
     const materSyl = materFeatures(syl, schema);
-    return joinSyllableChars(syl, [...materSyl], schema);
+    const text = joinSyllableChars(syl, [...materSyl], schema);
+    return addStressMarker(text, syl, schema);
   }
 
-  if (schema.SEGOL_HE && /\u{05B6}\u{05D4}/u.test(sylTxt)) {
-    const returnTxt = syl.clusters.map((cluster) => cluterRules(cluster, schema));
-    const joined = joinSyllableChars(syl, returnTxt, schema).replace(taamim, "");
-    return joined.replace(schema["SEGOL"] + schema["HE"], schema.SEGOL_HE);
+  const clusters = syl.clusters.map((cluster) => cluterRules(cluster, schema));
+  const joined = joinSyllableChars(syl, clusters, schema).replace(taamim, "");
+
+  // syllable is 3ms sufx
+  const mSSuffix = /\u{05B8}\u{05D9}\u{05D5}/u;
+  if (syl.isFinal && mSSuffix.test(baseSyllableText)) {
+    const text = joined.replace(schema["QAMATS"] + schema["YOD"] + schema["VAV"], schema.MS_SUFX);
+    return addStressMarker(text, syl, schema);
+  }
+
+  if (schema.SEGOL_HE && /\u{05B6}\u{05D4}/u.test(baseSyllableText)) {
+    const text = joined.replace(schema["SEGOL"] + schema["HE"], schema.SEGOL_HE);
+    return addStressMarker(text, syl, schema);
   }
 
   // tsere
-  if (schema.TSERE_HE && /\u{05B5}\u{05D4}/u.test(sylTxt)) {
-    const returnTxt = syl.clusters.map((cluster) => cluterRules(cluster, schema));
-    const joined = joinSyllableChars(syl, returnTxt, schema).replace(taamim, "");
-    return joined.replace(schema["TSERE"] + schema["HE"], schema.TSERE_HE);
+  if (schema.TSERE_HE && /\u{05B5}\u{05D4}/u.test(baseSyllableText)) {
+    const text = joined.replace(schema["TSERE"] + schema["HE"], schema.TSERE_HE);
+    return addStressMarker(text, syl, schema);
   }
 
-  // regular syllables
-  const returnTxt = syl.clusters.map((cluster) => cluterRules(cluster, schema));
-
-  // there may be taamim still in the text, so remove them
-  return joinSyllableChars(syl, returnTxt, schema).replace(taamim, "");
+  const text = joined.replace(taamim, "");
+  return addStressMarker(text, syl, schema);
 };
 
 export const wordRules = (word: Word, schema: Schema): string | Word => {
