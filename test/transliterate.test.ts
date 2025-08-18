@@ -183,6 +183,17 @@ describe("using default options", () => {
       expect(transliterate(hebrew)).toBe(transliteration);
     });
   });
+
+  describe("3ms suffix", () => {
+    test.each`
+      description                         | hebrew          | transliteration
+      ${"basic suffix"}                   | ${"דְּבָרָ֖יו"} | ${"dəbārāyw"}
+      ${"doubled consonatnt with suffix"} | ${"בַּדָּיו"}     | ${"baddāyw"}
+    `("$description", (inputs: Inputs) => {
+      const { hebrew, transliteration } = inputs;
+      expect(transliterate(hebrew)).toBe(transliteration);
+    });
+  });
 });
 
 /**
