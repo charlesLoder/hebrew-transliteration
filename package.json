@@ -35,6 +35,9 @@
   },
   "scripts": {
     "build": "tsc --project ./.config/tsconfig.esm.json && tsc-alias --project ./.config/tsconfig.esm.json",
+    "watch": "concurrently \"tsc --watch --project .config/tsconfig.esm.json\" \"npm run watch:tsc-alias\" \"npm run watch:esm2cjs\"",
+    "watch:tsc-alias": "chokidar \"dist/esm/**/*.js\" -c \"tsc-alias --project .config/tsconfig.esm.json\"",
+    "watch:esm2cjs": "chokidar \"dist/esm/**/*.js\" -c \"esm2cjs --in dist/esm --out dist/cjs -l error\"",
     "postbuild": "esm2cjs --in dist/esm --out dist/cjs -l error",
     "test": "clear && vitest --watch=false",
     "test:transliterate": "clear && jest --config ./.config/jest.config.js test/transliterate.test.ts",
@@ -75,6 +78,8 @@
     "@alcalzone/esm2cjs": "^1.1.2",
     "@astrojs/starlight": "^0.28.4",
     "astro": "^4.16.7",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.2.0",
     "esbuild": "^0.24.0",
     "eslint": "^9.13.0",
     "npm-check-updates": "^17.1.9",

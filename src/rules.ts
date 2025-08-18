@@ -172,6 +172,13 @@ const isDageshChazaq = (cluster: Cluster, schema: Schema) => {
     return false;
   }
 
+  // if the previous cluster has a sheva, then it is not a dagesh chazaq
+  // likely being a Qal 2fs suffix (e.g. קָטַלְתְּ)
+  const prevCluster = cluster.prev?.value;
+  if (prevCluster && prevCluster.hasSheva) {
+    return false;
+  }
+
   const prevWord = cluster.syllable?.word?.prev?.value;
   if (prevWord && prevWord?.isInConstruct && !prevWord.syllables[prevWord.syllables.length - 1].isClosed) {
     return true;

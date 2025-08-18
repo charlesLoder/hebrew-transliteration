@@ -67,12 +67,14 @@ describe("using default options", () => {
 
     describe("dagesh", () => {
       test.each`
-        description                          | hebrew         | transliteration
-        ${"dagesh qal beginning of word"}    | ${"בֹּ֔סֶר"}   | ${"bōser"}
-        ${"dagesh qal middle of word"}       | ${"מַסְגֵּ֖ר"} | ${"masgēr"}
-        ${"dagesh chazaq - not BeGaDKePhaT"} | ${"מִנְּזָר֜"} | ${"minnəzār"}
-        ${"dagesh chazaq - BeGaDKePhaT"}     | ${"מַגָּ֖ל"}   | ${"maggāl"}
-        ${"mappiq he"}                       | ${"וְלַ֨הּ"}   | ${"wəlah"}
+        description                                               | hebrew           | transliteration
+        ${"dagesh qal beginning of word"}                         | ${"בֹּ֔סֶר"}     | ${"bōser"}
+        ${"dagesh qal middle of word"}                            | ${"מַסְגֵּ֖ר"}   | ${"masgēr"}
+        ${"dagesh chazaq - not BeGaDKePhaT"}                      | ${"מִנְּזָר֜"}   | ${"minnəzār"}
+        ${"dagesh chazaq - BeGaDKePhaT"}                          | ${"מַגָּ֖ל"}     | ${"maggāl"}
+        ${"dagesh chazaq - final tav suffix"}                     | ${"הֵיטַ֛בְתְּ"} | ${"hêṭabt"}
+        ${"dagesh chazaq - final tav sfx + syl starts w/ dagesh"} | ${"וַיֵּשְׁתְּ"}    | ${"wayyēšt"}
+        ${"mappiq he"}                                            | ${"וְלַ֨הּ"}     | ${"wəlah"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
