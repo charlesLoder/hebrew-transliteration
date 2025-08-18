@@ -44,6 +44,7 @@
     "test:remove": "clear && jest --config ./.config/jest.config.js test/remove.test.ts",
     "test:sequence": "clear && jest --config ./.config/jest.config.js test/sequence.test.ts",
     "format": "prettier --config ./.config/.prettierrc.json --write 'src/**/*.ts' 'test/**/*.ts'",
+    "format:check": "prettier --config ./.config/.prettierrc.json --check 'src/**/*.ts' 'test/**/*.ts'",
     "lint": "eslint -c ./.config/eslint.config.mjs .",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
