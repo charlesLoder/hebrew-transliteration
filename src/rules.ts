@@ -463,9 +463,13 @@ export const sylRules = (syl: Syllable, schema: Schema): string => {
     return addStressMarker(text, syl, schema);
   }
 
-  // tsere
   if (schema.TSERE_HE && /\u{05B5}\u{05D4}/u.test(baseSyllableText)) {
     const text = joined.replace(schema["TSERE"] + schema["HE"], schema.TSERE_HE);
+    return addStressMarker(text, syl, schema);
+  }
+
+  if (schema.PATAH_HE && /\u{05B7}\u{05D4}/u.test(baseSyllableText)) {
+    const text = joined.replace(schema["PATAH"] + schema["HE"], schema.PATAH_HE);
     return addStressMarker(text, syl, schema);
   }
 
