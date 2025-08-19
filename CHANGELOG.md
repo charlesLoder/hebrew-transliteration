@@ -2,9 +2,15 @@
 
 ## Version 2
 
+- v2.9.0
+
+  - Adds new schema option `PATAH_HE` (PR #133)
+  - Fixes final tav suffix being doubled (PR #131)
+  - Fixes dagesh not doubling when 3ms suffix was present (PR #129)
+
 - v2.8.4
 
-  - Fix incorrect syllable separator with doubled vowels (PR #125)
+  - Fix incorrect syllable separator with doubled vowels (PR #124)
 
 - v2.8.3
 
