@@ -264,6 +264,17 @@ describe("extending SBL schema for optional arguments", () => {
         expect(transliterate(hebrew, options)).toBe(transliteration);
       });
     });
+
+    describe("patah he", () => {
+      test.each`
+        description                          | hebrew         | transliteration | options
+        ${"furtive patah is not affected"}   | ${"גָּבֹ֗הַּ"} | ${"gābōah"}     | ${{ PATAH_HE: "â" }}
+        ${"patah he from reduced qamats he"} | ${"מַה־"}      | ${"mâ-"}        | ${{ PATAH_HE: "â" }}
+      `("$description", (inputs: Inputs) => {
+        const { hebrew, transliteration, options } = inputs;
+        expect(transliterate(hebrew, options)).toBe(transliteration);
+      });
+    });
   });
 
   describe("additional features", () => {
