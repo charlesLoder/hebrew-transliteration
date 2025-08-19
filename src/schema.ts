@@ -749,6 +749,23 @@ export class Schema implements SylOpts, SchemaVowels {
    */
   QAMATS_HE: string;
   /**
+   * HEBREW POINT PATAH (U+05B7) and HE (U+05D4) ה◌ַ
+   *
+   * @category Vowels
+   * @category Orthographic Features
+   *
+   * @example
+   * ```js
+   * const schema = new Schema({
+   *   // truncated for brevity
+   *   PATAH_HE: "â",
+   * });
+   * transliterate("מַה־", schema);
+   * // mâ-
+   * ```
+   */
+  PATAH_HE?: string;
+  /**
    * HEBREW POINT SEGOL (U+05B6) and HE (U+05D4) ה◌ֶ
    *
    * @category Vowels
@@ -1838,6 +1855,7 @@ export class Schema implements SylOpts, SchemaVowels {
     this.SHUREQ = schema.SHUREQ;
     this.HOLAM_VAV = schema.HOLAM_VAV;
     this.QAMATS_HE = schema.QAMATS_HE;
+    this.PATAH_HE = schema.PATAH_HE;
     this.SEGOL_HE = schema.SEGOL_HE;
     this.TSERE_HE = schema.TSERE_HE;
     this.MS_SUFX = schema.MS_SUFX;
@@ -1968,6 +1986,8 @@ export class SBL extends Schema {
   declare HOLAM_VAV: Schema["HOLAM_VAV"];
   /** @category Vowels @category Orthographic Features @default "â" */
   declare QAMATS_HE: Schema["QAMATS_HE"];
+  /** @category Vowels @category Orthographic Features @default undefined */
+  declare PATAH_HE: Schema["PATAH_HE"];
   /** @category Vowels @category Orthographic Features @default undefined */
   declare SEGOL_HE: Schema["SEGOL_HE"];
   /** @category Vowels @category Orthographic Features @default undefined */
@@ -2121,6 +2141,7 @@ export class SBL extends Schema {
       SHUREQ: schema.SHUREQ ?? "û",
       HOLAM_VAV: schema.HOLAM_VAV ?? "ô",
       QAMATS_HE: schema.QAMATS_HE ?? "â",
+      PATAH_HE: schema.PATAH_HE ?? undefined,
       SEGOL_HE: schema.SEGOL_HE ?? undefined,
       TSERE_HE: schema.TSERE_HE ?? undefined,
       MS_SUFX: schema.MS_SUFX ?? "āyw",
@@ -2201,6 +2222,7 @@ export class SBL extends Schema {
     this.SHUREQ = schema.SHUREQ ?? "û";
     this.HOLAM_VAV = schema.HOLAM_VAV ?? "ô";
     this.QAMATS_HE = schema.QAMATS_HE ?? "â";
+    this.PATAH_HE = schema.PATAH_HE ?? undefined;
     this.SEGOL_HE = schema.SEGOL_HE ?? undefined;
     this.TSERE_HE = schema.TSERE_HE ?? undefined;
     this.MS_SUFX = schema.MS_SUFX ?? "āyw";
