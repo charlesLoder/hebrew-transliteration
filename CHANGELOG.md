@@ -2,6 +2,10 @@
 
 ## Version 2
 
+- v2.9.1
+
+- Fixes silent he error in Tiberian (PR #137)
+
 - v2.9.0
 
   - Adds new schema option `PATAH_HE` (PR #133)
