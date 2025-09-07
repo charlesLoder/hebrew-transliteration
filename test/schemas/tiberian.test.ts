@@ -1,6 +1,6 @@
+import { describe, expect, test } from "vitest";
 import { transliterate } from "../../src/index";
 import { tiberian } from "../../src/schemas/index";
-import { describe, expect, test } from "vitest";
 
 interface Inputs {
   hebrew: string;
@@ -219,16 +219,19 @@ describe("consonant features", () => {
 });
 
 describe("mater features", () => {
+  // technically, not all there are maters, but they behave similarly
   describe("typical", () => {
     test.each`
-      description     | hebrew          | transliteration
-      ${"hiriq yod"}  | ${"עִ֔יר"}      | ${"ˈʕiːiʀ̟"}
-      ${"tsere yod"}  | ${"אֵ֤ין"}      | ${"ˈʔeːen"}
-      ${"seghol yod"} | ${"אֱלֹהֶ֑יךָ"} | ${"ʔɛloːˈhɛːχɔː"}
-      ${"holem vav"}  | ${"ס֣וֹא"}      | ${"ˈsoː"}
-      ${"qamets he"}  | ${"עֵצָ֖ה"}     | ${"ʕeːˈsˁɔː"}
-      ${"seghol he"}  | ${"יִקְרֶ֥ה"}   | ${"jiq̟ˈʀ̟ɛː"}
-      ${"tsere he"}   | ${"הָאַרְיֵ֔ה"} | ${"hɔːʔaʀ̟ˈjeː"}
+      description                 | hebrew          | transliteration
+      ${"hiriq yod"}              | ${"עִ֔יר"}      | ${"ˈʕiːiʀ̟"}
+      ${"tsere yod"}              | ${"אֵ֤ין"}      | ${"ˈʔeːen"}
+      ${"seghol yod"}             | ${"אֱלֹהֶ֑יךָ"} | ${"ʔɛloːˈhɛːχɔː"}
+      ${"holem vav"}              | ${"ס֣וֹא"}      | ${"ˈsoː"}
+      ${"qamets he"}              | ${"עֵצָ֖ה"}     | ${"ʕeːˈsˁɔː"}
+      ${"patah he"}               | ${"מַה־"}       | ${"maː-"}
+      ${"seghol he"}              | ${"יִקְרֶ֥ה"}   | ${"jiq̟ˈʀ̟ɛː"}
+      ${"seghol he (unaccented)"} | ${"עֹ֥שֶׂה"}    | ${"ˈʕoːsɛː"}
+      ${"tsere he"}               | ${"הָאַרְיֵ֔ה"} | ${"hɔːʔaʀ̟ˈjeː"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);

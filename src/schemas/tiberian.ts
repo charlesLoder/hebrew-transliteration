@@ -26,6 +26,7 @@ export const tiberian: Schema = {
   SHUREQ: "uː",
   HOLAM_VAV: "oː",
   QAMATS_HE: "ɔː",
+  PATAH_HE: "aː",
   SEGOL_HE: "ɛː",
   TSERE_HE: "eː",
   MS_SUFX: "ɔw",
@@ -370,9 +371,9 @@ export const tiberian: Schema = {
           .filter((c) => !c.isMater)
           .map((c) => c.text)
           .join("")
-          // a holam, tsere, or segol followed by a he without a mappiq is not a mater
+          // a patah, tsere, segol, or holam followed by a he without a mappiq is not a mater
           // but b/c the he is not pronounced, we need to remove the final he
-          .replace(/([\u{05B5}\u{05B6}\u{05B9}].{1})\u{05D4}(?!\u{05BC})/u, "$1");
+          .replace(/([\u{05B7}\u{05B5}\u{05B6}\u{05B9}].{0,1})\u{05D4}(?!\u{05BC})/u, "$1");
 
         const hasMaters = syllable.clusters.map((c) => c.isMater).includes(true);
         const lengthMarker = "ː";
