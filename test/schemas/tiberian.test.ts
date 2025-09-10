@@ -282,6 +282,16 @@ describe("divine name", () => {
   });
 });
 
+describe("qere perpetuum 3fs", () => {
+  test.each`
+    description | hebrew     | transliteration
+    ${"3fs"}    | ${"הִ֑וא"} | ${"ˈhiː"}
+  `("$description", (inputs: Inputs) => {
+    const { hebrew, transliteration } = inputs;
+    expect(transliterate(hebrew, schema)).toBe(transliteration);
+  });
+});
+
 describe("jerusalem", () => {
   test.each`
     description      | hebrew                | transliteration
