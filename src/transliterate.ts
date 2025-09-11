@@ -14,17 +14,20 @@ import { SBL, Schema } from "./schema";
  * @remarks
  * Sanitizes the SylOpts of the schema so as to not pass in undefined
  */
-const getSylOpts = (schema: Partial<Schema>) => {
-  const options: SylOpts = {};
-  if ("longVowels" in schema) options.longVowels = schema.longVowels;
-  if ("qametsQatan" in schema) options.qametsQatan = schema.qametsQatan;
-  if ("sqnmlvy" in schema) options.shevaAfterMeteg = schema.shevaAfterMeteg;
-  if ("sqnmlvy" in schema) options.sqnmlvy = schema.sqnmlvy;
-  if ("wawShureq" in schema) options.wawShureq = schema.wawShureq;
-  if ("article" in schema) options.article = schema.article;
-  if ("allowNoNiqqud" in schema) options.allowNoNiqqud = schema.allowNoNiqqud;
-  if ("strict" in schema) options.strict = schema.strict;
-  return options;
+const getSylOpts = (schema: Partial<Schema>): SylOpts => {
+  return {
+    allowNoNiqqud: schema.allowNoNiqqud,
+    article: schema.article,
+    holemHaser: schema.holemHaser,
+    ketivQeres: schema.ketivQeres,
+    longVowels: schema.longVowels,
+    qametsQatan: schema.qametsQatan,
+    shevaAfterMeteg: schema.shevaAfterMeteg,
+    shevaWithMeteg: schema.shevaWithMeteg,
+    sqnmlvy: schema.sqnmlvy,
+    strict: schema.strict,
+    wawShureq: schema.wawShureq
+  };
 };
 
 /**
