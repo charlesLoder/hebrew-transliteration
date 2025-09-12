@@ -603,8 +603,8 @@ export const tiberian: Schema = {
   holemHaser: "remove",
   ketivQeres: [
     {
-      input: "הִוא",
-      output: "הִיא",
+      input: /הִוא/,
+      output: (heb, input) => heb.replace(input, "הִיא"),
       captureTaamim: true,
       ignoreTaamim: true
     }
