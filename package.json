@@ -77,11 +77,11 @@
   "license": "MIT",
   "devDependencies": {
     "@alcalzone/esm2cjs": "^1.1.2",
-    "@astrojs/starlight": "^0.28.4",
+    "@astrojs/starlight": "^0.36.2",
     "@eslint/js": "^9.33.0",
     "@typescript-eslint/eslint-plugin": "^8.40.0",
     "@typescript-eslint/parser": "^8.40.0",
-    "astro": "^4.16.7",
+    "astro": "^5.15.7",
     "chokidar-cli": "^3.0.0",
     "concurrently": "^9.2.0",
     "esbuild": "^0.24.0",
