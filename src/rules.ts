@@ -41,11 +41,19 @@ const addStressMarker = (text: string, syl: Syllable, schema: Schema) => {
     return text;
   }
 
+  function isSchemaKey(key: string): key is keyof Schema {
+    return key in schema;
+  }
+
   if (location === "before-syllable") {
     const isDoubled = syl.clusters.map((c) => isDageshChazaq(c, schema)).includes(true);
     if (isDoubled) {
-      const [first, ...rest] = text.split("");
-      return `${first}${mark}${rest.join("")}`;
+      const firstCluster = syl.clusters[0];
+      const name = firstCluster.chars[0].characterName;
+      const output = name && isSchemaKey(name) ? schema[name] : "";
+      const first = text.slice(0, output.length);
+      const rest = text.slice(output.length);
+      return `${first}${mark}${rest}`;
     }
 
     return `${mark}${text}`;
