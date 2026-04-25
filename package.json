@@ -13,7 +13,7 @@
     },
     "./package.json": "./package.json",
     "./schemas": {
-      "types": "./dist/schemas/types/index.d.ts",
+      "types": "./dist/types/schemas/index.d.ts",
       "require": "./dist/cjs/schemas/index.js",
       "import": "./dist/esm/schemas/index.js"
     },
