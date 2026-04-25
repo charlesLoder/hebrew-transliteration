@@ -539,6 +539,11 @@ export const tiberian: Schema = {
           return secondaryAccent + syllable.text.replace(/\u{05B0}/u, newVowel);
         }
 
+        const nextHasYod = nextSylFirstCluster.includes("י");
+        if (nextHasYod) {
+          return transliterateShevaAsVowel(isBackUnrounded() ? "ɑ" : schema["HIRIQ"]);
+        }
+
         const isGuttural = /[אהחע]/.test(nextSylFirstCluster);
         if (!isGuttural) {
           return transliterateShevaAsVowel(isBackUnrounded() ? "ɑ" : schema["PATAH"]);
