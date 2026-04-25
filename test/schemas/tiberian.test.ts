@@ -327,6 +327,7 @@ describe("vowel features", () => {
       ${"silent sheva and ligature consonant"}        | ${"אַשְׁכְּנַזִּי"} | ${"ʔaʃkʰanazˈziː"}
       ${"vocal sheva preceding guttural"}             | ${"בְּאֵ֥ר"}        | ${"beˈʔeːeʀ̟"}
       ${"vocal sheva preceding guttural with shureq"} | ${"שִׁלְּח֗וּךָ"}   | ${"ʃilluˈħuːχɔː"}
+      ${"vocal sheva preceding yod"}                  | ${"בְּיֹ֗ום"}       | ${"biˈjoːom"}
       ${"vocal sheva with minor gaya"}                | ${"וְֽהָיָ֗ה"}      | ${"ˌvɔˑhɔːˈjɔː"}
       ${"medial vocal sheva with minor gaya"}         | ${"אַ֥שְֽׁרֵי"}     | ${"ˈʔaːˌʃaˑʀ̟eː"}
     `("$description", (inputs: Inputs) => {
