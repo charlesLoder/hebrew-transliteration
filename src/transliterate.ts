@@ -74,7 +74,7 @@ const getSylOpts = (schema: Partial<Schema>): SylOpts => {
 export const transliterate = (text: string | Text, schema?: Partial<Schema> | Schema) => {
   const transSchema = schema instanceof Schema ? schema : new SBL(schema ?? {});
   const newText = text instanceof Text ? text : new Text(text, getSylOpts(transSchema ?? {}));
-  return newText.words
+  let result = newText.words
     .map((word) => {
       const transliteration = wordRules(word, transSchema);
 
@@ -103,4 +103,10 @@ export const transliterate = (text: string | Text, schema?: Partial<Schema> | Sc
       return `${syllableTransliteration}${word.whiteSpaceAfter ?? ""}`;
     })
     .join("");
+
+  if (transSchema.ON_COMPLETE) {
+    result = transSchema.ON_COMPLETE(result, { original: newText.original, schema: transSchema, text: newText });
+  }
+
+  return result;
 };
