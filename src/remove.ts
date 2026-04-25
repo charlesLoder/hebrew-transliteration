@@ -365,6 +365,39 @@ export interface RemoveOptions {
    * @category Taamim
    */
   LOWER_DOT?: boolean;
+  /**
+   * A callback that is invoked when removal is complete
+   *
+   * @example
+   * Modifying the result
+   * ```ts
+   * import { remove, accents } from "hebrew-transliteration";
+   *
+   * remove("שָׂרַ֣י אִשְׁתְּךָ֔", {
+   *   ...accents,
+   *   ON_COMPLETE: (result) => result.replace("ת", "t"),
+   * });
+   * // "שׂרי אשתכ"
+   * ```
+   *
+   * @example
+   * Accessing callback arguments
+   * ```ts
+   * import { remove, accents } from "hebrew-transliteration";
+   *
+   * remove("שָׂרַ֣י אִשְׁתְּךָ֔", {
+   *   ...accents,
+   *   ON_COMPLETE: (result, { original, options }) => {
+   *     console.log("Original Hebrew:", original);
+   *     console.log("Options used:", options);
+   *     return result;
+   *   },
+   * });
+   * // Original Hebrew: שָׂרַ֣י אִשְׁתְּךָ֔
+   * // Options used: { ETNAHTA: true, ... }
+   * ```
+   */
+  ON_COMPLETE?: (result: string, context: { original: string; options: RemoveOptions }) => string;
 }
 
 type OptionKey = keyof RemoveOptions;
@@ -579,7 +612,7 @@ export const remove = (text: string, options: RemoveOptions = { ...accents, METE
   /** all the keys of options that are to be removed */
   const keys = Object.keys(options).filter((k) => (k in options ? options[k as OptionKey] : false));
   const sequenced = sequence(text);
-  return keys.reduce((a, c) => {
+  let result = keys.reduce((a, c) => {
     const key = removeMap[c as OptionKey] ?? null;
     if (key) {
       // if it is a MAQAF, replace it with a space
@@ -588,4 +621,11 @@ export const remove = (text: string, options: RemoveOptions = { ...accents, METE
     }
     return a;
   }, sequenced);
+
+  const onComplete = options.ON_COMPLETE;
+  if (onComplete) {
+    result = onComplete(result, { original: text, options });
+  }
+
+  return result;
 };

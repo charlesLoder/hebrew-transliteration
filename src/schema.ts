@@ -1,6 +1,6 @@
 import type { Cluster } from "havarotjs/cluster";
 import type { Syllable } from "havarotjs/syllable";
-import type { SylOpts } from "havarotjs/text";
+import type { SylOpts, Text } from "havarotjs/text";
 import type { VowelNameToCharMap } from "havarotjs/utils/charMap";
 import type { Word } from "havarotjs/word";
 
@@ -1751,6 +1751,49 @@ export class Schema implements SylOpts, SchemaVowels {
     exclude?: "never" | "final" | "single";
   };
   /**
+   * A callback that is invoked when transliteration is complete
+   *
+   * @category Orthographic Features
+   *
+   * @example
+   * Modifying the result
+   * ```js
+   * const schema = new Schema({
+   *   // truncated for brevity
+   *   ON_COMPLETE: (result) => result.replace("th", "t'h"),
+   * });
+   * transliterate("תִתְהַלָּֽל", schema);
+   * // tit'hallāl
+   * ```
+   *
+   * @example
+   * Accessing callback arguments
+   * ```js
+   * const schema = new Schema({
+   *   // truncated for brevity
+   *   ON_COMPLETE: (result, { original, schema, text }) => {
+   *     console.log("Original Hebrew:", original);
+   *     console.log("Schema value:", schema.PATAH);
+   *     console.log("Word count:", text.words.length);
+   *     return result;
+   *   },
+   * });
+   * transliterate("שָּׁלוֹם", schema);
+   * // "šālôm"
+   * // Original Hebrew: שָּׁלוֹם
+   * // Schema value: a
+   * // Word count: 1
+   * ```
+   */
+  ON_COMPLETE?: (
+    result: string,
+    context: {
+      original: string;
+      schema: Omit<Schema, "ON_COMPLETE">;
+      text: Text;
+    }
+  ) => string;
+  /**
    * @category Syllabification
    *
    * @remarks
@@ -1898,6 +1941,7 @@ export class Schema implements SylOpts, SchemaVowels {
     this.SYLLABLE_SEPARATOR = schema.SYLLABLE_SEPARATOR;
     this.ADDITIONAL_FEATURES = schema.ADDITIONAL_FEATURES;
     this.STRESS_MARKER = schema.STRESS_MARKER;
+    this.ON_COMPLETE = schema.ON_COMPLETE;
     this.longVowels = schema.longVowels;
     this.qametsQatan = schema.qametsQatan;
     this.sqnmlvy = schema.sqnmlvy;
@@ -2184,6 +2228,7 @@ export class SBL extends Schema {
       SYLLABLE_SEPARATOR: schema.SYLLABLE_SEPARATOR ?? undefined,
       ADDITIONAL_FEATURES: schema.ADDITIONAL_FEATURES ?? undefined,
       STRESS_MARKER: schema.STRESS_MARKER ?? undefined,
+      ON_COMPLETE: schema.ON_COMPLETE ?? undefined,
       longVowels: schema.longVowels ?? true,
       qametsQatan: schema.qametsQatan ?? true,
       shevaAfterMeteg: schema.shevaAfterMeteg ?? true,

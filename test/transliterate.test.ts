@@ -461,4 +461,56 @@ describe("extending SBL schema for optional arguments", () => {
       expect(transliterate(hebrew, options)).toBe(transliteration);
     });
   });
+
+  describe("ON_COMPLETE callback", () => {
+    test("modifies result string with result argument", () => {
+      expect(
+        transliterate("תִתְהַלָּֽל", {
+          ON_COMPLETE: (result) => result.replace("th", "t'h")
+        })
+      ).toBe("tit'hallāl");
+    });
+
+    test("accesses original Hebrew text via callback arguments", () => {
+      let capturedOriginal: string | undefined;
+      transliterate("שָּׁלוֹם", {
+        ON_COMPLETE: (_result, { original }) => {
+          capturedOriginal = original;
+          return _result;
+        }
+      });
+      expect(capturedOriginal).toBe("שָּׁלוֹם");
+    });
+
+    test("accesses schema via callback arguments", () => {
+      let capturedSchema: Schema | undefined;
+      transliterate("שָּׁלוֹם", {
+        ON_COMPLETE: (_result, { schema }) => {
+          capturedSchema = schema;
+          return _result;
+        },
+        PATAH: "a"
+      });
+      expect(capturedSchema?.PATAH).toBe("a");
+    });
+
+    test("accesses Text object via callback arguments", () => {
+      let hasWords = false;
+      transliterate("שָּׁלוֹם", {
+        ON_COMPLETE: (_result, { text }) => {
+          hasWords = text.words.length > 0;
+          return _result;
+        }
+      });
+      expect(hasWords).toBe(true);
+    });
+
+    test("multiple transformations via ON_COMPLETE", () => {
+      expect(
+        transliterate("אָבָן", {
+          ON_COMPLETE: (result) => result.replace(/ā/g, "ah")
+        })
+      ).toBe("ʾahbahn");
+    });
+  });
 });
