@@ -2121,16 +2121,55 @@ export class SBL extends Schema {
    *    FEATURE: "syllable",
    *    HEBREW: /[\u{05B4}\u{05BB}]/u,
    *    TRANSLITERATION: (syllable, heb, schema) => {
-   *      const hasMater = syllable.clusters.some((cluster) => cluster.isMater);
-   *      if (syllable.isAccented && !hasMater) {
-   *        const macron = "\u0304";
-   *        const output = syllable.hasVowelName("HIRIQ") ? schema["HIRIQ"] + macron : schema["QUBUTS"] + macron;
-   *        return syllable.text.replace(heb, output.normalize("NFC"));
+   *        // matches any syllable with a hiriq or qubuts,
+   *        // and checks for a "long" vowel (i.e a hiriq or qubuts in an accented syllable without a mater)
+   *        const hasMater = syllable.clusters.some((cluster) => cluster.isMater);
+   *        if (syllable.isAccented && !hasMater) {
+   *          const macron = "\u0304";
+   *          const output = syllable.hasVowelName("HIRIQ") ? schema["HIRIQ"] + macron : schema["QUBUTS"] + macron;
+   *          return syllable.text.replace(heb, output.normalize("NFC"));
+   *        }
+   *        return syllable.text;
    *      }
-   *      return syllable.text;
+   *    },
+   *    {
+   *      FEATURE: "syllable",
+   *      HEBREW: "\u{05BC}",
+   *      TRANSLITERATION: (syllable, heb) => {
+   *        // matches any word with a dagesh,
+   *        // and checks for a euphonic dagesh
+   *        const currWord = syllable?.word?.value;
+   *        const prevWord = currWord?.prev?.value;
+   *        if (!currWord || !prevWord || !prevWord.isInConstruct) {
+   *          return syllable.text;
+   *        }
+   *
+   *        if (syllable.prev) {
+   *          return syllable.text;
+   *        }
+   *
+   *        return syllable.text.replace(heb, "");
+   *      }
    *    }
-   *  }
    * ]
+   * ```
+   *
+   * @example
+   * Extending SBL with a new feature and keeping the default features
+   * ```js
+   * import { SBL, transliterate } from "hebrew-transliteration";
+   *
+   * const sbl = new SBL();
+   * const oldFeatures = sbl.ADDITIONAL_FEATURES;
+   * const newFeature = {
+   *  FEATURE: "word",
+   *  HEBREW: "הָאָרֶץ",
+   *  TRANSLITERATION: "The Earth"
+   * }
+   *
+   * transliterate("הָאָרֶץ", {
+   *  ADDITIONAL_FEATURES: [...oldFeatures, newFeature],
+   * });
    * ```
    */
   declare ADDITIONAL_FEATURES: Schema["ADDITIONAL_FEATURES"];
@@ -2313,6 +2352,8 @@ export class SBL extends Schema {
         FEATURE: "syllable",
         HEBREW: /[\u{05B4}\u{05BB}]/u,
         TRANSLITERATION: (syllable, heb, schema) => {
+          // matches any syllable with a hiriq or qubuts,
+          // and checks for a "long" vowel (i.e a hiriq or qubuts in an accented syllable without a mater)
           const hasMater = syllable.clusters.some((cluster) => cluster.isMater);
           if (syllable.isAccented && !hasMater) {
             const macron = "\u0304";
@@ -2320,6 +2361,25 @@ export class SBL extends Schema {
             return syllable.text.replace(heb, output.normalize("NFC"));
           }
           return syllable.text;
+        }
+      },
+      {
+        FEATURE: "syllable",
+        HEBREW: "\u{05BC}",
+        TRANSLITERATION: (syllable, heb) => {
+          // matches any word with a dagesh,
+          // and checks for a euphonic dagesh
+          const currWord = syllable?.word?.value;
+          const prevWord = currWord?.prev?.value;
+          if (!currWord || !prevWord || !prevWord.isInConstruct) {
+            return syllable.text;
+          }
+
+          if (syllable.prev) {
+            return syllable.text;
+          }
+
+          return syllable.text.replace(heb, "");
         }
       }
     ];

@@ -75,6 +75,7 @@ describe("using default options", () => {
         ${"dagesh chazaq - final tav suffix"}                     | ${"הֵיטַ֛בְתְּ"} | ${"hêṭabt"}
         ${"dagesh chazaq - final tav sfx + syl starts w/ dagesh"} | ${"וַיֵּשְׁתְּ"}    | ${"wayyēšt"}
         ${"mappiq he"}                                            | ${"וְלַ֨הּ"}     | ${"wəlah"}
+        ${"euphonic dagesh"}                                      | ${"מַה־שְּׁמוֹ"} | ${"mah-šəmô"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew)).toBe(transliteration);
