@@ -76,10 +76,25 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "cluster",
-      HEBREW: /תּ(?!\u{05B0})/u,
-      TRANSLITERATION: (cluster, _, schema) => {
-        // if there is a dagesh, but it is the beginning of the word
-        // we can return the text, as the character w/ the dagesh will not be doubled
+      HEBREW: /תּ/u,
+      TRANSLITERATION: (cluster, heb, schema) => {
+        // rule for a form where the output is a digraph
+        // where the second character is not a combining character
+
+        const digraph = schema["TAV_DAGESH"];
+        // remove the second character of the digraph
+        const secondChar = "ʰ";
+        const noSecondCharacter = digraph?.replace(secondChar, "") ?? "";
+
+        // if there is a dagesh, and the previous word is in construct and does not end in a closed syllable,
+        // then it is a word initial dagesh chazaq and we need to replace the first character of the digraph
+        const prevWord = cluster.syllable?.word?.prev?.value;
+        if (prevWord?.isInConstruct && !prevWord.syllables.at(-1)?.isClosed) {
+          return cluster.text.replace(heb, `${noSecondCharacter + digraph}`);
+        }
+
+        // if there is a dagesh at the beginning of the word
+        // we can return the text, as the character with the dagesh will not be doubled
         // oxlint-disable-next-line typescript/prefer-optional-chain
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
@@ -89,90 +104,132 @@ export const tiberian: Schema = {
         // if it is a dagesh lene, then like the beginning of the word,
         // the character w/ the dagesh will not be doubled
         const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
-        if (!prevCoda?.includes("ת")) {
+        const dagesh = "\u{05BC}";
+        const noDageshHebrew = typeof heb === "string" ? heb.replace(dagesh, "") : heb.source.replace(dagesh, "");
+        if (!prevCoda?.includes(noDageshHebrew)) {
           return cluster.text;
         }
 
-        // because the *_DAGESH value is a digraph, we need to replace the first character
+        // because the initial value is a digraph, we need to replace the first character
         // or it will be doubled in rules.ts as "tʰtʰ"
-        const noAspiration = schema["TAV_DAGESH"]?.replace("ʰ", "") ?? "";
-        return cluster.text.replace("תּ", `${noAspiration + schema["TAV_DAGESH"]}`);
+        return cluster.text.replace(heb, `${noSecondCharacter + digraph}`);
       }
     },
     {
       FEATURE: "cluster",
-      HEBREW: /פ(?!\u{05b0})/u,
-      TRANSLITERATION: (cluster, _, schema) => {
+      HEBREW: /פ/u,
+      TRANSLITERATION: (cluster, heb, schema) => {
         //  /ת(?!\u{05b0})/u rule for explanation
-        // oxlint-disable-next-line typescript/prefer-optional-chain
+
+        const digraph = schema["PE_DAGESH"];
+        const secondChar = "ʰ";
+        const noAspiration = digraph?.replace(secondChar, "") ?? "";
+
+        const prevWord = cluster.syllable?.word?.prev?.value;
+        if (prevWord?.isInConstruct && !prevWord.syllables.at(-1)?.isClosed) {
+          return cluster.text.replace(heb, `${noAspiration + digraph}`);
+        }
+
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
 
         const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
-        if (!prevCoda?.includes("פ")) {
+        const dagesh = "\u{05BC}";
+        const noDageshHebrew = typeof heb === "string" ? heb.replace(dagesh, "") : heb.source.replace(dagesh, "");
+        if (!prevCoda?.includes(noDageshHebrew)) {
           return cluster.text;
         }
 
-        const noAspiration = schema["PE_DAGESH"]?.replace("ʰ", "") ?? "";
-        return cluster.text.replace("פּ", `${noAspiration + schema["PE_DAGESH"]}`);
+        return cluster.text.replace(heb, `${noAspiration + digraph}`);
       }
     },
     {
       FEATURE: "cluster",
-      HEBREW: /טּ(?!\u{05b0})/u,
-      TRANSLITERATION: (cluster, _, schema) => {
-        //  /ת(?!\u{05b0})/u rule for explanation
-        // oxlint-disable-next-line typescript/prefer-optional-chain
-        if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
-          return cluster.text;
-        }
-
-        const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
-        if (!prevCoda?.includes("ט")) {
-          return cluster.text;
-        }
-
-        const noPharyngealization = schema["TET"]?.replace("ˁ", "") ?? "";
-        return cluster.text.replace("ט", `${noPharyngealization + schema["TET"]}`);
-      }
-    },
-    {
-      FEATURE: "cluster",
-      HEBREW: /צּ(?!\u{05b0})/u,
-      TRANSLITERATION: (cluster, _, schema) => {
-        //  /ת(?!\u{05b0})/u rule for explanation
-        // oxlint-disable-next-line typescript/prefer-optional-chain
-        if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
-          return cluster.text;
-        }
-
-        const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
-        if (!prevCoda?.includes("צ")) {
-          return cluster.text;
-        }
-
-        const noPharyngealization = schema["TSADI"]?.replace("ˁ", "") ?? "";
-        return cluster.text.replace("צ", `${noPharyngealization + schema["TSADI"]}`);
-      }
-    },
-    {
-      FEATURE: "cluster",
-      HEBREW: /(כּ|ךּ)(?!\u{05b0})/u,
-      TRANSLITERATION: (cluster, _, schema) => {
+      HEBREW: /כּ|ךּ/u,
+      TRANSLITERATION: (cluster, heb, schema) => {
         // /תּ[\u{05B4}-\u{05BB}]/u rule for explanation
+        const digraph = schema["KAF_DAGESH"];
+        const secondChar = "ʰ";
+        const noAspiration = digraph?.replace(secondChar, "") ?? "";
+
+        const prevWord = cluster.syllable?.word?.prev?.value;
+        if (prevWord?.isInConstruct && !prevWord.syllables.at(-1)?.isClosed) {
+          return cluster.text.replace(heb, `${noAspiration + digraph}`);
+        }
+        if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
+          return cluster.text;
+        }
+
+        const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
+        const dagesh = "\u{05BC}";
+        const noDageshHebrew = typeof heb === "string" ? heb.replaceAll(dagesh, "") : heb.source.replaceAll(dagesh, "");
+        // the value of noDageshHebrew will be כ|ך, so we can conver back to a regex
+        if (!new RegExp(noDageshHebrew, "u").test(prevCoda || "")) {
+          return cluster.text;
+        }
+
+        return cluster.text.replace(heb, `${noAspiration + digraph}`);
+      }
+    },
+    {
+      FEATURE: "cluster",
+      HEBREW: /טּ/u,
+      TRANSLITERATION: (cluster, heb, schema) => {
+        //  /ת(?!\u{05b0})/u rule for explanation
+
+        const digraph = schema["TET"];
+        const secondChar = "ˁ";
+        const noSecondCharacter = digraph?.replace(secondChar, "") ?? "";
+
+        const prevWord = cluster.syllable?.word?.prev?.value;
+        if (prevWord?.isInConstruct && !prevWord.syllables.at(-1)?.isClosed) {
+          return cluster.text.replace(heb, `${noSecondCharacter + digraph}`);
+        }
+
         // oxlint-disable-next-line typescript/prefer-optional-chain
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
 
         const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
-        if (!prevCoda?.includes("כ") && !prevCoda?.includes("ך")) {
+        const dagesh = "\u{05BC}";
+        const noDageshHebrew = typeof heb === "string" ? heb.replace(dagesh, "") : heb.source.replace(dagesh, "");
+        if (!prevCoda?.includes(noDageshHebrew)) {
           return cluster.text;
         }
 
-        const noAspiration = schema["KAF_DAGESH"]?.replace("ʰ", "") ?? "";
-        return cluster.text.replace(/כּ|ךּ/u, `${noAspiration + schema["KAF_DAGESH"]}`);
+        return cluster.text.replace(heb, `${noSecondCharacter + digraph}`);
+      }
+    },
+    {
+      FEATURE: "cluster",
+      HEBREW: /צּ/u,
+      TRANSLITERATION: (cluster, heb, schema) => {
+        //  /ת(?!\u{05b0})/u rule for explanation
+
+        const digraph = schema["TSADI"];
+        const secondChar = "ˁ";
+        const noSecondCharacter = digraph?.replace(secondChar, "") ?? "";
+
+        const prevWord = cluster.syllable?.word?.prev?.value;
+        if (prevWord?.isInConstruct && !prevWord.syllables.at(-1)?.isClosed) {
+          return cluster.text.replace(heb, `${noSecondCharacter + digraph}`);
+        }
+
+        // oxlint-disable-next-line typescript/prefer-optional-chain
+        if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
+          return cluster.text;
+        }
+
+        const prevCoda = cluster.syllable?.prev?.value?.codaWithGemination;
+        const dagesh = "\u{05BC}";
+        const noDageshHebrew = typeof heb === "string" ? heb.replace(dagesh, "") : heb.source.replace(dagesh, "");
+        if (!prevCoda?.includes(noDageshHebrew)) {
+          return cluster.text;
+        }
+
+        return cluster.text.replace(heb, `${noSecondCharacter + digraph}`);
       }
     },
     {
