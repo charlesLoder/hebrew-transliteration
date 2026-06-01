@@ -601,6 +601,13 @@ export const tiberian: Schema = {
         const issachar = "jissɔːˈχɔːɔʀ̟";
         return `${vav}${issachar}`;
       }
+    },
+    {
+      FEATURE: "word",
+      HEBREW: "מַה־",
+      TRANSLITERATION: (word, heb, schema) => {
+        return word.text.replace(heb, schema["MEM"] + schema["PATAH"] + schema["HE"] + schema["MAQAF"]);
+      }
     }
   ],
   allowNoNiqqud: false,
