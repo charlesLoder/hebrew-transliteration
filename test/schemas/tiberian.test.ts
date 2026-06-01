@@ -153,7 +153,6 @@ describe("consonant features", () => {
 
   describe("has digraph", () => {
     describe("tet", () => {
-      // tet
       test.each`
         description        | hebrew          | transliteration
         ${"pharygealized"} | ${"טַ֫עַם"}     | ${"ˈtˁɑːʕam"}
@@ -165,7 +164,6 @@ describe("consonant features", () => {
     });
 
     describe("tsadi", () => {
-      // tet
       test.each`
         description        | hebrew            | transliteration
         ${"pharygealized"} | ${"צֹ֣הַר"}       | ${"ˈsˁoːhaʀ̟"}
