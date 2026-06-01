@@ -228,7 +228,7 @@ describe("mater features", () => {
       ${"seghol yod"}             | ${"אֱלֹהֶ֑יךָ"} | ${"ʔɛloːˈhɛːχɔː"}
       ${"holem vav"}              | ${"ס֣וֹא"}      | ${"ˈsoː"}
       ${"qamets he"}              | ${"עֵצָ֖ה"}     | ${"ʕeːˈsˁɔː"}
-      ${"patah he"}               | ${"מַה־"}       | ${"maː-"}
+      ${"patah he"}               | ${"מַה־"}       | ${"mah-"}
       ${"seghol he"}              | ${"יִקְרֶ֥ה"}   | ${"jiq̟ˈʀ̟ɛː"}
       ${"seghol he (unaccented)"} | ${"עֹ֥שֶׂה"}    | ${"ˈʕoːsɛː"}
       ${"tsere he"}               | ${"הָאַרְיֵ֔ה"} | ${"hɔːʔaʀ̟ˈjeː"}
