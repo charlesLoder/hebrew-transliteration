@@ -2,43 +2,35 @@
   "name": "hebrew-transliteration",
   "version": "2.9.1",
   "description": "a package for transliterating Hebrew",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/types/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     },
     "./package.json": "./package.json",
     "./schemas": {
-      "types": "./dist/types/schemas/index.d.ts",
-      "require": "./dist/cjs/schemas/index.js",
-      "import": "./dist/esm/schemas/index.js"
+      "types": "./dist/schemas/index.d.ts",
+      "import": "./dist/schemas/index.js"
     },
     "./removeOptions": {
-      "types": "./dist/types/remove.d.ts",
-      "require": "./dist/cjs/remove.js",
-      "import": "./dist/esm/remove.js"
+      "types": "./dist/remove.d.ts",
+      "import": "./dist/remove.js"
     }
   },
   "typesVersions": {
     "*": {
       "schemas": [
-        "./dist/types/schemas/index.d.ts"
+        "./dist/schemas/index.d.ts"
       ],
       "removeOptions": [
-        "./dist/types/remove.d.ts"
+        "./dist/remove.d.ts"
       ]
     }
   },
   "scripts": {
-    "build": "tsc --project ./.config/tsconfig.esm.json && tsc-alias --project ./.config/tsconfig.esm.json",
-    "watch": "concurrently \"tsc --watch --project .config/tsconfig.esm.json\" \"npm run watch:tsc-alias\" \"npm run watch:esm2cjs\"",
-    "watch:tsc-alias": "chokidar \"dist/esm/**/*.js\" -c \"tsc-alias --project .config/tsconfig.esm.json\"",
-    "watch:esm2cjs": "chokidar \"dist/esm/**/*.js\" -c \"esm2cjs --in dist/esm --out dist/cjs -l error\"",
-    "postbuild": "esm2cjs --in dist/esm --out dist/cjs -l error",
+    "build": "tsc --project ./.config/tsconfig.json",
+    "watch": "tsc --watch --project .config/tsconfig.json",
     "test": "vitest --watch=false",
     "test:transliterate": "jest --config ./.config/jest.config.js test/transliterate.test.ts",
     "test:remove": "jest --config ./.config/jest.config.js test/remove.test.ts",
@@ -76,17 +68,13 @@
   "author": "Charles Loder",
   "license": "MIT",
   "devDependencies": {
-    "@alcalzone/esm2cjs": "^1.4.2",
     "@astrojs/starlight": "^0.39.2",
     "astro": "^6.4.2",
-    "chokidar-cli": "^3.0.0",
-    "concurrently": "^10.0.1",
     "esbuild": "^0.28.0",
     "npm-check-updates": "^22.2.1",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "starlight-typedoc": "^0.23.0",
-    "tsc-alias": "^1.8.17",
     "typedoc": "^0.28.19",
     "typedoc-plugin-markdown": "^4.11.0",
     "typescript": "^6.0.3",
