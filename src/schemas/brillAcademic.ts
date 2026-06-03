@@ -1,4 +1,4 @@
-import { Schema } from "../schema";
+import type { Schema } from "../schema";
 
 export const brillAcademic: Schema = {
   VOCAL_SHEVA: "ᵉ",

@@ -9,7 +9,8 @@
     "correctness": "error"
   },
   "rules": {
-    "typescript/no-misused-spread": "off"
+    "typescript/no-misused-spread": "off",
+    "typescript/consistent-type-imports": "error"
   },
   "env": {
     "builtin": true

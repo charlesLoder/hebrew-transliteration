@@ -1,17 +1,20 @@
 import { Text } from "havarotjs";
-import { remove, RemoveOptions } from "./remove";
-import {
+import type { RemoveOptions } from "./remove";
+import { remove } from "./remove";
+import type {
   ClusterCallback,
   ClusterFeature,
   HebrewFeature,
   PassThrough,
-  SBL,
-  Schema,
   SyllableCallback,
   SyllableFeature,
   SylOpts,
   WordCallback,
   WordFeature
+} from "./schema";
+import {
+  SBL,
+  Schema
 } from "./schema";
 import { sequence } from "./sequence";
 import { transliterate } from "./transliterate";

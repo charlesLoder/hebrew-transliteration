@@ -2,7 +2,7 @@ import { Cluster } from "havarotjs/cluster";
 import { Syllable } from "havarotjs/syllable";
 import { clusterSplitGroup, hebChars } from "havarotjs/utils/regularExpressions";
 import { Word } from "havarotjs/word";
-import { Schema } from "./schema";
+import type { Schema } from "./schema";
 
 const taamim = /[\u{0591}-\u{05AF}\u{05BD}\u{05BF}]/gu;
 
