@@ -72,7 +72,7 @@ export const jss: Schema = {
       TRANSLITERATION: (syllable) => {
         const next = syllable?.next?.value?.text;
         // if the next syllable includes a hateph qamets, then replace the qamets qatan with a regular qamets
-        if (next && next.includes("\u05B3")) {
+        if (next?.includes("\u05B3")) {
           return syllable.text.replace("\u{05C7}", "\u{05B8}");
         }
         return syllable.text;

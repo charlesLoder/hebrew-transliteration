@@ -80,6 +80,7 @@ export const tiberian: Schema = {
       TRANSLITERATION: (cluster, _, schema) => {
         // if there is a dagesh, but it is the beginning of the word
         // we can return the text, as the character w/ the dagesh will not be doubled
+        // oxlint-disable-next-line typescript/prefer-optional-chain
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
@@ -103,6 +104,7 @@ export const tiberian: Schema = {
       HEBREW: /פ(?!\u{05b0})/u,
       TRANSLITERATION: (cluster, _, schema) => {
         //  /ת(?!\u{05b0})/u rule for explanation
+        // oxlint-disable-next-line typescript/prefer-optional-chain
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
@@ -121,6 +123,7 @@ export const tiberian: Schema = {
       HEBREW: /טּ(?!\u{05b0})/u,
       TRANSLITERATION: (cluster, _, schema) => {
         //  /ת(?!\u{05b0})/u rule for explanation
+        // oxlint-disable-next-line typescript/prefer-optional-chain
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
@@ -139,6 +142,7 @@ export const tiberian: Schema = {
       HEBREW: /צּ(?!\u{05b0})/u,
       TRANSLITERATION: (cluster, _, schema) => {
         //  /ת(?!\u{05b0})/u rule for explanation
+        // oxlint-disable-next-line typescript/prefer-optional-chain
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
@@ -157,6 +161,7 @@ export const tiberian: Schema = {
       HEBREW: /(כּ|ךּ)(?!\u{05b0})/u,
       TRANSLITERATION: (cluster, _, schema) => {
         // /תּ[\u{05B4}-\u{05BB}]/u rule for explanation
+        // oxlint-disable-next-line typescript/prefer-optional-chain
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
@@ -175,7 +180,7 @@ export const tiberian: Schema = {
       HEBREW: "\u{05D0}(?![\u{05B1}-\u{05BB}\u{05C7}])",
       TRANSLITERATION: (cluster) => {
         const next = cluster.next?.value;
-        if (next && next.isShureq) {
+        if (next?.isShureq) {
           return cluster.text;
         }
 
@@ -596,7 +601,7 @@ export const tiberian: Schema = {
         const taamim = /[\u{0590}-\u{05AF}\u{05BD}\u{05BF}]/gu;
         const text = word.text.replace(taamim, "");
         const match = text.match(heb);
-        const vav = match && match[1] ? match[1] : "";
+        const vav = match?.[1] ?? "";
         const issachar = "jissɔːˈχɔːɔʀ̟";
         return `${vav}${issachar}`;
       }

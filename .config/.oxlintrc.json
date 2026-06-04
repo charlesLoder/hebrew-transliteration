@@ -10,7 +10,8 @@
   },
   "rules": {
     "typescript/no-misused-spread": "off",
-    "typescript/consistent-type-imports": "error"
+    "typescript/consistent-type-imports": "error",
+    "typescript/prefer-optional-chain": "error"
   },
   "env": {
     "builtin": true
