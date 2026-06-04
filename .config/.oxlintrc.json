@@ -11,7 +11,9 @@
   "rules": {
     "typescript/no-misused-spread": "off",
     "typescript/consistent-type-imports": "error",
-    "typescript/prefer-optional-chain": "error"
+    "typescript/prefer-optional-chain": "error",
+    "typescript/no-unnecessary-type-assertion": "error",
+    "oxc/no-barrel-file": "error"
   },
   "env": {
     "builtin": true
