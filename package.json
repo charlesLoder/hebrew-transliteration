@@ -69,19 +69,19 @@
   "author": "Charles Loder",
   "license": "MIT",
   "devDependencies": {
-    "@astrojs/starlight": "^0.39.2",
-    "astro": "^6.4.2",
+    "@astrojs/starlight": "^0.39.3",
+    "astro": "^6.4.4",
     "esbuild": "^0.28.0",
-    "npm-check-updates": "^22.2.1",
+    "npm-check-updates": "^22.2.2",
     "oxlint": "^1.68.0",
     "oxlint-tsgolint": "^0.23.0",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
     "starlight-typedoc": "^0.23.0",
     "typedoc": "^0.28.19",
-    "typedoc-plugin-markdown": "^4.11.0",
+    "typedoc-plugin-markdown": "^4.12.0",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.7"
+    "vitest": "^4.1.8"
   },
   "dependencies": {
     "havarotjs": "0.25.4"
