@@ -1,31 +1,17 @@
-import { Text } from "havarotjs";
-import { remove, RemoveOptions } from "./remove";
-import {
+export { Text } from "havarotjs";
+export { remove } from "./remove";
+export type { RemoveOptions } from "./remove";
+export { SBL, Schema } from "./schema";
+export type {
   ClusterCallback,
   ClusterFeature,
   HebrewFeature,
   PassThrough,
-  SBL,
-  Schema,
   SyllableCallback,
   SyllableFeature,
   SylOpts,
   WordCallback,
   WordFeature
 } from "./schema";
-import { sequence } from "./sequence";
-import { transliterate } from "./transliterate";
-
-export { remove, SBL, Schema, sequence, Text, transliterate };
-export type {
-  ClusterCallback,
-  ClusterFeature,
-  HebrewFeature,
-  PassThrough,
-  RemoveOptions,
-  SyllableCallback,
-  SyllableFeature,
-  SylOpts,
-  WordCallback,
-  WordFeature
-};
+export { sequence } from "./sequence";
+export { transliterate } from "./transliterate";

@@ -1,3 +1,4 @@
+import { unified } from "@astrojs/markdown-remark";
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 import starlightTypeDoc, { typeDocSidebarGroup } from "starlight-typedoc";
@@ -17,7 +18,7 @@ export default defineConfig({
   },
   base: basePath,
   markdown: {
-    remarkPlugins: [[remarkBasePath, { base: basePath }]]
+    processor: unified({ remarkPlugins: [[remarkBasePath, { base: basePath }]] })
   },
   redirects: {
     "/": {
@@ -38,13 +39,17 @@ export default defineConfig({
           }
         })
       ],
-      social: {
-        github: "https://github.com/charlesLoder/hebrew-transliteration"
-      },
+      social: [
+        {
+          icon: "github",
+          label: "GitHub",
+          href: "https://github.com/charlesLoder/hebrew-transliteration"
+        }
+      ],
       sidebar: [
         {
           label: "Getting started",
-          autogenerate: { directory: "getting-started" }
+          items: [{ autogenerate: { directory: "getting-started" } }]
         },
         // Add the generated sidebar group to the sidebar.
         typeDocSidebarGroup

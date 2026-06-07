@@ -1,5 +1,5 @@
 import { Text } from "havarotjs";
-import { SylOpts } from "havarotjs/text";
+import type { SylOpts } from "havarotjs/text";
 import { Word } from "havarotjs/word";
 import { sylRules, wordRules } from "./rules";
 import { SBL, Schema } from "./schema";

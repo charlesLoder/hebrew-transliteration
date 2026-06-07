@@ -3,7 +3,7 @@ title: Quickstart
 next: false
 ---
 
-import { Code, TabItem, Tabs, CardGrid, LinkCard } from "@astrojs/starlight/components";
+import { CardGrid, Code, LinkCard, TabItem, Tabs } from "@astrojs/starlight/components";
 
 Create customized Hebrew transliterations.
 
@@ -62,12 +62,22 @@ This package contains 3 functions for:
 
 <LinkCard
   title="Transliteration"
-  href="/api/functions/transliterate"
+  href={
+    import.meta.env.BASE_URL === "/"
+      ? "/api/functions/transliterate"
+      : `${import.meta.env.BASE_URL}api/functions/transliterate`
+  }
   description="Create customized transliterations"
 />
-<LinkCard title="Removing Niqqud" href="/api/functions/remove" description="Remove accent marks and vowel points" />
+<LinkCard
+  title="Removing Niqqud"
+  href={import.meta.env.BASE_URL === "/" ? "/api/functions/remove" : `${import.meta.env.BASE_URL}api/functions/remove`}
+  description="Remove accent marks and vowel points"
+/>
 <LinkCard
   title="Sequencing Text"
-  href="/api/functions/sequence"
+  href={
+    import.meta.env.BASE_URL === "/" ? "/api/functions/sequence" : `${import.meta.env.BASE_URL}api/functions/sequence`
+  }
   description="Sequence characters according to the SBL Hebrew font manual"
 />

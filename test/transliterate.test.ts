@@ -1,7 +1,8 @@
-import { Cluster } from "havarotjs/cluster";
-import { Syllable } from "havarotjs/syllable";
+import type { Cluster } from "havarotjs/cluster";
+import type { Syllable } from "havarotjs/syllable";
 import { describe, expect, test } from "vitest";
-import { Schema, transliterate } from "../src/index";
+import type { Schema } from "../src/index";
+import { transliterate } from "../src/index";
 
 interface Inputs {
   hebrew: string;

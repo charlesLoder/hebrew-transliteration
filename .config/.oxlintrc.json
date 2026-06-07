@@ -1,0 +1,21 @@
+{
+  "$schema": "../node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc"],
+  "ignorePatterns": ["dist/**", "docs/**", "docs-dist/**"],
+  "options": {
+    "typeAware": true
+  },
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "typescript/no-misused-spread": "off",
+    "typescript/consistent-type-imports": "error",
+    "typescript/prefer-optional-chain": "error",
+    "typescript/no-unnecessary-type-assertion": "error",
+    "oxc/no-barrel-file": "error"
+  },
+  "env": {
+    "builtin": true
+  }
+}

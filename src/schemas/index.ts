@@ -1,19 +1,8 @@
-import { brillAcademic } from "./brillAcademic";
-import { brillSimple } from "./brillSimple";
-import { sblAcademicSpirantization } from "./sblAcademicSpirantization";
-import { sblSimple } from "./sblSimple";
-import { michiganClaremont } from "./michiganClaremont";
-import { romaniote } from "./romaniote";
-import { jss } from "./jss";
-import { tiberian } from "./tiberian";
-
-export {
-  brillAcademic,
-  brillSimple,
-  sblAcademicSpirantization,
-  sblSimple,
-  michiganClaremont,
-  romaniote,
-  jss,
-  tiberian
-};
+export { brillAcademic } from "./brillAcademic";
+export { brillSimple } from "./brillSimple";
+export { jss } from "./jss";
+export { michiganClaremont } from "./michiganClaremont";
+export { romaniote } from "./romaniote";
+export { sblAcademicSpirantization } from "./sblAcademicSpirantization";
+export { sblSimple } from "./sblSimple";
+export { tiberian } from "./tiberian";
