@@ -130,6 +130,7 @@ export const tiberian: Schema = {
           return cluster.text.replace(heb, `${noAspiration + digraph}`);
         }
 
+        // oxlint-disable-next-line typescript/prefer-optional-chain
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
@@ -157,6 +158,8 @@ export const tiberian: Schema = {
         if (prevWord?.isInConstruct && !prevWord.syllables.at(-1)?.isClosed) {
           return cluster.text.replace(heb, `${noAspiration + digraph}`);
         }
+
+        // oxlint-disable-next-line typescript/prefer-optional-chain
         if (!cluster.prev || cluster.prev.value?.isNotHebrew) {
           return cluster.text;
         }
