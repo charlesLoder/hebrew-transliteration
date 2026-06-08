@@ -1,8 +1,8 @@
-export { brillAcademic } from "./brillAcademic";
-export { brillSimple } from "./brillSimple";
-export { jss } from "./jss";
-export { michiganClaremont } from "./michiganClaremont";
-export { romaniote } from "./romaniote";
-export { sblAcademicSpirantization } from "./sblAcademicSpirantization";
-export { sblSimple } from "./sblSimple";
-export { tiberian } from "./tiberian";
+export { brillAcademic } from "./brillAcademic.js";
+export { brillSimple } from "./brillSimple.js";
+export { jss } from "./jss.js";
+export { michiganClaremont } from "./michiganClaremont.js";
+export { romaniote } from "./romaniote.js";
+export { sblAcademicSpirantization } from "./sblAcademicSpirantization.js";
+export { sblSimple } from "./sblSimple.js";
+export { tiberian } from "./tiberian.js";

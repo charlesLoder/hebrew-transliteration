@@ -1,8 +1,8 @@
 import { Text } from "havarotjs";
 import type { SylOpts } from "havarotjs/text";
 import { Word } from "havarotjs/word";
-import { sylRules, wordRules } from "./rules";
-import { SBL, Schema } from "./schema";
+import { sylRules, wordRules } from "./rules.js";
+import { SBL, Schema } from "./schema.js";
 
 /**
  *  Gets the syllable options from a partial schema
@@ -105,7 +105,11 @@ export const transliterate = (text: string | Text, schema?: Partial<Schema> | Sc
     .join("");
 
   if (transSchema.ON_COMPLETE) {
-    result = transSchema.ON_COMPLETE(result, { original: newText.original, schema: transSchema, text: newText });
+    result = transSchema.ON_COMPLETE(result, {
+      original: newText.original,
+      schema: transSchema,
+      text: newText
+    });
   }
 
   return result;
