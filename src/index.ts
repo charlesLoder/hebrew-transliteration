@@ -1,7 +1,7 @@
 export { Text } from "havarotjs";
-export { remove } from "./remove";
-export type { RemoveOptions } from "./remove";
-export { SBL, Schema } from "./schema";
+export { remove } from "./remove.js";
+export type { RemoveOptions } from "./remove.js";
+export { SBL, Schema } from "./schema.js";
 export type {
   ClusterCallback,
   ClusterFeature,
@@ -12,6 +12,6 @@ export type {
   SylOpts,
   WordCallback,
   WordFeature
-} from "./schema";
-export { sequence } from "./sequence";
-export { transliterate } from "./transliterate";
+} from "./schema.js";
+export { sequence } from "./sequence.js";
+export { transliterate } from "./transliterate.js";

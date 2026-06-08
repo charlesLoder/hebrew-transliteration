@@ -1,4 +1,4 @@
-import { sequence } from "./sequence";
+import { sequence } from "./sequence.js";
 
 /**
  * @categoryDescription Taamim
