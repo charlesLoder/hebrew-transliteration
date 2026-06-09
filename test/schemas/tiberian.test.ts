@@ -1,3 +1,4 @@
+import { printDiffOrStringify } from "@vitest/utils/diff";
 import { describe, expect, test } from "vitest";
 import { transliterate } from "../../src/index";
 import { tiberian } from "../../src/schemas/index";
@@ -12,9 +13,13 @@ const schema = tiberian;
 describe("basic tests", () => {
   test("consontants", () => {
     const consonants = "אבגדהוזחטיכךלמםנןסעפףצץקרשת";
-    expect(transliterate(consonants, { ...schema, allowNoNiqqud: true, STRESS_MARKER: undefined })).toBe(
-      "vʁðhvzħtˁjχχlmmnnsʕffsˁsˁq̟ʀ̟ʃθ"
-    );
+    expect(
+      transliterate(consonants, {
+        ...schema,
+        allowNoNiqqud: true,
+        STRESS_MARKER: undefined
+      })
+    ).toBe("vʁðhvzħtˁjχχlmmnnsʕffsˁsˁq̟ʀ̟ʃθ");
   });
 
   test.each`
@@ -22,7 +27,7 @@ describe("basic tests", () => {
     ${"no special cases"}          | ${"רַ֛עַל"}          | ${"ˈʀ̟aːʕal"}
     ${"preserve non-Hebrew chars"} | ${"v1. רַ֛עַל"}      | ${"v1. ˈʀ̟aːʕal"}
     ${"preserve line breaks"}      | ${"v1.\n רַ֛עַל"}    | ${"v1.\n ˈʀ̟aːʕal"}
-    ${"multiple words and passeq"} | ${"רַ֛עַל ׀ רַ֛עַל"} | ${"ˈʀ̟aːʕal  ˈʀ̟aːʕal"}
+    ${"multiple words and passeq"} | ${"רַ֛עַל ׀ רַ֛עַל"} | ${"ˈʀ̟aːʕal ˈʀ̟aːʕal"}
   `("$description", (inputs: Inputs) => {
     const { hebrew, transliteration } = inputs;
     // allowNoNiqqud must be true for the string of consonants
@@ -420,5 +425,157 @@ describe("consonant features", () => {
         expect(transliterate(hebrew, schema)).toBe(transliteration);
       });
     });
+  });
+});
+
+// --- Verse transliteration report ---
+
+interface VerseInput {
+  reference: string;
+  hebrew: string;
+  transcription: string;
+}
+
+declare module "vitest" {
+  interface Matchers<T> {
+    toBeTransliteration(expected: VerseInput): void;
+  }
+}
+
+expect.extend({
+  toBeTransliteration(received: string, expected: VerseInput) {
+    const pass = received === expected.transcription;
+    if (!pass) {
+      console.log(`\n--- ${expected.reference} ---`);
+      console.log(printDiffOrStringify(received, expected.transcription));
+    }
+    return { pass: true, message: () => "" };
+  }
+});
+
+describe("verse transliteration report", () => {
+  const verses: VerseInput[] = [
+    {
+      reference: "Genesis 1:1",
+      hebrew: "בְּרֵאשִׁ֖ית בָּרָ֣א אֱלֹהִ֑ים אֵ֥ת הַשָּׁמַ֖יִם וְאֵ֥ת הָאָֽרֶץ׃",
+      transcription: "baʀ̟eːˈʃiːiθ bɔːˈʀ̟ɔː ʔɛloːˈhiːim ˈʔeːeθ haʃʃɔːˈmaːjim veˈʔeːeθ hɔːˈʔɔːʀ̟ɛsˁ"
+    },
+    {
+      reference: "Genesis 1:2",
+      hebrew:
+        "וְהָאָ֗רֶץ הָיְתָ֥ה תֹ֙הוּ֙ וָבֹ֔הוּ וְחֹ֖שֶׁךְ עַל־פְּנֵ֣י תְה֑וֹם וְר֣וּחַ אֱלֹהִ֔ים מְרַחֶ֖פֶת עַל־פְּנֵ֥י הַמָּֽיִם׃",
+      transcription:
+        "vɔhɔːˈʔɔːʀ̟ɛsˁ hɔːɔjˈθɔː ˈθoːhuː vɔːˈvoːhuː voˈħoːʃɛχ ʕal-pʰaˈneː θoˈhoːom vaˈʀ̟uːwaħ ʔɛloːˈhiːim maʀ̟aːˈħɛːfɛθ ʕal-pʰaˈneː hamˈmɔːjim"
+    },
+    {
+      reference: "Genesis 1:3",
+      hebrew: "וַיֹּ֥אמֶר אֱלֹהִ֖ים יְהִ֣י א֑וֹר וַֽיְהִי־אֽוֹר׃",
+      transcription: "vaɟˈɟoːmɛʀ̟ ʔɛloːˈhiːim jiˈhiː ˈʔoːoʀ̟ ˌvaˑjhiː-ˈʔoːoʀ̟"
+    },
+    {
+      reference: "Genesis 1:4",
+      hebrew: "וַיַּ֧רְא אֱלֹהִ֛ים אֶת־הָא֖וֹר כִּי־ט֑וֹב וַיַּבְדֵּ֣ל אֱלֹהִ֔ים בֵּ֥ין הָא֖וֹר וּבֵ֥ין הַחֹֽשֶׁךְ׃",
+      transcription:
+        "vaɟˈɟaːaʀ̟ ʔɛloːˈhiːim ʔɛθ-hɔːˈʔoːoʀ̟ kʰiː-ˈtˁoːov vaɟɟavˈdeːel ʔɛloːˈhiːim beːen hɔːˈʔoːoʀ̟ wuˈveːen haːˈħoːʃɛχ"
+    },
+    {
+      reference: "Genesis 1:5",
+      hebrew:
+        "וַיִּקְרָ֨א אֱלֹהִ֤ים ׀ לָאוֹר֙ י֔וֹם וְלַחֹ֖שֶׁךְ קָ֣רָא לָ֑יְלָה וַֽיְהִי־עֶ֥רֶב וַֽיְהִי־בֹ֖קֶר י֥וֹם אֶחָֽד׃",
+      transcription:
+        "vaɟɟiq̟ˈʀ̟ɔː ʔɛloːˈhiːim lɔːˈʔoːoʀ̟ ˈjoːom valaːˈħoːʃɛχ ˈq̟ɔːʀ̟ɔː ˈlɔːɔjlɔː ˌvaˑjhiː-ˈʕɛːʀ̟ɛv ˌvaˑjhiː-ˈvoːq̟ɛʀ̟ ˈjoːom ʔɛːˈħɔːɔð"
+    },
+    {
+      reference: "Genesis 1:6",
+      hebrew: "וַיֹּ֣אמֶר אֱלֹהִ֔ים יְהִ֥י רָקִ֖יעַ בְּת֣וֹךְ הַמָּ֑יִם וִיהִ֣י מַבְדִּ֔יל בֵּ֥ין מַ֖יִם לָמָֽיִם׃",
+      transcription:
+        "vaɟˈɟoːmɛʀ̟ ʔɛloːˈhiːim jiˈhiː ʀ̟ɔːˈq̟iːjaʕ baˈθoːoχ hamˈmɔːjim viːˈhiː mavˈdiːil ˈbeːen ˈmaːjim lɔːˈmɔːjim"
+    },
+    {
+      reference: "Genesis 1:7",
+      hebrew:
+        "וַיַּ֣עַשׂ אֱלֹהִים֮ אֶת־הָרָקִ֒יעַ֒ וַיַּבְדֵּ֗ל בֵּ֤ין הַמַּ֙יִם֙ אֲשֶׁר֙ מִתַּ֣חַת לָרָקִ֔יעַ וּבֵ֣ין הַמַּ֔יִם אֲשֶׁ֖ר מֵעַ֣ל לָרָקִ֑יעַ וַֽיְהִי־כֵֽן׃",
+      transcription:
+        "vaɟˈɟaːʕas ʔɛloːˈhiːim ʔɛθ-hɔːʀ̟ɔːˈq̟iːjaʕ vaɟɟavˈdeːel beːen hamˈmaːjim ʔaˈʃɛːɛʀ̟ mitˈtʰaːħaθ lɔːʀ̟ɔːˈq̟iːjaʕ wuˈveːen hamˈmaːjim ʔaˈʃɛːɛʀ̟ meːˈʕaːal lɔːʀ̟ɔːˈq̟iːjaʕ ˌvaˑjhiː-ˈχeːen"
+    },
+    {
+      reference: "Genesis 1:8",
+      hebrew: "וַיִּקְרָ֧א אֱלֹהִ֛ים לָֽרָקִ֖יעַ שָׁמָ֑יִם וַֽיְהִי־עֶ֥רֶב וַֽיְהִי־בֹ֖קֶר י֥וֹם שֵׁנִֽי׃",
+      transcription: "vaɟɟiq̟ˈʀ̟ɔː ʔɛloːˈhiːim ˌlɔːʀ̟ɔːˈq̟iːjaʕ ʃɔːˈmɔːjim ˌvaˑjhiː-ˈʕɛːʀ̟ev ˌvaˑjhiː-ˈvoːq̟ɛʀ̟ ˈjoːom ʃeːˈniː"
+    },
+    {
+      reference: "Genesis 1:9",
+      hebrew:
+        "וַיֹּ֣אמֶר אֱלֹהִ֗ים יִקָּו֨וּ הַמַּ֜יִם מִתַּ֤חַת הַשָּׁמַ֙יִם֙ אֶל־מָק֣וֹם אֶחָ֔ד וְתֵרָאֶ֖ה הַיַּבָּשָׁ֑ה וַֽיְהִי־כֵֽן׃",
+      transcription:
+        "vaɟˈɟoːmɛʀ̟ ʔɛloːˈhiːim jiq̟q̟ɔːˈvuː hamˈmaːjim mitˈtʰaːħaθ haʃʃɔːˈmaːjim ʔɛl-mɔːˈq̟oːom ʔɛːˈħɔːɔð vaθeːʀ̟ɔːˈʔɛː haɟɟabbɔːˈʃɔː ˌvaˑjhiː-ˈχeːen"
+    },
+    {
+      reference: "Genesis 1:10",
+      hebrew:
+        "וַיִּקְרָ֨א אֱלֹהִ֤ים ׀ לַיַּבָּשָׁה֙ אֶ֔רֶץ וּלְמִקְוֵ֥ה הַמַּ֖יִם קָרָ֣א יַמִּ֑ים וַיַּ֥רְא אֱלֹהִ֖ים כִּי־טֽוֹב׃",
+      transcription:
+        "vaɟɟiq̟ˈʀ̟ɔː ʔɛloːˈhiːim laɟɟabbɔːˈʃɔː ˈʔɛːʀ̟ɛsˁ wulmiq̟ˈveː hamˈmaːjim q̟ɔːˈʀ̟ɔː jamˈmiːim vaɟˈɟaːaʀ̟ ʔɛloːˈhiːim kʰiː-ˈtˁoːov"
+    },
+    {
+      reference: "Genesis 1:11",
+      hebrew:
+        "וַיֹּ֣אמֶר אֱלֹהִ֗ים תַּֽדְשֵׁ֤א הָאָ֙רֶץ֙ דֶּ֗שֶׁא עֵ֚שֶׂב מַזְרִ֣יעַ זֶ֔רַע עֵ֣ץ פְּרִ֞י עֹ֤שֶׂה פְּרִי֙ לְמִינ֔וֹ אֲשֶׁ֥ר זַרְעוֹ־ב֖וֹ עַל־הָאָ֑רֶץ וַֽיְהִי־כֵֽן׃",
+      transcription:
+        "vaɟˈɟoːmɛʀ̟ ʔɛloːˈhiːim ˌtʰaˑðˈʃeː hɔːˈʔɔːʀ̟ɛsˁ ˈdɛːʃɛː ˈʕeːsɛv mɑzˈrˁiːjaʕ ˈzɛːʀ̟aʕ ˈʕeːesˁ pʰaˈʀ̟iː ˈʕoːsɛˑ ppʰaˈʀ̟iː lamiːˈnoː ʔaˈʃɛːɛʀ̟ zɑrˁʕoː-ˈvoː ʕal-hɔːˈʔɔːʀ̟ɛsˁ ˌvaˑjhiː-ˈχeːen"
+    },
+    {
+      reference: "Genesis 1:12",
+      hebrew:
+        "וַתּוֹצֵ֨א הָאָ֜רֶץ דֶּ֠שֶׁא עֵ֣שֶׂב מַזְרִ֤יעַ זֶ֙רַע֙ לְמִינֵ֔הוּ וְעֵ֥ץ עֹֽשֶׂה־פְּרִ֛י אֲשֶׁ֥ר זַרְעוֹ־ב֖וֹ לְמִינֵ֑הוּ וַיַּ֥רְא אֱלֹהִ֖ים כִּי־טֽוֹב׃",
+      transcription:
+        "vattʰoːˈsˁeː hɔːˈʔɔːʀ̟ɛsˁ ˈdɛːʃɛː ˈʕeːsɛv mɑzˈrˁiːjaʕ ˈzɛːʀ̟aʕ lamiːˈneːhuː veˈʕeːesˁ ˈʕoːsɛˑ ppʰaˈʀ̟iː ʔaˈʃɛːɛʀ̟ zɑrˁʕoː-ˈvoː lamiːˈneːhuː vaɟˈɟaːaʀ̟ ʔɛloːˈhiːim kʰiː-ˈtˁoːov"
+    },
+    {
+      reference: "Genesis 1:13",
+      hebrew: "וַֽיְהִי־עֶ֥רֶב וַֽיְהִי־בֹ֖קֶר י֥וֹם שְׁלִישִֽׁי׃",
+      transcription: "ˌvaˑjhiː-ˈʕɛːʀ̟ev ˌvaˑjhiː-ˈvoːq̟ɛʀ̟ ˈjoːom ʃaliːˈʃiː"
+    },
+    {
+      reference: "Psalm 1:1",
+      hebrew:
+        "אַ֥שְֽׁרֵי־הָאִ֗ישׁ אֲשֶׁ֤ר ׀ לֹ֥א הָלַךְ֮ בַּעֲצַ֢ת רְשָׁ֫עִ֥ים וּבְדֶ֣רֶךְ חַ֭טָּאִים לֹ֥א עָמָ֑ד וּבְמוֹשַׁ֥ב לֵ֝צִ֗ים לֹ֣א יָשָֽׁב׃",
+      transcription:
+        "ˌʔaːˌʃaˑʀ̟eː-hɔːˈʔiːiʃ ʔaˈʃɛːɛʀ̟ ˈloː hɔːˈlaːaχ baːʕɑˈsˁɑːɑθ ʀ̟aʃɔːˈʕiːim wuvˈðɛːʀ̟ɛχ ħɑttˁɔːˈʔiːim ˈloː ʕɔːˈmɔːɔð wuvmoːˈʃaːav leːˈsˁiːim ˈloː jɔːˈʃɔːɔv"
+    },
+    {
+      reference: "Psalm 1:2",
+      hebrew: "כִּ֤י אִ֥ם בְּתוֹרַ֥ת יְהֹוָ֗ה חֶ֫פְצ֥וֹ וּֽבְתוֹרָת֥וֹ יֶהְגֶּ֗ה יוֹמָ֥ם וָלָֽיְלָה׃",
+      transcription: "ˈkʰiː ˈʔiːim baθoːˈʀ̟aːaθ ʔaðoːˈnɔːɔj ħɛfˈsˁoː ˌwuˑvθoːʀ̟ɔːˈθoː jɛhˈgɛː joːˈmɔːɔm vɔːˈlɔːɔjlɔː"
+    },
+    {
+      reference: "Psalm 1:3",
+      hebrew:
+        "וְֽהָיָ֗ה כְּעֵץ֮ שָׁת֢וּל עַֽל־פַּלְגֵ֫י מָ֥יִם אֲשֶׁ֤ר פִּרְי֨וֹ ׀ יִתֵּ֬ן בְּעִתּ֗וֹ וְעָלֵ֥הוּ לֹֽא־יִבּ֑וֹל וְכֹ֖ל אֲשֶׁר־יַעֲשֶׂ֣ה יַצְלִֽיחַ׃",
+      transcription:
+        "vɔˑhɔːˈjɔː kʰeˈʕeːesˁ ʃɔːˈθuːul ˌʕaˑl-pʰalˈʁeː ˈmɔːjim ʔaˈʃɛːɛʀ̟ pʰiʀ̟ˈjoː jitˈtʰeːen biʕitˈtʰoː vɔʕɔːˈleːhuː ˌloː-jibˈboːol vaˈχoːol ʔaʃɛʀ̟-jaːʕaˈsɛː jɑsˁˈliːjaħ"
+    },
+    {
+      reference: "Psalm 1:4",
+      hebrew: "לֹא־כֵ֥ן הָרְשָׁעִ֑ים כִּ֥י אִם־כַּ֝מֹּ֗ץ אֲֽשֶׁר־תִּדְּפֶ֥נּוּ רֽוּחַ׃",
+      transcription: "loː-ˈχeːen hɔːʀ̟aʃɔːˈʕiːim ˈkʰiː ʔim-kʰamˈmoːosˁ ˌʔaˑʃɛʀ̟-tʰiddaˈfɛːɛnnuː ˈʀ̟uːwaħ"
+    },
+    {
+      reference: "Psalm 1:5",
+      hebrew: "עַל־כֵּ֤ן ׀ לֹא־יָקֻ֣מוּ רְ֭שָׁעִים בַּמִּשְׁפָּ֑ט וְ֝חַטָּאִ֗ים בַּעֲדַ֥ת צַדִּיקִֽים׃",
+      transcription: "ʕal-ˈkʰeːen loː-jɔːˈq̟uːmuː ʀ̟aʃɔːˈʕiːim bammiʃˈpʰɔːɔtˁ vaħɑttˁɔːˈʔiːim baːʕaˈðaːaθ sˁɑddiːˈq̟iːim"
+    },
+    {
+      reference: "Psalm 1:6",
+      hebrew: "כִּֽי־יוֹדֵ֣עַ יְ֭הֹוָה דֶּ֣רֶךְ צַדִּיקִ֑ים וְדֶ֖רֶךְ רְשָׁעִ֣ים תֹּאבֵֽד׃",
+      transcription: "ˌkʰiː-joːˈðeːjaʕ ʔaðoːˈnɔːɔj ˈdɛːʀ̟ɛχ sˁɑddiːˈq̟iːim vaˈðɛːʀ̟ɛχ ʀ̟aʃɔːˈʕiːim tʰoːˈveːeð"
+    }
+  ];
+
+  test("compare transliterations to expected transcriptions", () => {
+    console.log(`--- Tiberian transliteration report ---`);
+    for (const verse of verses) {
+      expect(transliterate(verse.hebrew, schema)).toBeTransliteration(verse);
+    }
   });
 });

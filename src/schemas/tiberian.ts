@@ -674,6 +674,7 @@ export const tiberian: Schema = {
       }
     }
   ],
+  ON_COMPLETE: (res) => res.replaceAll("  ", " "),
   allowNoNiqqud: false,
   article: false,
   holemHaser: "remove",
