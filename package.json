@@ -1,6 +1,6 @@
 {
   "name": "hebrew-transliteration",
-  "version": "2.9.1",
+  "version": "2.10.0",
   "description": "a package for transliterating Hebrew",
   "type": "module",
   "exports": {
