@@ -1,8 +1,6 @@
-import { unified } from "@astrojs/markdown-remark";
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 import starlightTypeDoc, { typeDocSidebarGroup } from "starlight-typedoc";
-import { remarkBasePath } from "./prepend_base_path.js";
 
 const basePath = process.env.NODE_ENV === "production" ? "/hebrew-transliteration/" : "/";
 
@@ -17,9 +15,6 @@ export default defineConfig({
     assets: "assets"
   },
   base: basePath,
-  markdown: {
-    processor: unified({ remarkPlugins: [[remarkBasePath, { base: basePath }]] })
-  },
   redirects: {
     "/": {
       status: 302,
