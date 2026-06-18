@@ -6,16 +6,19 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
     },
     "./package.json": "./package.json",
     "./schemas": {
       "types": "./dist/schemas/index.d.ts",
-      "import": "./dist/schemas/index.js"
+      "import": "./dist/schemas/index.js",
+      "require": "./dist/schemas/index.js"
     },
     "./removeOptions": {
       "types": "./dist/remove.d.ts",
-      "import": "./dist/remove.js"
+      "import": "./dist/remove.js",
+      "require": "./dist/remove.js"
     }
   },
   "typesVersions": {
@@ -83,7 +86,7 @@
     "typescript": "^6.0.3",
     "vitest": "^4.1.8"
   },
-  "dependencies": {
-    "havarotjs": "0.25.4"
+  "engines": {
+    "node": ">=20.19"
   }
 }
