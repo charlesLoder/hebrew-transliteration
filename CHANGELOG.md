@@ -2,6 +2,9 @@
 
 ## Version 2
 
+-v2.10.1
+  - adds `"require"` property to exports in package.json for CJS/require import compatability (PR #188)
+
 - v2.10.0
   - Adds post-processing callback for `transliteration()` and `remove()` (PR #161)
   - Adds rule to SBL for euphonic dagesh (PR #175)
