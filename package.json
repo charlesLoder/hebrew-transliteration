@@ -2,20 +2,39 @@
   "name": "hebrew-transliteration",
   "version": "2.10.0",
   "description": "a package for transliterating Hebrew",
+  "keywords": [
+    "hebrew",
+    "transliteration",
+    "SBL",
+    "Society of Biblical Literature"
+  ],
+  "homepage": "https://charlesloder.github.io/hebrew-transliteration/getting-started/quick-start/",
+  "bugs": {
+    "url": "https://github.com/charlesLoder/hebrew-transliteration/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/charlesLoder/hebrew-transliteration.git"
+  },
+  "license": "MIT",
+  "author": "Charles Loder <charles.w.loder@gmail.com>",
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
     },
     "./package.json": "./package.json",
     "./schemas": {
       "types": "./dist/schemas/index.d.ts",
-      "import": "./dist/schemas/index.js"
+      "import": "./dist/schemas/index.js",
+      "require": "./dist/schemas/index.js"
     },
     "./removeOptions": {
       "types": "./dist/remove.d.ts",
-      "import": "./dist/remove.js"
+      "import": "./dist/remove.js",
+      "require": "./dist/remove.js"
     }
   },
   "typesVersions": {
@@ -28,46 +47,33 @@
       ]
     }
   },
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "build": "tsc --project ./.config/tsconfig.json",
-    "watch": "tsc --watch --project .config/tsconfig.json",
-    "test": "vitest --watch=false",
-    "test:transliterate": "jest --config ./.config/jest.config.js test/transliterate.test.ts",
-    "test:remove": "jest --config ./.config/jest.config.js test/remove.test.ts",
-    "test:sequence": "jest --config ./.config/jest.config.js test/sequence.test.ts",
+    "docs": "NODE_ENV=production astro build --config ./docs/astro.config.mjs",
+    "docs:dev": "astro dev --config ./docs/astro.config.mjs",
+    "docs:output": "typedoc --tsconfig ./.config/tsconfig.json --json ./docs/data.json src/index.ts",
     "format": "prettier --config ./.config/.prettierrc.json --write 'src/**/*.ts' 'test/**/*.ts'",
     "format:check": "prettier --config ./.config/.prettierrc.json --check 'src/**/*.ts' 'test/**/*.ts'",
     "lint": "oxlint -c ./.config/.oxlintrc.json ",
     "lint:fix": "oxlint -c ./.config/.oxlintrc.json --fix",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
+    "test": "vitest --watch=false",
+    "test:remove": "vitest --watch=false test/remove.test.ts",
+    "test:sequence": "vitest --watch=false test/sequence.test.ts",
+    "test:transliterate": "vitest --watch=false test/transliterate.test.ts",
+    "update": "npm-check-updates -u",
     "preversion": "./changelog.sh && npm run lint",
     "version": "npm run format && git add -A src",
     "postversion": "git push && git push --tags",
-    "update": "npm-check-updates -u",
-    "docs:output": "typedoc --tsconfig ./.config/tsconfig.json --json ./docs/data.json src/index.ts",
-    "docs:dev": "astro dev --config ./docs/astro.config.mjs",
-    "docs": "NODE_ENV=production astro build --config ./docs/astro.config.mjs"
+    "watch": "tsc --watch --project .config/tsconfig.json"
   },
-  "files": [
-    "dist/**/*"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/charlesLoder/hebrew-transliteration.git"
+  "dependencies": {
+    "havarotjs": "0.25.4"
   },
-  "bugs": {
-    "url": "https://github.com/charlesLoder/hebrew-transliteration/issues"
-  },
-  "homepage": "https://github.com/charlesLoder/hebrew-transliteration",
-  "keywords": [
-    "hebrew",
-    "transliteration",
-    "SBL",
-    "Society of Biblical Literature"
-  ],
-  "author": "Charles Loder",
-  "license": "MIT",
   "devDependencies": {
     "@astrojs/starlight": "^0.39.3",
     "astro": "^6.4.4",
@@ -83,7 +89,7 @@
     "typescript": "^6.0.3",
     "vitest": "^4.1.8"
   },
-  "dependencies": {
-    "havarotjs": "0.25.4"
+  "engines": {
+    "node": ">=20.19"
   }
 }
