@@ -237,14 +237,14 @@ export const tiberian: Schema = {
     },
     {
       FEATURE: "cluster",
-      HEBREW: "\u{05D0}(?![\u{05B1}-\u{05BB}\u{05C7}])",
-      TRANSLITERATION: (cluster) => {
+      HEBREW: /\u{05D0}(?![\u{05B1}-\u{05BB}\u{05C7}])/u,
+      TRANSLITERATION: (cluster, heb) => {
         const next = cluster.next?.value;
-        if (next?.isShureq) {
+        if (next?.isShureq || !cluster?.prev) {
           return cluster.text;
         }
 
-        return "";
+        return cluster.text.replace(heb, "");
       }
     },
     {

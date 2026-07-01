@@ -146,10 +146,11 @@ describe("consonant features", () => {
 
   describe("aleph", () => {
     test.each`
-      description            | hebrew             | transliteration
-      ${"regular aleph"}     | ${"לְאַבֵּ֔ד"}     | ${"laʔabˈbeːeð"}
-      ${"quiesced aleph"}    | ${"בְּרֵאשִׁ֖ית"}  | ${"baʀ̟eːˈʃiːiθ"}
-      ${"aleph with shureq"} | ${"הִשִּׁיא֛וּךָ"} | ${"hiʃʃiːˈʔuːχɔː"}
+      description                                                                     | hebrew             | transliteration
+      ${"regular aleph"}                                                              | ${"לְאַבֵּ֔ד"}     | ${"laʔabˈbeːeð"}
+      ${"quiesced aleph"}                                                             | ${"בְּרֵאשִׁ֖ית"}  | ${"baʀ̟eːˈʃiːiθ"}
+      ${"aleph with shureq"}                                                          | ${"הִשִּׁיא֛וּךָ"} | ${"hiʃʃiːˈʔuːχɔː"}
+      ${"aleph which does not have a hebrew vowel by the time the cluster rule runs"} | ${"אַרְנֹ֗ן"}      | ${"ʔɑrˁˈnoːon"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
