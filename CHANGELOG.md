@@ -2,7 +2,10 @@
 
 ## Version 2
 
--v2.10.1
+- v2.10.2
+  - fixes issue #178 that had an incorrect tiberian transliteration (PR #193)
+
+- v2.10.1
   - adds `"require"` property to exports in package.json for CJS/require import compatability (PR #188)
 
 - v2.10.0
