@@ -19,7 +19,7 @@ describe("basic tests", () => {
         allowNoNiqqud: true,
         STRESS_MARKER: undefined
       })
-    ).toBe("vʁðhvzħtˁjχχlmmnnsʕffsˁsˁq̟ʀ̟ʃθ");
+    ).toBe("ʔvʁðhvzħtˁjχχlmmnnsʕffsˁsˁq̟ʀ̟ʃθ");
   });
 
   test.each`
