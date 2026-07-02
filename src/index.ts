@@ -1,7 +1,7 @@
 export { Text } from "havarotjs";
 export { remove } from "./remove.js";
 export type { RemoveOptions } from "./remove.js";
-export { SBL, Schema } from "./schema.js";
+export { Schema } from "./schema.js";
 export type {
   ClusterCallback,
   ClusterFeature,
@@ -13,5 +13,6 @@ export type {
   WordCallback,
   WordFeature
 } from "./schema.js";
+export { SBL } from "./schemas/index.js";
 export { sequence } from "./sequence.js";
 export { transliterate } from "./transliterate.js";

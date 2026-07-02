@@ -2,7 +2,8 @@ import { Text } from "havarotjs";
 import type { SylOpts } from "havarotjs/text";
 import { Word } from "havarotjs/word";
 import { sylRules, wordRules } from "./rules.js";
-import { SBL, Schema } from "./schema.js";
+import { Schema } from "./schema.js";
+import { SBL } from "./schemas/index.js";
 
 /**
  *  Gets the syllable options from a partial schema
