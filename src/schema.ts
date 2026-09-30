@@ -1515,6 +1515,8 @@ export class Schema implements SylOpts, SchemaVowels {
    * This property is an array of objects with the following properties each:
    * - `FEATURE`: the type of feature that the rule is checking — "word", "syllable", or "cluster"
    * - `HEBREW`: the Hebrew text that the rule matches, given as a string or Regex
+   * - `TITLE?`: an optional title for the feature, used for documentation purposes only
+   * - `DESCRIPTION?`: an optional description of the feature, used for documentation purposes only
    * - `PASS_THROUGH?`: An optional property; `true` if the rule should pass the characters of the result of the `TRANSLITERATION` callback to the be mapped to the schema
    * - `TRANSLITERATION`: the output of the rule, either a string or a callback whose properties differ based on the `FEATURE`
    *
@@ -1528,6 +1530,8 @@ export class Schema implements SylOpts, SchemaVowels {
    * const schema = new Schema({
    *   // truncated for brevity
    *   ADDITIONAL_FEATURES: [{
+   *     TITLE: "Transliterate 'The Earth' as a whole word",
+   *     DESCRIPTION: "Transliterate 'The Earth' as a whole word rather than individual characters. Just an example.",
    *     FEATURE: "word",
    *     HEBREW: "הָאָרֶץ",
    *     TRANSLITERATION: "The Earth"
