@@ -89,7 +89,7 @@ describe("consonant features", () => {
       ${"doubled shin"}                           | ${"מַשָּׁ֥א"}          | ${"maʃˈʃɔː"}
       ${"yod with dagesh"}                        | ${"וַיִּלָּפֵ֑ת"}      | ${"vaɟɟillɔːˈfeːeθ"}
       ${"aleph with dagesh (no doubling)"}        | ${"תָּבִ֣יאּוּ"}       | ${"tʰɔːˈviːiʔuː"}
-      ${"dagesh chazaq - prev word in construct"} | ${"בְחַגְוֵי־סֶּ֖לַע"} | ${"vaħaʁveː-sˈsɛːlaʕ"}
+      ${"dagesh chazaq - prev word in construct"} | ${"בְחַגְוֵי־סֶּ֖לַע"} | ${"vaħaʁveː-ˈssɛːlaʕ"}
     `("$description", (inputs: Inputs) => {
       const { hebrew, transliteration } = inputs;
       expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -195,7 +195,7 @@ describe("consonant features", () => {
     describe("resh", () => {
       test.each`
         description               | hebrew              | transliteration
-        ${"word initial doubled"} | ${" מִקְנֶה־רַּב֙"} | ${"miq̟nɛː-ʀ̟ˈʀ̟aːav"}
+        ${"word initial doubled"} | ${" מִקְנֶה־רַּב֙"} | ${"miq̟nɛː-ˈʀ̟ʀ̟aːav"}
       `("$description", (inputs: Inputs) => {
         const { hebrew, transliteration } = inputs;
         expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -224,7 +224,7 @@ describe("consonant features", () => {
           ${"aspirated"}            | ${"כֹּאֲבִ֗ים"}       | ${"kʰoːʔaˈviːim"}
           ${"doubled"}              | ${"וְחִכֵּ֕ךְ"}       | ${"viħikˈkʰeːeχ"}
           ${"doubled with shureq"}  | ${"וַיֻּכּ֗וּ"}       | ${"vaɟɟukˈkʰuː"}
-          ${"word initial doubled"} | ${"יַעֲשֶׂה־כָּ֖כָה"} | ${"jaːʕasɛː-kˈkʰɔːχɔː"}
+          ${"word initial doubled"} | ${"יַעֲשֶׂה־כָּ֖כָה"} | ${"jaːʕasɛː-ˈkkʰɔːχɔː"}
         `("$description", (inputs: Inputs) => {
           const { hebrew, transliteration } = inputs;
           expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -238,7 +238,7 @@ describe("consonant features", () => {
           ${"aspirated"}            | ${"תִּסְפְּר֖וּ"}    | ${"tʰispʰaˈʀ̟uː"}
           ${"doubled"}              | ${"הַפֶּ֔ה"}         | ${"hapˈpʰɛː"}
           ${"doubled with shureq"}  | ${"הַפּ֔וּר"}        | ${"hapˈpʰuːuʀ̟"}
-          ${"word initial doubled"} | ${"עֹֽשֶׂה־פְּרִ֛י"} | ${"ˌʕoːsɛː-ppʰaˈʀ̟iː"}
+          ${"word initial doubled"} | ${"עֹֽשֶׂה־פְּרִ֛י"} | ${"ˌʕoːsɛˑ-ppʰaˈʀ̟iː"}
         `("$description", (inputs: Inputs) => {
           const { hebrew, transliteration } = inputs;
           expect(transliterate(hebrew, schema)).toBe(transliteration);
@@ -578,5 +578,25 @@ describe("verse transliteration report", () => {
     for (const verse of verses) {
       expect(transliterate(verse.hebrew, schema)).toBeTransliteration(verse);
     }
+  });
+});
+
+describe("deḥiq (§I.2.8.1.2)", () => {
+  test.each`
+    description                                      | hebrew                   | transliteration
+    ${"Gen 1:11 עֹ֤שֶׂה פְּרִי֙"}                    | ${"עֹ֤שֶׂה פְּרִי֙"}     | ${"ˈʕoːsɛˑ ppʰaˈʀ̟iː"}
+    ${"Deut 31:28 וְאָעִ֣ידָה בָּ֔ם"}                | ${"וְאָעִ֣ידָה בָּ֔ם"}   | ${"vɔʔɔːˈʕiːðɔˑ ˈbbɔːɔm"}
+    ${"maqqef deḥiq עֹ֥שֶׂה־פְּרִ֛י"}               | ${"עֹ֥שֶׂה־פְּרִ֛י"}     | ${"ˈʕoːsɛˑ-ppʰaˈʀ̟iː"}
+  `("$description", (inputs: Inputs) => {
+    const { hebrew, transliteration } = inputs;
+    expect(transliterate(hebrew, schema)).toBe(transliteration);
+  });
+
+  test("gaʿya on final vowel blocks deḥiq compression", () => {
+    // Meteg on the final syllable of the first word keeps full length.
+    const hebrew = "עֹֽשֶׂה פְּרִי֙";
+    const ipa = transliterate(hebrew, schema);
+    expect(ipa).not.toMatch(/ɛˑ\s/);
+    expect(ipa).not.toMatch(/ɛˑ pp/);
   });
 });

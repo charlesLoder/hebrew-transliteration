@@ -2,6 +2,7 @@ import { Cluster } from "havarotjs/cluster";
 import { Syllable } from "havarotjs/syllable";
 import { clusterSplitGroup, hebChars } from "havarotjs/utils/regularExpressions";
 import { Word } from "havarotjs/word";
+import { isDehiqPair } from "./dehiq.js";
 import type { Schema } from "./schema.js";
 
 const taamim = /[\u{0591}-\u{05AF}\u{05BD}\u{05BF}]/gu;
@@ -47,6 +48,11 @@ const addStressMarker = (text: string, syl: Syllable, schema: Schema) => {
   if (location === "before-syllable") {
     const isDoubled = syl.clusters.map((c) => isDageshChazaq(c, schema)).includes(true);
     if (isDoubled) {
+      // Word-initial geminates (construct / deḥiq): stress before the whole onset (ˈbb…).
+      // Word-medial geminates: stress after the coda half (hamˈmaː…).
+      if (!syl.prev) {
+        return `${mark}${text}`;
+      }
       const firstCluster = syl.clusters[0];
       const name = firstCluster.chars[0].characterName;
       const output = name && isSchemaKey(name) ? schema[name] : "";
@@ -188,6 +194,12 @@ const isDageshChazaq = (cluster: Cluster, schema: Schema) => {
 
   const prevWord = cluster.syllable?.word?.prev?.value;
   if (prevWord?.isInConstruct && !prevWord.syllables[prevWord.syllables.length - 1].isClosed) {
+    return true;
+  }
+
+  // Deḥiq / ʾathe me-raḥiq: geminate the onset of the second word (§I.2.8.1.2).
+  const word = cluster.syllable?.word;
+  if (prevWord && word && isDehiqPair(prevWord, word)) {
     return true;
   }
 

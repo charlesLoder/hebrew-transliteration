@@ -1,4 +1,5 @@
 export { Text } from "havarotjs";
+export { isDehiqPair, wordIsDehiqHost } from "./dehiq.js";
 export { remove } from "./remove.js";
 export type { RemoveOptions } from "./remove.js";
 export { Schema } from "./schema.js";
